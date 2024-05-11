@@ -1,0 +1,4 @@
+# {Threaded:false Collide:false Repeat:false RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:false Cgroups:false BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:false Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}
+openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r0 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)

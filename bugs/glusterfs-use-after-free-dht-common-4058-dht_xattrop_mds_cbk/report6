@@ -1,0 +1,560 @@
+----- executor 3 cover number : 860, signal number : 359
+----- completed 10
+execute_one loop: 0, 0, 8
+#0 [56931ms] -> chmod(0x20001580, 0xc4) 121 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+==412==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+=================================================================
+==412==ERROR: AddressSanitizer: heap-use-after-free on address 0x62100070b034 at pc 0x7fffeefe7569 bp 0x7ffff027e480 sp 0x7ffff027e470
+READ of size 4 at 0x62100070b034 thread T6
+    #0 0x7fffeefe7568 in dht_xattrop_mds_cbk /root/glusterfs/xlators/cluster/dht/src/dht-common.c:4058
+    #1 0x7fffef1b7f6d in client4_0_xattrop_cbk /root/glusterfs/xlators/protocol/client/src/client-rpc-fops_v2.c:1530
+    #2 0x7ffff721ffca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #3 0x7ffff721ffca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #4 0x7ffff7219983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #5 0x7ffff03405a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #6 0x7ffff0350b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #7 0x7ffff0350b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #8 0x7ffff0350b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #9 0x7ffff0350b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #10 0x7ffff73fa6c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #11 0x7ffff73fa6c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #12 0x7ffff71bf608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #13 0x7ffff70e4102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+0x62100070b034 is located 1844 bytes inside of 4164-byte region [0x62100070a900,0x62100070b944)
+freed by thread T7 here:
+    #0 0x7ffff769a7cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #1 0x7ffff7355e19 in __gf_free /root/glusterfs/libglusterfs/src/mem-pool.c:383
+    #2 0x7fffeef71acd in dht_local_wipe /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:805
+    #3 0x7fffeef71acd in dht_local_wipe /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:713
+    #4 0x7fffeefef378 in dht_setxattr_mds_cbk /root/glusterfs/xlators/cluster/dht/src/dht-common.c:4006
+    #5 0x7fffef1ea527 in client4_0_removexattr_cbk /root/glusterfs/xlators/protocol/client/src/client-rpc-fops_v2.c:1061
+    #6 0x7ffff721ffca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #7 0x7ffff721ffca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #8 0x7ffff7219983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #9 0x7ffff03405a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #10 0x7ffff0350b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #11 0x7ffff0350b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #12 0x7ffff0350b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #13 0x7ffff0350b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #14 0x7ffff73fa6c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #15 0x7ffff73fa6c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #16 0x7ffff71bf608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+previously allocated by thread T12 here:
+    #0 0x7ffff769adc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x7ffff7355226 in __gf_calloc /root/glusterfs/libglusterfs/src/mem-pool.c:177
+    #2 0x7fffeef7db19 in dht_local_init /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:815
+    #3 0x7fffef071a59 in dht_removexattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:6142
+    #4 0x7fffeef26781 in gf_utime_removexattr /root/glusterfs/xlators/features/utime/src/utime-autogen-fops.c:428
+    #5 0x7ffff7481291 in default_removexattr /root/glusterfs/libglusterfs/src/defaults.c:2816
+    #6 0x7ffff7481291 in default_removexattr /root/glusterfs/libglusterfs/src/defaults.c:2816
+    #7 0x7ffff7481291 in default_removexattr /root/glusterfs/libglusterfs/src/defaults.c:2816
+    #8 0x7fffeee69437 in mdc_removexattr /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:2738
+    #9 0x7ffff74df738 in default_removexattr_resume /root/glusterfs/libglusterfs/src/defaults.c:2046
+    #10 0x7ffff731da15 in call_resume_wind /root/glusterfs/libglusterfs/src/call-stub.c:2087
+    #11 0x7ffff734d8f4 in call_resume /root/glusterfs/libglusterfs/src/call-stub.c:2390
+    #12 0x7fffeee168bc in iot_worker /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:227
+    #13 0x7ffff71bf608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T6 created by T0 here:
+    #0 0x7ffff75c7805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72f8b97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730a28d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff73f8af2 in event_dispatch_epoll /root/glusterfs/libglusterfs/src/event-epoll.c:797
+    #4 0x7ffff7353f89 in gf_event_dispatch /root/glusterfs/libglusterfs/src/event.c:115
+    #5 0x7ffff7461b7f in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:431
+    #6 0x7ffff7461b7f in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #7 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #8 0x7ffff6fe90b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+Thread T7 created by T0 here:
+    #0 0x7ffff75c7805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72f8b97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730a28d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff73f8af2 in event_dispatch_epoll /root/glusterfs/libglusterfs/src/event-epoll.c:797
+    #4 0x7ffff7353f89 in gf_event_dispatch /root/glusterfs/libglusterfs/src/event.c:115
+    #5 0x7ffff7461b7f in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:431
+    #6 0x7ffff7461b7f in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #7 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #8 0x7ffff6fe90b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+Thread T12 created by T9 here:
+    #0 0x7ffff75c7805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72f8b97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730a28d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7fffeee15ace in __iot_workers_scale /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:830
+    #4 0x7fffeee17f6d in do_iot_schedule /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:252
+    #5 0x7fffeee17f6d in iot_schedule /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:372
+    #6 0x7fffeee184b9 in iot_lookup /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:379
+    #7 0x7fffeed9888c in io_stats_lookup /root/glusterfs/xlators/debug/io-stats/src/io-stats.c:2768
+    #8 0x7ffff748406f in default_lookup /root/glusterfs/libglusterfs/src/defaults.c:3024
+    #9 0x7fffeed5d565 in meta_lookup /root/glusterfs/xlators/meta/src/meta.c:46
+    #10 0x7ffff2f27e15 in fuse_lookup_resume /root/glusterfs/xlators/mount/fuse/src/fuse-bridge.c:1223
+    #11 0x7ffff2f61c81 in fuse_fop_resume /root/glusterfs/xlators/mount/fuse/src/fuse-bridge.c:1163
+    #12 0x7ffff2f18f0c in fuse_resolve_done /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:629
+    #13 0x7ffff2f18f0c in fuse_resolve_all /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:653
+    #14 0x7ffff2f18c7c in fuse_resolve /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:620
+    #15 0x7ffff2f18f59 in fuse_resolve_all /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:650
+    #16 0x7ffff2f18f59 in fuse_resolve_all /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:638
+    #17 0x7ffff2f16e7d in fuse_resolve_continue /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:668
+    #18 0x7ffff2f18118 in fuse_resolve_parent /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:306
+    #19 0x7ffff2f189fc in fuse_resolve /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:614
+    #20 0x7ffff2f18f59 in fuse_resolve_all /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:650
+    #21 0x7ffff2f18f59 in fuse_resolve_all /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:638
+    #22 0x7ffff2f18ff5 in fuse_resolve_and_resume /root/glusterfs/xlators/mount/fuse/src/fuse-resolve.c:680
+    #23 0x7ffff2f61b14 in fuse_lookup /root/glusterfs/xlators/mount/fuse/src/fuse-bridge.c:1238
+    #24 0x7ffff2f57ad9 in fuse_dispatch /root/glusterfs/xlators/mount/fuse/src/fuse-bridge.c:6091
+    #25 0x7ffff2f69d8d in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #26 0x7ffff2f69d8d in fuse_thread_proc /root/glusterfs/xlators/mount/fuse/src/fuse-bridge.c:6326
+    #27 0x7ffff71bf608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T9 created by T6 here:
+    #0 0x7ffff75c7805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72f8b97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730a28d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff2f6b2a9 in notify /root/glusterfs/xlators/mount/fuse/src/fuse-bridge.c:6582
+    #4 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #5 0x7ffff74efc70 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3382
+    #6 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #7 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #8 0x7fffeede511b in notify /root/glusterfs/xlators/debug/io-stats/src/io-stats.c:4335
+    #9 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #10 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #11 0x7fffeee175e0 in notify /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:1333
+    #12 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #13 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #14 0x7fffeee754e3 in mdc_notify /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:3827
+    #15 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #16 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #17 0x7fffeee9f973 in qr_notify /root/glusterfs/xlators/performance/quick-read/src/quick-read.c:1506
+    #18 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #19 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #20 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #21 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #22 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #23 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #24 0x7fffeef135cf in notify ../../../../xlators/features/utime/src/utime.c:318
+    #25 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #26 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #27 0x7fffef08b57f in dht_notify /root/glusterfs/xlators/cluster/dht/src/dht-common.c:11252
+    #28 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #29 0x7ffff74ef833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #30 0x7fffef197eda in client_notify_dispatch /root/glusterfs/xlators/protocol/client/src/client.c:146
+    #31 0x7fffef1981d9 in client_notify_dispatch_uniq /root/glusterfs/xlators/protocol/client/src/client.c:118
+    #32 0x7fffef205785 in client_notify_parents_child_up /root/glusterfs/xlators/protocol/client/src/client-handshake.c:53
+    #33 0x7fffef20a94f in client_post_handshake /root/glusterfs/xlators/protocol/client/src/client-handshake.c:443
+    #34 0x7fffef20a94f in client_setvolume_cbk /root/glusterfs/xlators/protocol/client/src/client-handshake.c:628
+    #35 0x7ffff721ffca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #36 0x7ffff721ffca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #37 0x7ffff7219983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #38 0x7ffff03405a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #39 0x7ffff0350b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #40 0x7ffff0350b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #41 0x7ffff0350b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #42 0x7ffff0350b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #43 0x7ffff73fa6c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #44 0x7ffff73fa6c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #45 0x7ffff71bf608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+SUMMARY: AddressSanitizer: heap-use-after-free /root/glusterfs/xlators/cluster/dht/src/dht-common.c:4058 in dht_xattrop_mds_cbk
+Shadow bytes around the buggy address:
+  0x0c42800d95b0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800d95c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800d95d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800d95e0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800d95f0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0c42800d9600: fd fd fd fd fd fd[fd]fd fd fd fd fd fd fd fd fd
+  0x0c42800d9610: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800d9620: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800d9630: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800d9640: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800d9650: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==412==ABORTING
+#0 [57002ms] <- chmod=0xffffffffffffffff errno=103 cover=1670  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 1670, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 1670, flag collect 1
+----- executor 3 cover number : 740, signal number : 248
+----- completed 11
+execute_one loop: 0, 0, 71
+#0 [57003ms] -> listxattr(0x200015c0, 0x20001600, 0x8) 2346 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57003ms] <- listxattr=0xffffffffffffffff errno=107 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 12
+execute_one loop: 0, 0, 0
+#0 [57003ms] -> setxattr$security_evm(0x20001640, 0x20001680, 0x200016c0, 0x6c, 0x2) 3667 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57004ms] <- setxattr$security_evm=0xffffffffffffffff errno=107 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 13
+execute_one loop: 0, 0, 1
+#0 [57004ms] -> setxattr$security_ima(0x20001740, 0x20001780, 0x200017c0, 0x15, 0x2) 3668 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57004ms] <- setxattr$security_ima=0xffffffffffffffff errno=107 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 14
+execute_one loop: 0, 0, 1
+#0 [57004ms] -> removexattr(0x20001800, 0x20001840) 2808 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57005ms] <- removexattr=0xffffffffffffffff errno=107 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 15
+execute_one loop: 0, 0, 0
+#0 [57005ms] -> readlink(0x20001880, 0x200018c0, 0xb) 2780 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57005ms] <- readlink=0xffffffffffffffff errno=22 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 16
+execute_one loop: 0, 0, 0
+#0 [57005ms] -> readlink(0x20001900, 0x20001940, 0x51) 2780 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57005ms] <- readlink=0xffffffffffffffff errno=22 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 17
+execute_one loop: 0, 0, 1
+#0 [57006ms] -> open$dir(0x200019c0, 0x20080, 0x1) 2459 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57006ms] <- open$dir=0xffffffffffffffff errno=107 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 18
+execute_one loop: 0, 0, 0
+2023/01/25 22:16:41 for select break: 1
+2023/01/25 22:16:41 --------- executor 3 receive reply, reply.done 1
+2023/01/25 22:16:41 wait for executor 2's reply
+----- executor 1 executes write_coverage_signal cov->size 4048, flag collect 1
+----- executor 1 cover number : 570, signal number : 692
+----- executor 1 executes write_coverage_signal cov->size 3395, flag collect 1
+----- executor 0 executes write_coverage_signal cov->size 335, flag collect 1
+----- executor 0 cover number : 225, signal number : 250
+----- executor 0 executes write_coverage_signal cov->size 3395, flag collect 1
+----- executor 0 cover number : 401, signal number : 397
+----- executor 0 executes write_coverage_signal cov->size 4048, flag collect 1
+----- executor 0 cover number : 570, signal number : 550
+----- executor 0 executes write_coverage_signal cov->size 4827, flag collect 1
+----- executor 0 cover number : 1211, signal number : 1316
+----- executor 0 executes write_coverage_signal cov->size 7180, flag collect 1
+----- executor 1 cover number : 401, signal number : 375
+----- executor 1 executes write_coverage_signal cov->size 3167, flag collect 1
+----- executor 1 cover number : 1007, signal number : 1067
+----- executor 1 executes write_coverage_signal cov->size 5759, flag collect 1
+----- executor 1 cover number : 851, signal number : 905
+----- executor 1 executes write_coverage_signal cov->size 5245, flag collect 1
+----- executor 1 cover number : 1389, signal number : 999
+----- executor 1 executes write_coverage_signal cov->size 8041, flag collect 1
+----- executor 1 cover number : 1293, signal number : 540
+executor 1 userspace cover_cnt 6
+#0 [57006ms] -> setxattr$incfs_id(0x20001a00, 0x20001a40, 0x20001a80, 0x20, 0x1) 3663 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57006ms] <- setxattr$incfs_id=0xffffffffffffffff errno=107 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 19
+execute_one loop: 0, 0, 0
+#0 [57006ms] -> setxattr$incfs_id(0x20001ac0, 0x20001b00, 0x20001b40, 0x20, 0x2) 3663 /root/glusterfs-client/dfs-0-279
+cover_reset in execute_call
+#0 [57006ms] <- setxattr$incfs_id=0xffffffffffffffff errno=107 cover=0  /root/glusterfs-client/dfs-0-279
+----- executor 3 write_call_output, size 0, pid 987, write pid:988
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 20
+execute_one loop: 0, 0, 1
+execute_one inner time: 1, 180, 0
+execute_one time: 9, 181
+write_metadata
+------ execute 3 reply_execute finished
+time breakdown 3: 226, 191, 0
+write_metadata
+------ execute 1 reply_execute finished
+time breakdown 1: 187, 226, 0
+----- executor 0 cover number : 964, signal number : 1006
+----- executor 0 executes write_coverage_signal cov->size 5245, flag collect 1
+----- executor 0 cover number : 1389, signal number : 988
+----- executor 0 executes write_coverage_signal cov->size 7350, flag collect 1
+----- executor 0 cover number : 1293, signal number : 536
+executor 0 userspace cover_cnt 7
+----- executor 2 executes write_coverage_signal cov->size 3218, flag collect 1
+----- executor 2 cover number : 726, signal number : 831
+----- executor 2 executes write_coverage_signal cov->size 10981, flag collect 1
+----- executor 2 cover number : 411, signal number : 15
+----- executor 2 executes write_coverage_signal cov->size 18392, flag collect 1
+----- executor 2 cover number : 1740, signal number : 2141
+----- executor 2 executes write_coverage_signal cov->size 2192, flag collect 1
+----- executor 2 cover number : 453, signal number : 390
+----- executor 2 executes write_coverage_signal cov->size 24442, flag collect 1
+----- executor 2 cover number : 1169, signal number : 857
+----- executor 2 executes write_coverage_signal cov->size 14841, flag collect 1
+write_metadata
+------ execute 0 reply_execute finished
+time breakdown 0: 184, 232, 0
+----- executor 2 cover number : 1546, signal number : 554
+----- executor 2 executes write_coverage_signal cov->size 18446, flag collect 1
+----- executor 2 cover number : 2144, signal number : 1158
+executor 2 userspace cover_cnt 7
+write_metadata
+------ execute 2 reply_execute finished
+time breakdown 2: 169, 251, 0
+2023/01/25 22:16:41 for select break: 1
+2023/01/25 22:16:41 --------- executor 2 receive reply, reply.done 1
+2023/01/25 22:16:41 wait for executor 1's reply
+2023/01/25 22:16:41 for select break: 1
+2023/01/25 22:16:41 --------- executor 1 receive reply, reply.done 1
+2023/01/25 22:16:41 wait for executor 0's reply
+2023/01/25 22:16:41 for select break: 1
+2023/01/25 22:16:41 --------- executor 0 receive reply, reply.done 1
+2023/01/25 22:16:41 ------ all executors finish execution
+2023/01/25 22:16:41 exec time: 412
+2023/01/25 22:16:41 ----- PS len: 4
+2023/01/25 22:16:41 [Kernel] executor 3 has 20 replies
+2023/01/25 22:16:41 fuzzer receive 1242 signal and 1030 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 12 signal and 998 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 998 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 998 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 998 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 329 signal and 1239 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 481 signal and 723 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 359 signal and 860 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 248 signal and 740 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 fuzzer receive 0 signal and 0 cover from kernel component
+2023/01/25 22:16:41 ----- [Userspace] executor 0 has 7 replies
+2023/01/25 22:16:41 ------- fuzzer executor 0 receive 250 signal and 225 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 0 receive 397 signal and 401 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 0 receive 550 signal and 570 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 0 receive 1316 signal and 1211 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 0 receive 1006 signal and 964 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 0 receive 988 signal and 1389 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 0 receive 536 signal and 1293 cover from userspace component
+2023/01/25 22:16:41 ----- [Userspace] executor 1 has 6 replies
+2023/01/25 22:16:41 ------- fuzzer executor 1 receive 692 signal and 570 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 1 receive 375 signal and 401 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 1 receive 1067 signal and 1007 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 1 receive 905 signal and 851 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 1 receive 999 signal and 1389 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 1 receive 540 signal and 1293 cover from userspace component
+2023/01/25 22:16:41 ----- [Userspace] executor 2 has 7 replies
+2023/01/25 22:16:41 ------- fuzzer executor 2 receive 831 signal and 726 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 2 receive 15 signal and 411 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 2 receive 2141 signal and 1740 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 2 receive 390 signal and 453 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 2 receive 857 signal and 1169 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 2 receive 554 signal and 1546 cover from userspace component
+2023/01/25 22:16:41 ------- fuzzer executor 2 receive 1158 signal and 2144 cover from userspace component
+2023/01/25 22:16:41 fsMds: [map[] map[] map[] map[]]
+2023/01/25 22:16:41 result hanged=false: 
+2023/01/25 22:16:41 -----2 triaging input for call #9 setxattr$incfs_metadata (new signal=6)
+2023/01/25 22:16:41 minimize prog 3
+2023/01/25 22:16:41 HasCrashFail: false, .HasNetFail: false
+2023/01/25 22:16:41 before return in CmpProgs, HasNetFail: false, HasCrashFail: false
+symc3 prog: v0[] = "./file0";
+v1[] = "system.posix_acl_access";
+v2[] = "./file0";
+v3[100];
+v4[100];
+v5[] = "./file0";
+v6[100];
+v7[] = "system_u:object_r:systemd_systemctl_exec_t:s0";
+v8[] = "./file0";
+v9[] = "@random={user., }";
+v10[] = "./file0";
+v11[100];
+v12[100];
+v13[] = "./file0";
+v14[] = "./file0";
+v15[] = "./file0";
+v17[] = "./file0";
+v18[] = "{#! , ./file0, [{0x20, user.}, {0x20, [{)$::(,%#@)#-(\x1d]}, {0x20, @^--}], 0xa, "19f200ec4ad2ff3daa14c6ec3cfe8cd1775e5c10df6b0c6c118297e30757e1331ec3629f0aeed469b6b65227d64a6cff60fed5ea0db6b301e678bfd6bd286fca98919c41353c249e1678997e02ac60fa3e33d19d8afb09d9748311ead8f1212141439b80edf9090063d9da4f39505cd06338dfbb765ff7ef879f90a6b43c598456ddb9c8ced972dc620f516431c8bbb6c4"}";
+v19[] = "./file0";
+v20[100];
+v21[] = ""5113255d20ba71e9250521fe47ce21cdd3b342ce18237b7a136636467473261ed6976b7d9647b0e01ec7b9645ec6e26e80637af82aa56440101f1e2b743e1c7a40fdc5ba9caa87d372d3c6ad5ab8358deae9c226f734b0ad334b57e141ec81623d273a884655ef2beb3fabed57c6705dc87d285cdc742f38bc3f40492269ff8e63224f16cbd97971e1e1c76e3c895788eaf4f014b1222f2b02b8eeac7d1277c949cc87fd9ae02d2940877cc440bbd6303048caaf04e66424404dafcd7e295157e761243c09cf5c3512648ea104c2d5725c949797f8fd1c2373914f2c8b13e63940945b45e1b05abe7ce9374e15e123b296f233320d1aebdd3296cbb3ddd7883d070466ae425856973a95a2feb9d725e4817329f63e57ed7020cae88415bc7c3e6e242590461d6361b9bea2fa8580109efb73a3b783570491712b1733359b613b4c9cca898e0d5105b58f64979ea3a45ea6ede26dfea3707ba152743e8069a5132843d1fdff2da7e315531ab4436fffd81da930a69f1e597b1cbc28ad363a49ade75ceda29b325c2451540dd894e8af76dc3d06fa8ca1492af831c6eda356bcc4c839139f1cfedc843437300ac9cfb69f6d0b899daec11da77c897bc04eff25418c00dae4a205d2aff6408b59e244168d5573329c9a66df3ca11fd1a0249ca5dcc93ec8b55b5a9d271248fa06e3de3bbc84ad94bc44b79b68752feb1dc6d4b8e1da06bccbc4a95c201a5734e22c77568bea67ffa5e213f5e192446f1682cac1fdd5a2946a39d9d8db6a2acb4b5eef0cb58ecaf588c926d9dac1b1ae2a9a1627c5db55f7fa943d1fd26ae408794386ff920308528e599395335ad567b6c56264f672cb4b0227708d9580c350bb0da13678c76a11ea217aa8ba494b9a8e276a8dd56f8826c6ee50fe7842d520867318a8ca1062551747ff736d43707f8116b062ef73a1f8a3a51475bbfebede20a5d9e4a7ae8b600ad3cdab10cf8b1872f64b32f3c6a893d0f29ded08e72777d387be5cedbfb55cb658d23d8eef3789adc3e2d379b0a489fe7614d8c11e688d0d297b2590d1b9527ad78a86a0df01f578195ba784890baa2e9c72e0dbeff1f42bd89c05e82aa5b6c0b229ce9c6ec925b20c7ece3dec0ea309743f49084621e674d8573c1e926c3a8d6756fc4c6cb957575f44294c4aea10d73924e455c3f8ffc30bbdc9beb70e870514801a51683698e551cbc307976ab695e7b02ad0c8fcd4218eeb47e5699bc1895a15e0ae606948667889e0a59decfb580784dc6178ec46200f38098848133faa1df2e170a45a085522d553f566dbebe325990528fda8071d24bb0f09dd550ff646158f170e72fd5f894bed0cea7f885f387ab0c163ea3f5ce1f6234f9df64f33ef4c1909c40fd4ad0dd06c434aad58f7e9b5f68fe3fc0f1d967258afb7b69f16a0bf3fd0f3e4563164e540edc9e4596f78b40ebad7100bbf47cffa158f13a858f0b9195c656bb1422bfede92e9048a58c685d8c4dcfa2307f7220c24b01fab3e70547bea2717c10a107e34065d5a2295e8057d0f9566bf3a359a01adf9dfa6558ed48c5a85af15c598c49fa4c573da4baf70a135a99d19c55da757ad6f960f98a8dc91bd14371257eb4fe91c87fe05fb6332f04ad82cb4a655843f6f6f9374c47ee05f9d132716e03637fde4dd400dd4e83dc44b54acd44cdc226757fdb96a4476bacc5ffe655fcd8089b181d429583666d4ab10da5f2d0a01c0c4b477fc6aaad9e035fa0dfd7867c76ecb93d8c3bc3d83edc45cdee59648c6b59b7da59fc59ff75d233aff637e26cef962cc51af59452a167b3d8fd204fc0a488cee7929ef2d3d24c4de45f082020a79c3c1bd23e39bf6ddc10084dc3e380187ec9d4846bbe22b0314c7fb66a8e6e9ca9cbcc83a1d225348169953b524ea86350e05c0b0d4fa206ea55d108aded896dd1e8ab9a30d42c76eb07c4b79daee629dadc94a7b348c747d0d10fece5025432be543bc13a083d7f1e4d8defbacebaf286e7b89c28b6d515f7f5c042f8314ea7fd18959806aaee86336239512ea229dfff6b4f265462154038f2c82ed922618a02affc1b34f51f5a18a955bd386edb8c86e1b1d96b3b24b46820c7922c5a594e16561a07254712fb642aee6531d88a0d0f714a7176eda2f645d68b7e73ab81d1aaa02589182ea39fc8520e30781a3e2dd02402260a5a05bba2d89af8c318d47f755776e018927a8eee528c8844d64f82ec960b70c56d2e710e78610598a4b096ecb374aa03ea4982292f7c40b843f59427a53736850bee19318097da9e689d0c623d8ea19204cae2f287d6d1c4926a890f2ae9d62fcfefbe1cb15e7fcbc05ed403096cdd4d4fa124d41ea0a22d547484f4f9562685210d853dc0cef9f05bc69e32ecbd6ab587372cf6e14c3c36ab9aeec2dca68ffd6f98275bdbbd2abd883e63ca3bb28cdb1f592f63838ca9bb2efce6f4d9996d04bf72e865e9fcd6d2a713da1e4f619229116e53c915a392ec81b2ad350d5f51537d3528e5356d5fd3354bf9db4d555b4ec5618f3b0b2158b3417db8571a8bcc2d5f9a4055b848543d5022c945ed7697b970c7406cb08e9dc97324e0babcc74d8ac6208dde8f32541ec14d2c4c2a124744adac0ac6dc66ba6a15001a4eb71d70f3f3502bb5d925b42325239bc0ecb02cdad7bd45dd0a7dc82a5f1d15db59c01d9475d71720e6d6df01e54a06b51afd181fdf3dcbde24ff22635bd8dd9dd78dc88b6fffe26153d50b309bf12e40b18cf808aa558eeed2fc1148a8bf178e9ee7caaa578e1182c7f9ea29c0096cd77e66e76419d6832f10834ac993b219305ed365d5a25729f0637071ac1f51bb3b20aac365423e9135f3d9a7958d999ac1d6eb8a590e3766498958abd42b39afb5da95660c3203688b1e969c01fd153b652a63a9bd64159a720339fa8b14cb70584335b0b14ca9a2e9ab7570b318dca9ab07b6d1c2de253f613442bae822b13b36d4c3ec94adb194b8bcf4643c98ce4cad869b9924f793f1e1424ada65fbe6aaca643025af9793287db419adce5142f3cfc312ca86d093602e77f340d10ece826d4249e8b01ef4b569ad7f2ba54168269cb09bc2854e503c344f2a97c723e2c591128181b2d4e21911dd948d4f262018c377e81203f6c3871f86ad8a79d5b521450d3089cf754a80a959a9be8c84491887b15486a753d7f3348d905f0b2867b512ad3c10b586c73b4891059dc6109456b481573fe472c76c51f4edc9f35c2bdc878f319101803b2e4795c59f576f19fc7c6c6a82c5a4695f34383944143050df7717b74eb91683792e0eacf51987fbb059e1a04a7024251f8cd6824817d6e2faf90c99eff33131fe4514c73f4c9adfe64886262769c9c696ca161cc7998892a989f2e1da5e9676df0d02aafe1bd3a43dc546306d8539e7e8d0c60846fde12a88e1365acc3b4e20f010ad05ccb405ef894f349fc4aed09cd3449c018dfcf27da440aef7d060315917089b0984acd73e317cbe83858502f097f23781c7a262b1f10583a4b2f9b14c90919d4ed7e996fb808b052ad4ffa69c7b678038ab93c68afe3384d96465d52fa61833aff3aae406059ca075c780b569288f1dac4629c74ed50841896fea49f1b63f5e063672b263aa6b6f49ebf89fa1bde6417fef5f50cbe17ae343ceacac27887fc77302e7c649913e4a8d9ce1103083dc9e7049047b4326e0f4b5159caec55b03568e17d5b171b4d1d496e2fe2a978b77adc09b5a763a95c0ddfc32596d2251b550a21ec4beb3f7d3fdacaf3e6430f8d236fd2602e753fc810b06e1aa3edcd1944636cb5fda9ac58098182daa607d92346357edff7541265e132124725065559039004e26cb3f2b3aec382cd804233a6943756f70938208a5ace4232d182b7e5c0be55028f55671b4284e2b938d116b0884de2fd6b81968d2c4fddae3f45bf618d6bbddfd0bed27becf576eb2c61163f532cb67179da997182e22289c72ce7af623aaeb6c59e0025cf0538d66add1114cece8800c27d3b8b7abe9196133204b178ff00c73a87953a2cf79eb22749f5c0600168e3b5f8b5c3e6a5b3313a84b8924e22c466998c1f7b848349988640b174ff1207163f18df9341375a8732948ef113d3d180a7472b6f22b60b1d6b2cc6689eea4c64f158e2b1f9b3c65b5c1dd5ef78f2c16ae0e97adee31457705cf5e69b8169e5e9242d583d22a880b5edc5eb2b6fb929488df6b89bc843a8aee48f73f6bad00a9c6c964c92e2cb696b34ed3203d0441914314d1474ed61a696d05010c346442d331437e47b81ee48969c48d32080e518235c631689d62999cbb80d7a0922a64a8d07ab03dc6a6afc7900bdd2a0efeb7784e55cf1655aba3b72b9d1ab0b287eb4d5e2e4af595f1b34d4ea33e62ae8bb4c21707b85ecdd270e8bffdae87cb403b93c30ea6acd88c33dfc0422aa79fb603c1623165280ca431ebe87cc0daa6c128560da87dda4941a81ee38a1a4a754627a323d7abe9687e0f6e3814e73f20912c9c78c665ed9a35fa0d5e0e4b4c2e0cf18c9c88b6cc759d281d85e645b9ed77d83091e12588a29346d225db1a51c0362e640013f7a758791d7635f667d6607796fd1ac3652c67a8c683f8109aac901dcbc5588ac148b6cacbf4fae437b5673a3a4478a711524245b7b4a849d6a5527b2fa2adcc190edfc04c8ef9d756b1956ffc410776ec9f7bbe870bfd20e667e9a2789b640fa5fb1a0ec377cbc336367d746e380bc05e74c339cec0df571b66bc97d81432b4a00f1dd41d56da600e46f77cbb9b8a30608b23bbad64dd0bf3c76e772e38afb026556c2ffae695e1a61fda5b2d1b5f1bd87d462edcde5eb6e7c6fe41bc84affdbacada9cdf1ebcb49b57275dd633cb0790538541977091585ffebf209d9034e21a18bd04211c81fd5a514c348b2cec27e4f536d0d03bc5c17f7a9c09be31c963e8edc0d72ccf4630f26a52e0a792658e0d3bcace1180af8ed579139d8f91619d7a5747c85a9d46b477249b34d41aeae6b5d0d3f32071c6d8433f349350e8531044ff8397cccd83f6a39ebbf0c9c1f5835ffb3967dbab6b489a0dad27f4751062f09913a6497554e4504214ea4c4f54c8c8c417d09586c6aee3734abf15b15cdd079d4adda33bd5d0635fcb0f6b1967b0fc581df26d771b57920655490ee151bba90dfdbd5868f5a4bc95f1d31ffea36fedecfc0be78af2731ba51e91c36b612e222e18f9e6086b6977aa5ee99f0ab2fae340cc8dea1db1fb2739e2ec1fed4b83665e26063a477e4fe01b3efac460aedb8ef294e0e3f16eac94fa075ff5fd5e414fe1a968bcc8a896ac164bb46fcbea474e222f78e61049507b67b08a83db7a117765b9ca3c499586bdf60a4039f867c78b149d31d5b89b91f0a5218cc17093a1a32b7dfc10a6681c8220a70cc3f2d97898e782da79e298ae5863c4ea64d9d5fd3ab86446ee1191c32efa8544151f48858f5831da3a3185ef90e06fe0bfa4da16118f8ee3d5807b0e545abd75038e586e3f59e2f2924b75bc75c5cafaa218e580cfdc286a81575e72092776419a06583e5b14cc84c94589dc1c96486a6e83fe595b07ebcf83b34e38a989297cd9df2bcf92f567e7cab55f86c03432370dd1cf52f9f124d9e4b48db0422eb6ae779a2dac0e8a19d37b075362075e925d236410c520fb229fc789e314cc7f45247b550926be961076370b7f906d9a57f8390fb9951218cefe87a2d4d4b7a2b586be5ed30a650cb7413acda1f5857d26a7e06eea81d03828ce5e57a5f5e34ce9bca9ad988896da0c4e2"";
+v22[] = "./file0";
+v23[] = "./file0";
+v24[] = "8";
+v25[] = "./file0";
+v26[100];
+v27[] = "@v2={0x3, 0x0, 0x13, 0xfffffff8, 0x63, "2194b31b694bca79c357c09340405ecafe88fb65f6ac6ba6958d76ecb05fa2e29ea2e318084b9c35cc71d72e881464a5231abf4483f2e36bc336cddd30b139095c2e69b43ad406592bbab17f38250f01c1fc69767c58fd955c6ba0c47623c60bc0007f"}";
+v28[] = "./file0";
+v29[100];
+v30[] = "@sha1={0x1, "c733b54d780067ea274f74acc83f702fc0a9ce5d"}";
+v31[] = "./file0";
+v32[] = "user.incfs.size";
+v33[] = "./file0";
+v34[] = "11";
+v35[] = "./file0";
+v36[] = "81";
+v37[] = "./file0";
+v38[] = "./file1";
+v39[100];
+v40[] = "{0000000000000000000000000000000, 0x32}";
+
+syscall(SYS_removexattr, v0, v1);
+syscall(SYS_setxattr, v2, v3, v4, 4, 0);
+syscall(SYS_setxattr, v5, v6, v7, 46, 1);
+syscall(SYS_removexattr, v8, v9);
+syscall(SYS_setxattr, v10, v11, v12, 2, 1);
+syscall(SYS_mkdir, v13, 66);
+syscall(SYS_link, v14, v15);
+v16 = syscall(SYS_open, v17, 2097152, 64);
+syscall(SYS_write, v16, v18, 185);
+syscall(SYS_setxattr, v19, v20, v21, 4096, 3);
+syscall(SYS_chmod, v22, 196);
+syscall(SYS_listxattr, v23, v24, 8);
+syscall(SYS_setxattr, v25, v26, v27, 108, 2);
+syscall(SYS_setxattr, v28, v29, v30, 21, 2);
+syscall(SYS_removexattr, v31, v32);
+syscall(SYS_readlink, v33, v34, 11);
+syscall(SYS_readlink, v35, v36, 81);
+syscall(SYS_open, v37, 131200, 1);
+syscall(SYS_setxattr, v38, v39, v40, 32, 1);
+
+2023/01/25 22:16:41 prog length: 19
+2023/01/25 22:16:41 HasCrashFail:false HasNetFail:false
+22:16:41 ---executing program 0:
+---
+---
+---
+removexattr(&(0x7f0000000000)='./file0\x00', &(0x7f0000000040)=@known='system.posix_acl_access\x00')
+setxattr$security_smack_transmute(&(0x7f0000000080)='./file0\x00', &(0x7f00000000c0), &(0x7f0000000100), 0x4, 0x0)
+setxattr$security_selinux(&(0x7f0000000140)='./file0\x00', &(0x7f0000000180), &(0x7f00000001c0)='system_u:object_r:systemd_systemctl_exec_t:s0\x00', 0x2e, 0x1)
+removexattr(&(0x7f0000000200)='./file0\x00', &(0x7f0000000240)=@random={'user.', '\x00'})
+setxattr$trusted_overlay_opaque(&(0x7f0000000280)='./file0\x00', &(0x7f00000002c0), &(0x7f0000000300), 0x2, 0x1)
+mkdir(&(0x7f0000000340)='./file0\x00', 0x42)
+link(&(0x7f0000000380)='./file0\x00', &(0x7f00000003c0)='./file0\x00')
+r0 = open(&(0x7f0000000400)='./file0\x00', 0x200000, 0x40)
+write$binfmt_script(r0, &(0x7f0000000440)={'#! ', './file0', [{0x20, 'user.'}, {0x20, '[{)$::(,%#@)#-(\x1d]'}, {0x20, '@^--'}], 0xa, "19f200ec4ad2ff3daa14c6ec3cfe8cd1775e5c10df6b0c6c118297e30757e1331ec3629f0aeed469b6b65227d64a6cff60fed5ea0db6b301e678bfd6bd286fca98919c41353c249e1678997e02ac60fa3e33d19d8afb09d9748311ead8f1212141439b80edf9090063d9da4f39505cd06338dfbb765ff7ef879f90a6b43c598456ddb9c8ced972dc620f516431c8bbb6c4"}, 0xb9)
+setxattr$incfs_metadata(&(0x7f0000000500)='./file0\x00', &(0x7f0000000540), &(0x7f0000000580)="5113255d20ba71e9250521fe47ce21cdd3b342ce18237b7a136636467473261ed6976b7d9647b0e01ec7b9645ec6e26e80637af82aa56440101f1e2b743e1c7a40fdc5ba9caa87d372d3c6ad5ab8358deae9c226f734b0ad334b57e141ec81623d273a884655ef2beb3fabed57c6705dc87d285cdc742f38bc3f40492269ff8e63224f16cbd97971e1e1c76e3c895788eaf4f014b1222f2b02b8eeac7d1277c949cc87fd9ae02d2940877cc440bbd6303048caaf04e66424404dafcd7e295157e761243c09cf5c3512648ea104c2d5725c949797f8fd1c2373914f2c8b13e63940945b45e1b05abe7ce9374e15e123b296f233320d1aebdd3296cbb3ddd7883d070466ae425856973a95a2feb9d725e4817329f63e57ed7020cae88415bc7c3e6e242590461d6361b9bea2fa8580109efb73a3b783570491712b1733359b613b4c9cca898e0d5105b58f64979ea3a45ea6ede26dfea3707ba152743e8069a5132843d1fdff2da7e315531ab4436fffd81da930a69f1e597b1cbc28ad363a49ade75ceda29b325c2451540dd894e8af76dc3d06fa8ca1492af831c6eda356bcc4c839139f1cfedc843437300ac9cfb69f6d0b899daec11da77c897bc04eff25418c00dae4a205d2aff6408b59e244168d5573329c9a66df3ca11fd1a0249ca5dcc93ec8b55b5a9d271248fa06e3de3bbc84ad94bc44b79b68752feb1dc6d4b8e1da06bccbc4a95c201a5734e22c77568bea67ffa5e213f5e192446f1682cac1fdd5a2946a39d9d8db6a2acb4b5eef0cb58ecaf588c926d9dac1b1ae2a9a1627c5db55f7fa943d1fd26ae408794386ff920308528e599395335ad567b6c56264f672cb4b0227708d9580c350bb0da13678c76a11ea217aa8ba494b9a8e276a8dd56f8826c6ee50fe7842d520867318a8ca1062551747ff736d43707f8116b062ef73a1f8a3a51475bbfebede20a5d9e4a7ae8b600ad3cdab10cf8b1872f64b32f3c6a893d0f29ded08e72777d387be5cedbfb55cb658d23d8eef3789adc3e2d379b0a489fe7614d8c11e688d0d297b2590d1b9527ad78a86a0df01f578195ba784890baa2e9c72e0dbeff1f42bd89c05e82aa5b6c0b229ce9c6ec925b20c7ece3dec0ea309743f49084621e674d8573c1e926c3a8d6756fc4c6cb957575f44294c4aea10d73924e455c3f8ffc30bbdc9beb70e870514801a51683698e551cbc307976ab695e7b02ad0c8fcd4218eeb47e5699bc1895a15e0ae606948667889e0a59decfb580784dc6178ec46200f38098848133faa1df2e170a45a085522d553f566dbebe325990528fda8071d24bb0f09dd550ff646158f170e72fd5f894bed0cea7f885f387ab0c163ea3f5ce1f6234f9df64f33ef4c1909c40fd4ad0dd06c434aad58f7e9b5f68fe3fc0f1d967258afb7b69f16a0bf3fd0f3e4563164e540edc9e4596f78b40ebad7100bbf47cffa158f13a858f0b9195c656bb1422bfede92e9048a58c685d8c4dcfa2307f7220c24b01fab3e70547bea2717c10a107e34065d5a2295e8057d0f9566bf3a359a01adf9dfa6558ed48c5a85af15c598c49fa4c573da4baf70a135a99d19c55da757ad6f960f98a8dc91bd14371257eb4fe91c87fe05fb6332f04ad82cb4a655843f6f6f9374c47ee05f9d132716e03637fde4dd400dd4e83dc44b54acd44cdc226757fdb96a4476bacc5ffe655fcd8089b181d429583666d4ab10da5f2d0a01c0c4b477fc6aaad9e035fa0dfd7867c76ecb93d8c3bc3d83edc45cdee59648c6b59b7da59fc59ff75d233aff637e26cef962cc51af59452a167b3d8fd204fc0a488cee7929ef2d3d24c4de45f082020a79c3c1bd23e39bf6ddc10084dc3e380187ec9d4846bbe22b0314c7fb66a8e6e9ca9cbcc83a1d225348169953b524ea86350e05c0b0d4fa206ea55d108aded896dd1e8ab9a30d42c76eb07c4b79daee629dadc94a7b348c747d0d10fece5025432be543bc13a083d7f1e4d8defbacebaf286e7b89c28b6d515f7f5c042f8314ea7fd18959806aaee86336239512ea229dfff6b4f265462154038f2c82ed922618a02affc1b34f51f5a18a955bd386edb8c86e1b1d96b3b24b46820c7922c5a594e16561a07254712fb642aee6531d88a0d0f714a7176eda2f645d68b7e73ab81d1aaa02589182ea39fc8520e30781a3e2dd02402260a5a05bba2d89af8c318d47f755776e018927a8eee528c8844d64f82ec960b70c56d2e710e78610598a4b096ecb374aa03ea4982292f7c40b843f59427a53736850bee19318097da9e689d0c623d8ea19204cae2f287d6d1c4926a890f2ae9d62fcfefbe1cb15e7fcbc05ed403096cdd4d4fa124d41ea0a22d547484f4f9562685210d853dc0cef9f05bc69e32ecbd6ab587372cf6e14c3c36ab9aeec2dca68ffd6f98275bdbbd2abd883e63ca3bb28cdb1f592f63838ca9bb2efce6f4d9996d04bf72e865e9fcd6d2a713da1e4f619229116e53c915a392ec81b2ad350d5f51537d3528e5356d5fd3354bf9db4d555b4ec5618f3b0b2158b3417db8571a8bcc2d5f9a4055b848543d5022c945ed7697b970c7406cb08e9dc97324e0babcc74d8ac6208dde8f32541ec14d2c4c2a124744adac0ac6dc66ba6a15001a4eb71d70f3f3502bb5d925b42325239bc0ecb02cdad7bd45dd0a7dc82a5f1d15db59c01d9475d71720e6d6df01e54a06b51afd181fdf3dcbde24ff22635bd8dd9dd78dc88b6fffe26153d50b309bf12e40b18cf808aa558eeed2fc1148a8bf178e9ee7caaa578e1182c7f9ea29c0096cd77e66e76419d6832f10834ac993b219305ed365d5a25729f0637071ac1f51bb3b20aac365423e9135f3d9a7958d999ac1d6eb8a590e3766498958abd42b39afb5da95660c3203688b1e969c01fd153b652a63a9bd64159a720339fa8b14cb70584335b0b14ca9a2e9ab7570b318dca9ab07b6d1c2de253f613442bae822b13b36d4c3ec94adb194b8bcf4643c98ce4cad869b9924f793f1e1424ada65fbe6aaca643025af9793287db419adce5142f3cfc312ca86d093602e77f340d10ece826d4249e8b01ef4b569ad7f2ba54168269cb09bc2854e503c344f2a97c723e2c591128181b2d4e21911dd948d4f262018c377e81203f6c3871f86ad8a79d5b521450d3089cf754a80a959a9be8c84491887b15486a753d7f3348d905f0b2867b512ad3c10b586c73b4891059dc6109456b481573fe472c76c51f4edc9f35c2bdc878f319101803b2e4795c59f576f19fc7c6c6a82c5a4695f34383944143050df7717b74eb91683792e0eacf51987fbb059e1a04a7024251f8cd6824817d6e2faf90c99eff33131fe4514c73f4c9adfe64886262769c9c696ca161cc7998892a989f2e1da5e9676df0d02aafe1bd3a43dc546306d8539e7e8d0c60846fde12a88e1365acc3b4e20f010ad05ccb405ef894f349fc4aed09cd3449c018dfcf27da440aef7d060315917089b0984acd73e317cbe83858502f097f23781c7a262b1f10583a4b2f9b14c90919d4ed7e996fb808b052ad4ffa69c7b678038ab93c68afe3384d96465d52fa61833aff3aae406059ca075c780b569288f1dac4629c74ed50841896fea49f1b63f5e063672b263aa6b6f49ebf89fa1bde6417fef5f50cbe17ae343ceacac27887fc77302e7c649913e4a8d9ce1103083dc9e7049047b4326e0f4b5159caec55b03568e17d5b171b4d1d496e2fe2a978b77adc09b5a763a95c0ddfc32596d2251b550a21ec4beb3f7d3fdacaf3e6430f8d236fd2602e753fc810b06e1aa3edcd1944636cb5fda9ac58098182daa607d92346357edff7541265e132124725065559039004e26cb3f2b3aec382cd804233a6943756f70938208a5ace4232d182b7e5c0be55028f55671b4284e2b938d116b0884de2fd6b81968d2c4fddae3f45bf618d6bbddfd0bed27becf576eb2c61163f532cb67179da997182e22289c72ce7af623aaeb6c59e0025cf0538d66add1114cece8800c27d3b8b7abe9196133204b178ff00c73a87953a2cf79eb22749f5c0600168e3b5f8b5c3e6a5b3313a84b8924e22c466998c1f7b848349988640b174ff1207163f18df9341375a8732948ef113d3d180a7472b6f22b60b1d6b2cc6689eea4c64f158e2b1f9b3c65b5c1dd5ef78f2c16ae0e97adee31457705cf5e69b8169e5e9242d583d22a880b5edc5eb2b6fb929488df6b89bc843a8aee48f73f6bad00a9c6c964c92e2cb696b34ed3203d0441914314d1474ed61a696d05010c346442d331437e47b81ee48969c48d32080e518235c631689d62999cbb80d7a0922a64a8d07ab03dc6a6afc7900bdd2a0efeb7784e55cf1655aba3b72b9d1ab0b287eb4d5e2e4af595f1b34d4ea33e62ae8bb4c21707b85ecdd270e8bffdae87cb403b93c30ea6acd88c33dfc0422aa79fb603c1623165280ca431ebe87cc0daa6c128560da87dda4941a81ee38a1a4a754627a323d7abe9687e0f6e3814e73f20912c9c78c665ed9a35fa0d5e0e4b4c2e0cf18c9c88b6cc759d281d85e645b9ed77d83091e12588a29346d225db1a51c0362e640013f7a758791d7635f667d6607796fd1ac3652c67a8c683f8109aac901dcbc5588ac148b6cacbf4fae437b5673a3a4478a711524245b7b4a849d6a5527b2fa2adcc190edfc04c8ef9d756b1956ffc410776ec9f7bbe870bfd20e667e9a2789b640fa5fb1a0ec377cbc336367d746e380bc05e74c339cec0df571b66bc97d81432b4a00f1dd41d56da600e46f77cbb9b8a30608b23bbad64dd0bf3c76e772e38afb026556c2ffae695e1a61fda5b2d1b5f1bd87d462edcde5eb6e7c6fe41bc84affdbacada9cdf1ebcb49b57275dd633cb0790538541977091585ffebf209d9034e21a18bd04211c81fd5a514c348b2cec27e4f536d0d03bc5c17f7a9c09be31c963e8edc0d72ccf4630f26a52e0a792658e0d3bcace1180af8ed579139d8f91619d7a5747c85a9d46b477249b34d41aeae6b5d0d3f32071c6d8433f349350e8531044ff8397cccd83f6a39ebbf0c9c1f5835ffb3967dbab6b489a0dad27f4751062f09913a6497554e4504214ea4c4f54c8c8c417d09586c6aee3734abf15b15cdd079d4adda33bd5d0635fcb0f6b1967b0fc581df26d771b57920655490ee151bba90dfdbd5868f5a4bc95f1d31ffea36fedecfc0be78af2731ba51e91c36b612e222e18f9e6086b6977aa5ee99f0ab2fae340cc8dea1db1fb2739e2ec1fed4b83665e26063a477e4fe01b3efac460aedb8ef294e0e3f16eac94fa075ff5fd5e414fe1a968bcc8a896ac164bb46fcbea474e222f78e61049507b67b08a83db7a117765b9ca3c499586bdf60a4039f867c78b149d31d5b89b91f0a5218cc17093a1a32b7dfc10a6681c8220a70cc3f2d97898e782da79e298ae5863c4ea64d9d5fd3ab86446ee1191c32efa8544151f48858f5831da3a3185ef90e06fe0bfa4da16118f8ee3d5807b0e545abd75038e586e3f59e2f2924b75bc75c5cafaa218e580cfdc286a81575e72092776419a06583e5b14cc84c94589dc1c96486a6e83fe595b07ebcf83b34e38a989297cd9df2bcf92f567e7cab55f86c03432370dd1cf52f9f124d9e4b48db0422eb6ae779a2dac0e8a19d37b075362075e925d236410c520fb229fc789e314cc7f45247b550926be961076370b7f906d9a57f8390fb9951218cefe87a2d4d4b7a2b586be5ed30a650cb7413acda1f5857d26a7e06eea81d03828ce5e57a5f5e34ce9bca9ad988896da0c4e2", 0x1000, 0x3)
+chmod(&(0x7f0000001580)='./file0\x00', 0xc4)
+listxattr(&(0x7f00000015c0)='./file0\x00', &(0x7f0000001600)=""/8, 0x8)
+setxattr$security_evm(&(0x7f0000001640)='./file0\x00', &(0x7f0000001680), &(0x7f00000016c0)=@v2={0x3, 0x0, 0x13, 0xfffffff8, 0x63, "2194b31b694bca79c357c09340405ecafe88fb65f6ac6ba6958d76ecb05fa2e29ea2e318084b9c35cc71d72e881464a5231abf4483f2e36bc336cddd30b139095c2e69b43ad406592bbab17f38250f01c1fc69767c58fd955c6ba0c47623c60bc0007f"}, 0x6c, 0x2)
+setxattr$security_ima(&(0x7f0000001740)='./file0\x00', &(0x7f0000001780), &(0x7f00000017c0)=@sha1={0x1, "c733b54d780067ea274f74acc83f702fc0a9ce5d"}, 0x15, 0x2)
+removexattr(&(0x7f0000001800)='./file0\x00', &(0x7f0000001840)=@known='user.incfs.size\x00')
+readlink(&(0x7f0000001880)='./file0\x00', &(0x7f00000018c0)=""/11, 0xb)
+readlink(&(0x7f0000001900)='./file0\x00', &(0x7f0000001940)=""/81, 0x51)
+open$dir(&(0x7f00000019c0)='./file0\x00', 0x20080, 0x1)
+setxattr$incfs_id(&(0x7f0000001a00)='./file1\x00', &(0x7f0000001a40), &(0x7f0000001a80)={'0000000000000000000000000000000', 0x32}, 0x20, 0x1)
+---
+
+end of program
+2023/01/25 22:16:41 wait for executor 3's reply
+symc3 prog: v0[] = "./file0";
+v1[] = "system.posix_acl_access";
+v2[] = "./file0";
+v3[100];
+v4[100];
+v5[] = "./file0";
+v6[100];
+v7[] = "system_u:object_r:systemd_systemctl_exec_t:s0";
+v8[] = "./file0";
+v9[] = "@random={user., }";
+v10[] = "./file0";
+v11[100];
+v12[100];
+v13[] = "./file0";
+v14[] = "./file0";
+v15[] = "./file0";
+v17[] = "./file0";
+v18[] = "{#! , ./file0, [{0x20, user.}, {0x20, [{)$::(,%#@)#-(\x1d]}, {0x20, @^--}], 0xa, "19f200ec4ad2ff3daa14c6ec3cfe8cd1775e5c10df6b0c6c118297e30757e1331ec3629f0aeed469b6b65227d64a6cff60fed5ea0db6b301e678bfd6bd286fca98919c41353c249e1678997e02ac60fa3e33d19d8afb09d9748311ead8f1212141439b80edf9090063d9da4f39505cd06338dfbb765ff7ef879f90a6b43c598456ddb9c8ced972dc620f516431c8bbb6c4"}";
+v19[] = "./file0";
+v20[100];
+v21[] = ""5113255d20ba71e9250521fe47ce21cdd3b342ce18237b7a136636467473261ed6976b7d9647b0e01ec7b9645ec6e26e80637af82aa56440101f1e2b743e1c7a40fdc5ba9caa87d372d3c6ad5ab8358deae9c226f734b0ad334b57e141ec81623d273a884655ef2beb3fabed57c6705dc87d285cdc742f38bc3f40492269ff8e63224f16cbd97971e1e1c76e3c895788eaf4f014b1222f2b02b8eeac7d1277c949cc87fd9ae02d2940877cc440bbd6303048caaf04e66424404dafcd7e295157e761243c09cf5c3512648ea104c2d5725c949797f8fd1c2373914f2c8b13e63940945b45e1b05abe7ce9374e15e123b296f233320d1aebdd3296cbb3ddd7883d070466ae425856973a95a2feb9d725e4817329f63e57ed7020cae88415bc7c3e6e242590461d6361b9bea2fa8580109efb73a3b783570491712b1733359b613b4c9cca898e0d5105b58f64979ea3a45ea6ede26dfea3707ba152743e8069a5132843d1fdff2da7e315531ab4436fffd81da930a69f1e597b1cbc28ad363a49ade75ceda29b325c2451540dd894e8af76dc3d06fa8ca1492af831c6eda356bcc4c839139f1cfedc843437300ac9cfb69f6d0b899daec11da77c897bc04eff25418c00dae4a205d2aff6408b59e244168d5573329c9a66df3ca11fd1a0249ca5dcc93ec8b55b5a9d271248fa06e3de3bbc84ad94bc44b79b68752feb1dc6d4b8e1da06bccbc4a95c201a5734e22c77568bea67ffa5e213f5e192446f1682cac1fdd5a2946a39d9d8db6a2acb4b5eef0cb58ecaf588c926d9dac1b1ae2a9a1627c5db55f7fa943d1fd26ae408794386ff920308528e599395335ad567b6c56264f672cb4b0227708d9580c350bb0da13678c76a11ea217aa8ba494b9a8e276a8dd56f8826c6ee50fe7842d520867318a8ca1062551747ff736d43707f8116b062ef73a1f8a3a51475bbfebede20a5d9e4a7ae8b600ad3cdab10cf8b1872f64b32f3c6a893d0f29ded08e72777d387be5cedbfb55cb658d23d8eef3789adc3e2d379b0a489fe7614d8c11e688d0d297b2590d1b9527ad78a86a0df01f578195ba784890baa2e9c72e0dbeff1f42bd89c05e82aa5b6c0b229ce9c6ec925b20c7ece3dec0ea309743f49084621e674d8573c1e926c3a8d6756fc4c6cb957575f44294c4aea10d73924e455c3f8ffc30bbdc9beb70e870514801a51683698e551cbc307976ab695e7b02ad0c8fcd4218eeb47e5699bc1895a15e0ae606948667889e0a59decfb580784dc6178ec46200f38098848133faa1df2e170a45a085522d553f566dbebe325990528fda8071d24bb0f09dd550ff646158f170e72fd5f894bed0cea7f885f387ab0c163ea3f5ce1f6234f9df64f33ef4c1909c40fd4ad0dd06c434aad58f7e9b5f68fe3fc0f1d967258afb7b69f16a0bf3fd0f3e4563164e540edc9e4596f78b40ebad7100bbf47cffa158f13a858f0b9195c656bb1422bfede92e9048a58c685d8c4dcfa2307f7220c24b01fab3e70547bea2717c10a107e34065d5a2295e8057d0f9566bf3a359a01adf9dfa6558ed48c5a85af15c598c49fa4c573da4baf70a135a99d19c55da757ad6f960f98a8dc91bd14371257eb4fe91c87fe05fb6332f04ad82cb4a655843f6f6f9374c47ee05f9d132716e03637fde4dd400dd4e83dc44b54acd44cdc226757fdb96a4476bacc5ffe655fcd8089b181d429583666d4ab10da5f2d0a01c0c4b477fc6aaad9e035fa0dfd7867c76ecb93d8c3bc3d83edc45cdee59648c6b59b7da59fc59ff75d233aff637e26cef962cc51af59452a167b3d8fd204fc0a488cee7929ef2d3d24c4de45f082020a79c3c1bd23e39bf6ddc10084dc3e380187ec9d4846bbe22b0314c7fb66a8e6e9ca9cbcc83a1d225348169953b524ea86350e05c0b0d4fa206ea55d108aded896dd1e8ab9a30d42c76eb07c4b79daee629dadc94a7b348c747d0d10fece5025432be543bc13a083d7f1e4d8defbacebaf286e7b89c28b6d515f7f5c042f8314ea7fd18959806aaee86336239512ea229dfff6b4f265462154038f2c82ed922618a02affc1b34f51f5a18a955bd386edb8c86e1b1d96b3b24b46820c7922c5a594e16561a07254712fb642aee6531d88a0d0f714a7176eda2f645d68b7e73ab81d1aaa02589182ea39fc8520e30781a3e2dd02402260a5a05bba2d89af8c318d47f755776e018927a8eee528c8844d64f82ec960b70c56d2e710e78610598a4b096ecb374aa03ea4982292f7c40b843f59427a53736850bee19318097da9e689d0c623d8ea19204cae2f287d6d1c4926a890f2ae9d62fcfefbe1cb15e7fcbc05ed403096cdd4d4fa124d41ea0a22d547484f4f9562685210d853dc0cef9f05bc69e32ecbd6ab587372cf6e14c3c36ab9aeec2dca68ffd6f98275bdbbd2abd883e63ca3bb28cdb1f592f63838ca9bb2efce6f4d9996d04bf72e865e9fcd6d2a713da1e4f619229116e53c915a392ec81b2ad350d5f51537d3528e5356d5fd3354bf9db4d555b4ec5618f3b0b2158b3417db8571a8bcc2d5f9a4055b848543d5022c945ed7697b970c7406cb08e9dc97324e0babcc74d8ac6208dde8f32541ec14d2c4c2a124744adac0ac6dc66ba6a15001a4eb71d70f3f3502bb5d925b42325239bc0ecb02cdad7bd45dd0a7dc82a5f1d15db59c01d9475d71720e6d6df01e54a06b51afd181fdf3dcbde24ff22635bd8dd9dd78dc88b6fffe26153d50b309bf12e40b18cf808aa558eeed2fc1148a8bf178e9ee7caaa578e1182c7f9ea29c0096cd77e66e76419d6832f10834ac993b219305ed365d5a25729f0637071ac1f51bb3b20aac365423e9135f3d9a7958d999ac1d6eb8a590e3766498958abd42b39afb5da95660c3203688b1e969c01fd153b652a63a9bd64159a720339fa8b14cb70584335b0b14ca9a2e9ab7570b318dca9ab07b6d1c2de253f613442bae822b13b36d4c3ec94adb194b8bcf4643c98ce4cad869b9924f793f1e1424ada65fbe6aaca643025af9793287db419adce5142f3cfc312ca86d093602e77f340d10ece826d4249e8b01ef4b569ad7f2ba54168269cb09bc2854e503c344f2a97c723e2c591128181b2d4e21911dd948d4f262018c377e81203f6c3871f86ad8a79d5b521450d3089cf754a80a959a9be8c84491887b15486a753d7f3348d905f0b2867b512ad3c10b586c73b4891059dc6109456b481573fe472c76c51f4edc9f35c2bdc878f319101803b2e4795c59f576f19fc7c6c6a82c5a4695f34383944143050df7717b74eb91683792e0eacf51987fbb059e1a04a7024251f8cd6824817d6e2faf90c99eff33131fe4514c73f4c9adfe64886262769c9c696ca161cc7998892a989f2e1da5e9676df0d02aafe1bd3a43dc546306d8539e7e8d0c60846fde12a88e1365acc3b4e20f010ad05ccb405ef894f349fc4aed09cd3449c018dfcf27da440aef7d060315917089b0984acd73e317cbe83858502f097f23781c7a262b1f10583a4b2f9b14c90919d4ed7e996fb808b052ad4ffa69c7b678038ab93c68afe3384d96465d52fa61833aff3aae406059ca075c780b569288f1dac4629c74ed50841896fea49f1b63f5e063672b263aa6b6f49ebf89fa1bde6417fef5f50cbe17ae343ceacac27887fc77302e7c649913e4a8d9ce1103083dc9e7049047b4326e0f4b5159caec55b03568e17d5b171b4d1d496e2fe2a978b77adc09b5a763a95c0ddfc32596d2251b550a21ec4beb3f7d3fdacaf3e6430f8d236fd2602e753fc810b06e1aa3edcd1944636cb5fda9ac58098182daa607d92346357edff7541265e132124725065559039004e26cb3f2b3aec382cd804233a6943756f70938208a5ace4232d182b7e5c0be55028f55671b4284e2b938d116b0884de2fd6b81968d2c4fddae3f45bf618d6bbddfd0bed27becf576eb2c61163f532cb67179da997182e22289c72ce7af623aaeb6c59e0025cf0538d66add1114cece8800c27d3b8b7abe9196133204b178ff00c73a87953a2cf79eb22749f5c0600168e3b5f8b5c3e6a5b3313a84b8924e22c466998c1f7b848349988640b174ff1207163f18df9341375a8732948ef113d3d180a7472b6f22b60b1d6b2cc6689eea4c64f158e2b1f9b3c65b5c1dd5ef78f2c16ae0e97adee31457705cf5e69b8169e5e9242d583d22a880b5edc5eb2b6fb929488df6b89bc843a8aee48f73f6bad00a9c6c964c92e2cb696b34ed3203d0441914314d1474ed61a696d05010c346442d331437e47b81ee48969c48d32080e518235c631689d62999cbb80d7a0922a64a8d07ab03dc6a6afc7900bdd2a0efeb7784e55cf1655aba3b72b9d1ab0b287eb4d5e2e4af595f1b34d4ea33e62ae8bb4c21707b85ecdd270e8bffdae87cb403b93c30ea6acd88c33dfc0422aa79fb603c1623165280ca431ebe87cc0daa6c128560da87dda4941a81ee38a1a4a754627a323d7abe9687e0f6e3814e73f20912c9c78c665ed9a35fa0d5e0e4b4c2e0cf18c9c88b6cc759d281d85e645b9ed77d83091e12588a29346d225db1a51c0362e640013f7a758791d7635f667d6607796fd1ac3652c67a8c683f8109aac901dcbc5588ac148b6cacbf4fae437b5673a3a4478a711524245b7b4a849d6a5527b2fa2adcc190edfc04c8ef9d756b1956ffc410776ec9f7bbe870bfd20e667e9a2789b640fa5fb1a0ec377cbc336367d746e380bc05e74c339cec0df571b66bc97d81432b4a00f1dd41d56da600e46f77cbb9b8a30608b23bbad64dd0bf3c76e772e38afb026556c2ffae695e1a61fda5b2d1b5f1bd87d462edcde5eb6e7c6fe41bc84affdbacada9cdf1ebcb49b57275dd633cb0790538541977091585ffebf209d9034e21a18bd04211c81fd5a514c348b2cec27e4f536d0d03bc5c17f7a9c09be31c963e8edc0d72ccf4630f26a52e0a792658e0d3bcace1180af8ed579139d8f91619d7a5747c85a9d46b477249b34d41aeae6b5d0d3f32071c6d8433f349350e8531044ff8397cccd83f6a39ebbf0c9c1f5835ffb3967dbab6b489a0dad27f4751062f09913a6497554e4504214ea4c4f54c8c8c417d09586c6aee3734abf15b15cdd079d4adda33bd5d0635fcb0f6b1967b0fc581df26d771b57920655490ee151bba90dfdbd5868f5a4bc95f1d31ffea36fedecfc0be78af2731ba51e91c36b612e222e18f9e6086b6977aa5ee99f0ab2fae340cc8dea1db1fb2739e2ec1fed4b83665e26063a477e4fe01b3efac460aedb8ef294e0e3f16eac94fa075ff5fd5e414fe1a968bcc8a896ac164bb46fcbea474e222f78e61049507b67b08a83db7a117765b9ca3c499586bdf60a4039f867c78b149d31d5b89b91f0a5218cc17093a1a32b7dfc10a6681c8220a70cc3f2d97898e782da79e298ae5863c4ea64d9d5fd3ab86446ee1191c32efa8544151f48858f5831da3a3185ef90e06fe0bfa4da16118f8ee3d5807b0e545abd75038e586e3f59e2f2924b75bc75c5cafaa218e580cfdc286a81575e72092776419a06583e5b14cc84c94589dc1c96486a6e83fe595b07ebcf83b34e38a989297cd9df2bcf92f567e7cab55f86c03432370dd1cf52f9f124d9e4b48db0422eb6ae779a2dac0e8a19d37b075362075e925d236410c520fb229fc789e314cc7f45247b550926be961076370b7f906d9a57f8390fb9951218cefe87a2d4d4b7a2b586be5ed30a650cb7413acda1f5857d26a7e06eea81d03828ce5e57a5f5e34ce9bca9ad988896da0c4e2"";
+v22[] = "./file0";
+v23[] = "./file0";
+v24[] = "8";
+v25[] = "./file0";
+v26[100];
+v27[] = "@v2={0x3, 0x0, 0x13, 0xfffffff8, 0x63, "2194b31b694bca79c357c09340405ecafe88fb65f6ac6ba6958d76ecb05fa2e29ea2e318084b9c35cc71d72e881464a5231abf4483f2e36bc336cddd30b139095c2e69b43ad406592bbab17f38250f01c1fc69767c58fd955c6ba0c47623c60bc0007f"}";
+v28[] = "./file0";
+v29[100];
+v30[] = "@sha1={0x1, "c733b54d780067ea274f74acc83f702fc0a9ce5d"}";
+v31[] = "./file0";
+v32[] = "user.incfs.size";
+v33[] = "./file0";
+v34[] = "11";
+v35[] = "./file0";
+v36[] = "81";
+v37[] = "./file0";
+v38[] = "./file1";
+v39[100];
+v40[] = "{0000000000000000000000000000000, 0x32}";
+
+syscall(SYS_removexattr, v0, v1);
+syscall(SYS_setxattr, v2, v3, v4, 4, 0);
+syscall(SYS_setxattr, v5, v6, v7, 46, 1);
+syscall(SYS_removexattr, v8, v9);
+syscall(SYS_setxattr, v10, v11, v12, 2, 1);
+syscall(SYS_mkdir, v13, 66);
+syscall(SYS_link, v14, v15);
+v16 = syscall(SYS_open, v17, 2097152, 64);
+syscall(SYS_write, v16, v18, 185);
+syscall(SYS_setxattr, v19, v20, v21, 4096, 3);
+syscall(SYS_chmod, v22, 196);
+syscall(SYS_listxattr, v23, v24, 8);
+syscall(SYS_setxattr, v25, v26, v27, 108, 2);
+syscall(SYS_setxattr, v28, v29, v30, 21, 2);
+syscall(SYS_removexattr, v31, v32);
+syscall(SYS_readlink, v33, v34, 11);
+syscall(SYS_readlink, v35, v36, 81);
+syscall(SYS_open, v37, 131200, 1);
+syscall(SYS_setxattr, v38, v39, v40, 32, 1);
+
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1296, prog_size 8
+[57046ms] exec opts: executor=0 procid=0 threaded=0 collide=0 cover=0 extra-cover=1 comps=0 dedup=1 timeouts=50/500000/1 prog=8 filter=0
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1320, prog_size 8752
+[57048ms] exec opts: executor=3 procid=0 threaded=1 collide=0 cover=0 extra-cover=1 comps=0 dedup=1 timeouts=50/500000/1 prog=8752 filter=0
+remove dir: /root/glusterfs-client/dfs-0-279
+opendir(/root/glusterfs-client/dfs-0-279) failedremove dir time 0
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1312, prog_size 8
+[57047ms] exec opts: executor=2 procid=0 threaded=0 collide=0 cover=0 extra-cover=1 comps=0 dedup=1 timeouts=50/500000/1 prog=8 filter=0
+-----finish removing dir
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1304, prog_size 8
+[57052ms] exec opts: executor=1 procid=0 threaded=0 collide=0 cover=0 extra-cover=1 comps=0 dedup=1 timeouts=50/500000/1 prog=8 filter=0
+2023/01/25 22:16:44 poll: candidates=0 inputs=0 signal=0

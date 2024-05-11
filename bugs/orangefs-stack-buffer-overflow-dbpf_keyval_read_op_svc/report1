@@ -1,0 +1,68 @@
+daemon log read: 0
+daemon log read: 0
+daemon log read: 0
+daemon log read: 2972
+=================================================================
+==385==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffff20beca0 at pc 0x7ffff762e57d bp 0x7ffff20bead0 sp 0x7ffff20be278
+WRITE of size 266 at 0x7ffff20beca0 thread T2
+    #0 0x7ffff762e57c  (/lib/x86_64-linux-gnu/libasan.so.5+0x9b57c)
+    #1 0x55555590f6a8 in dbpf_keyval_read_op_svc (/opt/orangefs/sbin/pvfs2-server+0x3bb6a8)
+    #2 0x555555937042 in dbpf_do_one_work_cycle (/opt/orangefs/sbin/pvfs2-server+0x3e3042)
+    #3 0x55555593660e in dbpf_thread_function (/opt/orangefs/sbin/pvfs2-server+0x3e260e)
+    #4 0x7ffff7143608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #5 0x7ffff705f102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+Address 0x7ffff20beca0 is located in stack of thread T2 at offset 416 in frame
+    #0 0x55555590f34e in dbpf_keyval_read_op_svc (/opt/orangefs/sbin/pvfs2-server+0x3bb34e)
+
+  This frame has 4 object(s):
+    [48, 64) 'ref' (line 192)
+    [80, 96) 'key' (line 194)
+    [112, 128) 'data' (line 194)
+    [144, 416) 'key_entry' (line 193) <== Memory access at offset 416 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+Thread T2 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x555555935f80 in dbpf_thread_initialize (/opt/orangefs/sbin/pvfs2-server+0x3e1f80)
+    #2 0x55555593a07e in dbpf_initialize (/opt/orangefs/sbin/pvfs2-server+0x3e607e)
+    #3 0x55555588fd30 in trove_initialize (/opt/orangefs/sbin/pvfs2-server+0x33bd30)
+    #4 0x5555556d07f7 in server_initialize_subsystems (/opt/orangefs/sbin/pvfs2-server+0x17c7f7)
+    #5 0x5555556cfb2a in server_initialize (/opt/orangefs/sbin/pvfs2-server+0x17bb2a)
+    #6 0x5555556cec75 in main (/opt/orangefs/sbin/pvfs2-server+0x17ac75)
+    #7 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: stack-buffer-overflow (/lib/x86_64-linux-gnu/libasan.so.5+0x9b57c) 
+Shadow bytes around the buggy address:
+  0x10007e40fd40: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007e40fd50: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007e40fd60: f1 f1 f1 f1 f1 f1 00 00 f2 f2 00 00 f2 f2 00 00
+  0x10007e40fd70: f2 f2 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007e40fd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x10007e40fd90: 00 00 00 00[f3]f3 f3 f3 f3 f3 f3 f3 00 00 00 00
+  0x10007e40fda0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007e40fdb0: 00 00 00 00 f1 f1 f1 f1 f1 f1 04 f2 00 00 f2 f2
+  0x10007e40fdc0: 00 00 f3 f3 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007e40fdd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007e40fde0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==385==ABORTING

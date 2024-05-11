@@ -1,0 +1,30 @@
+LustreError: 420:0:(osc_page.c:173:osc_page_delete()) Trying to teardown failed: -16
+LustreError: 420:0:(osc_page.c:175:osc_page_delete()) ASSERTION( 0 ) failed: 
+LustreError: 420:0:(osc_page.c:175:osc_page_delete()) LBUG
+Kernel panic - not syncing: LBUG
+CPU: 1 PID: 420 Comm: ldlm_bl_01 Tainted: G           O      5.11.22+ #18
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ dump_stack+0x57/0x6a
+ panic+0x151/0x312
+ lbug_with_loc.cold+0x2c/0x2c [libcfs]
+ osc_page_delete+0xbfa/0xce0 [osc]
+ __cl_page_delete+0x29a/0x5e0 [obdclass]
+ cl_page_delete+0xba/0x240 [obdclass]
+ ll_invalidatepage+0x3c5/0x5f0 [lustre]
+ truncate_cleanup_page+0x8c/0xb0
+ generic_error_remove_page+0x2c/0x50
+ cl_page_discard+0x2f5/0x440 [obdclass]
+ osc_discard_cb+0xe8/0x490 [osc]
+ osc_page_gang_lookup+0x466/0xab0 [osc]
+ osc_lock_discard_pages+0x383/0x689 [osc]
+ osc_ldlm_blocking_ast+0xe00/0x10c0 [osc]
+ ldlm_cancel_callback+0x1e1/0x720 [ptlrpc]
+ ldlm_cli_cancel_local+0x1ed/0xb30 [ptlrpc]
+ ldlm_cli_cancel+0x230/0x1090 [ptlrpc]
+ osc_ldlm_blocking_ast+0x7a9/0x10c0 [osc]
+ ldlm_handle_bl_callback+0x396/0xa00 [ptlrpc]
+ ldlm_bl_thread_main+0x109a/0x1c50 [ptlrpc]
+ kthread+0x127/0x150
+ ret_from_fork+0x1f/0x30
+Kernel Offset: disabled

@@ -1,0 +1,82 @@
+-----executor 0 collect shmids 2
+----- directly resend shmid 2
+-----executor 0 collect shmids 0
+----- directly resend shmid 0
+=================================================================
+==938==ERROR: AddressSanitizer: heap-use-after-free on address 0x617000000270 at pc 0x5555556c3cc4 bp 0x7fffffffd720 sp 0x7fffffffd710
+READ of size 8 at 0x617000000270 thread T0 (beegfs-mgmtd/Ma)
+    #0 0x5555556c3cc3 in Atomic<unsigned long>::read() const /root/beegfs-v7/packages/build/common/source/common/threading/Atomics.h:154
+    #1 0x5555556c3cc3 in App::signalHandler(int) /root/beegfs-v7/packages/build/mgmtd/source/app/App.cpp:913
+    #2 0x7ffff705b0bf  (/lib/x86_64-linux-gnu/libc.so.6+0x430bf)
+    #3 0x7ffff75ca23c in UnregisterGlobal ../../../../src/libsanitizer/asan/asan_globals.cc:226
+    #4 0x7ffff75ca23c in __asan_unregister_globals ../../../../src/libsanitizer/asan/asan_globals.cc:390
+    #5 0x7ffff75ca23c in __asan_unregister_globals ../../../../src/libsanitizer/asan/asan_globals.cc:381
+    #6 0x7ffff7fe0f5a  (/lib64/ld-linux-x86-64.so.2+0x11f5a)
+    #7 0x7ffff705e8d6  (/lib/x86_64-linux-gnu/libc.so.6+0x468d6)
+    #8 0x7ffff705ea8f in exit (/lib/x86_64-linux-gnu/libc.so.6+0x46a8f)
+    #9 0x7ffff703c0b9 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x240b9)
+    #10 0x5555556b382d in _start (/opt/beegfs/sbin/beegfs-mgmtd+0x15f82d)
+
+0x617000000270 is located 496 bytes inside of 760-byte region [0x617000000080,0x617000000378)
+freed by thread T0 (beegfs-mgmtd/Ma) here:
+    #0 0x7ffff76a3c65 in operator delete(void*, unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cc:177
+    #1 0x5555556af83c in Program::main(int, char**) /root/beegfs-v7/packages/build/mgmtd/source/program/Program.cpp:18
+
+previously allocated by thread T0 (beegfs-mgmtd/Ma) here:
+    #0 0x7ffff76a2587 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cc:104
+    #1 0x5555556af790 in Program::main(int, char**) /root/beegfs-v7/packages/build/mgmtd/source/program/Program.cpp:12
+
+SUMMARY: AddressSanitizer: heap-use-after-free /root/beegfs-v7/packages/build/common/source/common/threading/Atomics.h:154 in Atomic<unsigned long>::read() const
+Shadow bytes around the buggy address:
+  0x0c2e7fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c2e7fff8000: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c2e7fff8010: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c2e7fff8020: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c2e7fff8030: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0c2e7fff8040: fd fd fd fd fd fd fd fd fd fd fd fd fd fd[fd]fd
+  0x0c2e7fff8050: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c2e7fff8060: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fa
+  0x0c2e7fff8070: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c2e7fff8080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c2e7fff8090: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==938==ABORTING
+----- executor 3 write_call_output, size 262143, pid 481, write pid:-2130674324
+----- executor 3 executes write_coverage_signal cov->size 262143, flag collect 0
+execute_call 0, 697, 0, 0
+execute_one loop: 0, 0, 697
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0, execute_one inner time: 0, 736, 0
+execute_one time: 1, 736
+----- executor 3 signal number : 3
+----- completed 4
+execute_call 0, 697, 0, 5
+execute_one loop: 0, 0, 702
+cover_reset in execute_call
+----- executor 3 write_call_output, size 16, pid 481, write pid:-2130674324
+----- executor 3 executes write_coverage_signal cov->size 16, flag collect 0
+----- executor 3 signal number : 1
+----- completed 5
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call

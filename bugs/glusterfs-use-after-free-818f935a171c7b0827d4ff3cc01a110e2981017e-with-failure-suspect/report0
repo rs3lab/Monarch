@@ -1,0 +1,267 @@
+#0 [6122ms] -> syz_failure_up() 3790 /root
+Node-3:
+-----executor 0 collect shmids 93
+----- directly resend shmid 93
+=================================================================
+==382==ERROR: AddressSanitizer: heap-use-after-free on address 0x621000150c34 at pc 0x7fffef05a907 bp 0x7fffeed277e0 sp 0x7fffeed277d0
+READ of size 4 at 0x621000150c34 thread T8
+    #0 0x7fffef05a906 in dht_dir_common_set_remove_xattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5494
+    #1 0x7fffef06f3d9 in dht_setxattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5974
+    #2 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #3 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #4 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #5 0x7fffeeeb3f21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:777
+    #6 0x7fffeeeb3f21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:768
+    #7 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #8 0x7fffeee40023 in mdc_setxattr /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:2403
+    #9 0x7ffff74d0bf0 in default_setxattr_resume /root/glusterfs/libglusterfs/src/defaults.c:1745
+    #10 0x7ffff731cfb6 in call_resume_wind /root/glusterfs/libglusterfs/src/call-stub.c:2073
+    #11 0x7ffff734c8f4 in call_resume /root/glusterfs/libglusterfs/src/call-stub.c:2390
+    #12 0x7fffeee158bc in iot_worker /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:227
+    #13 0x7ffff71be608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #14 0x7ffff70e3102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+0x621000150c34 is located 1844 bytes inside of 4164-byte region [0x621000150500,0x621000151544)
+freed by thread T8 here:
+    #0 0x7ffff769a7cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #1 0x7ffff7354e19 in __gf_free /root/glusterfs/libglusterfs/src/mem-pool.c:383
+    #2 0x7fffeef70acd in dht_local_wipe /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:805
+    #3 0x7fffeef70acd in dht_local_wipe /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:713
+    #4 0x7fffeeff2070 in dht_err_cbk /root/glusterfs/xlators/cluster/dht/src/dht-common.c:3742
+    #5 0x7fffef1e86b1 in client4_0_setxattr_cbk /root/glusterfs/xlators/protocol/client/src/client-rpc-fops_v2.c:865
+    #6 0x7fffef1985ac in client_submit_request /root/glusterfs/xlators/protocol/client/src/client.c:288
+    #7 0x7fffef1cc175 in client4_0_setxattr /root/glusterfs/xlators/protocol/client/src/client-rpc-fops_v2.c:4171
+    #8 0x7fffef19657f in client_setxattr /root/glusterfs/xlators/protocol/client/src/client.c:1259
+    #9 0x7fffef058c5b in dht_dir_common_set_remove_xattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5488
+    #10 0x7fffef06f3d9 in dht_setxattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5974
+    #11 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #12 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #13 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #14 0x7fffeeeb3f21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:777
+    #15 0x7fffeeeb3f21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:768
+    #16 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #17 0x7fffeee40023 in mdc_setxattr /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:2403
+    #18 0x7ffff74d0bf0 in default_setxattr_resume /root/glusterfs/libglusterfs/src/defaults.c:1745
+    #19 0x7ffff731cfb6 in call_resume_wind /root/glusterfs/libglusterfs/src/call-stub.c:2073
+    #20 0x7ffff734c8f4 in call_resume /root/glusterfs/libglusterfs/src/call-stub.c:2390
+    #21 0x7fffeee158bc in iot_worker /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:227
+    #22 0x7ffff71be608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+previously allocated by thread T8 here:
+    #0 0x7ffff769adc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x7ffff7354226 in __gf_calloc /root/glusterfs/libglusterfs/src/mem-pool.c:177
+    #2 0x7fffeef7cb19 in dht_local_init /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:815
+    #3 0x7fffef06bc91 in dht_setxattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5796
+    #4 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #5 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #6 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #7 0x7fffeeeb3f21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:777
+    #8 0x7fffeeeb3f21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:768
+    #9 0x7ffff747ae59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #10 0x7fffeee40023 in mdc_setxattr /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:2403
+    #11 0x7ffff74d0bf0 in default_setxattr_resume /root/glusterfs/libglusterfs/src/defaults.c:1745
+    #12 0x7ffff731cfb6 in call_resume_wind /root/glusterfs/libglusterfs/src/call-stub.c:2073
+    #13 0x7ffff734c8f4 in call_resume /root/glusterfs/libglusterfs/src/call-stub.c:2390
+    #14 0x7fffeee158bc in iot_worker /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:227
+    #15 0x7ffff71be608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T8 created by T6 here:
+    #0 0x7ffff75c7805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72f7b97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730928d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7fffeee14ace in __iot_workers_scale /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:830
+    #4 0x7fffeee1cd62 in iot_workers_scale /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:853
+    #5 0x7fffeee1cd62 in init /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:1251
+    #6 0x7ffff72e4208 in __xlator_init /root/glusterfs/libglusterfs/src/xlator.c:610
+    #7 0x7ffff72e4208 in xlator_init /root/glusterfs/libglusterfs/src/xlator.c:635
+    #8 0x7ffff7377672 in glusterfs_graph_init /root/glusterfs/libglusterfs/src/graph.c:474
+    #9 0x7ffff737871b in glusterfs_graph_activate /root/glusterfs/libglusterfs/src/graph.c:823
+    #10 0x555555573a4e in glusterfs_process_volfp /root/glusterfs/glusterfsd/src/glusterfsd.c:2493
+    #11 0x555555584675 in mgmt_getspec_cbk /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:2444
+    #12 0x7ffff721efca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #13 0x7ffff721efca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #14 0x7ffff7218983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #15 0x7ffff033f5a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #16 0x7ffff034fb39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #17 0x7ffff034fb39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #18 0x7ffff034fb39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #19 0x7ffff034fb39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #20 0x7ffff73f96c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #21 0x7ffff73f96c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #22 0x7ffff71be608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T6 created by T0 here:
+    #0 0x7ffff75c7805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72f7b97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730928d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff73f7af2 in event_dispatch_epoll /root/glusterfs/libglusterfs/src/event-epoll.c:797
+    #4 0x7ffff7352f89 in gf_event_dispatch /root/glusterfs/libglusterfs/src/event.c:115
+    #5 0x7ffff7460b7f in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:431
+    #6 0x7ffff7460b7f in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #7 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #8 0x7ffff6fe80b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5494 in dht_dir_common_set_remove_xattr
+Shadow bytes around the buggy address:
+  0x0c4280022130: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280022140: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280022150: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280022160: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280022170: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0c4280022180: fd fd fd fd fd fd[fd]fd fd fd fd fd fd fd fd fd
+  0x0c4280022190: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800221a0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800221b0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800221c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c42800221d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==382==ABORTING
+-----executor 0 collect shmids 94
+----- directly resend shmid 94
+-----executor 0 collect shmids 95
+----- directly resend shmid 95
+-----executor 0 collect shmids 96
+----- directly resend shmid 96
+-----executor 0 collect shmids 97
+----- directly resend shmid 97
+-----executor 0 collect shmids 98
+----- directly resend shmid 98
+-----executor 0 collect shmids 99
+----- directly resend shmid 99
+-----executor 0 collect shmids 100
+----- directly resend shmid 100
+-----executor 0 collect shmids 101
+----- directly resend shmid 101
+-----executor 0 collect shmids 102
+----- directly resend shmid 102
+-----executor 0 collect shmids 103
+----- directly resend shmid 103
+-----executor 0 collect shmids 104
+----- directly resend shmid 104
+-----executor 0 collect shmids 105
+----- directly resend shmid 105
+-----executor 0 collect shmids 106
+----- directly resend shmid 106
+-----executor 0 collect shmids 107
+----- directly resend shmid 107
+-----executor 0 collect shmids 108
+----- directly resend shmid 108
+-----executor 0 collect shmids 109
+----- directly resend shmid 109
+-----executor 0 collect shmids 110
+----- directly resend shmid 110
+-----executor 0 collect shmids 111
+----- directly resend shmid 111
+-----executor 0 collect shmids 112
+----- directly resend shmid 112
+-----executor 0 collect shmids 113
+----- directly resend shmid 113
+-----executor 0 collect shmids 114
+----- directly resend shmid 114
+-----executor 0 collect shmids 115
+----- directly resend shmid 115
+-----executor 0 collect shmids 116
+----- directly resend shmid 116
+-----executor 0 collect shmids 117
+----- directly resend shmid 117
+2022/09/22 13:30:14 poll: candidates=0 inputs=0 signal=0
+#0 [12161ms] <- syz_failure_up=0x0 errno=14  /root
+execute_call 0, 6039, 0, 0
+execute_one loop: 0, 0, 6039
+#0 [12161ms] -> syz_failure_send(0x1) 3788 /root
+#0 [12161ms] <- syz_failure_send=0x0 errno=14  /root
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+execute_one inner time: 0, 6178, 0
+execute_one time: 1, 6178
+#0 [12168ms] <- syz_failure_sync=0x0 errno=14 cover=0  /root/glusterfs-client/dfs-0-2
+----- executor 3 write_call_output, size 0, pid 397, write pid:397
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 6
+execute_call 0, 6039, 0, 0
+execute_one loop: 0, 0, 6039
+#0 [12169ms] -> mkdir(0x20000040, 0x48) 2373 /root/glusterfs-client/dfs-0-2
+cover_reset in execute_call
+#0 [12169ms] <- mkdir=0xffffffffffffffff errno=107 cover=0  /root/glusterfs-client/dfs-0-2
+----- executor 3 write_call_output, size 0, pid 397, write pid:397
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 7
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+#0 [12169ms] -> syz_failure_sync(0x5, 0x3) 3789 /root/glusterfs-client/dfs-0-2
+cover_reset in execute_call
+#0 [12169ms] <- syz_failure_recv=0x0 errno=14  /root
+execute_call 0, 6056, 0, 0
+execute_one loop: 0, 0, 6056
+#0 [12169ms] -> syz_failure_up() 3790 /root
+-----executor 1 collect shmids 57
+----- directly resend shmid 57
+-----executor 1 collect shmids 58
+----- directly resend shmid 58
+-----executor 1 collect shmids 59
+----- directly resend shmid 59
+-----executor 1 collect shmids 60
+----- directly resend shmid 60
+-----executor 1 collect shmids 61
+----- directly resend shmid 61
+-----executor 1 collect shmids 62
+----- directly resend shmid 62
+-----executor 1 collect shmids 63
+----- directly resend shmid 63
+-----executor 1 collect shmids 64
+----- directly resend shmid 64
+-----executor 1 collect shmids 65
+----- directly resend shmid 65
+-----executor 1 collect shmids 66
+----- directly resend shmid 66
+-----executor 1 collect shmids 67
+----- directly resend shmid 67
+-----executor 1 collect shmids 68
+----- directly resend shmid 68
+-----executor 1 collect shmids 69
+----- directly resend shmid 69
+-----executor 1 collect shmids 70
+----- directly resend shmid 70
+-----executor 1 collect shmids 71
+----- directly resend shmid 71
+-----executor 1 collect shmids 72
+----- directly resend shmid 72
+-----executor 1 collect shmids 73
+----- directly resend shmid 73
+-----executor 1 collect shmids 74
+----- directly resend shmid 74
+-----executor 1 collect shmids 75
+----- directly resend shmid 75
+-----executor 1 collect shmids 76
+----- directly resend shmid 76
+-----executor 1 collect shmids 77
+----- directly resend shmid 77
+-----executor 1 collect shmids 78
+----- directly resend shmid 78
+-----executor 1 collect shmids 79
+----- directly resend shmid 79
+-----executor 1 collect shmids 80
+----- directly resend shmid 80
+-----executor 1 collect shmids 81
+----- directly resend shmid 81

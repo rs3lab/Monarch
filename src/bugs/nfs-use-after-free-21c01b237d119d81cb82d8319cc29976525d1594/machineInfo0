@@ -1,0 +1,34 @@
+QEMU emulator version 4.2.1 (Debian 1:4.2-3ubuntu6.21)
+qemu-system-x86_64 ["-m" "10240" "-smp" "4" "-chardev" "socket,id=SOCKSYZ,server=on,wait=off,host=localhost,port=61489" "-mon" "chardev=SOCKSYZ,mode=control" "-display" "none" "-serial" "stdio" "-no-reboot" "-name" "VM-0" "-device" "virtio-rng-pci" "-enable-kvm" "-cpu" "host,migratable=off" "-device" "e1000,netdev=net0" "-netdev" "user,id=net0,restrict=on,hostfwd=tcp:127.0.0.1:39290-:22" "-hda" "/home/tlyu/dfs-fuzzing/disk-images/nfs-images/stretch.qcow2" "-snapshot" "-kernel" "/home/tlyu/dfs-fuzzing/kernels/kernel-5.15/kernel-5.15-nfs/arch/x86_64/boot/bzImage" "-append" "root=/dev/sda console=ttyS0 net.ifnames=0"]
+
+[CPU Info]
+processor           : 0, 1, 2, 3
+vendor_id           : GenuineIntel
+cpu family          : 6
+model               : 106
+model name          : Intel(R) Xeon(R) Gold 6348 CPU @ 2.60GHz
+stepping            : 6
+microcode           : 0x1
+cpu MHz             : 2593.906
+cache size          : 16384 KB
+physical id         : 0, 1, 2, 3
+siblings            : 1
+core id             : 0
+cpu cores           : 1
+apicid              : 0, 1, 2, 3
+initial apicid      : 0, 1, 2, 3
+fpu                 : yes
+fpu_exception       : yes
+cpuid level         : 27
+wp                  : yes
+flags               : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves wbnoinvd arat avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid fsrm md_clear arch_capabilities
+vmx flags           : vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid shadow_vmcs pml
+bugs                : spectre_v1 spectre_v2 spec_store_bypass swapgs taa
+bogomips            : 5187.81
+clflush size        : 64
+cache_alignment     : 64
+address sizes       : 40 bits physical, 57 bits virtual
+power management    : 
+
+--------------------------------------------------------------------------------
+

@@ -1,0 +1,194 @@
+==================================================================
+BUG: KASAN: use-after-free in nfs_delegation_claim_locks fs/nfs/delegation.c:159 [inline]
+BUG: KASAN: use-after-free in nfs_delegation_claim_opens fs/nfs/delegation.c:208 [inline]
+BUG: KASAN: use-after-free in nfs_end_delegation_return+0x92f/0xa50 fs/nfs/delegation.c:547
+Read of size 8 at addr ffff888112c04350 by task syz-executor.0/22970
+
+CPU: 3 PID: 22970 Comm: syz-executor.0 Not tainted 5.15.0+ #20
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x34/0x44 lib/dump_stack.c:106
+ print_address_description.constprop.0+0x21/0x140 mm/kasan/report.c:256
+ __kasan_report mm/kasan/report.c:442 [inline]
+ kasan_report.cold+0x7f/0x11b mm/kasan/report.c:459
+ nfs_delegation_claim_locks fs/nfs/delegation.c:159 [inline]
+ nfs_delegation_claim_opens fs/nfs/delegation.c:208 [inline]
+ nfs_end_delegation_return+0x92f/0xa50 fs/nfs/delegation.c:547
+ nfs4_inode_return_delegation+0xc6/0x120 fs/nfs/delegation.c:762
+ nfs4_return_incompatible_delegation fs/nfs/nfs4proc.c:1881 [inline]
+ _nfs4_do_open fs/nfs/nfs4proc.c:3142 [inline]
+ nfs4_do_open+0x3b9/0x24a0 fs/nfs/nfs4proc.c:3245
+ nfs4_atomic_open+0x29e/0x310 fs/nfs/nfs4proc.c:3820
+ nfs4_file_open+0x3ac/0x770 fs/nfs/nfs4file.c:74
+ do_dentry_open+0x147/0x350 fs/open.c:822
+ do_open fs/namei.c:3428 [inline]
+ path_openat+0xb61/0x1010 fs/namei.c:3561
+ do_filp_open+0xad/0x120 fs/namei.c:3588
+ do_sys_openat2+0x241/0x320 fs/open.c:1200
+ do_sys_open+0x3f/0x80 fs/open.c:1216
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7fe9876ac6ed
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fe9867fcbf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007fe9877cb030 RCX: 00007fe9876ac6ed
+RDX: 0000000000000042 RSI: 0000000020000040 RDI: ffffffffffffff9c
+RBP: 00007fe987719190 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ffebfd7c5ef R14: 00007ffebfd7c790 R15: 00007fe9867fcd80
+
+Allocated by task 22969:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_set_track mm/kasan/common.c:46 [inline]
+ set_alloc_info mm/kasan/common.c:434 [inline]
+ __kasan_slab_alloc+0x61/0x80 mm/kasan/common.c:467
+ kasan_slab_alloc include/linux/kasan.h:254 [inline]
+ slab_post_alloc_hook mm/slab.h:519 [inline]
+ slab_alloc_node mm/slub.c:3213 [inline]
+ slab_alloc mm/slub.c:3221 [inline]
+ kmem_cache_alloc+0xbe/0x1e0 mm/slub.c:3226
+ kmem_cache_zalloc include/linux/slab.h:711 [inline]
+ locks_alloc_lock+0x13/0x80 fs/locks.c:346
+ posix_lock_inode+0x17f/0x7f0 fs/locks.c:1157
+ posix_lock_inode_wait fs/locks.c:1388 [inline]
+ locks_lock_inode_wait+0xb4/0x180 fs/locks.c:2096
+ _nfs4_proc_setlk fs/nfs/nfs4proc.c:7277 [inline]
+ nfs4_proc_setlk+0x355/0x470 fs/nfs/nfs4proc.c:7300
+ nfs4_retry_setlk fs/nfs/nfs4proc.c:7386 [inline]
+ nfs4_proc_lock+0x501/0x1270 fs/nfs/nfs4proc.c:7460
+ do_setlk+0x164/0x400 fs/nfs/file.c:771
+ nfs_lock+0x314/0x760 fs/nfs/file.c:826
+ do_lock_file_wait fs/locks.c:2349 [inline]
+ do_lock_file_wait+0x59/0xe0 fs/locks.c:2339
+ fcntl_setlk+0xc5/0x270 fs/locks.c:2427
+ do_fcntl+0x2da/0x610 fs/fcntl.c:379
+ __do_sys_fcntl fs/fcntl.c:472 [inline]
+ __se_sys_fcntl fs/fcntl.c:457 [inline]
+ __x64_sys_fcntl+0x7f/0xb0 fs/fcntl.c:457
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+Freed by task 19826:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_set_track+0x1c/0x30 mm/kasan/common.c:46
+ kasan_set_free_info+0x20/0x30 mm/kasan/generic.c:360
+ ____kasan_slab_free mm/kasan/common.c:366 [inline]
+ ____kasan_slab_free mm/kasan/common.c:328 [inline]
+ __kasan_slab_free+0xea/0x120 mm/kasan/common.c:374
+ kasan_slab_free include/linux/kasan.h:230 [inline]
+ slab_free_hook mm/slub.c:1700 [inline]
+ slab_free_freelist_hook mm/slub.c:1726 [inline]
+ slab_free mm/slub.c:3492 [inline]
+ kmem_cache_free+0x74/0x280 mm/slub.c:3508
+ locks_free_lock fs/locks.c:383 [inline]
+ locks_dispose_list+0x40/0x50 fs/locks.c:395
+ posix_lock_inode+0x13e/0x7f0 fs/locks.c:1349
+ posix_lock_inode_wait fs/locks.c:1388 [inline]
+ locks_lock_inode_wait+0xb4/0x180 fs/locks.c:2096
+ nfs4_lock_done+0x82a/0xab0 fs/nfs/nfs4proc.c:7060
+ rpc_exit_task+0x15b/0x490 net/sunrpc/sched.c:832
+ __rpc_execute+0x1e5/0xdc0 net/sunrpc/sched.c:901
+ rpc_async_schedule+0x9f/0x140 net/sunrpc/sched.c:987
+ process_one_work+0x1d3/0x380 kernel/workqueue.c:2297
+ worker_thread+0x45/0x3b0 kernel/workqueue.c:2444
+ kthread+0x11f/0x140 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+
+The buggy address belongs to the object at ffff888112c04348
+ which belongs to the cache file_lock_cache of size 216
+The buggy address is located 8 bytes inside of
+ 216-byte region [ffff888112c04348, ffff888112c04420)
+The buggy address belongs to the page:
+page:0000000031fcdf49 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x112c04
+head:0000000031fcdf49 order:1 compound_mapcount:0
+flags: 0x200000000010200(slab|head|node=0|zone=2)
+raw: 0200000000010200 ffffea000414bc80 0000000200000002 ffff888100182140
+raw: 0000000000000000 00000000801d001d 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff888112c04200: fc fc fc fc fc fc fa fb fb fb fb fb fb fb fb fb
+ ffff888112c04280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff888112c04300: fb fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb
+                                                 ^
+ ffff888112c04380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888112c04400: fb fb fb fb fc fc fc fc fc fc fc fc fa fb fb fb
+==================================================================
+general protection fault, probably for non-canonical address 0xf657fc16a00009bc: 0000 [#1] SMP KASAN NOPTI
+KASAN: maybe wild-memory-access in range [0xb2c000b500004de0-0xb2c000b500004de7]
+CPU: 3 PID: 22970 Comm: syz-executor.0 Tainted: G    B             5.15.0+ #20
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:nfs_delegation_claim_locks fs/nfs/delegation.c:160 [inline]
+RIP: 0010:nfs_delegation_claim_opens fs/nfs/delegation.c:208 [inline]
+RIP: 0010:nfs_end_delegation_return+0x69c/0xa50 fs/nfs/delegation.c:547
+Code: 3c 20 00 0f 85 af 02 00 00 48 8b 45 08 48 8d 68 f8 49 39 c5 0f 84 b4 00 00 00 e8 0f 45 cd ff 48 8d 7d 78 48 89 f8 48 c1 e8 03 <42> 80 3c 20 00 0f 85 79 02 00 00 48 8b 45 78 48 8d b8 c8 00 00 00
+RSP: 0018:ffff88810bd377a8 EFLAGS: 00010a02
+RAX: 16580016a00009bc RBX: ffff8881032b7d00 RCX: ffff88812a171700
+RDX: 0000000000000000 RSI: ffff88812a171700 RDI: b2c000b500004de2
+RBP: b2c000b500004d6a R08: ffffffff952502e1 R09: 65756420676e6967
+R10: 6f6c20676e696c62 R11: 6e696c6261736944 R12: dffffc0000000000
+R13: ffff88810a3c8388 R14: ffff88810a3c8370 R15: 0000000000000000
+FS:  00007fe9867fd700(0000) GS:ffff888265780000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fe9867b7f98 CR3: 0000000107912001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ nfs4_inode_return_delegation+0xc6/0x120 fs/nfs/delegation.c:762
+ nfs4_return_incompatible_delegation fs/nfs/nfs4proc.c:1881 [inline]
+ _nfs4_do_open fs/nfs/nfs4proc.c:3142 [inline]
+ nfs4_do_open+0x3b9/0x24a0 fs/nfs/nfs4proc.c:3245
+ nfs4_atomic_open+0x29e/0x310 fs/nfs/nfs4proc.c:3820
+ nfs4_file_open+0x3ac/0x770 fs/nfs/nfs4file.c:74
+ do_dentry_open+0x147/0x350 fs/open.c:822
+ do_open fs/namei.c:3428 [inline]
+ path_openat+0xb61/0x1010 fs/namei.c:3561
+ do_filp_open+0xad/0x120 fs/namei.c:3588
+ do_sys_openat2+0x241/0x320 fs/open.c:1200
+ do_sys_open+0x3f/0x80 fs/open.c:1216
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7fe9876ac6ed
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fe9867fcbf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007fe9877cb030 RCX: 00007fe9876ac6ed
+RDX: 0000000000000042 RSI: 0000000020000040 RDI: ffffffffffffff9c
+RBP: 00007fe987719190 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ffebfd7c5ef R14: 00007ffebfd7c790 R15: 00007fe9867fcd80
+Modules linked in:
+---[ end trace 1232f9eb2389d8f0 ]---
+RIP: 0010:nfs_delegation_claim_locks fs/nfs/delegation.c:160 [inline]
+RIP: 0010:nfs_delegation_claim_opens fs/nfs/delegation.c:208 [inline]
+RIP: 0010:nfs_end_delegation_return+0x69c/0xa50 fs/nfs/delegation.c:547
+Code: 3c 20 00 0f 85 af 02 00 00 48 8b 45 08 48 8d 68 f8 49 39 c5 0f 84 b4 00 00 00 e8 0f 45 cd ff 48 8d 7d 78 48 89 f8 48 c1 e8 03 <42> 80 3c 20 00 0f 85 79 02 00 00 48 8b 45 78 48 8d b8 c8 00 00 00
+RSP: 0018:ffff88810bd377a8 EFLAGS: 00010a02
+RAX: 16580016a00009bc RBX: ffff8881032b7d00 RCX: ffff88812a171700
+RDX: 0000000000000000 RSI: ffff88812a171700 RDI: b2c000b500004de2
+RBP: b2c000b500004d6a R08: ffffffff952502e1 R09: 65756420676e6967
+R10: 6f6c20676e696c62 R11: 6e696c6261736944 R12: dffffc0000000000
+R13: ffff88810a3c8388 R14: ffff88810a3c8370 R15: 0000000000000000
+FS:  00007fe9867fd700(0000) GS:ffff888265780000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fe9867b7f98 CR3: 0000000107912001 CR4: 0000000000770ee0
+PKRU: 55555554
+----------------
+Code disassembly (best guess):
+   0:	3c 20                	cmp    $0x20,%al
+   2:	00 0f                	add    %cl,(%rdi)
+   4:	85 af 02 00 00 48    	test   %ebp,0x48000002(%rdi)
+   a:	8b 45 08             	mov    0x8(%rbp),%eax
+   d:	48 8d 68 f8          	lea    -0x8(%rax),%rbp
+  11:	49 39 c5             	cmp    %rax,%r13
+  14:	0f 84 b4 00 00 00    	je     0xce
+  1a:	e8 0f 45 cd ff       	callq  0xffcd452e
+  1f:	48 8d 7d 78          	lea    0x78(%rbp),%rdi
+  23:	48 89 f8             	mov    %rdi,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
+  2f:	0f 85 79 02 00 00    	jne    0x2ae
+  35:	48 8b 45 78          	mov    0x78(%rbp),%rax
+  39:	48 8d b8 c8 00 00 00 	lea    0xc8(%rax),%rdi

@@ -1,0 +1,3 @@
+syz_reboot()
+syz_failure_down()
+syz_failure_up()

@@ -1,0 +1,13 @@
+bin/
+checker/symc3/*.pyc
+dimage-kernel/*
+fuzzing-dir/cov-org-fig.pdf
+fuzzing-dir/cov-regen-fig.pdf
+fuzzing-dir/nfs
+fuzzing-dir/eval
+fuzzing-dir/glusterfs
+fuzzing-dir/cephfs
+fuzzing-dir/lustre
+fuzzing-dir/orangefs
+fuzzing-dir/beegfs
+dimage-kernel-org

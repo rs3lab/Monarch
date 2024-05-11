@@ -1,0 +1,124 @@
+audit: type=1400 audit(1645043500.379:8): avc:  denied  { execmem } for  pid=420 comm="syz-executor" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=process permissive=1
+==================================================================
+BUG: KASAN: use-after-free in svc_tcp_listen_data_ready+0x132/0x140 net/sunrpc/svcsock.c:701
+Read of size 8 at addr ffff888114b58228 by task systemd-udevd/137
+
+CPU: 1 PID: 137 Comm: systemd-udevd Not tainted 5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x6e/0x91 lib/dump_stack.c:106
+ print_address_description.constprop.0+0x21/0x140 mm/kasan/report.c:256
+ __kasan_report mm/kasan/report.c:442 [inline]
+ kasan_report.cold+0x7f/0x11b mm/kasan/report.c:459
+ svc_tcp_listen_data_ready+0x132/0x140 net/sunrpc/svcsock.c:701
+ tcp_data_ready+0x105/0x380 net/ipv4/tcp_input.c:4970
+ tcp_data_queue+0x155f/0x4860 net/ipv4/tcp_input.c:5040
+ tcp_rcv_established+0x86c/0x1d70 net/ipv4/tcp_input.c:5928
+ tcp_v4_do_rcv+0x619/0x9b0 net/ipv4/tcp_ipv4.c:1713
+ tcp_v4_rcv+0x2c33/0x3720 net/ipv4/tcp_ipv4.c:2106
+ ip_protocol_deliver_rcu+0x6f/0x840 net/ipv4/ip_input.c:204
+ ip_local_deliver_finish+0x1bb/0x230 net/ipv4/ip_input.c:231
+ NF_HOOK include/linux/netfilter.h:307 [inline]
+ NF_HOOK include/linux/netfilter.h:301 [inline]
+ ip_local_deliver+0x207/0x320 net/ipv4/ip_input.c:252
+ dst_input include/net/dst.h:460 [inline]
+ ip_sublist_rcv_finish+0x16c/0x1f0 net/ipv4/ip_input.c:551
+ ip_list_rcv_finish net/ipv4/ip_input.c:601 [inline]
+ ip_sublist_rcv+0x398/0x580 net/ipv4/ip_input.c:609
+ ip_list_rcv+0x2ce/0x3c0 net/ipv4/ip_input.c:644
+ __netif_receive_skb_list_ptype net/core/dev.c:5486 [inline]
+ __netif_receive_skb_list_core+0x4ae/0x910 net/core/dev.c:5534
+ __netif_receive_skb_list net/core/dev.c:5586 [inline]
+ netif_receive_skb_list_internal+0x6ba/0xbc0 net/core/dev.c:5677
+ gro_normal_list.part.0+0x19/0xb0 net/core/dev.c:5831
+ gro_normal_list net/core/dev.c:5829 [inline]
+ napi_complete_done+0x1e6/0x610 net/core/dev.c:6569
+ virtqueue_napi_complete drivers/net/virtio_net.c:337 [inline]
+ virtnet_poll+0xcb0/0x11b0 drivers/net/virtio_net.c:1540
+ __napi_poll+0xb2/0x470 net/core/dev.c:6993
+ napi_poll net/core/dev.c:7060 [inline]
+ net_rx_action+0x800/0xaf0 net/core/dev.c:7147
+ __do_softirq+0x184/0x549 kernel/softirq.c:558
+ invoke_softirq kernel/softirq.c:432 [inline]
+ __irq_exit_rcu kernel/softirq.c:636 [inline]
+ irq_exit_rcu+0x95/0xc0 kernel/softirq.c:648
+ common_interrupt+0x40/0xa0 arch/x86/kernel/irq.c:240
+ asm_common_interrupt+0x1e/0x40 arch/x86/include/asm/idtentry.h:629
+RIP: 0033:0x5590ea2c6707
+Code: 0a 67 00 00 41 0f b6 f5 4c 89 f7 48 0f 45 c8 e8 0f f8 ff ff e9 22 ff ff ff e8 f5 fa fb ff 00 00 00 00 00 80 3d c1 82 02 00 00 <75> 51 41 54 48 8d 05 6e 65 02 00 55 49 89 fc 53 48 8d 2d fa 65 02
+RSP: 002b:00007fff8cbf6128 EFLAGS: 00000202
+RAX: 0000000000ee7509 RBX: 00005590eaef4a48 RCX: 00000000001dde23
+RDX: 00000000010c532c RSI: 00005590ea2d7d34 RDI: 00005590eaf9ac30
+RBP: 00005590eafb6ac0 R08: fec0fe0000000000 R09: 0000000000000008
+R10: 0000000000000000 R11: 0000000000000202 R12: 00005590eaef4a30
+R13: 00005590eaef4a30 R14: 0000000000000000 R15: 00005590eaef4a48
+
+Allocated by task 215:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_set_track mm/kasan/common.c:46 [inline]
+ set_alloc_info mm/kasan/common.c:434 [inline]
+ ____kasan_kmalloc mm/kasan/common.c:513 [inline]
+ __kasan_kmalloc+0x7c/0x90 mm/kasan/common.c:522
+ kmalloc include/linux/slab.h:591 [inline]
+ kzalloc include/linux/slab.h:721 [inline]
+ svc_setup_socket+0x55/0xd20 net/sunrpc/svcsock.c:1305
+ svc_addsock+0x283/0x6b0 net/sunrpc/svcsock.c:1398
+ __write_ports_addfd fs/nfsd/nfsctl.c:744 [inline]
+ __write_ports fs/nfsd/nfsctl.c:810 [inline]
+ write_ports+0x80a/0xa10 fs/nfsd/nfsctl.c:866
+ nfsctl_transaction_write+0xe9/0x150 fs/nfsd/nfsctl.c:112
+ vfs_write fs/read_write.c:592 [inline]
+ vfs_write+0x1f9/0x880 fs/read_write.c:574
+ ksys_write+0x121/0x240 fs/read_write.c:647
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+Freed by task 305:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_set_track+0x1c/0x30 mm/kasan/common.c:46
+ kasan_set_free_info+0x20/0x30 mm/kasan/generic.c:360
+ ____kasan_slab_free mm/kasan/common.c:366 [inline]
+ ____kasan_slab_free mm/kasan/common.c:328 [inline]
+ __kasan_slab_free+0xea/0x120 mm/kasan/common.c:374
+ kasan_slab_free include/linux/kasan.h:230 [inline]
+ slab_free_hook mm/slub.c:1700 [inline]
+ slab_free_freelist_hook mm/slub.c:1726 [inline]
+ slab_free mm/slub.c:3492 [inline]
+ kfree+0x8b/0x220 mm/slub.c:4552
+ svc_xprt_free+0x26e/0x400 net/sunrpc/svc_xprt.c:171
+ kref_put include/linux/kref.h:65 [inline]
+ svc_xprt_put net/sunrpc/svc_xprt.c:177 [inline]
+ svc_delete_xprt+0x583/0x760 net/sunrpc/svc_xprt.c:1060
+ svc_clean_up_xprts net/sunrpc/svc_xprt.c:1126 [inline]
+ svc_close_net+0x2f2/0x440 net/sunrpc/svc_xprt.c:1149
+ svc_shutdown_net+0x1a/0x90 net/sunrpc/svc.c:517
+ nfsd_destroy+0x12b/0x1b0 fs/nfsd/nfssvc.c:706
+ nfsd+0x37f/0x460 fs/nfsd/nfssvc.c:985
+ kthread+0x375/0x450 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+
+The buggy address belongs to the object at ffff888114b58000
+ which belongs to the cache kmalloc-4k of size 4096
+The buggy address is located 552 bytes inside of
+ 4096-byte region [ffff888114b58000, ffff888114b59000)
+The buggy address belongs to the page:
+page:000000001fdd4dc1 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x114b58
+head:000000001fdd4dc1 order:3 compound_mapcount:0 compound_pincount:0
+flags: 0x200000000010200(slab|head|node=0|zone=2)
+raw: 0200000000010200 0000000000000000 dead000000000122 ffff888100043040
+raw: 0000000000000000 0000000000040004 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff888114b58100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888114b58180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff888114b58200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                  ^
+ ffff888114b58280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888114b58300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+nfsd: last server has exited, flushing export cache
+NFSD: Using UMH upcall client tracking operations.
+NFSD: starting 90-second grace period (net f0000098)

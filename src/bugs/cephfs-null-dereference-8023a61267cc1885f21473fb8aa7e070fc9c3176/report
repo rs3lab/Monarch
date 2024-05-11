@@ -1,0 +1,108 @@
+The concurrency issue happens between fsync and other syscalls (e.g., unlink) on a directory.
+For example, when issuing an unlink syscall,  it creates a request structure ("req") using ceph_mdsc_create_request() (line 1 below) and adds the request to the operation list of the directory's inode in __register_request() (lines 4 and 5 below). At this time, the member "r_session" of "req" hasn't been initialized (it will be initialized in __do_request() (lines 6 and 7 below)).
+
+The call graph of corresponding functions:
+1:    ceph_mdsc_create_request
+2:       INIT_LIST_HEAD(&req->r_unsafe_dir_item);
+3:    ceph_mdsc_submit_request
+4:       __register_request
+5:               list_add_tail(&req->r_unsafe_dir_item, &ci->i_unsafe_dirops);
+6:       __do_request
+7:               req->r_session = ceph_get_mds_session(session);
+
+However, if another syscall fsync is called, it can retrieve that request from the list (line 1 below) and dereference "r_session" to get its member "s_mds" (lines 2 and 3 below), which leads to a null dereference bug and thus crashes in the kernel.
+
+The code trigger null pointer dereference:
+1:    list_for_each_entry(req, &ci->i_unsafe_dirops, r_unsafe_dir_item) {
+2:        s = req->r_session;
+3:        if (unlikely(s->s_mds >= max)) {
+4:            ...
+5:        }
+6:        ...
+7:    }
+
+Reproducing this bug:
+The reproducing requires strict concurrency between fsync and other syscalls. In order to simplify the reproducing steps, I add a sleep between __register_request() and __do_request() to enlarge the chance of triggering this bug (line 4 below).  The POC of this bug is attached.
+
+1:    int ceph_mdsc_submit_request(...) {
+2:        ...
+3:        __register_request(mdsc, req, dir);
+4:        msleep(10000);
+5:        __do_request(mdsc, req);
+6:        ...
+7:    }
+
+ASAN output:
+general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+CPU: 3 PID: 19481 Comm: syz-executor Not tainted 5.15.0+ #8
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:unsafe_request_wait fs/ceph/caps.c:2266 [inline]
+RIP: 0010:ceph_fsync+0x517/0x1440 fs/ceph/caps.c:2352
+Code: 48 8d bd 40 03 00 00 48 89 f8 48 c1 e8 03 80 3c 18 00 0f 85 95 0c 00 00 4c 8b bd 40 03 00 00 49 8d 7f 08 48 89 f8 48 c1 e8 03 <0f> b6 04 18 84 c0 74 08 3c 03 0f 8e 69 0c 00 00 4d 63 77 08 44 89
+RSP: 0018:ff1100010c627d68 EFLAGS: 00010202
+RAX: 0000000000000001 RBX: dffffc0000000000 RCX: 0000000000040000
+RDX: ffa0000000dc9000 RSI: ff1100010bad5a00 RDI: 0000000000000008
+RBP: ff11000110dc1aa0 R08: ffffffff81bb442d R09: 0000000000000000
+R10: 0000000000000005 R11: ffe21c00218c4f9e R12: ff11000100e017f8
+R13: 0000000000000001 R14: ff11000100e017f8 R15: 0000000000000000
+FS:  00007f72d4117700(0000) GS:ff11000265180000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f72d4113b88 CR3: 000000011632c002 CR4: 0000000000771ee0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+PKRU: 55555554
+Call Trace:
+ vfs_fsync_range+0x13a/0x230 fs/sync.c:200
+ vfs_fsync fs/sync.c:214 [inline]
+ do_fsync+0x4d/0x90 fs/sync.c:224
+ __do_sys_fsync fs/sync.c:232 [inline]
+ __se_sys_fsync fs/sync.c:230 [inline]
+ __x64_sys_fsync+0x2f/0x40 fs/sync.c:230
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f72d561585d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f72d41167d8 EFLAGS: 00000216 ORIG_RAX: 000000000000004a
+RAX: ffffffffffffffda RBX: 00007f72d566a09b RCX: 00007f72d561585d
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+RBP: 00007f72d4116810 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000216 R12: 00007fff3bc71e9e
+R13: 00007fff3bc71e9f R14: 00007fff3bc71f40 R15: 00007f72d4116d80
+Modules linked in:
+---[ end trace a934c4ee6cd061b1 ]---
+RIP: 0010:unsafe_request_wait fs/ceph/caps.c:2266 [inline]
+RIP: 0010:ceph_fsync+0x517/0x1440 fs/ceph/caps.c:2352
+Code: 48 8d bd 40 03 00 00 48 89 f8 48 c1 e8 03 80 3c 18 00 0f 85 95 0c 00 00 4c 8b bd 40 03 00 00 49 8d 7f 08 48 89 f8 48 c1 e8 03 <0f> b6 04 18 84 c0 74 08 3c 03 0f 8e 69 0c 00 00 4d 63 77 08 44 89
+RSP: 0018:ff1100010c627d68 EFLAGS: 00010202
+RAX: 0000000000000001 RBX: dffffc0000000000 RCX: 0000000000040000
+RDX: ffa0000000dc9000 RSI: ff1100010bad5a00 RDI: 0000000000000008
+RBP: ff11000110dc1aa0 R08: ffffffff81bb442d R09: 0000000000000000
+R10: 0000000000000005 R11: ffe21c00218c4f9e R12: ff11000100e017f8
+R13: 0000000000000001 R14: ff11000100e017f8 R15: 0000000000000000
+FS:  00007f72d4117700(0000) GS:ff11000265180000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f72d4113b88 CR3: 000000011632c002 CR4: 0000000000771ee0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+PKRU: 55555554
+----------------
+Code disassembly (best guess):
+   0:   48 8d bd 40 03 00 00     lea    0x340(%rbp),%rdi
+   7:   48 89 f8                 mov    %rdi,%rax
+   a:   48 c1 e8 03              shr    $0x3,%rax
+   e:   80 3c 18 00              cmpb   $0x0,(%rax,%rbx,1)
+  12:   0f 85 95 0c 00 00        jne    0xcad
+  18:   4c 8b bd 40 03 00 00     mov    0x340(%rbp),%r15
+  1f:   49 8d 7f 08              lea    0x8(%r15),%rdi
+  23:   48 89 f8                 mov    %rdi,%rax
+  26:   48 c1 e8 03              shr    $0x3,%rax
+* 2a:   0f b6 04 18              movzbl (%rax,%rbx,1),%eax <-- trapping instruction
+  2e:   84 c0                    test   %al,%al
+  30:   74 08                    je     0x3a
+  32:   3c 03                    cmp    $0x3,%al
+  34:   0f 8e 69 0c 00 00        jle    0xca3
+  3a:   4d 63 77 08              movslq 0x8(%r15),%r14
+  3e:   44                       rex.R
+  3f:   89                       .byte 0x89

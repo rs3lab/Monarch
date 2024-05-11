@@ -1,0 +1,76 @@
+remove dir: /root/orangefs-client/dfs-0-138
+[E 03/25/2023 03:17:24] PVFS2 server got signal 15 (server_status_flag: 2080767)
+[D 03/25/2023 03:17:24] PVFS2 Server version 2.9.7-orangefs-REV-65ab0d2 starting.
+Node-3:/root/daemon-log.363
+=================================================================
+==363==ERROR: AddressSanitizer: stack-buffer-underflow on address 0x7fffffffe250 at pc 0x7ffff75faa6d bp 0x7fffffff8920 sp 0x7fffffff80c8
+READ of size 5 at 0x7fffffffe250 thread T0
+    #0 0x7ffff75faa6c  (/lib/x86_64-linux-gnu/libasan.so.5+0x67a6c)
+    #1 0x555555796371 in PINT_encrypt_dirdata (/opt/orangefs/bin/pvfs2fuse+0x242371)
+    #2 0x5555556e8a55 in remove_rmdirent_setup_msgpair (/opt/orangefs/bin/pvfs2fuse+0x194a55)
+    #3 0x55555578989b in PINT_state_machine_invoke (/opt/orangefs/bin/pvfs2fuse+0x23589b)
+    #4 0x55555578a706 in PINT_state_machine_next (/opt/orangefs/bin/pvfs2fuse+0x236706)
+    #5 0x55555578a785 in PINT_state_machine_continue (/opt/orangefs/bin/pvfs2fuse+0x236785)
+    #6 0x555555679ad1 in PINT_client_state_machine_test (/opt/orangefs/bin/pvfs2fuse+0x125ad1)
+    #7 0x55555567aef5 in PINT_client_wait_internal (/opt/orangefs/bin/pvfs2fuse+0x126ef5)
+    #8 0x55555567b5c2 in PVFS_sys_wait (/opt/orangefs/bin/pvfs2fuse+0x1275c2)
+    #9 0x55555567e70e in PVFS_sys_getattr (/opt/orangefs/bin/pvfs2fuse+0x12a70e)
+    #10 0x555555665504 in pvfs_fuse_getattr_pfhp (/opt/orangefs/bin/pvfs2fuse+0x111504)
+    #11 0x5555556664f7 in pvfs_fuse_getattr (/opt/orangefs/bin/pvfs2fuse+0x1124f7)
+    #12 0x7ffff710b7a6 in fuse_fs_getattr (/lib/x86_64-linux-gnu/libfuse.so.2+0xd7a6)
+    #13 0x7ffff710ec5f in fuse_lib_getattr (/lib/x86_64-linux-gnu/libfuse.so.2+0x10c5f)
+    #14 0x7ffff71189a9 in do_getattr (/lib/x86_64-linux-gnu/libfuse.so.2+0x1a9a9)
+    #15 0x7ffff711c72e in fuse_ll_process_buf (/lib/x86_64-linux-gnu/libfuse.so.2+0x1e72e)
+    #16 0x7ffff711f155 in fuse_session_process_buf (/lib/x86_64-linux-gnu/libfuse.so.2+0x21155)
+    #17 0x7ffff7115702 in fuse_session_loop (/lib/x86_64-linux-gnu/libfuse.so.2+0x17702)
+    #18 0x7ffff7113e30 in fuse_loop (/lib/x86_64-linux-gnu/libfuse.so.2+0x15e30)
+    #19 0x7ffff7121bdf in fuse_main_common (/lib/x86_64-linux-gnu/libfuse.so.2+0x23bdf)
+    #20 0x7ffff7121c5f in fuse_main_real (/lib/x86_64-linux-gnu/libfuse.so.2+0x23c5f)
+    #21 0x55555566bc4f in pvfs_fuse_main (/opt/orangefs/bin/pvfs2fuse+0x117c4f)
+    #22 0x55555566cdb0 in main (/opt/orangefs/bin/pvfs2fuse+0x118db0)
+    #23 0x7ffff6f280b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+    #24 0x555555664c8d in _start (/opt/orangefs/bin/pvfs2fuse+0x110c8d)
+
+Address 0x7fffffffe250 is located in stack of thread T0 at offset 0 in frame
+    #0 0x5555556663e0 in pvfs_fuse_getattr (/opt/orangefs/bin/pvfs2fuse+0x1123e0)
+
+  This frame has 1 object(s):
+    [48, 128) 'pfh' (line 301)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-underflow (/lib/x86_64-linux-gnu/libasan.so.5+0x67a6c) 
+Shadow bytes around the buggy address:
+  0x10007fff7bf0: 00 00 00 00 00 00 00 00 00 00 f1 f1 f1 f1 f1 f1
+  0x10007fff7c00: 04 f2 00 f3 f3 f3 00 00 00 00 00 00 00 00 00 00
+  0x10007fff7c10: 00 00 00 00 00 00 00 00 00 00 f1 f1 f1 f1 f1 f1
+  0x10007fff7c20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007fff7c30: 00 f3 f3 f3 f3 f3 f3 f3 f3 f3 00 00 00 00 00 00
+=>0x10007fff7c40: 00 00 00 00 00 00 00 00 00 00[f1]f1 f1 f1 f1 f1
+  0x10007fff7c50: 00 00 00 00 00 00 00 00 00 00 f3 f3 f3 f3 00 00
+  0x10007fff7c60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007fff7c70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007fff7c80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007fff7c90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==363==ABORTING
+opendir(/root/orangefs-client/dfs-0-138) failedremove dir time 2011
+-----finish removing dir

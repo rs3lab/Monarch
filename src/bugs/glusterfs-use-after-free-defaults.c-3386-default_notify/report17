@@ -1,0 +1,173 @@
+#0 [857368ms] <- syz_failure_recv=0x0 errno=14  /root
+execute_call 0, 160, 0, 0
+execute_one loop: 0, 0, 160
+#0 [857381ms] -> syz_failure_up() 3792 /root
+=================================================================
+==415==ERROR: AddressSanitizer: heap-use-after-free on address 0x62100018e034 at pc 0x7fffef061907 bp 0x7fffeed2e7e0 sp 0x7fffeed2e7d0
+READ of size 4 at 0x62100018e034 thread T8
+    #0 0x7fffef061906 in dht_dir_common_set_remove_xattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5494
+    #1 0x7fffef0763d9 in dht_setxattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5974
+    #2 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #3 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #4 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #5 0x7fffeeebaf21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:777
+    #6 0x7fffeeebaf21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:768
+    #7 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #8 0x7fffeee47023 in mdc_setxattr /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:2403
+    #9 0x7ffff74d7bf0 in default_setxattr_resume /root/glusterfs/libglusterfs/src/defaults.c:1745
+    #10 0x7ffff7323fb6 in call_resume_wind /root/glusterfs/libglusterfs/src/call-stub.c:2073
+    #11 0x7ffff73538f4 in call_resume /root/glusterfs/libglusterfs/src/call-stub.c:2390
+    #12 0x7fffeee1c8bc in iot_worker /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:227
+    #13 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #14 0x7ffff70ea102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+0x62100018e034 is located 1844 bytes inside of 4164-byte region [0x62100018d900,0x62100018e944)
+freed by thread T8 here:
+    #0 0x7ffff76a07cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #1 0x7ffff735be19 in __gf_free /root/glusterfs/libglusterfs/src/mem-pool.c:383
+    #2 0x7fffeef77acd in dht_local_wipe /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:805
+    #3 0x7fffeef77acd in dht_local_wipe /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:713
+    #4 0x7fffeeff9070 in dht_err_cbk /root/glusterfs/xlators/cluster/dht/src/dht-common.c:3742
+    #5 0x7fffef1ef6b1 in client4_0_setxattr_cbk /root/glusterfs/xlators/protocol/client/src/client-rpc-fops_v2.c:865
+    #6 0x7fffef19f5ac in client_submit_request /root/glusterfs/xlators/protocol/client/src/client.c:288
+    #7 0x7fffef1d3175 in client4_0_setxattr /root/glusterfs/xlators/protocol/client/src/client-rpc-fops_v2.c:4171
+    #8 0x7fffef19d57f in client_setxattr /root/glusterfs/xlators/protocol/client/src/client.c:1259
+    #9 0x7fffef05fc5b in dht_dir_common_set_remove_xattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5488
+    #10 0x7fffef0763d9 in dht_setxattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5974
+    #11 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #12 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #13 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #14 0x7fffeeebaf21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:777
+    #15 0x7fffeeebaf21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:768
+    #16 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #17 0x7fffeee47023 in mdc_setxattr /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:2403
+    #18 0x7ffff74d7bf0 in default_setxattr_resume /root/glusterfs/libglusterfs/src/defaults.c:1745
+    #19 0x7ffff7323fb6 in call_resume_wind /root/glusterfs/libglusterfs/src/call-stub.c:2073
+    #20 0x7ffff73538f4 in call_resume /root/glusterfs/libglusterfs/src/call-stub.c:2390
+    #21 0x7fffeee1c8bc in iot_worker /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:227
+    #22 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+previously allocated by thread T8 here:
+    #0 0x7ffff76a0dc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x7ffff735b226 in __gf_calloc /root/glusterfs/libglusterfs/src/mem-pool.c:177
+    #2 0x7fffeef83b19 in dht_local_init /root/glusterfs/xlators/cluster/dht/src/dht-helper.c:815
+    #3 0x7fffef072c91 in dht_setxattr /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5796
+    #4 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #5 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #6 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #7 0x7fffeeebaf21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:777
+    #8 0x7fffeeebaf21 in ob_setxattr /root/glusterfs/xlators/performance/open-behind/src/open-behind.c:768
+    #9 0x7ffff7481e59 in default_setxattr /root/glusterfs/libglusterfs/src/defaults.c:2443
+    #10 0x7fffeee47023 in mdc_setxattr /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:2403
+    #11 0x7ffff74d7bf0 in default_setxattr_resume /root/glusterfs/libglusterfs/src/defaults.c:1745
+    #12 0x7ffff7323fb6 in call_resume_wind /root/glusterfs/libglusterfs/src/call-stub.c:2073
+    #13 0x7ffff73538f4 in call_resume /root/glusterfs/libglusterfs/src/call-stub.c:2390
+    #14 0x7fffeee1c8bc in iot_worker /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:227
+    #15 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T8 created by T7 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72feb97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff731028d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7fffeee1bace in __iot_workers_scale /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:830
+    #4 0x7fffeee23d62 in iot_workers_scale /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:853
+    #5 0x7fffeee23d62 in init /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:1251
+    #6 0x7ffff72eb208 in __xlator_init /root/glusterfs/libglusterfs/src/xlator.c:610
+    #7 0x7ffff72eb208 in xlator_init /root/glusterfs/libglusterfs/src/xlator.c:635
+    #8 0x7ffff737e672 in glusterfs_graph_init /root/glusterfs/libglusterfs/src/graph.c:474
+    #9 0x7ffff737f71b in glusterfs_graph_activate /root/glusterfs/libglusterfs/src/graph.c:823
+    #10 0x555555573a4e in glusterfs_process_volfp /root/glusterfs/glusterfsd/src/glusterfsd.c:2493
+    #11 0x555555584675 in mgmt_getspec_cbk /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:2444
+    #12 0x7ffff7225fca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #13 0x7ffff7225fca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #14 0x7ffff721f983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #15 0x7ffff03465a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #16 0x7ffff0356b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #17 0x7ffff0356b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #18 0x7ffff0356b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #19 0x7ffff0356b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #20 0x7ffff74006c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #21 0x7ffff74006c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #22 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T7 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72feb97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff731028d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff73feaf2 in event_dispatch_epoll /root/glusterfs/libglusterfs/src/event-epoll.c:797
+    #4 0x7ffff7359f89 in gf_event_dispatch /root/glusterfs/libglusterfs/src/event.c:115
+    #5 0x7ffff7467b7f in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:431
+    #6 0x7ffff7467b7f in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #7 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #8 0x7ffff6fef0b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /root/glusterfs/xlators/cluster/dht/src/dht-common.c:5494 in dht_dir_common_set_remove_xattr
+Shadow bytes around the buggy address:
+  0x0c4280029bb0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280029bc0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280029bd0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280029be0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280029bf0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0c4280029c00: fd fd fd fd fd fd[fd]fd fd fd fd fd fd fd fd fd
+  0x0c4280029c10: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280029c20: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280029c30: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280029c40: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c4280029c50: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==415==ABORTING
+==1761==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+#0 [863005ms] <- syz_failure_recv=0x0 errno=14  /root
+execute_call 0, 5711, 0, 0
+execute_one loop: 0, 0, 5711
+#0 [863036ms] <- syz_failure_sync=0x0 errno=14 cover=0  /root/glusterfs-client/dfs-0-80
+----- executor 3 write_call_output, size 0, pid 541, write pid:541
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 9
+execute_call 0, 5686, 0, 0
+execute_one loop: 0, 0, 5686
+#0 [863037ms] -> pwrite64(0x27, 0x200000c0, 0x68, 0x1) 2749 /root/glusterfs-client/dfs-0-80
+cover_reset in execute_call
+#0 [863037ms] <- pwrite64=0xffffffffffffffff errno=9 cover=0  /root/glusterfs-client/dfs-0-80
+----- executor 3 write_call_output, size 0, pid 541, write pid:541
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 10
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+#0 [863038ms] -> syz_failure_sync(0x3, 0x3) 3791 /root/glusterfs-client/dfs-0-80
+cover_reset in execute_call
+executor 3 waits for recv msg
+#0 [863008ms] -> syz_failure_up() 3792 /root
+#0 [863052ms] <- syz_failure_up=0x0 errno=14  /root
+execute_call 0, 5670, 0, 0
+execute_one loop: 0, 0, 5670
+#0 [863052ms] -> syz_failure_send(0x1) 3790 /root
+#0 [863053ms] <- syz_failure_send=0x0 errno=14  /root
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0, execute_one inner time: 0, 6071, 0
+execute_one time: 8, 6071
+Node-0:/root/daemon-log.4928
+2023/03/05 12:59:34 poll: candidates=0 inputs=0 signal=0
+==4928==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!

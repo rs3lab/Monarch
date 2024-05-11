@@ -1,0 +1,3 @@
+syz_net_down_sleep_up(usec intptr[1:1000])
+syz_failure_net_down(cmd ptr[in, filename])
+syz_failure_net_up()

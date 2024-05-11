@@ -1,0 +1,2169 @@
+2023/03/31 02:41:34 ------- fuzzer executor 2 receive 1856 signal and 2625 cover from userspace component
+2023/03/31 02:41:34 ------- fuzzer executor 2 receive 1263 signal and 2215 cover from userspace component
+2023/03/31 02:41:34 fsMds: [map[] map[] map[] map[]]
+=================================================================
+==15109==ERROR: AddressSanitizer: heap-use-after-free on address 0x6210000245c8 at pc 0x7ffff735af05 bp 0x7fffeff6d7c0 sp 0x7fffeff6d7b0
+READ of size 8 at 0x6210000245c8 thread T6
+    #0 0x7ffff735af04 in gf_mem_acct_enabled /root/glusterfs/libglusterfs/src/mem-pool.c:158
+    #1 0x7ffff735af04 in __gf_free /root/glusterfs/libglusterfs/src/mem-pool.c:342
+    #2 0x7ffff722467f in rpc_clnt_destroy /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:1777
+    #3 0x7ffff722467f in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:875
+    #4 0x7ffff721e5d7 in rpc_transport_unref /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:502
+    #5 0x7ffff00605bc in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2831
+    #6 0x7ffff00605bc in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #7 0x7ffff73ff6c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #8 0x7ffff73ff6c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #9 0x7ffff71c4608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #10 0x7ffff70e9102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+0x6210000245c8 is located 200 bytes inside of 4124-byte region [0x621000024500,0x62100002551c)
+freed by thread T8 here:
+    #0 0x7ffff76a07cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #1 0x7ffff735ae19 in __gf_free /root/glusterfs/libglusterfs/src/mem-pool.c:383
+    #2 0x7ffff72e7f0f in xlator_tree_free_memacct /root/glusterfs/libglusterfs/src/xlator.c:904
+    #3 0x7ffff737f554 in glusterfs_graph_destroy_residual /root/glusterfs/libglusterfs/src/graph.c:1193
+    #4 0x7ffff737f68e in glusterfs_graph_destroy /root/glusterfs/libglusterfs/src/graph.c:1234
+    #5 0x7ffff73804d0 in glusterfs_graph_cleanup /root/glusterfs/libglusterfs/src/graph.c:1460
+    #6 0x7ffff71c4608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+previously allocated by thread T6 here:
+    #0 0x7ffff76a0dc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x7ffff735a226 in __gf_calloc /root/glusterfs/libglusterfs/src/mem-pool.c:177
+    #2 0x7ffff747ab7c in new_volume graph.y:139
+    #3 0x7ffff747ab7c in graphyyparse graph.y:52
+    #4 0x7ffff747c011 in glusterfs_graph_construct graph.y:595
+    #5 0x7ffff7382c2d in glusterfs_process_svc_attach_volfp /root/glusterfs/libglusterfs/src/graph.c:1744
+    #6 0x55555557478a in mgmt_process_volfile /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:112
+    #7 0x555555584f47 in mgmt_getspec_cbk /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:2350
+    #8 0x7ffff7224fca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #9 0x7ffff7224fca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #10 0x7ffff721e983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #11 0x7ffff00525a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #12 0x7ffff0062b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #13 0x7ffff0062b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #14 0x7ffff0062b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #15 0x7ffff0062b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #16 0x7ffff73ff6c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #17 0x7ffff73ff6c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #18 0x7ffff71c4608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T6 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72fdb97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730f28d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff73fdaf2 in event_dispatch_epoll /root/glusterfs/libglusterfs/src/event-epoll.c:797
+    #4 0x7ffff7358f89 in gf_event_dispatch /root/glusterfs/libglusterfs/src/event.c:115
+    #5 0x7ffff7466b7f in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:431
+    #6 0x7ffff7466b7f in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #7 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #8 0x7ffff6fee0b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+Thread T8 created by T6 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72fdb97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730f4f2 in gf_thread_create_detached /root/glusterfs/libglusterfs/src/common-utils.c:3308
+    #3 0x7ffff73836af in glusterfs_process_svc_attach_volfp /root/glusterfs/libglusterfs/src/graph.c:1840
+    #4 0x55555557478a in mgmt_process_volfile /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:112
+    #5 0x555555584f47 in mgmt_getspec_cbk /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:2350
+    #6 0x7ffff7224fca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #7 0x7ffff7224fca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #8 0x7ffff721e983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #9 0x7ffff00525a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #10 0x7ffff0062b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #11 0x7ffff0062b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #12 0x7ffff0062b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #13 0x7ffff0062b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #14 0x7ffff73ff6c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #15 0x7ffff73ff6c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #16 0x7ffff71c4608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+SUMMARY: AddressSanitizer: heap-use-after-free /root/glusterfs/libglusterfs/src/mem-pool.c:158 in gf_mem_acct_enabled
+Shadow bytes around the buggy address:
+  0x0c427fffc860: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fffc870: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fffc880: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fffc890: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fffc8a0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0c427fffc8b0: fd fd fd fd fd fd fd fd fd[fd]fd fd fd fd fd fd
+  0x0c427fffc8c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c427fffc8d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c427fffc8e0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c427fffc8f0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c427fffc900: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==15109==ABORTING
+2023/03/31 02:41:34 disable threaded and collide
+2023/03/31 02:41:34 prog length: 6
+2023/03/31 02:41:34 prog length: 19
+2023/03/31 02:41:34 HasCrashFail:true HasNetFail:false
+02:41:34 ---executing program 0:
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+---
+---
+mkdir(&(0x7f0000000040)='./file0\x00', 0x0)
+write$binfmt_script(0xffffffffffffffff, &(0x7f0000001380)={'#! ', './file0', [{0x20, '@]\\'}], 0xa, "2a89fc7aedc552937961c779278dce4d42c2deebfd0b1a8728bafc9c0216944f8370a2c40658b5ee92fc442f9a338193717b9d368d86413be610bd93886245a383bcae6d8656f82153b62cc67ca903d7d34eb888c09579264ff5cfb1549da2fae586ed0f4374a28cc48ddf35e5e6ae463a490efe333c53947a8426a24fd77ee40255db5137d0c4dbd88a8d1d0a5bee0fc87b933b53ff88afa277ed2ef30045e8929a28f14402cd9acec96add125bb7a7f53f14fe8d34b0f89707cd8d401c4eff1913a11cc6a88fe89c0265171025bdd465ee47229e"}, 0xe4)
+r0 = openat(0xffffffffffffff9c, &(0x7f0000001340)='./file0\x00', 0x311080, 0x1a5)
+r1 = open(&(0x7f0000000240)='./file0\x00', 0x208840, 0x19d)
+symlinkat(&(0x7f0000000200)='./file0\x00', r1, &(0x7f0000000280)='./file0\x00')
+listxattr(&(0x7f0000000140)='./file0\x00', &(0x7f0000000080)=""/144, 0x90)
+syz_failure_sync(0x0, 0x3)
+mkdir(&(0x7f0000001600)='./file0\x00', 0x0)
+mkdir(&(0x7f0000001540)='./file0\x00', 0x100)
+pwrite64(r1, &(0x7f00000002c0)="c2e6c9a28a5419a64397a4b135b3f2f5cc742518625e6d224dfb99bb97f588d90a8fbc38613a02a29f275f3a10e2dc43f9dd1d8cb52b9d2fb1144ba5f2eb02d1089b9ddbd58c061eca1f92d8d228e658805be14496800a97cd51d5de414e732cafb1d34aa7cbc86408cf9c3e31c8cf82f10327aa1946a6e1ce7e2816464909f3b6af59ffaac63b6b76912e216eb462aa58a86f4013e9818243c5c53b97423c56a55702376feccc2887e25274197bf4f4899434dc6f7b38df74f32dcdaabb268476543ddd18e45cda07d0282506539801a126eb439b0a9c4ba092d5bdc5cfac37521afdebcecb1b15209aaec372448dcf16ab5f32ac0726297200651dfa70be682395d7696a2be237337684227ce57a3eedc706a3814c55eda93de77f3a9ed079c8e4ec0aac4c7df9d860372fb70a0216c22945a31efafb75328f34b4fb18a9d557e6b559b0d06254fb2ccdf9fcb3946eef0c5512d6430a30efc29ee480fc6c0a05a73ec02bf278745fb24af2c4a3e2939bdc5faab81d1b5dcb9ef55350036134f727929e2e1ca098eb3aac0e2e5d9ac94df169265d69a0b0643f2f759b84c5bd7b1a995a8247f596447ac686715274cddabe59194726d8c09603bf71c580e98ec48a1636325c022428861596b3bed470ad21fb798f0bbf64a8f355eec53351d6bfe567d2400c7be88266fa6f708e83d2e45b34b9f5018dda7fe6819d0642bd0bd41c76e67ad903393b382a7b6da26c9e8c47218243f51ea3a57d113ac5b995272f622727d971b860cc5da0a5481f742228e89d40690536a8aa97810007b5f5cccb0c01a066ebf0768e17ed428563363104530800a84dfa22137debcca397c75655b9aee067efe94ec89373d49773f2387f2bbfa01e9914c570f86ee1e84d7cec235815c1e5bac0ba842ad806352d465a1115b448c9cc4b52ad37df9ff9302ea364ebcc3eb364876ad0f717019e81dc46195c5e30da8ddfc3e7195907d5e47f247ead0900e5108be1903242f1399502db91eb342f7dd93ed0a3509d5bdfbdb28a200721a640ca7736f5d615c4a227ddaa7e2e257bbcc28fbead47a192b2ade5282ae793a3a6c22915bdd15a9a19fa36479f08f8e661b2b9782c6906d5379427e2f2c92539669fd02674cea2188e5dba374d1aa5c33175bd58f3a21a6574f556c63d25d46c0c851b5743595af34595850c772b3eaea78c146376f434e7b344cb5ac6dcbd722b8b842d99979f68b21ed6b51d5c5c2f2cbcdd928baf12ae7367edba1d6b356ced9b92ed26a82826eceb633f1668fc33bbe030f249b8dfd31edf029e40c76e65182c20477f7a31dc528e9f1eafb9fda281bd95762c6edb98fe0a8ce2ee571c892352023e76310c1eabb8781b00dd58c11e006d567f858693f49bc9fa032489634c1d712a0a4f5eccb97a86007c892d7f0fe07adb75244cb14868e558c41888a8c3b158d33974ce12e5267ac0e78301dbca7e82bf197c43201a0289fad1b53f2b4263d7e1fe41ffb9940b05d504ee43b4452603781acabc684be0347a1cb5ede6cfad5d3fbeee118bf4f7c83b2271dfc96d9a609a3dc4f7603603a05928ed11b987abc54f9ca170a1891fe258a1e85e0068492f2aabaad1652147450517448335a1e41caaef2c545bcee78a16a3bbac9f7223443d84a8a82fdbe1b72f4c1709621fac57bf0936fb6436551006f249c716b2124f33c46b47d5741ae4f4d75d9a64926b0b5d0aa043720cf0420b0daef83b2238187236e413f46b28a59b73159e3d7cdebbf181578cbbc03bf5db0fb76d532f98701e62e9ee58fce81debeb48c8e1e3974b4ad28d26ea3325afffb423496335a2753fec937ca4f7644bf86df184e6eb555f12f25b6e7cb51dde1be606e5bc0480337a319c9ddf77479625dc2595837fbc5cf94f2f8e5f8f288ab3a84230aaa85f6b0b876080c438da20f223b615858b96af1d6c985f105b6c4a406221d3726b4123f2b9a277a735b002d522c622c5a0386fa3f84ec360c3db7f9320bd07b5aa5f3d104c0a91c95125aec73b7727b8248d7b8796df9beec561ee2e5a8bc5b0ef330fceb33e1eaea901afd7e3afbcf2a23740e8cb64d3faf44acf0150338dc62170fe970d1c4eb7dafaab6077421be6d7b5253f1a5f0bffdfcf68bb0470495a1eadd104aa612baa9ac2d936a37d1d858050dfef9993c640e69c06cca5e9eb4a9e790e78b9ae2624f4bf079d57d1ac6cb537e0eb70f9b1275c70804bd6c5b3a2e758acde9878ee63187f17e13f6f6932da75ab3ec98f68575afe4712af0aa4a564fa98d21e9be0d7c775814ecb31eaf35c0132a57f557366ebb39a08762491df040e56c89aafb87913e4671bf6a24c16d642222234b85c0bb33a8606c4657b67eba3b0896db4b60e40f8569b490ea4d763089efcfe5e9586c01960d0391b4194528527b94c8d40d2f165ba161c6b444d5bb483ab6f24e0a7ce8c5950bf42b0243cd161ec939ccaf4413a50e746d4692fab3e1aeec362771d9e65104f1b24e18d0a1bf2a9e7c38fe6e196feb5d30dd26807756cda3ba5c661ffabc9cb7f6a94cf98cf84a45ae1693a5aca91dd2a3f4d7eb6aad61818fd20321537cb154b4f0dcfa5ceaa17d083ed1d50010bf46175032f81a2492e362434af9e0d5a2799adc398ca4a940d28b7e8653f77ea325b78eb883caf446b60448613fc7775367215941f95d1401f38fbfa6acb36ac08f9fa0b7c3563214923082c6e97f1004d21dc5e50970abd54bed198d3524a60622c59e9fa24489dffb8fc134637caabfedd79b84d36ce14255c7f22cd61e10b84864fa0cd2b02a29351ab9d9c3e3ba61d37f0deb08f7fa73c4ee6cc1558d1617c17e207505dab745a3a56fd8ed0c0cd70a54e8a138ee84e66f8552bc8424c2d4bc643dd061b85a3888983b25448cfc5584099bec19c164320195a546f63ae82ad7b3b5d3607d8b84f082edb5d842acce111b8056feeb442e43567b4fb2cc19843576736e585ca0ec576db83ccedb8bd1064abd021dd52a7f38f61cfcf727843fea5b63244e9a93a2ea0eef8ce0145448f1b46c389014b27fe1986697bd30314cc071f824a5775bcb118ea2356db4b8282cead9df2d4e242b9c1126b44edafd340bd8b0e39c6424886e42729f2d2995d106cd1ff4df4bd1abb9b99d3dbbcb8197730c86c144e6974937bd0e50d81fbe982a8172ea4db82ca3c430925b081a6579cbf8407b4f2b1a1dbf5aaf28050dfd826e1934af2f40d34e20ef1653d86265c167f4926ed1c2de54cc58ddcece1a31d666607d8308b433eef16c955a3ba02e5e1c485e71a761fc2b344f90223fbbdff42ef2b5f990768c44becd3221d97d51112b67ae7b0ad09a20546ac8453603c10b46739f440007774f58906c26463ec6d901d3613d796492de39956c3ce7a3c43c3683a86cb136d4d950f0928539992226fce69c57934d86440fb3ab87fb39f18601c15ee2719018d8c3505087358e73fe4f8d1dd1f951e1079def5c1095248d66ced8123d8845b50713ecc8c686abcccb989575a3cfd39287b0021adcf5231ee8b8cc5e802e58e88ad8f763bb0442d04e37db4946408fccbee446f78bca281f479791ed59ebfb00660ad8e7e45cab1410480ca8d6e3a920dedde22379c0731253a9037975dbc305342cce75b3dcded27a4b607d404322ed7909bb46693df60201dd2a23576991d5c109a100f5bf45d391724f67cbc457cc2ffa2e961f3dd6546b661408e7699fb709a5b7175c69f8e88d7f7444010c5a400fd783b5b0a342944ae2adbf8b0eeda69463deec5277dfde9bffec6718da3cbbd56c3ea67ad7d65743427d4d8b32d76bd99a8af36e5414be370c752fa74f127c70468b8d2f62c15f7a38fc8f2ba723c12a0dbadc5348296467c2220c50d82be89f05f379b8eadae4ce8ff4ce15b87253742016a9c81d367fdf6aa0e0f3f78a240a098b3cc16fbc7b0d2911aa768464bb68d01b0b3656c75c1b20487579be10836ea87d68050df28c2aed67f18822b554ea987b1fef45521a85603fd4be5c630c4cf12b1f5dc39b76fd0bce5acb086fc6a1a9ac065e73a36fddfa1d95728283bf952ba8d90603acc831baa6ee971ca7a5ed1f10726e71a3a7cc500872eaaa37f483527375d576abdf4eedecf75cb53049417c7cdde150c1a0a093311f66fcfb08ead403f11c1e57d3fd9eb5e6079f66817a929e607fe828f782aae0f8586bdcf7c03452c02972152ff4aaabc92fbec651c500a2a1d35e299a615daa3a089039f1facf69f7b3f70c559afb6a9ebd97ad05399fa888b3420d01e1b52c5c61634eb65337dbaea4f20ebc8190b99352941052f75a6a02624fd3baba8a46e3a3c8757c49483c2ba05ae42e1ae332860dbf7317975b6133eea0dabe14b0630bb15bc54d04eca3480502543ad341bebff31744ede53454d623a0a3d9bec845049b4ac52ebaf89127d07682eaf77fd777716d82e9ba6e038d25b117bd103e638dd2303d8683cf329a32e1840750cfc97e4eadbf6c1151c83752b449161aaf6b3d3a7f92b942fcb2d61be762c38dcab69878f8c2cc129be4f9a051e1f9464cf671aa6f5b868b9938ad9e563c946d96b3d851f812d6ad775bbf3a225a929f78feacd589fed63948b6534515e2748d0f1d2538e646de65d9abcc6f93c5985577627368ea4372616836136099a950445ef2a79f38cf1850de2b39f2b9a035c906b060d27500809972d7897523af5de3a719728ac7899f8a04148f63c9bf5bf04cff935e29a8122d8ad51a1ec995994e198e78c433af397d1b967b653b8233a58432a2b77d4b4ef760711645e01ba102c072bb9900062dfec5f3c78e97c2ae0b4fe5413591f0f18227d6189b184d429a782feba09795181efedf21df950c0967809487daa1b9fc5d4c61260aee2b4611d90a2635aa464452ff030159bf4740cdab60391b0ca867f7cb64fafd4d1a13a3fd3b9d8e520548a59c0b971f41fdf8e46619ae8289eca62920fd3125d601a9808c604b6215c34042b626a7b416c69307be2e741233ef31b279dab7dac767c3270b5d7a12cf7bce14ffd8b60b99813c0b35475b136c308f4ca3ae54ac17e9a4e064dfe01f98d6d5813c14aae79ece00ab9de11212c4c9846ef3fbd886702f5a575aebad2b0b2ed1a1d613886c2bcb774e6a65ffec02fa026148ca4b6d63f813c45f178546d7c032995172d366299ac63b59a426740e8c5f762af1942272c5ed914dc5e300a8b9884cf36bb4c965d65202fd83e14765e49a04c246e43423cfdf5b163087af2f9faf30b22294c6aec7da1e66ed95710ac8f13ce416d387ecaa4eb09512d1a6ade652d5fb489abc150a2a52177b0dcdbbe88907d8264e88a3495ec8bde4584c31f60df7f1584fe57efc1c58fbb9aacb04cf163d059c328f16da446dce46a76ce4f001cd97637b19ccb0be002d8d07d96e55f7574dad670c482dfec2cf0d99433632ee06a852e886f6ba791def11a56a1e7f002e479f59c0da034b1fb8c319f859933f6e0ab06b6c4c0874c1b9de44977e7d8049e7f97412057c1fd64111f538ab1b4ae09c72bcf51da9b11a84cffa0a575859b570eae80705778e7d44cc3efe0dae06538aba655de1ceb63a80d1141ca8bad713220d7a7e5f0f147b81764814e6af51b59b3dac1fb65765638dc8f7f4ea6e970fa1d86874e24fda9a911276a57728b7b730bb957b5a8ab58e95e64873979f688aac03e3b2f957a4a281f32ba552d3f787e709f5d394bca0df5d35cf0a063e535a6927632e10c51df55311ef45014912053006e5f1c657a7efc", 0x1000, 0xffffffffffffc065)
+lsetxattr$trusted_overlay_nlink(&(0x7f0000001480)='./file0\x00', &(0x7f00000014c0), &(0x7f0000001500)={'U-', 0xffe}, 0x16, 0x1)
+fcntl$lock(r0, 0x26, &(0x7f0000001300)={0x2, 0x2, 0xc6, 0x1, 0xffffffffffffffff})
+setxattr$security_selinux(&(0x7f0000000180)='./file0\x00', &(0x7f00000001c0), &(0x7f00000012c0)='system_u:object_r:systemd_systemctl_exec_t:s0\x00', 0x2e, 0x2)
+syz_failure_sync(0x1, 0x3)
+removexattr(&(0x7f0000000000)='./file0\x00', &(0x7f0000001800)=ANY=[@ANYBLOB="8b29b32d41f3f702f23f134033c9280129cd50da33177452dac2551693a658e3dab8ec4e092ace995da1bd2765516131c6e66def3b7820cfa5f5b8a6ca9d65e4ee171525b0ef9109a7fd6ab1017ca2bc48b130fcfc51d07f882853e821fa88b21c69ee2b8c4ee1660dd5988bb6a9277833a8189fcd8c37407c70fe4d4ee99a56f057cfdee01f5fad374d2e892ea0e02c6061c139ec29c15183cf2afae0f8000000000000000000000000f6a0a93e03d899a3d2b92044652c6ff5b94574110416778257f57d0a394d079478fcf0e01e15b3120900000000000000f786f3896f70017babacf8cddf20ddfff6ac57a9ccbd444a6aacc7f1259bc9e90d6ba0d7649d9bd0c3cdbc8c9d8e4b094751d67282ed278d37a8c4409ae25dfe07da5a433282a299d1e22cfd6f772acd468959fac04330e6960ef3c58adc6fc187e882130dbb264077aeae48118d7958087d9bf4d30b510dde047dd7700b47f41eeeb9b49ef95ddaf85022c932856f6083eb0007c984d70000000000000000000000004c4d6c2e5ab41c30e64268e464876ed8852d97ba47ff72a091fb5b925c0c55f2f63a5838c8b3d235b16f73d4486b825cee458641db5801549c277fa889e99400b399af5b0000000000"])
+setxattr$security_evm(&(0x7f00000015c0)='./file0\x00', &(0x7f0000001780), &(0x7f00000017c0)=ANY=[@ANYBLOB="0180a1ef11ba77a2421b5afeb0"], 0xd, 0x2)
+chmod(&(0x7f0000001580)='./file0\x00', 0x101)
+r2 = dup(r1)
+ftruncate(r2, 0xfffffffffffffffc)
+---
+
+end of program
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 8
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1576, prog_size 8056
+remove dir: /root/glusterfs-client/dfs-0-1447
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1312, prog_size 248
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1560, prog_size 8
+remove dir time 54
+-----finish removing dir
+mkdir time 22
+executor 3 create dir /root/glusterfs-client/dfs-0-1448 successfully
+current dir: executor 3: /root/glusterfs-client/dfs-0-1448
+receive_execute: 66, 75
+receive_execute: 50, 76
+receive_execute: 42, 75
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 2, execute_one inner time: 0, 0, 0
+execute_one time: 3, 0
+receive_execute: 111, 80
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1, execute_one inner time: 1, 0, 0
+execute_one time: 7, 1
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+Node-0:/root/daemon-log.15110
+==15110==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+----- executor 3 write_call_output, size 8995, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 8995, flag collect 1
+----- executor 3 cover number : 1276, signal number : 1589
+----- completed 1
+execute_call 0, 24, 0, 9
+execute_one loop: 0, 1, 34
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 2
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 925, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 925, flag collect 1
+----- executor 3 cover number : 427, signal number : 282
+----- completed 3
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 4
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 8508, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 8508, flag collect 1
+----- executor 3 cover number : 1139, signal number : 130
+----- completed 5
+execute_call 0, 20, 0, 5
+execute_one loop: 0, 0, 25
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1649, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 1649, flag collect 1
+----- executor 3 cover number : 630, signal number : 194
+----- completed 6
+execute_call 0, 2, 0, 1
+execute_one loop: 0, 0, 3
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 74, 0, 0
+execute_one loop: 0, 0, 74
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 2783, flag collect 1
+----- executor 0 cover number : 417, signal number : 498
+----- executor 0 executes write_coverage_signal cov->size 70, flag collect 1
+----- executor 0 cover number : 57, signal number : 26
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 1973, signal number : 2363
+----- executor 0 executes write_coverage_signal cov->size 5775, flag collect 1
+----- executor 0 cover number : 530, signal number : 439
+----- executor 0 executes write_coverage_signal cov->size 168, flag collect 1
+----- executor 0 cover number : 126, signal number : 59
+----- executor 0 executes write_coverage_signal cov->size 10, flag collect 1
+----- executor 0 cover number : 9, signal number : 9
+executor 0 server cover_cnt 6 output_pos_value 6525
+/root/glusterfs-node-down.sh: 1: kill: No such process
+
+-----executor 0 collect shmids 1
+----- directly resend shmid 1
+-----executor 0 collect shmids 3
+----- directly resend shmid 3
+execute_call 0, 100, 0, 0
+execute_one loop: 0, 0, 100
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 7
+execute_call 0, 100, 0, 0
+execute_one loop: 0, 0, 100
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1234, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 1234, flag collect 1
+----- executor 3 cover number : 515, signal number : 164
+----- completed 8
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1234, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 1234, flag collect 1
+----- executor 3 cover number : 515, signal number : 0
+----- completed 9
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 10
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+-----executor 0 collect shmids 44
+----- directly resend shmid 44
+-----executor 0 collect shmids 45
+----- directly resend shmid 45
+-----executor 0 collect shmids 46
+----- directly resend shmid 46
+-----executor 0 collect shmids 47
+----- directly resend shmid 47
+----- executor 3 write_call_output, size 2776, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 2776, flag collect 1
+-----executor 0 collect shmids 48
+----- directly resend shmid 48
+----- executor 3 cover number : 830, signal number : 327
+----- completed 11
+execute_call 0, 11, 0, 1
+execute_one loop: 0, 0, 12
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 12
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 183, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 183, flag collect 1
+----- executor 3 cover number : 128, signal number : 15
+----- completed 13
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 14, 0, 0
+execute_one loop: 0, 0, 14
+-----executor 0 collect shmids 49
+----- directly resend shmid 49
+-----executor 0 collect shmids 50
+----- directly resend shmid 50
+-----executor 0 collect shmids 51
+----- directly resend shmid 51
+-----executor 0 collect shmids 52
+----- directly resend shmid 52
+-----executor 0 collect shmids 7
+----- directly resend shmid 7
+-----executor 0 collect shmids 8
+----- directly resend shmid 8
+-----executor 0 collect shmids 9
+----- directly resend shmid 9
+-----executor 0 collect shmids 10
+----- directly resend shmid 10
+-----executor 0 collect shmids 11
+----- directly resend shmid 11
+-----executor 0 collect shmids 12
+----- directly resend shmid 12
+-----executor 0 collect shmids 13
+----- directly resend shmid 13
+-----executor 0 collect shmids 14
+----- directly resend shmid 14
+-----executor 0 collect shmids 15
+----- directly resend shmid 15
+-----executor 0 collect shmids 16
+----- directly resend shmid 16
+-----executor 0 collect shmids 17
+----- directly resend shmid 17
+-----executor 0 collect shmids 18
+----- directly resend shmid 18
+-----executor 0 collect shmids 19
+----- directly resend shmid 19
+-----executor 0 collect shmids 20
+----- directly resend shmid 20
+-----executor 0 collect shmids 21
+----- directly resend shmid 21
+-----executor 0 collect shmids 22
+----- directly resend shmid 22
+-----executor 0 collect shmids 23
+----- directly resend shmid 23
+-----executor 0 collect shmids 24
+----- directly resend shmid 24
+-----executor 0 collect shmids 25
+----- directly resend shmid 25
+-----executor 0 collect shmids 26
+----- directly resend shmid 26
+-----executor 0 collect shmids 27
+----- directly resend shmid 27
+-----executor 0 collect shmids 28
+----- directly resend shmid 28
+-----executor 0 collect shmids 29
+----- directly resend shmid 29
+-----executor 0 collect shmids 30
+----- directly resend shmid 30
+-----executor 0 collect shmids 31
+----- directly resend shmid 31
+execute_call 0, 2953, 0, 0
+execute_one loop: 0, 0, 2953
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0, execute_one inner time: 0, 3141, 0
+execute_one time: 1, 3141
+----- executor 3 write_call_output, size 0, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 14
+execute_call 0, 2953, 0, 0
+execute_one loop: 0, 0, 2953
+cover_reset in execute_call
+----- executor 3 write_call_output, size 12625, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 12625, flag collect 1
+----- executor 3 cover number : 1320, signal number : 427
+----- completed 15
+execute_call 0, 28, 0, 3
+execute_one loop: 0, 0, 31
+cover_reset in execute_call
+----- executor 3 write_call_output, size 2756, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 2756, flag collect 1
+----- executor 3 cover number : 818, signal number : 15
+----- completed 16
+execute_call 0, 13, 0, 2
+execute_one loop: 0, 0, 15
+cover_reset in execute_call
+----- executor 3 write_call_output, size 2535, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 2535, flag collect 1
+----- executor 3 cover number : 749, signal number : 148
+----- completed 17
+execute_call 0, 7, 0, 2
+execute_one loop: 0, 0, 9
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 18
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2949, write pid:2949
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 19
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+executor 3, execute_one inner time: 0, 3189, 0
+execute_one time: 3, 3191
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 1379, flag collect 1
+2023/03/31 02:41:37 for select break: 1
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 5418, flag collect 1
+2023/03/31 02:41:37 --------- executor 3 receive reply, reply.done 1
+----- executor 1 cover number : 289, signal number : 332
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 501, signal number : 39
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 1298, flag collect 1
+----- executor 2 cover number : 279, signal number : 316
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+time breakdown 3: 191, 3198, 0
+before receive testcase: 0 1
+----- executor 1 cover number : 516, signal number : 591
+----- executor 1 executes write_coverage_signal cov->size 3, flag collect 1
+----- executor 1 cover number : 3, signal number : 3
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 1 cover number : 3, signal number : 4
+----- executor 0 cover number : 126, signal number : 22
+----- executor 0 executes write_coverage_signal cov->size 14, flag collect 1
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 9, signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 2, flag collect 1
+----- executor 0 cover number : 2, signal number : 2
+----- executor 2 cover number : 539, signal number : 617
+----- executor 2 executes write_coverage_signal cov->size 6, flag collect 1
+----- executor 2 cover number : 3, signal number : 3
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 2 cover number : 3, signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 executes write_coverage_signal cov->size 10, flag collect 1
+----- executor 0 cover number : 4, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 913, flag collect 1
+----- executor 0 cover number : 387, signal number : 229
+----- executor 0 executes write_coverage_signal cov->size 2998, flag collect 1
+----- executor 0 cover number : 520, signal number : 341
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 285, flag collect 1
+----- executor 0 cover number : 160, signal number : 23
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 218, flag collect 1
+----- executor 0 cover number : 109, signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 1 cover number : 2163, signal number : 2578
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 1 cover number : 3, signal number : 0
+----- executor 1 executes write_coverage_signal cov->size 29749, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 2 cover number : 2200, signal number : 2627
+----- executor 2 executes write_coverage_signal cov->size 12, flag collect 1
+----- executor 2 cover number : 3, signal number : 4
+----- executor 2 executes write_coverage_signal cov->size 28385, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 8, flag collect 1
+----- executor 0 cover number : 6, signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 576, signal number : 741
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 576, signal number : 384
+----- executor 1 executes write_coverage_signal cov->size 25740, flag collect 1
+----- executor 1 cover number : 2052, signal number : 2552
+----- executor 1 executes write_coverage_signal cov->size 798, flag collect 1
+Node-0:/root/daemon-log.15172
+----- executor 1 cover number : 270, signal number : 142
+----- executor 1 executes write_coverage_signal cov->size 3, flag collect 1
+----- executor 1 cover number : 3, signal number : 1
+----- executor 1 executes write_coverage_signal cov->size 1724, flag collect 1
+----- executor 1 cover number : 555, signal number : 215
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 1 cover number : 3, signal number : 1
+----- executor 1 executes write_coverage_signal cov->size 2203, flag collect 1
+----- executor 2 cover number : 2670, signal number : 3757
+----- executor 2 executes write_coverage_signal cov->size 17, flag collect 1
+----- executor 2 cover number : 17, signal number : 16
+----- executor 2 executes write_coverage_signal cov->size 793, flag collect 1
+----- executor 2 cover number : 270, signal number : 159
+----- executor 2 executes write_coverage_signal cov->size 3, flag collect 1
+----- executor 2 cover number : 3, signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 1421, flag collect 1
+----- executor 1 cover number : 596, signal number : 209
+----- executor 1 executes write_coverage_signal cov->size 3273, flag collect 1
+----- executor 2 cover number : 526, signal number : 314
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 2 cover number : 3, signal number : 1
+----- executor 2 executes write_coverage_signal cov->size 4064, flag collect 1
+----- executor 1 cover number : 906, signal number : 317
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 930, signal number : 654
+----- executor 2 executes write_coverage_signal cov->size 1412, flag collect 1
+----- executor 2 cover number : 540, signal number : 88
+----- executor 2 executes write_coverage_signal cov->size 3, flag collect 1
+----- executor 2 cover number : 3, signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 3, flag collect 1
+----- executor 2 cover number : 3, signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 1819, signal number : 952
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 1349, signal number : 1774
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 1244, signal number : 1804
+----- executor 2 executes write_coverage_signal cov->size 30840, flag collect 1
+----- executor 0 cover number : 1973, signal number : 2776
+----- executor 0 executes write_coverage_signal cov->size 5775, flag collect 1
+----- executor 2 cover number : 1305, signal number : 1159
+----- executor 2 executes write_coverage_signal cov->size 31378, flag collect 1
+----- executor 0 cover number : 530, signal number : 238
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 142, signal number : 54
+----- executor 0 executes write_coverage_signal cov->size 17, flag collect 1
+----- executor 0 cover number : 10, signal number : 8
+----- executor 0 executes write_coverage_signal cov->size 1104, flag collect 1
+----- executor 0 cover number : 498, signal number : 210
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 4, flag collect 1
+----- executor 0 cover number : 4, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 1838, flag collect 1
+----- executor 0 cover number : 615, signal number : 176
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 2173, signal number : 1947
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 894, signal number : 607
+executor 0 server cover_cnt 50 output_pos_value 22905
+----- executor 1 cover number : 2254, signal number : 1674
+----- executor 1 executes write_coverage_signal cov->size 30059, flag collect 1
+----- executor 2 cover number : 2604, signal number : 1764
+----- executor 2 executes write_coverage_signal cov->size 31267, flag collect 1
+2023/03/31 02:41:37 for select break: 1
+2023/03/31 02:41:37 --------- executor 0 receive reply, reply.done 1
+time breakdown 0: 118, 3254, 0
+----- executor 1 cover number : 2451, signal number : 1570
+----- executor 1 executes write_coverage_signal cov->size 6, flag collect 1
+----- executor 1 cover number : 3, signal number : 3
+executor 1 server cover_cnt 19 output_pos_value 30523
+----- executor 2 cover number : 2223, signal number : 1301
+executor 2 server cover_cnt 21 output_pos_value 31337
+before receive testcase: 0 0
+2023/03/31 02:41:37 for select break: 1
+2023/03/31 02:41:37 --------- executor 1 receive reply, reply.done 1
+time breakdown 1: 126, 3261, 0
+before receive testcase: 0 0
+2023/03/31 02:41:37 for select break: 1
+2023/03/31 02:41:37 --------- executor 2 receive reply, reply.done 1
+2023/03/31 02:41:37 wg wait finish
+2023/03/31 02:41:37 ------ all executors finish execution
+2023/03/31 02:41:37 exec time: 3337
+2023/03/31 02:41:37 ----- PS len: 4
+2023/03/31 02:41:37 [SERVER] executor 0 has 50 replies
+2023/03/31 02:41:37 [SERVER] executor 2 has 21 replies
+time breakdown 2: 141, 3262, 0
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 498 signal and 417 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 26 signal and 57 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 2363 signal and 1973 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 439 signal and 530 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 59 signal and 126 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 9 signal and 9 cover from userspace component
+2023/03/31 02:41:37 [SERVER] executor 1 has 19 replies
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 39 signal and 501 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 22 signal and 126 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 2 signal and 9 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 332 signal and 289 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 591 signal and 516 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 316 signal and 279 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 3 signal and 3 cover from userspace component
+2023/03/31 02:41:37 [CLIENT] executor 3 has 19 replies
+2023/03/31 02:41:37 fuzzer receive 1589 signal and 1276 cover from executor 3
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 617 signal and 539 cover from userspace component
+2023/03/31 02:41:37 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 3 signal and 3 cover from userspace component
+2023/03/31 02:41:37 fuzzer receive 282 signal and 427 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 130 signal and 1139 cover from executor 3
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 2 signal and 2 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 1 signal and 5 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 5 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 5 signal and 4 cover from userspace component
+2023/03/31 02:41:37 fuzzer receive 194 signal and 630 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 2627 signal and 2200 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:37 fuzzer receive 164 signal and 515 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 0 signal and 515 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 327 signal and 830 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 15 signal and 128 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 427 signal and 1320 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 15 signal and 818 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 148 signal and 749 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:37 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 229 signal and 387 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 341 signal and 520 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 1 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 23 signal and 160 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 2 signal and 109 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 4 signal and 6 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 952 signal and 1819 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 2776 signal and 1973 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 238 signal and 530 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 54 signal and 142 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 8 signal and 10 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 210 signal and 498 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 1 signal and 5 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 5 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 0 signal and 4 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 176 signal and 615 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 0 receive 607 signal and 894 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 2578 signal and 2163 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 0 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 384 signal and 576 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 2552 signal and 2052 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 142 signal and 270 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 1 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 215 signal and 555 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 1 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 209 signal and 596 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 317 signal and 906 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 1774 signal and 1349 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 741 signal and 576 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 1947 signal and 2173 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 1674 signal and 2254 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 1570 signal and 2451 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 1 receive 3 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 3757 signal and 2670 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 16 signal and 17 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 159 signal and 270 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 0 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 314 signal and 526 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 1 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 654 signal and 930 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 88 signal and 540 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 0 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 0 signal and 3 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 1804 signal and 1244 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 1159 signal and 1305 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 1764 signal and 2604 cover from userspace component
+2023/03/31 02:41:37 ------- fuzzer executor 2 receive 1301 signal and 2223 cover from userspace component
+before receive testcase: 0 0
+2023/03/31 02:41:37 fsMds: [map[] map[] map[] map[]]
+2023/03/31 02:41:37 failure smash: true false
+2023/03/31 02:41:37 HasCrashFail: true, .HasNetFail: false
+2023/03/31 02:41:37 disable threaded and collide
+2023/03/31 02:41:37 prog length: 6
+2023/03/31 02:41:37 send to channel: true, false
+2023/03/31 02:41:37 prog length: 19
+2023/03/31 02:41:37 HasCrashFail:true HasNetFail:false
+02:41:37 ---executing program 0:
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+---
+---
+mkdir(&(0x7f0000000040)='./file0\x00', 0x0)
+write$binfmt_script(0xffffffffffffffff, &(0x7f0000001380)={'#! ', './file0', [{0x20, '@]\\'}], 0xa, "2a89fc7aedc552937961c779278dce4d42c2deebfd0b1a8728bafc9c0216944f8370a2c40658b5ee92fc442f9a338193717b9d368d86413be610bd93886245a383bcae6d8656f82153b62cc67ca903d7d34eb888c09579264ff5cfb1549da2fae586ed0f4374a28cc48ddf35e5e6ae463a490efe333c53947a8426a24fd77ee40255db5137d0c4dbd88a8d1d0a5bee0fc87b933b53ff88afa277ed2ef30045e8929a28f14402cd9acec96add125bb7a7f53f14fe8d34b0f89707cd8d401c4eff1913a11cc6a88fe89c0265171025bdd465ee47229e"}, 0xe4)
+r0 = openat(0xffffffffffffff9c, &(0x7f0000001340)='./file0\x00', 0x311080, 0x1a5)
+r1 = open(&(0x7f0000000240)='./file0\x00', 0x208840, 0x19d)
+symlinkat(&(0x7f0000000200)='./file0\x00', r1, &(0x7f0000000280)='./file0\x00')
+listxattr(&(0x7f0000000140)='./file0\x00', &(0x7f0000000080)=""/144, 0x90)
+syz_failure_sync(0x0, 0x3)
+mkdir(&(0x7f0000001600)='./file0\x00', 0x0)
+mkdir(&(0x7f0000001540)='./file0\x00', 0x100)
+pwrite64(r1, &(0x7f00000002c0)="c2e6c9a28a5419a64397a4b135b3f2f5cc742518625e6d224dfb99bb97f588d90a8fbc38613a02a29f275f3a10e2dc43f9dd1d8cb52b9d2fb1144ba5f2eb02d1089b9ddbd58c061eca1f92d8d228e658805be14496800a97cd51d5de414e732cafb1d34aa7cbc86408cf9c3e31c8cf82f10327aa1946a6e1ce7e2816464909f3b6af59ffaac63b6b76912e216eb462aa58a86f4013e9818243c5c53b97423c56a55702376feccc2887e25274197bf4f4899434dc6f7b38df74f32dcdaabb268476543ddd18e45cda07d0282506539801a126eb439b0a9c4ba092d5bdc5cfac37521afdebcecb1b15209aaec372448dcf16ab5f32ac0726297200651dfa70be682395d7696a2be237337684227ce57a3eedc706a3814c55eda93de77f3a9ed079c8e4ec0aac4c7df9d860372fb70a0216c22945a31efafb75328f34b4fb18a9d557e6b559b0d06254fb2ccdf9fcb3946eef0c5512d6430a30efc29ee480fc6c0a05a73ec02bf278745fb24af2c4a3e2939bdc5faab81d1b5dcb9ef55350036134f727929e2e1ca098eb3aac0e2e5d9ac94df169265d69a0b0643f2f759b84c5bd7b1a995a8247f596447ac686715274cddabe59194726d8c09603bf71c580e98ec48a1636325c022428861596b3bed470ad21fb798f0bbf64a8f355eec53351d6bfe567d2400c7be88266fa6f708e83d2e45b34b9f5018dda7fe6819d0642bd0bd41c76e67ad903393b382a7b6da26c9e8c47218243f51ea3a57d113ac5b995272f622727d971b860cc5da0a5481f742228e89d40690536a8aa97810007b5f5cccb0c01a066ebf0768e17ed428563363104530800a84dfa22137debcca397c75655b9aee067efe94ec89373d49773f2387f2bbfa01e9914c570f86ee1e84d7cec235815c1e5bac0ba842ad806352d465a1115b448c9cc4b52ad37df9ff9302ea364ebcc3eb364876ad0f717019e81dc46195c5e30da8ddfc3e7195907d5e47f247ead0900e5108be1903242f1399502db91eb342f7dd93ed0a3509d5bdfbdb28a200721a640ca7736f5d615c4a227ddaa7e2e257bbcc28fbead47a192b2ade5282ae793a3a6c22915bdd15a9a19fa36479f08f8e661b2b9782c6906d5379427e2f2c92539669fd02674cea2188e5dba374d1aa5c33175bd58f3a21a6574f556c63d25d46c0c851b5743595af34595850c772b3eaea78c146376f434e7b344cb5ac6dcbd722b8b842d99979f68b21ed6b51d5c5c2f2cbcdd928baf12ae7367edba1d6b356ced9b92ed26a82826eceb633f1668fc33bbe030f249b8dfd31edf029e40c76e65182c20477f7a31dc528e9f1eafb9fda281bd95762c6edb98fe0a8ce2ee571c892352023e76310c1eabb8781b00dd58c11e006d567f858693f49bc9fa032489634c1d712a0a4f5eccb97a86007c892d7f0fe07adb75244cb14868e558c41888a8c3b158d33974ce12e5267ac0e78301dbca7e82bf197c43201a0289fad1b53f2b4263d7e1fe41ffb9940b05d504ee43b4452603781acabc684be0347a1cb5ede6cfad5d3fbeee118bf4f7c83b2271dfc96d9a609a3dc4f7603603a05928ed11b987abc54f9ca170a1891fe258a1e85e0068492f2aabaad1652147450517448335a1e41caaef2c545bcee78a16a3bbac9f7223443d84a8a82fdbe1b72f4c1709621fac57bf0936fb6436551006f249c716b2124f33c46b47d5741ae4f4d75d9a64926b0b5d0aa043720cf0420b0daef83b2238187236e413f46b28a59b73159e3d7cdebbf181578cbbc03bf5db0fb76d532f98701e62e9ee58fce81debeb48c8e1e3974b4ad28d26ea3325afffb423496335a2753fec937ca4f7644bf86df184e6eb555f12f25b6e7cb51dde1be606e5bc0480337a319c9ddf77479625dc2595837fbc5cf94f2f8e5f8f288ab3a84230aaa85f6b0b876080c438da20f223b615858b96af1d6c985f105b6c4a406221d3726b4123f2b9a277a735b002d522c622c5a0386fa3f84ec360c3db7f9320bd07b5aa5f3d104c0a91c95125aec73b7727b8248d7b8796df9beec561ee2e5a8bc5b0ef330fceb33e1eaea901afd7e3afbcf2a23740e8cb64d3faf44acf0150338dc62170fe970d1c4eb7dafaab6077421be6d7b5253f1a5f0bffdfcf68bb0470495a1eadd104aa612baa9ac2d936a37d1d858050dfef9993c640e69c06cca5e9eb4a9e790e78b9ae2624f4bf079d57d1ac6cb537e0eb70f9b1275c70804bd6c5b3a2e758acde9878ee63187f17e13f6f6932da75ab3ec98f68575afe4712af0aa4a564fa98d21e9be0d7c775814ecb31eaf35c0132a57f557366ebb39a08762491df040e56c89aafb87913e4671bf6a24c16d642222234b85c0bb33a8606c4657b67eba3b0896db4b60e40f8569b490ea4d763089efcfe5e9586c01960d0391b4194528527b94c8d40d2f165ba161c6b444d5bb483ab6f24e0a7ce8c5950bf42b0243cd161ec939ccaf4413a50e746d4692fab3e1aeec362771d9e65104f1b24e18d0a1bf2a9e7c38fe6e196feb5d30dd26807756cda3ba5c661ffabc9cb7f6a94cf98cf84a45ae1693a5aca91dd2a3f4d7eb6aad61818fd20321537cb154b4f0dcfa5ceaa17d083ed1d50010bf46175032f81a2492e362434af9e0d5a2799adc398ca4a940d28b7e8653f77ea325b78eb883caf446b60448613fc7775367215941f95d1401f38fbfa6acb36ac08f9fa0b7c3563214923082c6e97f1004d21dc5e50970abd54bed198d3524a60622c59e9fa24489dffb8fc134637caabfedd79b84d36ce14255c7f22cd61e10b84864fa0cd2b02a29351ab9d9c3e3ba61d37f0deb08f7fa73c4ee6cc1558d1617c17e207505dab745a3a56fd8ed0c0cd70a54e8a138ee84e66f8552bc8424c2d4bc643dd061b85a3888983b25448cfc5584099bec19c164320195a546f63ae82ad7b3b5d3607d8b84f082edb5d842acce111b8056feeb442e43567b4fb2cc19843576736e585ca0ec576db83ccedb8bd1064abd021dd52a7f38f61cfcf727843fea5b63244e9a93a2ea0eef8ce0145448f1b46c389014b27fe1986697bd30314cc071f824a5775bcb118ea2356db4b8282cead9df2d4e242b9c1126b44edafd340bd8b0e39c6424886e42729f2d2995d106cd1ff4df4bd1abb9b99d3dbbcb8197730c86c144e6974937bd0e50d81fbe982a8172ea4db82ca3c430925b081a6579cbf8407b4f2b1a1dbf5aaf28050dfd826e1934af2f40d34e20ef1653d86265c167f4926ed1c2de54cc58ddcece1a31d666607d8308b433eef16c955a3ba02e5e1c485e71a761fc2b344f90223fbbdff42ef2b5f990768c44becd3221d97d51112b67ae7b0ad09a20546ac8453603c10b46739f440007774f58906c26463ec6d901d3613d796492de39956c3ce7a3c43c3683a86cb136d4d950f0928539992226fce69c57934d86440fb3ab87fb39f18601c15ee2719018d8c3505087358e73fe4f8d1dd1f951e1079def5c1095248d66ced8123d8845b50713ecc8c686abcccb989575a3cfd39287b0021adcf5231ee8b8cc5e802e58e88ad8f763bb0442d04e37db4946408fccbee446f78bca281f479791ed59ebfb00660ad8e7e45cab1410480ca8d6e3a920dedde22379c0731253a9037975dbc305342cce75b3dcded27a4b607d404322ed7909bb46693df60201dd2a23576991d5c109a100f5bf45d391724f67cbc457cc2ffa2e961f3dd6546b661408e7699fb709a5b7175c69f8e88d7f7444010c5a400fd783b5b0a342944ae2adbf8b0eeda69463deec5277dfde9bffec6718da3cbbd56c3ea67ad7d65743427d4d8b32d76bd99a8af36e5414be370c752fa74f127c70468b8d2f62c15f7a38fc8f2ba723c12a0dbadc5348296467c2220c50d82be89f05f379b8eadae4ce8ff4ce15b87253742016a9c81d367fdf6aa0e0f3f78a240a098b3cc16fbc7b0d2911aa768464bb68d01b0b3656c75c1b20487579be10836ea87d68050df28c2aed67f18822b554ea987b1fef45521a85603fd4be5c630c4cf12b1f5dc39b76fd0bce5acb086fc6a1a9ac065e73a36fddfa1d95728283bf952ba8d90603acc831baa6ee971ca7a5ed1f10726e71a3a7cc500872eaaa37f483527375d576abdf4eedecf75cb53049417c7cdde150c1a0a093311f66fcfb08ead403f11c1e57d3fd9eb5e6079f66817a929e607fe828f782aae0f8586bdcf7c03452c02972152ff4aaabc92fbec651c500a2a1d35e299a615daa3a089039f1facf69f7b3f70c559afb6a9ebd97ad05399fa888b3420d01e1b52c5c61634eb65337dbaea4f20ebc8190b99352941052f75a6a02624fd3baba8a46e3a3c8757c49483c2ba05ae42e1ae332860dbf7317975b6133eea0dabe14b0630bb15bc54d04eca3480502543ad341bebff31744ede53454d623a0a3d9bec845049b4ac52ebaf89127d07682eaf77fd777716d82e9ba6e038d25b117bd103e638dd2303d8683cf329a32e1840750cfc97e4eadbf6c1151c83752b449161aaf6b3d3a7f92b942fcb2d61be762c38dcab69878f8c2cc129be4f9a051e1f9464cf671aa6f5b868b9938ad9e563c946d96b3d851f812d6ad775bbf3a225a929f78feacd589fed63948b6534515e2748d0f1d2538e646de65d9abcc6f93c5985577627368ea4372616836136099a950445ef2a79f38cf1850de2b39f2b9a035c906b060d27500809972d7897523af5de3a719728ac7899f8a04148f63c9bf5bf04cff935e29a8122d8ad51a1ec995994e198e78c433af397d1b967b653b8233a58432a2b77d4b4ef760711645e01ba102c072bb9900062dfec5f3c78e97c2ae0b4fe5413591f0f18227d6189b184d429a782feba09795181efedf21df950c0967809487daa1b9fc5d4c61260aee2b4611d90a2635aa464452ff030159bf4740cdab60391b0ca867f7cb64fafd4d1a13a3fd3b9d8e520548a59c0b971f41fdf8e46619ae8289eca62920fd3125d601a9808c604b6215c34042b626a7b416c69307be2e741233ef31b279dab7dac767c3270b5d7a12cf7bce14ffd8b60b99813c0b35475b136c308f4ca3ae54ac17e9a4e064dfe01f98d6d5813c14aae79ece00ab9de11212c4c9846ef3fbd886702f5a575aebad2b0b2ed1a1d613886c2bcb774e6a65ffec02fa026148ca4b6d63f813c45f178546d7c032995172d366299ac63b59a426740e8c5f762af1942272c5ed914dc5e300a8b9884cf36bb4c965d65202fd83e14765e49a04c246e43423cfdf5b163087af2f9faf30b22294c6aec7da1e66ed95710ac8f13ce416d387ecaa4eb09512d1a6ade652d5fb489abc150a2a52177b0dcdbbe88907d8264e88a3495ec8bde4584c31f60df7f1584fe57efc1c58fbb9aacb04cf163d059c328f16da446dce46a76ce4f001cd97637b19ccb0be002d8d07d96e55f7574dad670c482dfec2cf0d99433632ee06a852e886f6ba791def11a56a1e7f002e479f59c0da034b1fb8c319f859933f6e0ab06b6c4c0874c1b9de44977e7d8049e7f97412057c1fd64111f538ab1b4ae09c72bcf51da9b11a84cffa0a575859b570eae80705778e7d44cc3efe0dae06538aba655de1ceb63a80d1141ca8bad713220d7a7e5f0f147b81764814e6af51b59b3dac1fb65765638dc8f7f4ea6e970fa1d86874e24fda9a911276a57728b7b730bb957b5a8ab58e95e64873979f688aac03e3b2f957a4a281f32ba552d3f787e709f5d394bca0df5d35cf0a063e535a6927632e10c51df55311ef45014912053006e5f1c657a7efc", 0x1000, 0xffffffffffffc065)
+lsetxattr$trusted_overlay_nlink(&(0x7f0000001480)='./file0\x00', &(0x7f00000014c0), &(0x7f0000001500)={'U-', 0xffe}, 0x16, 0x1)
+fcntl$lock(r0, 0x26, &(0x7f0000001300)={0x2, 0x2, 0xc6, 0x1, 0xffffffffffffffff})
+setxattr$security_selinux(&(0x7f0000000180)='./file0\x00', &(0x7f00000001c0), &(0x7f00000012c0)='system_u:object_r:systemd_systemctl_exec_t:s0\x00', 0x2e, 0x2)
+removexattr(&(0x7f0000000000)='./file0\x00', &(0x7f0000001800)=ANY=[@ANYBLOB="8b29b32d41f3f702f23f134033c9280129cd50da33177452dac2551693a658e3dab8ec4e092ace995da1bd2765516131c6e66def3b7820cfa5f5b8a6ca9d65e4ee171525b0ef9109a7fd6ab1017ca2bc48b130fcfc51d07f882853e821fa88b21c69ee2b8c4ee1660dd5988bb6a9277833a8189fcd8c37407c70fe4d4ee99a56f057cfdee01f5fad374d2e892ea0e02c6061c139ec29c15183cf2afae0f8000000000000000000000000f6a0a93e03d899a3d2b92044652c6ff5b94574110416778257f57d0a394d079478fcf0e01e15b3120900000000000000f786f3896f70017babacf8cddf20ddfff6ac57a9ccbd444a6aacc7f1259bc9e90d6ba0d7649d9bd0c3cdbc8c9d8e4b094751d67282ed278d37a8c4409ae25dfe07da5a433282a299d1e22cfd6f772acd468959fac04330e6960ef3c58adc6fc187e882130dbb264077aeae48118d7958087d9bf4d30b510dde047dd7700b47f41eeeb9b49ef95ddaf85022c932856f6083eb0007c984d70000000000000000000000004c4d6c2e5ab41c30e64268e464876ed8852d97ba47ff72a091fb5b925c0c55f2f63a5838c8b3d235b16f73d4486b825cee458641db5801549c277fa889e99400b399af5b0000000000"])
+syz_failure_sync(0x1, 0x3)
+setxattr$security_evm(&(0x7f00000015c0)='./file0\x00', &(0x7f0000001780), &(0x7f00000017c0)=ANY=[@ANYBLOB="0180a1ef11ba77a2421b5afeb0"], 0xd, 0x2)
+chmod(&(0x7f0000001580)='./file0\x00', 0x101)
+r2 = dup(r1)
+ftruncate(r2, 0xfffffffffffffffc)
+---
+
+end of program
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1312, prog_size 248
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1560, prog_size 8
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1576, prog_size 8056
+remove dir: /root/glusterfs-client/dfs-0-1448
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 8
+remove dir time 75
+-----finish removing dir
+receive_execute: 94, 97
+receive_execute: 100, 98
+receive_execute: 92, 98
+mkdir time 22
+executor 3 create dir /root/glusterfs-client/dfs-0-1449 successfully
+current dir: executor 3: /root/glusterfs-client/dfs-0-1449
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+receive_execute: 152, 102
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+output_pos: 1, output_pos_value 1
+executor 2, execute_one inner time: 1, 0, 0
+executor 1, execute_one inner time: 0, 0, 0
+execute_one time: 5, 0
+execute_one time: 2, 3
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 8992, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 8992, flag collect 1
+----- executor 3 cover number : 1276, signal number : 1589
+----- completed 1
+execute_call 0, 20, 0, 8
+execute_one loop: 0, 0, 28
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 2
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 925, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 925, flag collect 1
+----- executor 3 cover number : 427, signal number : 282
+----- completed 3
+execute_call 0, 1, 0, 1
+execute_one loop: 0, 0, 2
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 4
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 2
+cover_reset in execute_call
+----- executor 3 write_call_output, size 8508, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 8508, flag collect 1
+----- executor 3 cover number : 1139, signal number : 130
+----- completed 5
+execute_call 0, 21, 0, 1
+execute_one loop: 0, 0, 22
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1648, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 1648, flag collect 1
+----- executor 3 cover number : 630, signal number : 194
+----- completed 6
+execute_call 0, 4, 0, 1
+execute_one loop: 0, 0, 5
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 70, 0, 0
+execute_one loop: 0, 0, 70
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 46, signal number : 61
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 513, signal number : 601
+----- executor 0 executes write_coverage_signal cov->size 1200, flag collect 1
+----- executor 0 cover number : 445, signal number : 501
+----- executor 0 executes write_coverage_signal cov->size 674, flag collect 1
+----- executor 0 cover number : 51, signal number : 59
+----- executor 0 executes write_coverage_signal cov->size 5628, flag collect 1
+----- executor 0 cover number : 523, signal number : 582
+----- executor 0 executes write_coverage_signal cov->size 168, flag collect 1
+----- executor 0 cover number : 126, signal number : 81
+----- executor 0 executes write_coverage_signal cov->size 10, flag collect 1
+----- executor 0 cover number : 9, signal number : 9
+executor 0 server cover_cnt 7 output_pos_value 3629
+-----executor 0 collect shmids 34
+----- directly resend shmid 34
+-----executor 0 collect shmids 35
+----- directly resend shmid 35
+-----executor 0 collect shmids 36
+----- directly resend shmid 36
+-----executor 0 collect shmids 37
+----- directly resend shmid 37
+-----executor 0 collect shmids 38
+----- directly resend shmid 38
+-----executor 0 collect shmids 39
+----- directly resend shmid 39
+-----executor 0 collect shmids 40
+----- directly resend shmid 40
+-----executor 0 collect shmids 41
+----- directly resend shmid 41
+execute_call 0, 64, 0, 0
+execute_one loop: 0, 0, 64
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 7
+execute_call 0, 67, 0, 0
+execute_one loop: 0, 0, 67
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1234, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 1234, flag collect 1
+----- executor 3 cover number : 515, signal number : 164
+----- completed 8
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1234, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 1234, flag collect 1
+----- executor 3 cover number : 515, signal number : 0
+----- completed 9
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 10
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 2776, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 2776, flag collect 1
+----- executor 3 cover number : 830, signal number : 327
+----- completed 11
+execute_call 0, 11, 0, 4
+execute_one loop: 0, 0, 16
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 12
+execute_call 0, 1, 0, 1
+execute_one loop: 0, 0, 2
+cover_reset in execute_call
+----- executor 3 write_call_output, size 183, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 183, flag collect 1
+----- executor 3 cover number : 128, signal number : 15
+----- completed 13
+execute_call 0, 1, 0, 1
+execute_one loop: 0, 0, 2
+cover_reset in execute_call
+----- executor 3 write_call_output, size 3494, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 3494, flag collect 1
+----- executor 3 cover number : 934, signal number : 133
+----- completed 14
+execute_call 0, 15, 0, 2
+execute_one loop: 0, 0, 17
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 41, 0, 0
+execute_one loop: 0, 0, 41
+-----executor 0 collect shmids 7
+----- directly resend shmid 7
+-----executor 0 collect shmids 8
+----- directly resend shmid 8
+-----executor 0 collect shmids 9
+----- directly resend shmid 9
+-----executor 0 collect shmids 10
+----- directly resend shmid 10
+-----executor 0 collect shmids 11
+----- directly resend shmid 11
+-----executor 0 collect shmids 12
+----- directly resend shmid 12
+==15172==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+-----executor 0 collect shmids 13
+----- directly resend shmid 13
+-----executor 0 collect shmids 14
+----- directly resend shmid 14
+-----executor 0 collect shmids 15
+----- directly resend shmid 15
+-----executor 0 collect shmids 16
+----- directly resend shmid 16
+-----executor 0 collect shmids 17
+----- directly resend shmid 17
+-----executor 0 collect shmids 18
+----- directly resend shmid 18
+-----executor 0 collect shmids 19
+----- directly resend shmid 19
+-----executor 0 collect shmids 20
+----- directly resend shmid 20
+-----executor 0 collect shmids 21
+----- directly resend shmid 21
+-----executor 0 collect shmids 22
+----- directly resend shmid 22
+-----executor 0 collect shmids 23
+----- directly resend shmid 23
+-----executor 0 collect shmids 24
+----- directly resend shmid 24
+-----executor 0 collect shmids 25
+----- directly resend shmid 25
+-----executor 0 collect shmids 26
+----- directly resend shmid 26
+-----executor 0 collect shmids 27
+----- directly resend shmid 27
+-----executor 0 collect shmids 28
+----- directly resend shmid 28
+-----executor 0 collect shmids 29
+----- directly resend shmid 29
+-----executor 0 collect shmids 30
+----- directly resend shmid 30
+-----executor 0 collect shmids 31
+----- directly resend shmid 31
+execute_call 0, 2840, 0, 0
+execute_one loop: 0, 0, 2840
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0, execute_one inner time: 0, 3015, 0
+execute_one time: 1, 3015
+----- executor 3 write_call_output, size 0, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 15
+execute_call 0, 2840, 0, 0
+execute_one loop: 0, 0, 2840
+cover_reset in execute_call
+----- executor 3 write_call_output, size 12806, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 12806, flag collect 1
+----- executor 3 cover number : 1365, signal number : 311
+----- completed 16
+execute_call 0, 27, 0, 4
+execute_one loop: 0, 0, 31
+cover_reset in execute_call
+----- executor 3 write_call_output, size 2535, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 2535, flag collect 1
+----- executor 3 cover number : 749, signal number : 151
+----- completed 17
+execute_call 0, 8, 0, 1
+execute_one loop: 0, 0, 9
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 18
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2950, write pid:2950
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 19
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 3, execute_one inner time: 0, 3050, 0
+execute_one time: 2, 3050
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 5418, flag collect 1
+2023/03/31 02:41:41 for select break: 1
+time breakdown 3: 254, 3054, 0
+2023/03/31 02:41:41 --------- executor 3 receive reply, reply.done 1
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 7, flag collect 1
+----- executor 1 cover number : 7, signal number : 7
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 1 cover number : 3, signal number : 4
+----- executor 1 executes write_coverage_signal cov->size 18338, flag collect 1
+before receive testcase: 0 1
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 93, flag collect 1
+----- executor 2 cover number : 65, signal number : 75
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 2 cover number : 3, signal number : 4
+----- executor 2 executes write_coverage_signal cov->size 18671, flag collect 1
+----- executor 0 cover number : 501, signal number : 32
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 1731, signal number : 2144
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 1 cover number : 3, signal number : 0
+----- executor 1 executes write_coverage_signal cov->size 27701, flag collect 1
+----- executor 2 cover number : 1695, signal number : 2064
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 2 cover number : 3, signal number : 4
+----- executor 2 executes write_coverage_signal cov->size 29044, flag collect 1
+----- executor 0 cover number : 126, signal number : 20
+----- executor 0 executes write_coverage_signal cov->size 21, flag collect 1
+----- executor 0 cover number : 9, signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 706, flag collect 1
+----- executor 0 cover number : 286, signal number : 217
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 576, signal number : 291
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 46, signal number : 66
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 576, signal number : 739
+----- executor 2 executes write_coverage_signal cov->size 27622, flag collect 1
+----- executor 0 cover number : 513, signal number : 559
+----- executor 0 executes write_coverage_signal cov->size 10, flag collect 1
+----- executor 0 cover number : 4, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 209, flag collect 1
+----- executor 0 cover number : 106, signal number : 23
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 8, flag collect 1
+----- executor 0 cover number : 6, signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 2683, signal number : 3230
+----- executor 1 executes write_coverage_signal cov->size 28, flag collect 1
+----- executor 1 cover number : 27, signal number : 25
+----- executor 1 executes write_coverage_signal cov->size 796, flag collect 1
+----- executor 1 cover number : 269, signal number : 191
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 1 cover number : 3, signal number : 1
+----- executor 1 executes write_coverage_signal cov->size 3274, flag collect 1
+----- executor 1 cover number : 767, signal number : 485
+----- executor 1 executes write_coverage_signal cov->size 1412, flag collect 1
+----- executor 1 cover number : 540, signal number : 89
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 2203, signal number : 2755
+----- executor 2 executes write_coverage_signal cov->size 789, flag collect 1
+----- executor 2 cover number : 269, signal number : 178
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 2 cover number : 3, signal number : 1
+----- executor 2 executes write_coverage_signal cov->size 2151, flag collect 1
+----- executor 2 cover number : 585, signal number : 489
+----- executor 2 executes write_coverage_signal cov->size 2502, flag collect 1
+----- executor 2 cover number : 721, signal number : 280
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 2032, signal number : 2292
+----- executor 0 executes write_coverage_signal cov->size 1111, flag collect 1
+----- executor 0 cover number : 497, signal number : 173
+----- executor 0 executes write_coverage_signal cov->size 685, flag collect 1
+----- executor 0 cover number : 344, signal number : 174
+----- executor 0 executes write_coverage_signal cov->size 674, flag collect 1
+----- executor 0 cover number : 51, signal number : 44
+----- executor 0 executes write_coverage_signal cov->size 5628, flag collect 1
+----- executor 1 cover number : 1244, signal number : 1524
+----- executor 1 executes write_coverage_signal cov->size 27324, flag collect 1
+----- executor 0 cover number : 523, signal number : 302
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 1320, signal number : 1813
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 142, signal number : 43
+----- executor 0 executes write_coverage_signal cov->size 17, flag collect 1
+----- executor 0 cover number : 10, signal number : 6
+----- executor 0 executes write_coverage_signal cov->size 434, flag collect 1
+----- executor 0 cover number : 246, signal number : 13
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 4, flag collect 1
+----- executor 0 cover number : 4, signal number : 0
+executor 0 server cover_cnt 51 output_pos_value 15744
+----- executor 1 cover number : 1291, signal number : 719
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+2023/03/31 02:41:41 for select break: 1
+2023/03/31 02:41:41 --------- executor 0 receive reply, reply.done 1
+time breakdown 0: 198, 3086, 0
+before receive testcase: 0 0
+----- executor 2 cover number : 2323, signal number : 1921
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 2245, signal number : 1107
+----- executor 1 executes write_coverage_signal cov->size 30342, flag collect 1
+----- executor 2 cover number : 2264, signal number : 1308
+----- executor 2 executes write_coverage_signal cov->size 32360, flag collect 1
+----- executor 1 cover number : 2241, signal number : 1071
+executor 1 server cover_cnt 15 output_pos_value 24564
+----- executor 2 cover number : 2501, signal number : 1655
+executor 2 server cover_cnt 14 output_pos_value 27860
+2023/03/31 02:41:41 for select break: 1
+2023/03/31 02:41:41 --------- executor 1 receive reply, reply.done 1
+2023/03/31 02:41:41 for select break: 1
+2023/03/31 02:41:41 --------- executor 2 receive reply, reply.done 1
+2023/03/31 02:41:41 wg wait finish
+2023/03/31 02:41:41 ------ all executors finish execution
+2023/03/31 02:41:41 exec time: 3202
+2023/03/31 02:41:41 ----- PS len: 4
+2023/03/31 02:41:41 [CLIENT] executor 3 has 19 replies
+2023/03/31 02:41:41 fuzzer receive 1589 signal and 1276 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 282 signal and 427 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:41 [SERVER] executor 0 has 51 replies
+2023/03/31 02:41:41 [SERVER] executor 1 has 15 replies
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 7 signal and 7 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 61 signal and 46 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 2144 signal and 1731 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 0 signal and 3 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 291 signal and 576 cover from userspace component
+2023/03/31 02:41:41 [SERVER] executor 2 has 14 replies
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 3230 signal and 2683 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 75 signal and 65 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 25 signal and 27 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 191 signal and 269 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 1 signal and 3 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 485 signal and 767 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 89 signal and 540 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 1524 signal and 1244 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 719 signal and 1291 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 601 signal and 513 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 1107 signal and 2245 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 501 signal and 445 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 59 signal and 51 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 1 receive 1071 signal and 2241 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 2064 signal and 1695 cover from userspace component
+2023/03/31 02:41:41 fuzzer receive 130 signal and 1139 cover from executor 3
+time breakdown 1: 191, 3103, 0
+before receive testcase: 0 0
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:41 fuzzer receive 194 signal and 630 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 164 signal and 515 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 0 signal and 515 cover from executor 3
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 739 signal and 576 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 2755 signal and 2203 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 178 signal and 269 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 1 signal and 3 cover from userspace component
+2023/03/31 02:41:41 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 489 signal and 585 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 280 signal and 721 cover from userspace component
+2023/03/31 02:41:41 fuzzer receive 327 signal and 830 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 15 signal and 128 cover from executor 3
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 1813 signal and 1320 cover from userspace component
+2023/03/31 02:41:41 fuzzer receive 133 signal and 934 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 311 signal and 1365 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 151 signal and 749 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:41 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 582 signal and 523 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 81 signal and 126 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 9 signal and 9 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 32 signal and 501 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 20 signal and 126 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 4 signal and 9 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 217 signal and 286 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 66 signal and 46 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 559 signal and 513 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 5 signal and 4 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 23 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 1921 signal and 2323 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 1 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 1308 signal and 2264 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 2 receive 1655 signal and 2501 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 4 signal and 6 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 2292 signal and 2032 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 173 signal and 497 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 174 signal and 344 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 44 signal and 51 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 302 signal and 523 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 43 signal and 142 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 6 signal and 10 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 13 signal and 246 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 5 signal and 5 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 5 cover from userspace component
+2023/03/31 02:41:41 ------- fuzzer executor 0 receive 0 signal and 4 cover from userspace component
+time breakdown 2: 190, 3104, 0
+before receive testcase: 0 0
+2023/03/31 02:41:41 fsMds: [map[] map[] map[] map[]]
+2023/03/31 02:41:41 disable threaded and collide
+2023/03/31 02:41:41 prog length: 6
+2023/03/31 02:41:41 prog length: 19
+2023/03/31 02:41:41 HasCrashFail:true HasNetFail:false
+02:41:41 ---executing program 0:
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+---
+---
+mkdir(&(0x7f0000000040)='./file0\x00', 0x0)
+write$binfmt_script(0xffffffffffffffff, &(0x7f0000001380)={'#! ', './file0', [{0x20, '@]\\'}], 0xa, "2a89fc7aedc552937961c779278dce4d42c2deebfd0b1a8728bafc9c0216944f8370a2c40658b5ee92fc442f9a338193717b9d368d86413be610bd93886245a383bcae6d8656f82153b62cc67ca903d7d34eb888c09579264ff5cfb1549da2fae586ed0f4374a28cc48ddf35e5e6ae463a490efe333c53947a8426a24fd77ee40255db5137d0c4dbd88a8d1d0a5bee0fc87b933b53ff88afa277ed2ef30045e8929a28f14402cd9acec96add125bb7a7f53f14fe8d34b0f89707cd8d401c4eff1913a11cc6a88fe89c0265171025bdd465ee47229e"}, 0xe4)
+r0 = openat(0xffffffffffffff9c, &(0x7f0000001340)='./file0\x00', 0x311080, 0x1a5)
+r1 = open(&(0x7f0000000240)='./file0\x00', 0x208840, 0x19d)
+symlinkat(&(0x7f0000000200)='./file0\x00', r1, &(0x7f0000000280)='./file0\x00')
+listxattr(&(0x7f0000000140)='./file0\x00', &(0x7f0000000080)=""/144, 0x90)
+syz_failure_sync(0x0, 0x3)
+mkdir(&(0x7f0000001600)='./file0\x00', 0x0)
+mkdir(&(0x7f0000001540)='./file0\x00', 0x100)
+pwrite64(r1, &(0x7f00000002c0)="c2e6c9a28a5419a64397a4b135b3f2f5cc742518625e6d224dfb99bb97f588d90a8fbc38613a02a29f275f3a10e2dc43f9dd1d8cb52b9d2fb1144ba5f2eb02d1089b9ddbd58c061eca1f92d8d228e658805be14496800a97cd51d5de414e732cafb1d34aa7cbc86408cf9c3e31c8cf82f10327aa1946a6e1ce7e2816464909f3b6af59ffaac63b6b76912e216eb462aa58a86f4013e9818243c5c53b97423c56a55702376feccc2887e25274197bf4f4899434dc6f7b38df74f32dcdaabb268476543ddd18e45cda07d0282506539801a126eb439b0a9c4ba092d5bdc5cfac37521afdebcecb1b15209aaec372448dcf16ab5f32ac0726297200651dfa70be682395d7696a2be237337684227ce57a3eedc706a3814c55eda93de77f3a9ed079c8e4ec0aac4c7df9d860372fb70a0216c22945a31efafb75328f34b4fb18a9d557e6b559b0d06254fb2ccdf9fcb3946eef0c5512d6430a30efc29ee480fc6c0a05a73ec02bf278745fb24af2c4a3e2939bdc5faab81d1b5dcb9ef55350036134f727929e2e1ca098eb3aac0e2e5d9ac94df169265d69a0b0643f2f759b84c5bd7b1a995a8247f596447ac686715274cddabe59194726d8c09603bf71c580e98ec48a1636325c022428861596b3bed470ad21fb798f0bbf64a8f355eec53351d6bfe567d2400c7be88266fa6f708e83d2e45b34b9f5018dda7fe6819d0642bd0bd41c76e67ad903393b382a7b6da26c9e8c47218243f51ea3a57d113ac5b995272f622727d971b860cc5da0a5481f742228e89d40690536a8aa97810007b5f5cccb0c01a066ebf0768e17ed428563363104530800a84dfa22137debcca397c75655b9aee067efe94ec89373d49773f2387f2bbfa01e9914c570f86ee1e84d7cec235815c1e5bac0ba842ad806352d465a1115b448c9cc4b52ad37df9ff9302ea364ebcc3eb364876ad0f717019e81dc46195c5e30da8ddfc3e7195907d5e47f247ead0900e5108be1903242f1399502db91eb342f7dd93ed0a3509d5bdfbdb28a200721a640ca7736f5d615c4a227ddaa7e2e257bbcc28fbead47a192b2ade5282ae793a3a6c22915bdd15a9a19fa36479f08f8e661b2b9782c6906d5379427e2f2c92539669fd02674cea2188e5dba374d1aa5c33175bd58f3a21a6574f556c63d25d46c0c851b5743595af34595850c772b3eaea78c146376f434e7b344cb5ac6dcbd722b8b842d99979f68b21ed6b51d5c5c2f2cbcdd928baf12ae7367edba1d6b356ced9b92ed26a82826eceb633f1668fc33bbe030f249b8dfd31edf029e40c76e65182c20477f7a31dc528e9f1eafb9fda281bd95762c6edb98fe0a8ce2ee571c892352023e76310c1eabb8781b00dd58c11e006d567f858693f49bc9fa032489634c1d712a0a4f5eccb97a86007c892d7f0fe07adb75244cb14868e558c41888a8c3b158d33974ce12e5267ac0e78301dbca7e82bf197c43201a0289fad1b53f2b4263d7e1fe41ffb9940b05d504ee43b4452603781acabc684be0347a1cb5ede6cfad5d3fbeee118bf4f7c83b2271dfc96d9a609a3dc4f7603603a05928ed11b987abc54f9ca170a1891fe258a1e85e0068492f2aabaad1652147450517448335a1e41caaef2c545bcee78a16a3bbac9f7223443d84a8a82fdbe1b72f4c1709621fac57bf0936fb6436551006f249c716b2124f33c46b47d5741ae4f4d75d9a64926b0b5d0aa043720cf0420b0daef83b2238187236e413f46b28a59b73159e3d7cdebbf181578cbbc03bf5db0fb76d532f98701e62e9ee58fce81debeb48c8e1e3974b4ad28d26ea3325afffb423496335a2753fec937ca4f7644bf86df184e6eb555f12f25b6e7cb51dde1be606e5bc0480337a319c9ddf77479625dc2595837fbc5cf94f2f8e5f8f288ab3a84230aaa85f6b0b876080c438da20f223b615858b96af1d6c985f105b6c4a406221d3726b4123f2b9a277a735b002d522c622c5a0386fa3f84ec360c3db7f9320bd07b5aa5f3d104c0a91c95125aec73b7727b8248d7b8796df9beec561ee2e5a8bc5b0ef330fceb33e1eaea901afd7e3afbcf2a23740e8cb64d3faf44acf0150338dc62170fe970d1c4eb7dafaab6077421be6d7b5253f1a5f0bffdfcf68bb0470495a1eadd104aa612baa9ac2d936a37d1d858050dfef9993c640e69c06cca5e9eb4a9e790e78b9ae2624f4bf079d57d1ac6cb537e0eb70f9b1275c70804bd6c5b3a2e758acde9878ee63187f17e13f6f6932da75ab3ec98f68575afe4712af0aa4a564fa98d21e9be0d7c775814ecb31eaf35c0132a57f557366ebb39a08762491df040e56c89aafb87913e4671bf6a24c16d642222234b85c0bb33a8606c4657b67eba3b0896db4b60e40f8569b490ea4d763089efcfe5e9586c01960d0391b4194528527b94c8d40d2f165ba161c6b444d5bb483ab6f24e0a7ce8c5950bf42b0243cd161ec939ccaf4413a50e746d4692fab3e1aeec362771d9e65104f1b24e18d0a1bf2a9e7c38fe6e196feb5d30dd26807756cda3ba5c661ffabc9cb7f6a94cf98cf84a45ae1693a5aca91dd2a3f4d7eb6aad61818fd20321537cb154b4f0dcfa5ceaa17d083ed1d50010bf46175032f81a2492e362434af9e0d5a2799adc398ca4a940d28b7e8653f77ea325b78eb883caf446b60448613fc7775367215941f95d1401f38fbfa6acb36ac08f9fa0b7c3563214923082c6e97f1004d21dc5e50970abd54bed198d3524a60622c59e9fa24489dffb8fc134637caabfedd79b84d36ce14255c7f22cd61e10b84864fa0cd2b02a29351ab9d9c3e3ba61d37f0deb08f7fa73c4ee6cc1558d1617c17e207505dab745a3a56fd8ed0c0cd70a54e8a138ee84e66f8552bc8424c2d4bc643dd061b85a3888983b25448cfc5584099bec19c164320195a546f63ae82ad7b3b5d3607d8b84f082edb5d842acce111b8056feeb442e43567b4fb2cc19843576736e585ca0ec576db83ccedb8bd1064abd021dd52a7f38f61cfcf727843fea5b63244e9a93a2ea0eef8ce0145448f1b46c389014b27fe1986697bd30314cc071f824a5775bcb118ea2356db4b8282cead9df2d4e242b9c1126b44edafd340bd8b0e39c6424886e42729f2d2995d106cd1ff4df4bd1abb9b99d3dbbcb8197730c86c144e6974937bd0e50d81fbe982a8172ea4db82ca3c430925b081a6579cbf8407b4f2b1a1dbf5aaf28050dfd826e1934af2f40d34e20ef1653d86265c167f4926ed1c2de54cc58ddcece1a31d666607d8308b433eef16c955a3ba02e5e1c485e71a761fc2b344f90223fbbdff42ef2b5f990768c44becd3221d97d51112b67ae7b0ad09a20546ac8453603c10b46739f440007774f58906c26463ec6d901d3613d796492de39956c3ce7a3c43c3683a86cb136d4d950f0928539992226fce69c57934d86440fb3ab87fb39f18601c15ee2719018d8c3505087358e73fe4f8d1dd1f951e1079def5c1095248d66ced8123d8845b50713ecc8c686abcccb989575a3cfd39287b0021adcf5231ee8b8cc5e802e58e88ad8f763bb0442d04e37db4946408fccbee446f78bca281f479791ed59ebfb00660ad8e7e45cab1410480ca8d6e3a920dedde22379c0731253a9037975dbc305342cce75b3dcded27a4b607d404322ed7909bb46693df60201dd2a23576991d5c109a100f5bf45d391724f67cbc457cc2ffa2e961f3dd6546b661408e7699fb709a5b7175c69f8e88d7f7444010c5a400fd783b5b0a342944ae2adbf8b0eeda69463deec5277dfde9bffec6718da3cbbd56c3ea67ad7d65743427d4d8b32d76bd99a8af36e5414be370c752fa74f127c70468b8d2f62c15f7a38fc8f2ba723c12a0dbadc5348296467c2220c50d82be89f05f379b8eadae4ce8ff4ce15b87253742016a9c81d367fdf6aa0e0f3f78a240a098b3cc16fbc7b0d2911aa768464bb68d01b0b3656c75c1b20487579be10836ea87d68050df28c2aed67f18822b554ea987b1fef45521a85603fd4be5c630c4cf12b1f5dc39b76fd0bce5acb086fc6a1a9ac065e73a36fddfa1d95728283bf952ba8d90603acc831baa6ee971ca7a5ed1f10726e71a3a7cc500872eaaa37f483527375d576abdf4eedecf75cb53049417c7cdde150c1a0a093311f66fcfb08ead403f11c1e57d3fd9eb5e6079f66817a929e607fe828f782aae0f8586bdcf7c03452c02972152ff4aaabc92fbec651c500a2a1d35e299a615daa3a089039f1facf69f7b3f70c559afb6a9ebd97ad05399fa888b3420d01e1b52c5c61634eb65337dbaea4f20ebc8190b99352941052f75a6a02624fd3baba8a46e3a3c8757c49483c2ba05ae42e1ae332860dbf7317975b6133eea0dabe14b0630bb15bc54d04eca3480502543ad341bebff31744ede53454d623a0a3d9bec845049b4ac52ebaf89127d07682eaf77fd777716d82e9ba6e038d25b117bd103e638dd2303d8683cf329a32e1840750cfc97e4eadbf6c1151c83752b449161aaf6b3d3a7f92b942fcb2d61be762c38dcab69878f8c2cc129be4f9a051e1f9464cf671aa6f5b868b9938ad9e563c946d96b3d851f812d6ad775bbf3a225a929f78feacd589fed63948b6534515e2748d0f1d2538e646de65d9abcc6f93c5985577627368ea4372616836136099a950445ef2a79f38cf1850de2b39f2b9a035c906b060d27500809972d7897523af5de3a719728ac7899f8a04148f63c9bf5bf04cff935e29a8122d8ad51a1ec995994e198e78c433af397d1b967b653b8233a58432a2b77d4b4ef760711645e01ba102c072bb9900062dfec5f3c78e97c2ae0b4fe5413591f0f18227d6189b184d429a782feba09795181efedf21df950c0967809487daa1b9fc5d4c61260aee2b4611d90a2635aa464452ff030159bf4740cdab60391b0ca867f7cb64fafd4d1a13a3fd3b9d8e520548a59c0b971f41fdf8e46619ae8289eca62920fd3125d601a9808c604b6215c34042b626a7b416c69307be2e741233ef31b279dab7dac767c3270b5d7a12cf7bce14ffd8b60b99813c0b35475b136c308f4ca3ae54ac17e9a4e064dfe01f98d6d5813c14aae79ece00ab9de11212c4c9846ef3fbd886702f5a575aebad2b0b2ed1a1d613886c2bcb774e6a65ffec02fa026148ca4b6d63f813c45f178546d7c032995172d366299ac63b59a426740e8c5f762af1942272c5ed914dc5e300a8b9884cf36bb4c965d65202fd83e14765e49a04c246e43423cfdf5b163087af2f9faf30b22294c6aec7da1e66ed95710ac8f13ce416d387ecaa4eb09512d1a6ade652d5fb489abc150a2a52177b0dcdbbe88907d8264e88a3495ec8bde4584c31f60df7f1584fe57efc1c58fbb9aacb04cf163d059c328f16da446dce46a76ce4f001cd97637b19ccb0be002d8d07d96e55f7574dad670c482dfec2cf0d99433632ee06a852e886f6ba791def11a56a1e7f002e479f59c0da034b1fb8c319f859933f6e0ab06b6c4c0874c1b9de44977e7d8049e7f97412057c1fd64111f538ab1b4ae09c72bcf51da9b11a84cffa0a575859b570eae80705778e7d44cc3efe0dae06538aba655de1ceb63a80d1141ca8bad713220d7a7e5f0f147b81764814e6af51b59b3dac1fb65765638dc8f7f4ea6e970fa1d86874e24fda9a911276a57728b7b730bb957b5a8ab58e95e64873979f688aac03e3b2f957a4a281f32ba552d3f787e709f5d394bca0df5d35cf0a063e535a6927632e10c51df55311ef45014912053006e5f1c657a7efc", 0x1000, 0xffffffffffffc065)
+lsetxattr$trusted_overlay_nlink(&(0x7f0000001480)='./file0\x00', &(0x7f00000014c0), &(0x7f0000001500)={'U-', 0xffe}, 0x16, 0x1)
+fcntl$lock(r0, 0x26, &(0x7f0000001300)={0x2, 0x2, 0xc6, 0x1, 0xffffffffffffffff})
+setxattr$security_selinux(&(0x7f0000000180)='./file0\x00', &(0x7f00000001c0), &(0x7f00000012c0)='system_u:object_r:systemd_systemctl_exec_t:s0\x00', 0x2e, 0x2)
+removexattr(&(0x7f0000000000)='./file0\x00', &(0x7f0000001800)=ANY=[@ANYBLOB="8b29b32d41f3f702f23f134033c9280129cd50da33177452dac2551693a658e3dab8ec4e092ace995da1bd2765516131c6e66def3b7820cfa5f5b8a6ca9d65e4ee171525b0ef9109a7fd6ab1017ca2bc48b130fcfc51d07f882853e821fa88b21c69ee2b8c4ee1660dd5988bb6a9277833a8189fcd8c37407c70fe4d4ee99a56f057cfdee01f5fad374d2e892ea0e02c6061c139ec29c15183cf2afae0f8000000000000000000000000f6a0a93e03d899a3d2b92044652c6ff5b94574110416778257f57d0a394d079478fcf0e01e15b3120900000000000000f786f3896f70017babacf8cddf20ddfff6ac57a9ccbd444a6aacc7f1259bc9e90d6ba0d7649d9bd0c3cdbc8c9d8e4b094751d67282ed278d37a8c4409ae25dfe07da5a433282a299d1e22cfd6f772acd468959fac04330e6960ef3c58adc6fc187e882130dbb264077aeae48118d7958087d9bf4d30b510dde047dd7700b47f41eeeb9b49ef95ddaf85022c932856f6083eb0007c984d70000000000000000000000004c4d6c2e5ab41c30e64268e464876ed8852d97ba47ff72a091fb5b925c0c55f2f63a5838c8b3d235b16f73d4486b825cee458641db5801549c277fa889e99400b399af5b0000000000"])
+syz_failure_sync(0x1, 0x3)
+setxattr$security_evm(&(0x7f00000015c0)='./file0\x00', &(0x7f0000001780), &(0x7f00000017c0)=ANY=[@ANYBLOB="0180a1ef11ba77a2421b5afeb0"], 0xd, 0x2)
+chmod(&(0x7f0000001580)='./file0\x00', 0x101)
+r2 = dup(r1)
+ftruncate(r2, 0xfffffffffffffffc)
+---
+
+end of program
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1560, prog_size 8
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1576, prog_size 8056
+remove dir: /root/glusterfs-client/dfs-0-1449
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1312, prog_size 248
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 8
+Node-0:/root/daemon-log.15240
+remove dir time 75
+-----finish removing dir
+receive_execute: 42, 113
+mkdir time 38
+executor 3 create dir /root/glusterfs-client/dfs-0-1450 successfully
+current dir: executor 3: /root/glusterfs-client/dfs-0-1450
+receive_execute: 59, 113
+receive_execute: 40, 113
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1, execute_one inner time: 0, 0, 1
+execute_one time: 2, 1
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 2, execute_one inner time: 0, 0, 0
+execute_one time: 6, 1
+receive_execute: 87, 120
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 8989, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 8989, flag collect 1
+----- executor 3 cover number : 1276, signal number : 1589
+----- completed 1
+execute_call 0, 22, 0, 7
+execute_one loop: 0, 0, 29
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 2
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 925, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 925, flag collect 1
+----- executor 3 cover number : 427, signal number : 282
+----- completed 3
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 4
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 8514, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 8514, flag collect 1
+----- executor 3 cover number : 1139, signal number : 130
+----- completed 5
+execute_call 0, 16, 0, 6
+execute_one loop: 0, 0, 22
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1648, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 1648, flag collect 1
+----- executor 3 cover number : 630, signal number : 194
+----- completed 6
+execute_call 0, 2, 0, 2
+execute_one loop: 0, 0, 4
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 64, 0, 0
+execute_one loop: 0, 0, 64
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 3, flag collect 1
+----- executor 0 cover number : 3, signal number : 3
+----- executor 0 executes write_coverage_signal cov->size 18701, flag collect 1
+----- executor 0 cover number : 1759, signal number : 2223
+----- executor 0 executes write_coverage_signal cov->size 7, flag collect 1
+----- executor 0 cover number : 7, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 142, signal number : 107
+----- executor 0 executes write_coverage_signal cov->size 14, flag collect 1
+----- executor 0 cover number : 9, signal number : 9
+----- executor 0 executes write_coverage_signal cov->size 2, flag collect 1
+----- executor 0 cover number : 2, signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 4, flag collect 1
+----- executor 0 cover number : 4, signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 1838, flag collect 1
+----- executor 0 cover number : 615, signal number : 304
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 894, signal number : 577
+executor 0 server cover_cnt 11 output_pos_value 6716
+/root/glusterfs-node-down.sh: 1: kill: No such process
+
+-----executor 0 collect shmids 0
+----- directly resend shmid 0
+-----executor 0 collect shmids 1
+----- directly resend shmid 1
+execute_call 0, 76, 0, 0
+execute_one loop: 0, 0, 76
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 7
+execute_call 0, 76, 0, 0
+execute_one loop: 0, 0, 76
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1234, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 1234, flag collect 1
+----- executor 3 cover number : 515, signal number : 164
+----- completed 8
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1234, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 1234, flag collect 1
+----- executor 3 cover number : 515, signal number : 0
+----- completed 9
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 10
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+-----executor 0 collect shmids 34
+----- directly resend shmid 34
+-----executor 0 collect shmids 35
+----- directly resend shmid 35
+-----executor 0 collect shmids 36
+----- directly resend shmid 36
+-----executor 0 collect shmids 37
+----- directly resend shmid 37
+-----executor 0 collect shmids 38
+----- directly resend shmid 38
+-----executor 0 collect shmids 39
+----- directly resend shmid 39
+----- executor 3 write_call_output, size 2776, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 2776, flag collect 1
+----- executor 3 cover number : 830, signal number : 327
+----- completed 11
+execute_call 0, 8, 0, 0
+execute_one loop: 0, 0, 8
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 12
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 183, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 183, flag collect 1
+----- executor 3 cover number : 128, signal number : 15
+----- completed 13
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+-----executor 0 collect shmids 40
+----- directly resend shmid 40
+-----executor 0 collect shmids 41
+----- directly resend shmid 41
+-----executor 0 collect shmids 42
+----- directly resend shmid 42
+-----executor 0 collect shmids 43
+----- directly resend shmid 43
+-----executor 0 collect shmids 44
+----- directly resend shmid 44
+-----executor 0 collect shmids 45
+----- directly resend shmid 45
+-----executor 0 collect shmids 46
+----- directly resend shmid 46
+-----executor 0 collect shmids 47
+----- directly resend shmid 47
+-----executor 0 collect shmids 48
+----- directly resend shmid 48
+----- executor 3 write_call_output, size 2226, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 2226, flag collect 1
+----- executor 3 cover number : 651, signal number : 139
+----- completed 14
+execute_call 0, 17, 0, 2
+execute_one loop: 0, 0, 19
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 30, 0, 0
+execute_one loop: 0, 0, 30
+-----executor 0 collect shmids 7
+----- directly resend shmid 7
+-----executor 0 collect shmids 8
+----- directly resend shmid 8
+-----executor 0 collect shmids 9
+----- directly resend shmid 9
+-----executor 0 collect shmids 10
+----- directly resend shmid 10
+-----executor 0 collect shmids 11
+----- directly resend shmid 11
+-----executor 0 collect shmids 12
+----- directly resend shmid 12
+-----executor 0 collect shmids 13
+----- directly resend shmid 13
+-----executor 0 collect shmids 14
+----- directly resend shmid 14
+-----executor 0 collect shmids 15
+----- directly resend shmid 15
+==15240==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+-----executor 0 collect shmids 16
+----- directly resend shmid 16
+-----executor 0 collect shmids 17
+----- directly resend shmid 17
+-----executor 0 collect shmids 18
+----- directly resend shmid 18
+-----executor 0 collect shmids 19
+----- directly resend shmid 19
+-----executor 0 collect shmids 20
+----- directly resend shmid 20
+-----executor 0 collect shmids 21
+----- directly resend shmid 21
+-----executor 0 collect shmids 22
+----- directly resend shmid 22
+-----executor 0 collect shmids 23
+----- directly resend shmid 23
+-----executor 0 collect shmids 24
+----- directly resend shmid 24
+-----executor 0 collect shmids 25
+----- directly resend shmid 25
+-----executor 0 collect shmids 26
+----- directly resend shmid 26
+-----executor 0 collect shmids 27
+----- directly resend shmid 27
+-----executor 0 collect shmids 28
+----- directly resend shmid 28
+-----executor 0 collect shmids 29
+----- directly resend shmid 29
+-----executor 0 collect shmids 30
+----- directly resend shmid 30
+-----executor 0 collect shmids 31
+----- directly resend shmid 31
+----- executor 3 write_call_output, size 0, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 15
+execute_call 0, 2643, 0, 0
+execute_one loop: 0, 0, 2643
+cover_reset in execute_call
+execute_call 0, 2642, 0, 0
+execute_one loop: 0, 0, 2642
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0, execute_one inner time: 0, 2812, 0
+execute_one time: 1, 2812
+----- executor 3 write_call_output, size 12812, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 12812, flag collect 1
+----- executor 3 cover number : 1365, signal number : 313
+----- completed 16
+execute_call 0, 31, 0, 6
+execute_one loop: 0, 0, 37
+cover_reset in execute_call
+----- executor 3 write_call_output, size 2535, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 2535, flag collect 1
+----- executor 3 cover number : 749, signal number : 151
+----- completed 17
+execute_call 0, 10, 0, 2
+execute_one loop: 0, 0, 12
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 18
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2952, write pid:2952
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 19
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+executor 3, execute_one inner time: 0, 2856, 0
+execute_one time: 2, 2857
+2023/03/31 02:41:44 for select break: 1
+2023/03/31 02:41:44 --------- executor 3 receive reply, reply.done 1
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 86, flag collect 1
+----- executor 2 cover number : 65, signal number : 74
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 93, flag collect 1
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 5418, flag collect 1
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 2 cover number : 3, signal number : 4
+----- executor 1 cover number : 65, signal number : 75
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 1 cover number : 3, signal number : 4
+----- executor 0 cover number : 501, signal number : 384
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 executes write_coverage_signal cov->size 18770, flag collect 1
+----- executor 1 executes write_coverage_signal cov->size 28577, flag collect 1
+----- executor 2 cover number : 1730, signal number : 2104
+----- executor 2 executes write_coverage_signal cov->size 86, flag collect 1
+----- executor 2 cover number : 66, signal number : 74
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 2 cover number : 3, signal number : 4
+----- executor 2 executes write_coverage_signal cov->size 9554, flag collect 1
+----- executor 2 cover number : 576, signal number : 664
+----- executor 2 executes write_coverage_signal cov->size 18829, flag collect 1
+----- executor 1 cover number : 2224, signal number : 2832
+----- executor 1 executes write_coverage_signal cov->size 86, flag collect 1
+----- executor 0 cover number : 126, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 17, flag collect 1
+----- executor 0 cover number : 10, signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 706, flag collect 1
+----- executor 1 cover number : 66, signal number : 0
+----- executor 1 executes write_coverage_signal cov->size 3, flag collect 1
+----- executor 1 cover number : 3, signal number : 3
+time breakdown 3: 207, 2863, 0
+before receive testcase: 0 0
+----- executor 1 executes write_coverage_signal cov->size 163, flag collect 1
+----- executor 0 cover number : 286, signal number : 209
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 0
+----- executor 1 cover number : 116, signal number : 99
+----- executor 1 executes write_coverage_signal cov->size 123, flag collect 1
+----- executor 1 cover number : 66, signal number : 47
+----- executor 0 executes write_coverage_signal cov->size 13, flag collect 1
+----- executor 0 cover number : 4, signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 209, flag collect 1
+----- executor 0 cover number : 106, signal number : 23
+----- executor 1 executes write_coverage_signal cov->size 1870, flag collect 1
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 1 cover number : 567, signal number : 285
+----- executor 1 executes write_coverage_signal cov->size 27874, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 2 cover number : 410, signal number : 54
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 1
+----- executor 0 cover number : 106, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 8, flag collect 1
+----- executor 0 cover number : 6, signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 410, signal number : 174
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 2691, signal number : 3608
+----- executor 2 executes write_coverage_signal cov->size 17, flag collect 1
+----- executor 2 cover number : 17, signal number : 16
+----- executor 2 executes write_coverage_signal cov->size 1083, flag collect 1
+----- executor 2 cover number : 280, signal number : 184
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 1
+----- executor 2 cover number : 3, signal number : 1
+----- executor 2 executes write_coverage_signal cov->size 2942, flag collect 1
+----- executor 2 cover number : 641, signal number : 552
+----- executor 2 executes write_coverage_signal cov->size 1748, flag collect 1
+----- executor 2 cover number : 545, signal number : 215
+----- executor 2 executes write_coverage_signal cov->size 13967, flag collect 1
+----- executor 0 cover number : 2120, signal number : 2357
+----- executor 0 executes write_coverage_signal cov->size 7, flag collect 1
+----- executor 0 cover number : 7, signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 972, signal number : 1143
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 1 cover number : 2184, signal number : 2745
+----- executor 1 executes write_coverage_signal cov->size 17, flag collect 1
+----- executor 1 cover number : 17, signal number : 16
+----- executor 1 executes write_coverage_signal cov->size 1051, flag collect 1
+----- executor 1 cover number : 278, signal number : 177
+----- executor 1 executes write_coverage_signal cov->size 6, flag collect 1
+----- executor 1 cover number : 3, signal number : 1
+----- executor 1 executes write_coverage_signal cov->size 3354, flag collect 1
+----- executor 1 cover number : 749, signal number : 329
+----- executor 1 executes write_coverage_signal cov->size 1330, flag collect 1
+----- executor 1 cover number : 415, signal number : 129
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 142, signal number : 57
+----- executor 0 executes write_coverage_signal cov->size 14, flag collect 1
+----- executor 0 cover number : 9, signal number : 3
+----- executor 0 executes write_coverage_signal cov->size 1105, flag collect 1
+----- executor 0 cover number : 499, signal number : 125
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 4, flag collect 1
+----- executor 0 cover number : 4, signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 2506, flag collect 1
+----- executor 0 cover number : 796, signal number : 246
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 1282, signal number : 1069
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 894, signal number : 363
+----- executor 0 executes write_coverage_signal cov->size 8, flag collect 1
+----- executor 0 cover number : 8, signal number : 7
+----- executor 0 executes write_coverage_signal cov->size 7, flag collect 1
+----- executor 0 cover number : 7, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 29, flag collect 1
+----- executor 0 cover number : 27, signal number : 20
+----- executor 0 executes write_coverage_signal cov->size 15, flag collect 1
+----- executor 0 cover number : 13, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 4, flag collect 1
+----- executor 0 cover number : 4, signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 4, flag collect 1
+----- executor 0 cover number : 4, signal number : 4
+executor 0 server cover_cnt 60 output_pos_value 18832
+----- executor 1 cover number : 1320, signal number : 1620
+----- executor 1 executes write_coverage_signal cov->size 815, flag collect 1
+----- executor 1 cover number : 379, signal number : 79
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+time breakdown 0: 172, 2900, 0
+before receive testcase: 0 1
+2023/03/31 02:41:44 for select break: 1
+2023/03/31 02:41:44 --------- executor 0 receive reply, reply.done 1
+----- executor 2 cover number : 2146, signal number : 1389
+----- executor 2 executes write_coverage_signal cov->size 28095, flag collect 1
+----- executor 1 cover number : 2455, signal number : 1671
+----- executor 1 executes write_coverage_signal cov->size 27622, flag collect 1
+----- executor 2 cover number : 1293, signal number : 736
+----- executor 2 executes write_coverage_signal cov->size 30292, flag collect 1
+----- executor 1 cover number : 2205, signal number : 1648
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 2 cover number : 2241, signal number : 1046
+executor 2 server cover_cnt 18 output_pos_value 27956
+2023/03/31 02:41:44 for select break: 1
+2023/03/31 02:41:44 --------- executor 2 receive reply, reply.done 1
+----- executor 1 cover number : 2497, signal number : 1696
+executor 1 server cover_cnt 20 output_pos_value 29713
+time breakdown 2: 153, 2914, 0
+before receive testcase: 0 0
+2023/03/31 02:41:44 for select break: 1
+2023/03/31 02:41:44 --------- executor 1 receive reply, reply.done 1
+2023/03/31 02:41:44 wg wait finish
+2023/03/31 02:41:44 ------ all executors finish execution
+2023/03/31 02:41:44 exec time: 3032
+2023/03/31 02:41:44 ----- PS len: 4
+2023/03/31 02:41:44 [CLIENT] executor 3 has 19 replies
+2023/03/31 02:41:44 [SERVER] executor 0 has 60 replies
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 3 signal and 3 cover from userspace component
+2023/03/31 02:41:44 fuzzer receive 1589 signal and 1276 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 282 signal and 427 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 2223 signal and 1759 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 5 signal and 7 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 107 signal and 142 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 9 signal and 9 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 2 signal and 2 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 5 signal and 5 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 5 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 2 signal and 4 cover from userspace component
+2023/03/31 02:41:44 fuzzer receive 130 signal and 1139 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 194 signal and 630 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 164 signal and 515 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 0 signal and 515 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 327 signal and 830 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 15 signal and 128 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 139 signal and 651 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:44 [SERVER] executor 1 has 20 replies
+2023/03/31 02:41:44 fuzzer receive 313 signal and 1365 cover from executor 3
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 75 signal and 65 cover from userspace component
+2023/03/31 02:41:44 fuzzer receive 151 signal and 749 cover from executor 3
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:44 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:44 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 2832 signal and 2224 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 0 signal and 66 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 3 signal and 3 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 99 signal and 116 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 47 signal and 66 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 285 signal and 567 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 174 signal and 410 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 2745 signal and 2184 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 16 signal and 17 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 177 signal and 278 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 1 signal and 3 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 329 signal and 749 cover from userspace component
+time breakdown 1: 155, 2919, 0
+before receive testcase: 0 0
+2023/03/31 02:41:44 [SERVER] executor 2 has 18 replies
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 74 signal and 65 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 129 signal and 415 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 1620 signal and 1320 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 79 signal and 379 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 1671 signal and 2455 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 1648 signal and 2205 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 1 receive 1696 signal and 2497 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 2104 signal and 1730 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 74 signal and 66 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 4 signal and 3 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 664 signal and 576 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 54 signal and 410 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 304 signal and 615 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 3608 signal and 2691 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 16 signal and 17 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 184 signal and 280 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 1 signal and 3 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 577 signal and 894 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 384 signal and 501 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 5 signal and 126 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 2 signal and 10 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 209 signal and 286 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 5 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 5 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 2 signal and 4 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 23 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 1 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 552 signal and 641 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 215 signal and 545 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 1143 signal and 972 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 1069 signal and 1282 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 106 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 4 signal and 6 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 2357 signal and 2120 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 4 signal and 7 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 1389 signal and 2146 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 57 signal and 142 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 3 signal and 9 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 736 signal and 1293 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 125 signal and 499 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 2 signal and 5 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 5 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 0 signal and 4 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 2 receive 1046 signal and 2241 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 246 signal and 796 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 363 signal and 894 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 7 signal and 8 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 5 signal and 7 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 20 signal and 27 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 5 signal and 13 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 4 signal and 4 cover from userspace component
+2023/03/31 02:41:44 ------- fuzzer executor 0 receive 4 signal and 4 cover from userspace component
+2023/03/31 02:41:44 fsMds: [map[] map[] map[] map[]]
+2023/03/31 02:41:44 failure smash: true false
+2023/03/31 02:41:44 HasCrashFail: true, .HasNetFail: false
+2023/03/31 02:41:44 disable threaded and collide
+2023/03/31 02:41:44 prog length: 6
+2023/03/31 02:41:44 send to channel: true, false
+2023/03/31 02:41:44 prog length: 19
+2023/03/31 02:41:44 HasCrashFail:true HasNetFail:false
+02:41:44 ---executing program 0:
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+---
+---
+mkdir(&(0x7f0000000040)='./file0\x00', 0x0)
+write$binfmt_script(0xffffffffffffffff, &(0x7f0000001380)={'#! ', './file0', [{0x20, '@]\\'}], 0xa, "2a89fc7aedc552937961c779278dce4d42c2deebfd0b1a8728bafc9c0216944f8370a2c40658b5ee92fc442f9a338193717b9d368d86413be610bd93886245a383bcae6d8656f82153b62cc67ca903d7d34eb888c09579264ff5cfb1549da2fae586ed0f4374a28cc48ddf35e5e6ae463a490efe333c53947a8426a24fd77ee40255db5137d0c4dbd88a8d1d0a5bee0fc87b933b53ff88afa277ed2ef30045e8929a28f14402cd9acec96add125bb7a7f53f14fe8d34b0f89707cd8d401c4eff1913a11cc6a88fe89c0265171025bdd465ee47229e"}, 0xe4)
+r0 = openat(0xffffffffffffff9c, &(0x7f0000001340)='./file0\x00', 0x311080, 0x1a5)
+r1 = open(&(0x7f0000000240)='./file0\x00', 0x208840, 0x19d)
+symlinkat(&(0x7f0000000200)='./file0\x00', r1, &(0x7f0000000280)='./file0\x00')
+listxattr(&(0x7f0000000140)='./file0\x00', &(0x7f0000000080)=""/144, 0x90)
+syz_failure_sync(0x0, 0x3)
+mkdir(&(0x7f0000001600)='./file0\x00', 0x0)
+mkdir(&(0x7f0000001540)='./file0\x00', 0x100)
+pwrite64(r1, &(0x7f00000002c0)="c2e6c9a28a5419a64397a4b135b3f2f5cc742518625e6d224dfb99bb97f588d90a8fbc38613a02a29f275f3a10e2dc43f9dd1d8cb52b9d2fb1144ba5f2eb02d1089b9ddbd58c061eca1f92d8d228e658805be14496800a97cd51d5de414e732cafb1d34aa7cbc86408cf9c3e31c8cf82f10327aa1946a6e1ce7e2816464909f3b6af59ffaac63b6b76912e216eb462aa58a86f4013e9818243c5c53b97423c56a55702376feccc2887e25274197bf4f4899434dc6f7b38df74f32dcdaabb268476543ddd18e45cda07d0282506539801a126eb439b0a9c4ba092d5bdc5cfac37521afdebcecb1b15209aaec372448dcf16ab5f32ac0726297200651dfa70be682395d7696a2be237337684227ce57a3eedc706a3814c55eda93de77f3a9ed079c8e4ec0aac4c7df9d860372fb70a0216c22945a31efafb75328f34b4fb18a9d557e6b559b0d06254fb2ccdf9fcb3946eef0c5512d6430a30efc29ee480fc6c0a05a73ec02bf278745fb24af2c4a3e2939bdc5faab81d1b5dcb9ef55350036134f727929e2e1ca098eb3aac0e2e5d9ac94df169265d69a0b0643f2f759b84c5bd7b1a995a8247f596447ac686715274cddabe59194726d8c09603bf71c580e98ec48a1636325c022428861596b3bed470ad21fb798f0bbf64a8f355eec53351d6bfe567d2400c7be88266fa6f708e83d2e45b34b9f5018dda7fe6819d0642bd0bd41c76e67ad903393b382a7b6da26c9e8c47218243f51ea3a57d113ac5b995272f622727d971b860cc5da0a5481f742228e89d40690536a8aa97810007b5f5cccb0c01a066ebf0768e17ed428563363104530800a84dfa22137debcca397c75655b9aee067efe94ec89373d49773f2387f2bbfa01e9914c570f86ee1e84d7cec235815c1e5bac0ba842ad806352d465a1115b448c9cc4b52ad37df9ff9302ea364ebcc3eb364876ad0f717019e81dc46195c5e30da8ddfc3e7195907d5e47f247ead0900e5108be1903242f1399502db91eb342f7dd93ed0a3509d5bdfbdb28a200721a640ca7736f5d615c4a227ddaa7e2e257bbcc28fbead47a192b2ade5282ae793a3a6c22915bdd15a9a19fa36479f08f8e661b2b9782c6906d5379427e2f2c92539669fd02674cea2188e5dba374d1aa5c33175bd58f3a21a6574f556c63d25d46c0c851b5743595af34595850c772b3eaea78c146376f434e7b344cb5ac6dcbd722b8b842d99979f68b21ed6b51d5c5c2f2cbcdd928baf12ae7367edba1d6b356ced9b92ed26a82826eceb633f1668fc33bbe030f249b8dfd31edf029e40c76e65182c20477f7a31dc528e9f1eafb9fda281bd95762c6edb98fe0a8ce2ee571c892352023e76310c1eabb8781b00dd58c11e006d567f858693f49bc9fa032489634c1d712a0a4f5eccb97a86007c892d7f0fe07adb75244cb14868e558c41888a8c3b158d33974ce12e5267ac0e78301dbca7e82bf197c43201a0289fad1b53f2b4263d7e1fe41ffb9940b05d504ee43b4452603781acabc684be0347a1cb5ede6cfad5d3fbeee118bf4f7c83b2271dfc96d9a609a3dc4f7603603a05928ed11b987abc54f9ca170a1891fe258a1e85e0068492f2aabaad1652147450517448335a1e41caaef2c545bcee78a16a3bbac9f7223443d84a8a82fdbe1b72f4c1709621fac57bf0936fb6436551006f249c716b2124f33c46b47d5741ae4f4d75d9a64926b0b5d0aa043720cf0420b0daef83b2238187236e413f46b28a59b73159e3d7cdebbf181578cbbc03bf5db0fb76d532f98701e62e9ee58fce81debeb48c8e1e3974b4ad28d26ea3325afffb423496335a2753fec937ca4f7644bf86df184e6eb555f12f25b6e7cb51dde1be606e5bc0480337a319c9ddf77479625dc2595837fbc5cf94f2f8e5f8f288ab3a84230aaa85f6b0b876080c438da20f223b615858b96af1d6c985f105b6c4a406221d3726b4123f2b9a277a735b002d522c622c5a0386fa3f84ec360c3db7f9320bd07b5aa5f3d104c0a91c95125aec73b7727b8248d7b8796df9beec561ee2e5a8bc5b0ef330fceb33e1eaea901afd7e3afbcf2a23740e8cb64d3faf44acf0150338dc62170fe970d1c4eb7dafaab6077421be6d7b5253f1a5f0bffdfcf68bb0470495a1eadd104aa612baa9ac2d936a37d1d858050dfef9993c640e69c06cca5e9eb4a9e790e78b9ae2624f4bf079d57d1ac6cb537e0eb70f9b1275c70804bd6c5b3a2e758acde9878ee63187f17e13f6f6932da75ab3ec98f68575afe4712af0aa4a564fa98d21e9be0d7c775814ecb31eaf35c0132a57f557366ebb39a08762491df040e56c89aafb87913e4671bf6a24c16d642222234b85c0bb33a8606c4657b67eba3b0896db4b60e40f8569b490ea4d763089efcfe5e9586c01960d0391b4194528527b94c8d40d2f165ba161c6b444d5bb483ab6f24e0a7ce8c5950bf42b0243cd161ec939ccaf4413a50e746d4692fab3e1aeec362771d9e65104f1b24e18d0a1bf2a9e7c38fe6e196feb5d30dd26807756cda3ba5c661ffabc9cb7f6a94cf98cf84a45ae1693a5aca91dd2a3f4d7eb6aad61818fd20321537cb154b4f0dcfa5ceaa17d083ed1d50010bf46175032f81a2492e362434af9e0d5a2799adc398ca4a940d28b7e8653f77ea325b78eb883caf446b60448613fc7775367215941f95d1401f38fbfa6acb36ac08f9fa0b7c3563214923082c6e97f1004d21dc5e50970abd54bed198d3524a60622c59e9fa24489dffb8fc134637caabfedd79b84d36ce14255c7f22cd61e10b84864fa0cd2b02a29351ab9d9c3e3ba61d37f0deb08f7fa73c4ee6cc1558d1617c17e207505dab745a3a56fd8ed0c0cd70a54e8a138ee84e66f8552bc8424c2d4bc643dd061b85a3888983b25448cfc5584099bec19c164320195a546f63ae82ad7b3b5d3607d8b84f082edb5d842acce111b8056feeb442e43567b4fb2cc19843576736e585ca0ec576db83ccedb8bd1064abd021dd52a7f38f61cfcf727843fea5b63244e9a93a2ea0eef8ce0145448f1b46c389014b27fe1986697bd30314cc071f824a5775bcb118ea2356db4b8282cead9df2d4e242b9c1126b44edafd340bd8b0e39c6424886e42729f2d2995d106cd1ff4df4bd1abb9b99d3dbbcb8197730c86c144e6974937bd0e50d81fbe982a8172ea4db82ca3c430925b081a6579cbf8407b4f2b1a1dbf5aaf28050dfd826e1934af2f40d34e20ef1653d86265c167f4926ed1c2de54cc58ddcece1a31d666607d8308b433eef16c955a3ba02e5e1c485e71a761fc2b344f90223fbbdff42ef2b5f990768c44becd3221d97d51112b67ae7b0ad09a20546ac8453603c10b46739f440007774f58906c26463ec6d901d3613d796492de39956c3ce7a3c43c3683a86cb136d4d950f0928539992226fce69c57934d86440fb3ab87fb39f18601c15ee2719018d8c3505087358e73fe4f8d1dd1f951e1079def5c1095248d66ced8123d8845b50713ecc8c686abcccb989575a3cfd39287b0021adcf5231ee8b8cc5e802e58e88ad8f763bb0442d04e37db4946408fccbee446f78bca281f479791ed59ebfb00660ad8e7e45cab1410480ca8d6e3a920dedde22379c0731253a9037975dbc305342cce75b3dcded27a4b607d404322ed7909bb46693df60201dd2a23576991d5c109a100f5bf45d391724f67cbc457cc2ffa2e961f3dd6546b661408e7699fb709a5b7175c69f8e88d7f7444010c5a400fd783b5b0a342944ae2adbf8b0eeda69463deec5277dfde9bffec6718da3cbbd56c3ea67ad7d65743427d4d8b32d76bd99a8af36e5414be370c752fa74f127c70468b8d2f62c15f7a38fc8f2ba723c12a0dbadc5348296467c2220c50d82be89f05f379b8eadae4ce8ff4ce15b87253742016a9c81d367fdf6aa0e0f3f78a240a098b3cc16fbc7b0d2911aa768464bb68d01b0b3656c75c1b20487579be10836ea87d68050df28c2aed67f18822b554ea987b1fef45521a85603fd4be5c630c4cf12b1f5dc39b76fd0bce5acb086fc6a1a9ac065e73a36fddfa1d95728283bf952ba8d90603acc831baa6ee971ca7a5ed1f10726e71a3a7cc500872eaaa37f483527375d576abdf4eedecf75cb53049417c7cdde150c1a0a093311f66fcfb08ead403f11c1e57d3fd9eb5e6079f66817a929e607fe828f782aae0f8586bdcf7c03452c02972152ff4aaabc92fbec651c500a2a1d35e299a615daa3a089039f1facf69f7b3f70c559afb6a9ebd97ad05399fa888b3420d01e1b52c5c61634eb65337dbaea4f20ebc8190b99352941052f75a6a02624fd3baba8a46e3a3c8757c49483c2ba05ae42e1ae332860dbf7317975b6133eea0dabe14b0630bb15bc54d04eca3480502543ad341bebff31744ede53454d623a0a3d9bec845049b4ac52ebaf89127d07682eaf77fd777716d82e9ba6e038d25b117bd103e638dd2303d8683cf329a32e1840750cfc97e4eadbf6c1151c83752b449161aaf6b3d3a7f92b942fcb2d61be762c38dcab69878f8c2cc129be4f9a051e1f9464cf671aa6f5b868b9938ad9e563c946d96b3d851f812d6ad775bbf3a225a929f78feacd589fed63948b6534515e2748d0f1d2538e646de65d9abcc6f93c5985577627368ea4372616836136099a950445ef2a79f38cf1850de2b39f2b9a035c906b060d27500809972d7897523af5de3a719728ac7899f8a04148f63c9bf5bf04cff935e29a8122d8ad51a1ec995994e198e78c433af397d1b967b653b8233a58432a2b77d4b4ef760711645e01ba102c072bb9900062dfec5f3c78e97c2ae0b4fe5413591f0f18227d6189b184d429a782feba09795181efedf21df950c0967809487daa1b9fc5d4c61260aee2b4611d90a2635aa464452ff030159bf4740cdab60391b0ca867f7cb64fafd4d1a13a3fd3b9d8e520548a59c0b971f41fdf8e46619ae8289eca62920fd3125d601a9808c604b6215c34042b626a7b416c69307be2e741233ef31b279dab7dac767c3270b5d7a12cf7bce14ffd8b60b99813c0b35475b136c308f4ca3ae54ac17e9a4e064dfe01f98d6d5813c14aae79ece00ab9de11212c4c9846ef3fbd886702f5a575aebad2b0b2ed1a1d613886c2bcb774e6a65ffec02fa026148ca4b6d63f813c45f178546d7c032995172d366299ac63b59a426740e8c5f762af1942272c5ed914dc5e300a8b9884cf36bb4c965d65202fd83e14765e49a04c246e43423cfdf5b163087af2f9faf30b22294c6aec7da1e66ed95710ac8f13ce416d387ecaa4eb09512d1a6ade652d5fb489abc150a2a52177b0dcdbbe88907d8264e88a3495ec8bde4584c31f60df7f1584fe57efc1c58fbb9aacb04cf163d059c328f16da446dce46a76ce4f001cd97637b19ccb0be002d8d07d96e55f7574dad670c482dfec2cf0d99433632ee06a852e886f6ba791def11a56a1e7f002e479f59c0da034b1fb8c319f859933f6e0ab06b6c4c0874c1b9de44977e7d8049e7f97412057c1fd64111f538ab1b4ae09c72bcf51da9b11a84cffa0a575859b570eae80705778e7d44cc3efe0dae06538aba655de1ceb63a80d1141ca8bad713220d7a7e5f0f147b81764814e6af51b59b3dac1fb65765638dc8f7f4ea6e970fa1d86874e24fda9a911276a57728b7b730bb957b5a8ab58e95e64873979f688aac03e3b2f957a4a281f32ba552d3f787e709f5d394bca0df5d35cf0a063e535a6927632e10c51df55311ef45014912053006e5f1c657a7efc", 0x1000, 0xffffffffffffc065)
+lsetxattr$trusted_overlay_nlink(&(0x7f0000001480)='./file0\x00', &(0x7f00000014c0), &(0x7f0000001500)={'U-', 0xffe}, 0x16, 0x1)
+fcntl$lock(r0, 0x26, &(0x7f0000001300)={0x2, 0x2, 0xc6, 0x1, 0xffffffffffffffff})
+setxattr$security_selinux(&(0x7f0000000180)='./file0\x00', &(0x7f00000001c0), &(0x7f00000012c0)='system_u:object_r:systemd_systemctl_exec_t:s0\x00', 0x2e, 0x2)
+removexattr(&(0x7f0000000000)='./file0\x00', &(0x7f0000001800)=ANY=[@ANYBLOB="8b29b32d41f3f702f23f134033c9280129cd50da33177452dac2551693a658e3dab8ec4e092ace995da1bd2765516131c6e66def3b7820cfa5f5b8a6ca9d65e4ee171525b0ef9109a7fd6ab1017ca2bc48b130fcfc51d07f882853e821fa88b21c69ee2b8c4ee1660dd5988bb6a9277833a8189fcd8c37407c70fe4d4ee99a56f057cfdee01f5fad374d2e892ea0e02c6061c139ec29c15183cf2afae0f8000000000000000000000000f6a0a93e03d899a3d2b92044652c6ff5b94574110416778257f57d0a394d079478fcf0e01e15b3120900000000000000f786f3896f70017babacf8cddf20ddfff6ac57a9ccbd444a6aacc7f1259bc9e90d6ba0d7649d9bd0c3cdbc8c9d8e4b094751d67282ed278d37a8c4409ae25dfe07da5a433282a299d1e22cfd6f772acd468959fac04330e6960ef3c58adc6fc187e882130dbb264077aeae48118d7958087d9bf4d30b510dde047dd7700b47f41eeeb9b49ef95ddaf85022c932856f6083eb0007c984d70000000000000000000000004c4d6c2e5ab41c30e64268e464876ed8852d97ba47ff72a091fb5b925c0c55f2f63a5838c8b3d235b16f73d4486b825cee458641db5801549c277fa889e99400b399af5b0000000000"])
+setxattr$security_evm(&(0x7f00000015c0)='./file0\x00', &(0x7f0000001780), &(0x7f00000017c0)=ANY=[@ANYBLOB="0180a1ef11ba77a2421b5afeb0"], 0xd, 0x2)
+syz_failure_sync(0x1, 0x3)
+chmod(&(0x7f0000001580)='./file0\x00', 0x101)
+r2 = dup(r1)
+ftruncate(r2, 0xfffffffffffffffc)
+---
+
+end of program
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1576, prog_size 8056
+remove dir: /root/glusterfs-client/dfs-0-1450
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1560, prog_size 8
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 8
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1312, prog_size 248
+remove dir time 40
+-----finish removing dir
+receive_execute: 28, 61
+receive_execute: 24, 61
+receive_execute: 42, 61
+mkdir time 20
+executor 3 create dir /root/glusterfs-client/dfs-0-1451 successfully
+current dir: executor 3: /root/glusterfs-client/dfs-0-1451
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 2, execute_one inner time: 0, 0, 0
+execute_one time: 1, 0
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1, execute_one inner time: 1, 0, 0
+execute_one time: 5, 1
+receive_execute: 72, 66
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 9003, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 9003, flag collect 1
+----- executor 3 cover number : 1276, signal number : 1589
+----- completed 1
+execute_call 0, 22, 0, 2
+execute_one loop: 0, 0, 25
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 2
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 925, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 925, flag collect 1
+----- executor 3 cover number : 427, signal number : 282
+----- completed 3
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 4
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 8473, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 8473, flag collect 1
+----- executor 3 cover number : 1139, signal number : 130
+----- completed 5
+execute_call 0, 18, 0, 6
+execute_one loop: 0, 0, 24
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1649, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 1649, flag collect 1
+----- executor 3 cover number : 630, signal number : 194
+----- completed 6
+execute_call 0, 3, 0, 2
+execute_one loop: 0, 0, 6
+cover_reset in execute_call
+execute_call 0, 62, 0, 0
+execute_one loop: 0, 0, 62
+executor 0 write_server_output
+executor 3 waits for recv msg
+executor 0 server cover_cnt 0 output_pos_value 1
+-----executor 0 collect shmids 0
+----- directly resend shmid 0
+-----executor 0 collect shmids 1
+----- directly resend shmid 1
+Terminated
+-----executor 0 collect shmids 2
+----- directly resend shmid 2
+execute_call 0, 49, 0, 0
+execute_one loop: 0, 0, 49
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 7
+execute_call 0, 49, 0, 0
+execute_one loop: 0, 0, 49
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1234, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 1234, flag collect 1
+----- executor 3 cover number : 515, signal number : 164
+----- completed 8
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 1234, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 1234, flag collect 1
+----- executor 3 cover number : 515, signal number : 0
+----- completed 9
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 10
+execute_call 0, 0, 0, 1
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 2776, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 2776, flag collect 1
+----- executor 3 cover number : 830, signal number : 327
+----- completed 11
+execute_call 0, 6, 0, 1
+execute_one loop: 0, 0, 7
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 12
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+----- executor 3 write_call_output, size 183, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 183, flag collect 1
+----- executor 3 cover number : 128, signal number : 15
+----- completed 13
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+cover_reset in execute_call
+----- executor 3 write_call_output, size 2226, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 2226, flag collect 1
+----- executor 3 cover number : 651, signal number : 139
+----- completed 14
+execute_call 0, 12, 0, 3
+execute_one loop: 0, 0, 15
+cover_reset in execute_call
+----- executor 3 write_call_output, size 2756, pid 2953, write pid:2953
+----- executor 3 executes write_coverage_signal cov->size 2756, flag collect 1
+----- executor 3 cover number : 818, signal number : 14
+----- completed 15
+execute_call 0, 11, 0, 1
+execute_one loop: 0, 0, 12
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 38, 0, 0
+execute_one loop: 0, 0, 38

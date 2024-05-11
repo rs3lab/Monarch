@@ -1,0 +1,2850 @@
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 24883 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 24883 Comm: syz-executor.10 Not tainted 5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881198479f0 EFLAGS: 00010286
+RAX: 00000000000016a1 RBX: ffff888119847a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810e760000 RDI: 0000000000000002
+RBP: ffff8881100da200 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 00000001ae6e2003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f926 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 24884 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 24884 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811e04f9f0 EFLAGS: 00010286
+RAX: 0000000000000ec9 RBX: ffff88811e04fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811beead00 RDI: 0000000000000002
+RBP: ffff88811b990a00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 000000011327c004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f927 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 24886 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 24886 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881af9d79f0 EFLAGS: 00010286
+RAX: 0000000000000f04 RBX: ffff8881af9d7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888129b48000 RDI: 0000000000000002
+RBP: ffff88811b990700 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 000000010e482005 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f928 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 24888 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 24888 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810f9ff9f0 EFLAGS: 00010286
+RAX: 0000000000000f02 RBX: ffff88810f9ffa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888129b49680 RDI: 0000000000000002
+RBP: ffff88811b990200 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 000000011319c001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f929 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 24903 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 24903 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881126d79f0 EFLAGS: 00010286
+RAX: 0000000000000f30 RBX: ffff8881126d7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811606da00 RDI: 0000000000000002
+RBP: ffff88811edb6c00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000117824002 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f92a ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 24905 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 24905 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810d9479f0 EFLAGS: 00010286
+RAX: 0000000000000ebc RBX: ffff88810d947a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811beeda00 RDI: 0000000000000002
+RBP: ffff888110453f00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 00000001ae6e4002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f92b ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 24907 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 24907 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881af97f9f0 EFLAGS: 00010286
+RAX: 0000000000000f11 RBX: ffff8881af97fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888111bb8000 RDI: 0000000000000002
+RBP: ffff888110453500 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 000000012b57e005 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f92c ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 24909 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 24909 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811b04f9f0 EFLAGS: 00010286
+RAX: 0000000000000f27 RBX: ffff88811b04fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888100394380 RDI: 0000000000000002
+RBP: ffff888110453700 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 0000000100ddc001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f92d ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 24920 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 24920 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810d9479f0 EFLAGS: 00010286
+RAX: 0000000000000ec7 RBX: ffff88810d947a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888111bbda00 RDI: 0000000000000002
+RBP: ffff888110453100 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000100ddc006 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f92e ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 24922 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 24922 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881136579f0 EFLAGS: 00010286
+RAX: 0000000000000f13 RBX: ffff888113657a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881085f8000 RDI: 0000000000000002
+RBP: ffff888110453000 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 0000000110376002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f92f ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 24928 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 24928 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812f6679f0 EFLAGS: 00010286
+RAX: 00000000000016d5 RBX: ffff88812f667a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881085fc380 RDI: 0000000000000002
+RBP: ffff888118b8fe00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000108438003 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f930 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 24931 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 24931 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811b7479f0 EFLAGS: 00010286
+RAX: 0000000000000ef0 RBX: ffff88811b747a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881085fda00 RDI: 0000000000000002
+RBP: ffff888118b8ff00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f150de31454 CR3: 000000011bb36004 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f931 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 24932 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 24932 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881179079f0 EFLAGS: 00010286
+RAX: 0000000000000f00 RBX: ffff888117907a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810e360000 RDI: 0000000000000002
+RBP: ffff888118b8f900 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 0000000110b9c003 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f932 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 24934 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 24934 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff888119a8f9f0 EFLAGS: 00010286
+RAX: 0000000000000f28 RBX: ffff888119a8fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810e361680 RDI: 0000000000000002
+RBP: ffff888118b8fa00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c0ca640 CR3: 00000001157b0004 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f933 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 24942 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 24942 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881af9779f0 EFLAGS: 00010286
+RAX: 00000000000010c8 RBX: ffff8881af977a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888100285a00 RDI: 0000000000000002
+RBP: ffff88811b990f00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b459d5d360 CR3: 0000000100ddc006 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f934 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 24948 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 24948 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811c6979f0 EFLAGS: 00010286
+RAX: 00000000000013a1 RBX: ffff88811c697a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810e364380 RDI: 0000000000000002
+RBP: ffff888110f0d900 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c0effe0 CR3: 000000010c2a0006 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f935 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 24951 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 24951 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881163279f0 EFLAGS: 00010286
+RAX: 0000000000000e5f RBX: ffff888116327a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881158fda00 RDI: 0000000000000002
+RBP: ffff88810c07f500 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c0f1ae0 CR3: 0000000108438001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f936 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 24955 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 24955 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811580f9f0 EFLAGS: 00010286
+RAX: 000000000000179e RBX: ffff88811580fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888111f6ad00 RDI: 0000000000000002
+RBP: ffff88810cc0ac00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 00000001153f6003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f937 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 24957 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 24957 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881100a79f0 EFLAGS: 00010286
+RAX: 0000000000000eea RBX: ffff8881100a7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881147e8000 RDI: 0000000000000002
+RBP: ffff888110f0d500 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 00000001157b0001 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f938 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 24966 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 24966 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811cbc79f0 EFLAGS: 00010286
+RAX: 0000000000000f27 RBX: ffff88811cbc7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881147eda00 RDI: 0000000000000002
+RBP: ffff888100abeb00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e822000 CR3: 000000010e486004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f939 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 24988 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 24988 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812b6e79f0 EFLAGS: 00010286
+RAX: 0000000000000ef5 RBX: ffff88812b6e7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810a901680 RDI: 0000000000000002
+RBP: ffff88810ce61c00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 00000001162de003 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f93a ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 24991 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 24991 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881117e79f0 EFLAGS: 00010286
+RAX: 0000000000000f12 RBX: ffff8881117e7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811b290000 RDI: 0000000000000002
+RBP: ffff88810ff8c000 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c1456e0 CR3: 000000012d6dc002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f93b ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 24995 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 24995 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff888118f079f0 EFLAGS: 00010286
+RAX: 0000000000000f0c RBX: ffff888118f07a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888108a22d00 RDI: 0000000000000002
+RBP: ffff8881096acf00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000012c296003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f93c ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25067 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25067 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811e0a79f0 EFLAGS: 00010286
+RAX: 0000000000000eb1 RBX: ffff88811e0a7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888129b51680 RDI: 0000000000000002
+RBP: ffff88810d98ef00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000012985e003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f93d ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25069 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25069 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881131d79f0 EFLAGS: 00010286
+RAX: 0000000000000ece RBX: ffff8881131d7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888129b52d00 RDI: 0000000000000002
+RBP: ffff888111488a00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000108f6a004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f93e ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25088 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25088 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812afd79f0 EFLAGS: 00010286
+RAX: 0000000000001446 RBX: ffff88812afd7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888114734380 RDI: 0000000000000002
+RBP: ffff88812b4cb400 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffffab69b58 CR3: 00000001af98a004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f93f ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 25103 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 25103 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881198a79f0 EFLAGS: 00010286
+RAX: 0000000000000f0f RBX: ffff8881198a7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811bc40000 RDI: 0000000000000002
+RBP: ffff8881150aa700 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000012995c001 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f940 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25107 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25107 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810eba79f0 EFLAGS: 00010286
+RAX: 00000000000010ca RBX: ffff88810eba7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811bc42d00 RDI: 0000000000000002
+RBP: ffff88812b4cb300 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000113066002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f941 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 25112 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 25112 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881af9e79f0 EFLAGS: 00010286
+RAX: 00000000000010a8 RBX: ffff8881af9e7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888110491680 RDI: 0000000000000002
+RBP: ffff8881150aa800 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055c90c95c000 CR3: 000000011ad94002 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f942 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25123 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25123 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881179179f0 EFLAGS: 00010286
+RAX: 0000000000000eda RBX: ffff888117917a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888110495a00 RDI: 0000000000000002
+RBP: ffff8881150a7800 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000010e39c002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f943 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 25140 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 25140 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810d6bf9f0 EFLAGS: 00010286
+RAX: 0000000000000f75 RBX: ffff88810d6bfa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810d754380 RDI: 0000000000000002
+RBP: ffff88811cf76500 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c294560 CR3: 0000000119be4006 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f944 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25172 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25172 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812b6d79f0 EFLAGS: 00010286
+RAX: 0000000000000ef5 RBX: ffff88812b6d7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888112302d00 RDI: 0000000000000002
+RBP: ffff888119d8bc00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000010fbac002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f945 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25177 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25177 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811d0679f0 EFLAGS: 00010286
+RAX: 000000000000183b RBX: ffff88811d067a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888112305a00 RDI: 0000000000000002
+RBP: ffff88811cc7e300 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000010fbc4002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f946 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25184 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25184 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff888115f4f9f0 EFLAGS: 00010286
+RAX: 000000000000169d RBX: ffff888115f4fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881b0084380 RDI: 0000000000000002
+RBP: ffff888119d8b700 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000108aea003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f947 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25190 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25190 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812d6bf9f0 EFLAGS: 00010286
+RAX: 0000000000001470 RBX: ffff88812d6bfa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811d061680 RDI: 0000000000000002
+RBP: ffff888119d8b600 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e822000 CR3: 000000010fc1e005 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f948 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25220 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25220 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812d4ef9f0 EFLAGS: 00010286
+RAX: 0000000000000f72 RBX: ffff88812d4efa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888110dc2d00 RDI: 0000000000000002
+RBP: ffff88810a94f600 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e822000 CR3: 0000000108a2e004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f949 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25236 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25236 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810a9af9f0 EFLAGS: 00010286
+RAX: 0000000000000fb8 RBX: ffff88810a9afa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810f24ad00 RDI: 0000000000000002
+RBP: ffff888100d87300 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fffba27a698 CR3: 000000011b398002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f94a ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25252 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25252 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff888115e1f9f0 EFLAGS: 00010286
+RAX: 0000000000000ef8 RBX: ffff888115e1fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888117b72d00 RDI: 0000000000000002
+RBP: ffff888119087e00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c3760c0 CR3: 0000000118af0005 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f94b ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25271 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25271 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810d32f9f0 EFLAGS: 00010286
+RAX: 0000000000000eea RBX: ffff88810d32fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811a331680 RDI: 0000000000000002
+RBP: ffff88810a94fe00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 00000001176a2006 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f94c ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25280 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25280 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881ae89f9f0 EFLAGS: 00010286
+RAX: 0000000000001817 RBX: ffff8881ae89fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888111e6da00 RDI: 0000000000000002
+RBP: ffff8881136a7000 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e822000 CR3: 0000000100ddc005 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f94d ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25301 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25301 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881ae6479f0 EFLAGS: 00010286
+RAX: 0000000000000f23 RBX: ffff8881ae647a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888129a68000 RDI: 0000000000000002
+RBP: ffff8881146b0600 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c3c8ae0 CR3: 000000010eb9c002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f94e ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25312 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25312 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff888110ea79f0 EFLAGS: 00010286
+RAX: 00000000000016cd RBX: ffff888110ea7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811bf3ad00 RDI: 0000000000000002
+RBP: ffff888110aaa200 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c3e4020 CR3: 00000001176a6005 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f94f ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25342 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25342 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811a7279f0 EFLAGS: 00010286
+RAX: 0000000000000fcb RBX: ffff88811a727a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810b808000 RDI: 0000000000000002
+RBP: ffff88810f52b600 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e822000 CR3: 00000001166fa001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f950 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25345 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25345 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810a97f9f0 EFLAGS: 00010286
+RAX: 0000000000000eb1 RBX: ffff88810a97fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888114fbda00 RDI: 0000000000000002
+RBP: ffff88810f52b800 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e825000 CR3: 0000000116796001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f951 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25360 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25360 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811003f9f0 EFLAGS: 00010286
+RAX: 000000000000168f RBX: ffff88811003fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888114fb8000 RDI: 0000000000000002
+RBP: ffff88810adba900 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c442000 CR3: 000000011301c004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f952 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25386 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25386 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881183df9f0 EFLAGS: 00010286
+RAX: 0000000000000eeb RBX: ffff8881183dfa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811a049680 RDI: 0000000000000002
+RBP: ffff888108627a00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000108e4a004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f953 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25396 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25396 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811c24f9f0 EFLAGS: 00010286
+RAX: 0000000000000f3c RBX: ffff88811c24fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888117e32d00 RDI: 0000000000000002
+RBP: ffff88810fbf5b00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055c90c99c008 CR3: 00000001b0094001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f954 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25407 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25407 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811d1ef9f0 EFLAGS: 00010286
+RAX: 0000000000000ef2 RBX: ffff88811d1efa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888118da0000 RDI: 0000000000000002
+RBP: ffff88811ba3c200 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000011cb34006 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f955 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 25413 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 25413 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881ae7cf9f0 EFLAGS: 00010286
+RAX: 0000000000000ec3 RBX: ffff8881ae7cfa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881ae821680 RDI: 0000000000000002
+RBP: ffff88811ba3c100 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000020003000 CR3: 0000000110b20001 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f956 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 25414 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 25414 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881199cf9f0 EFLAGS: 00010286
+RAX: 0000000000000f11 RBX: ffff8881199cfa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881ae820000 RDI: 0000000000000002
+RBP: ffff88810090b000 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 00000001107d0003 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f957 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25432 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25432 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811303f9f0 EFLAGS: 00010286
+RAX: 0000000000000eae RBX: ffff88811303fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811c7b0000 RDI: 0000000000000002
+RBP: ffff8881110ce200 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e822000 CR3: 0000000109910004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f958 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25450 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25450 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881157779f0 EFLAGS: 00010286
+RAX: 0000000000000eb3 RBX: ffff888115777a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810acc0000 RDI: 0000000000000002
+RBP: ffff8881110ceb00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e822000 CR3: 00000001176c2001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f959 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25454 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25454 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881103979f0 EFLAGS: 00010286
+RAX: 0000000000000f2a RBX: ffff888110397a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881178e5a00 RDI: 0000000000000002
+RBP: ffff88812b455200 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000010e8ce006 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f95a ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25468 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25468 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811a1979f0 EFLAGS: 00010286
+RAX: 0000000000000fd8 RBX: ffff88811a197a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881116a0000 RDI: 0000000000000002
+RBP: ffff8881137f3600 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000020003000 CR3: 00000001198ea001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f95b ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25485 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25485 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811a95f9f0 EFLAGS: 00010286
+RAX: 0000000000000f11 RBX: ffff88811a95fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888113fd5a00 RDI: 0000000000000002
+RBP: ffff8881ae4cdc00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000011a87a003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f95c ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25501 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25501 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881ae4ff9f0 EFLAGS: 00010286
+RAX: 0000000000000f11 RBX: ffff8881ae4ffa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88812c37ad00 RDI: 0000000000000002
+RBP: ffff888111ae2400 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000011c832005 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f95d ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25509 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25509 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881112279f0 EFLAGS: 00010286
+RAX: 0000000000001750 RBX: ffff888111227a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888116592d00 RDI: 0000000000000002
+RBP: ffff8881ae4cd800 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000010d6d4003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f95e ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25524 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25524 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812f6cf9f0 EFLAGS: 00010286
+RAX: 0000000000001688 RBX: ffff88812f6cfa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811c292d00 RDI: 0000000000000002
+RBP: ffff888111ae2f00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000011c9be004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f95f ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25535 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25535 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff888129a179f0 EFLAGS: 00010286
+RAX: 000000000000185a RBX: ffff888129a17a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811cde0000 RDI: 0000000000000002
+RBP: ffff888100dd3500 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 00000001176c2003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f960 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25547 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25547 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812f6cf9f0 EFLAGS: 00010286
+RAX: 0000000000000f11 RBX: ffff88812f6cfa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811b74ad00 RDI: 0000000000000002
+RBP: ffff888111ae2900 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e822000 CR3: 000000011cb28005 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f961 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25549 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25549 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811eeb79f0 EFLAGS: 00010286
+RAX: 0000000000000ed9 RBX: ffff88811eeb7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881103f8000 RDI: 0000000000000002
+RBP: ffff888114501300 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 000000011d2f8003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f962 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25551 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25551 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811a7579f0 EFLAGS: 00010286
+RAX: 0000000000000f29 RBX: ffff88811a757a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810db55a00 RDI: 0000000000000002
+RBP: ffff888114501e00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 000000010f88e006 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f963 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25553 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25553 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811dfdf9f0 EFLAGS: 00010286
+RAX: 0000000000000f29 RBX: ffff88811dfdfa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811eedc380 RDI: 0000000000000002
+RBP: ffff888114501500 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e824000 CR3: 00000001168e6002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f964 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25555 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25555 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812ac779f0 EFLAGS: 00010286
+RAX: 0000000000000ef7 RBX: ffff88812ac77a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811b748000 RDI: 0000000000000002
+RBP: ffff888114501000 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 000000010f88e004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f965 ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25572 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25572 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff888119f079f0 EFLAGS: 00010286
+RAX: 0000000000000ee5 RBX: ffff888119f07a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810d6fda00 RDI: 0000000000000002
+RBP: ffff88811cbe7400 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000111bca004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f966 ]---
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 25578 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 2 PID: 25578 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811650f9f0 EFLAGS: 00010286
+RAX: 0000000000000f69 RBX: ffff88811650fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88811cde4380 RDI: 0000000000000002
+RBP: ffff88811b30e100 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000020003000 CR3: 000000010d6d0001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f967 ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 25581 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 25581 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810868f9f0 EFLAGS: 00010286
+RAX: 0000000000000ef5 RBX: ffff88810868fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888114f21680 RDI: 0000000000000002
+RBP: ffff8881ae40c800 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000115dea001 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f968 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25594 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25594 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811955f9f0 EFLAGS: 00010286
+RAX: 0000000000000f18 RBX: ffff88811955fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810c26c380 RDI: 0000000000000002
+RBP: ffff888114501d00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000117eba001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f969 ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25600 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25600 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812d54f9f0 EFLAGS: 00010286
+RAX: 0000000000000f0d RBX: ffff88812d54fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff888129aa9680 RDI: 0000000000000002
+RBP: ffff888114501100 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055c90c9c6000 CR3: 0000000112726001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f96a ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25604 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25604 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881ae4979f0 EFLAGS: 00010286
+RAX: 0000000000000eff RBX: ffff8881ae497a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88812d5aad00 RDI: 0000000000000002
+RBP: ffff888114501f00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000108b38002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f96b ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25632 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25632 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88811caff9f0 EFLAGS: 00010286
+RAX: 0000000000000f0a RBX: ffff88811caffa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff8881b013ad00 RDI: 0000000000000002
+RBP: ffff88810e3d9e00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b2e821000 CR3: 0000000112758004 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f96c ]---
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 25644 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 3 PID: 25644 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88810cf879f0 EFLAGS: 00010286
+RAX: 0000000000000f0f RBX: ffff88810cf87a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810bb70000 RDI: 0000000000000002
+RBP: ffff88810e3d9000 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055a5374d4208 CR3: 000000010c046002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f96d ]---
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 25654 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 0 PID: 25654 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff8881117b79f0 EFLAGS: 00010286
+RAX: 0000000000000ef7 RBX: ffff8881117b7a68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810fe4da00 RDI: 0000000000000002
+RBP: ffff88811a068f00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c659580 CR3: 0000000110150005 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f96e ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25660 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25660 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812f5ff9f0 EFLAGS: 00010286
+RAX: 0000000000000f58 RBX: ffff88812f5ffa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810c26ad00 RDI: 0000000000000002
+RBP: ffff8881184f5500 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c66ab00 CR3: 0000000114b0a006 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f96f ]---
+------------[ cut here ]------------
+WARNING: CPU: 1 PID: 25664 at lib/iov_iter.c:1162 iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Modules linked in:
+CPU: 1 PID: 25664 Comm: syz-executor.10 Tainted: G        W         5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:iov_iter_pipe+0x219/0x2c0 lib/iov_iter.c:1162
+Code: 83 c0 03 38 d0 7c 04 84 d2 75 51 44 89 63 24 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 e8 de ee 2f ff 0f 0b e8 d7 ee 2f ff <0f> 0b 48 b8 00 00 00 00 00 fc ff df 48 8b 14 24 48 c1 ea 03 0f b6
+RSP: 0018:ffff88812ad4f9f0 EFLAGS: 00010286
+RAX: 0000000000000ec9 RBX: ffff88812ad4fa68 RCX: 0000000000040000
+RDX: ffffc90000d0e000 RSI: ffff88810d66c380 RDI: 0000000000000002
+RBP: ffff8881184f5e00 R08: ffffffff820b0b39 R09: 0000000000000010
+R10: 0000000000000004 R11: ffffed102104268a R12: 0000000000000010
+R13: 0000000000000000 R14: 0000000000000010 R15: 0000000000000010
+FS:  0000555555c90980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b45c66d3c0 CR3: 0000000111a00003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ generic_file_splice_read+0x99/0x6f0 fs/splice.c:307
+ do_splice_to+0x1a7/0x230 fs/splice.c:796
+ splice_direct_to_actor+0x2bb/0x8c0 fs/splice.c:870
+ do_splice_direct+0x1b8/0x280 fs/splice.c:979
+ do_sendfile+0xa95/0x1030 fs/read_write.c:1249
+ __do_sys_sendfile64 fs/read_write.c:1314 [inline]
+ __se_sys_sendfile64 fs/read_write.c:1300 [inline]
+ __x64_sys_sendfile64+0x1bc/0x200 fs/read_write.c:1300
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f680063034d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffba27a028 EFLAGS: 00000212 ORIG_RAX: 0000000000000028
+RAX: ffffffffffffffda RBX: 00007f680069a915 RCX: 00007f680063034d
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000003
+RBP: 00007fffba27a060 R08: 0000000000000000 R09: 0000000000000000
+R10: 04000000000080a7 R11: 0000000000000212 R12: 00007f68005d6fd0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+---[ end trace b6d26914be22f970 ]---

@@ -1,0 +1,32 @@
+LustreError: 191852:0:(rw26.c:374:ll_direct_rw_pages()) ASSERTION( !(offset & (((1UL) << 12) - 1)) ) failed: 
+LustreError: 191852:0:(rw26.c:374:ll_direct_rw_pages()) LBUG
+Kernel panic - not syncing: LBUG
+CPU: 1 PID: 191852 Comm: syz-executor Tainted: G           O      5.11.22+ #18
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+Call Trace:
+ dump_stack+0x57/0x6a
+ panic+0x151/0x312
+ lbug_with_loc.cold+0x2c/0x2c [libcfs]
+ ll_direct_IO+0x1134/0x2370 [lustre]
+ generic_file_direct_write+0x99/0x180
+ __generic_file_write_iter+0xb3/0x1d0
+ vvp_io_write_start+0x114e/0x2900 [lustre]
+ cl_io_start+0x1cb/0x410 [obdclass]
+ cl_io_loop+0x1fb/0x5d0 [obdclass]
+ ll_file_io_generic+0x883/0x29a0 [lustre]
+ ll_file_write_iter+0x15ea/0x2020 [lustre]
+ do_iter_readv_writev+0x157/0x1b0
+ do_iter_write+0x7d/0x1b0
+ vfs_writev+0x83/0x140
+ do_pwritev+0x8c/0xd0
+ do_syscall_64+0x33/0x40
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x7ffff73891ad
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffff40bec18 EFLAGS: 00000216 ORIG_RAX: 0000000000000128
+RAX: ffffffffffffffda RBX: 00007ffff73f2728 RCX: 00007ffff73891ad
+RDX: 0000000000000006 RSI: 0000000020000480 RDI: 0000000000000005
+RBP: 00007ffff40bec70 R08: 00000000ffffffff R09: 0000000000000000
+R10: 0000000000000101 R11: 0000000000000216 R12: 00007ffff40bf640
+R13: 0000000000000016 R14: 00007ffff7342520 R15: 00007ffff409f000
+Kernel Offset: disabled

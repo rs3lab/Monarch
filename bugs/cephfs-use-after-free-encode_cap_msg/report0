@@ -1,0 +1,139 @@
+==================================================================
+BUG: KASAN: use-after-free in instrument_atomic_read_write include/linux/instrumented.h:101 [inline]
+BUG: KASAN: use-after-free in atomic_fetch_add_relaxed include/linux/atomic/atomic-instrumented.h:111 [inline]
+BUG: KASAN: use-after-free in __refcount_add include/linux/refcount.h:193 [inline]
+BUG: KASAN: use-after-free in __refcount_inc include/linux/refcount.h:250 [inline]
+BUG: KASAN: use-after-free in refcount_inc include/linux/refcount.h:267 [inline]
+BUG: KASAN: use-after-free in kref_get include/linux/kref.h:45 [inline]
+BUG: KASAN: use-after-free in ceph_buffer_get include/linux/ceph/buffer.h:27 [inline]
+BUG: KASAN: use-after-free in encode_cap_msg+0xded/0x19d0 fs/ceph/caps.c:1271
+Write of size 4 at addr ff11000104cfecc0 by task syz-executor/9531
+
+CPU: 1 PID: 9531 Comm: syz-executor Tainted: G        W         5.15.0+ #9
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x34/0x44 lib/dump_stack.c:106
+ print_address_description.constprop.0+0x21/0x140 mm/kasan/report.c:256
+ __kasan_report mm/kasan/report.c:442 [inline]
+ kasan_report.cold+0x7f/0x11b mm/kasan/report.c:459
+ check_region_inline mm/kasan/generic.c:183 [inline]
+ kasan_check_range+0x17c/0x1e0 mm/kasan/generic.c:189
+ instrument_atomic_read_write include/linux/instrumented.h:101 [inline]
+ atomic_fetch_add_relaxed include/linux/atomic/atomic-instrumented.h:111 [inline]
+ __refcount_add include/linux/refcount.h:193 [inline]
+ __refcount_inc include/linux/refcount.h:250 [inline]
+ refcount_inc include/linux/refcount.h:267 [inline]
+ kref_get include/linux/kref.h:45 [inline]
+ ceph_buffer_get include/linux/ceph/buffer.h:27 [inline]
+ encode_cap_msg+0xded/0x19d0 fs/ceph/caps.c:1271
+ __send_cap+0x45/0x390 fs/ceph/caps.c:1456
+ ceph_check_caps+0x84c/0x13f0 fs/ceph/caps.c:2113
+ flush_dirty_session_caps+0xfe/0x1b0 fs/ceph/caps.c:4320
+ ceph_mdsc_iterate_sessions+0x106/0x190 fs/ceph/mds_client.c:820
+ ceph_mdsc_sync+0x165/0xbb0 fs/ceph/mds_client.c:4855
+ ceph_sync_fs+0x9a/0x100 fs/ceph/super.c:125
+ iterate_supers+0x84/0xd0 fs/super.c:695
+ ksys_sync+0x5b/0xb0 fs/sync.c:116
+ __do_sys_sync+0x5/0x10 fs/sync.c:125
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7ffff7389aad
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffff40be7b8 EFLAGS: 00000212 ORIG_RAX: 00000000000000a2
+RAX: ffffffffffffffda RBX: 00007ffff73f67a9 RCX: 00007ffff7389aad
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 00007ffff40be810 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000212 R12: 00007fffffffe0ce
+R13: 00007fffffffe0cf R14: 00007fffffffe170 R15: 00007ffff40bed80
+
+Allocated by task 9533:
+
+Freed by task 7884:
+
+The buggy address belongs to the object at ff11000104cfecc0
+ which belongs to the cache kmalloc-32 of size 32
+The buggy address is located 0 bytes inside of
+ 32-byte region [ff11000104cfecc0, ff11000104cfece0)
+The buggy address belongs to the page:
+
+Memory state around the buggy address:
+ ff11000104cfeb80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+ ff11000104cfec00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+>ff11000104cfec80: 00 00 00 00 fc fc fc fc fa fb fb fb fc fc fc fc
+                                           ^
+ ff11000104cfed00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+ ff11000104cfed80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+==================================================================
+general protection fault, probably for non-canonical address 0xe980008100001ecc: 0000 [#1] SMP KASAN NOPTI
+KASAN: maybe wild-memory-access in range [0x4c0024080000f660-0x4c0024080000f667]
+CPU: 1 PID: 7884 Comm: kworker/1:1 Tainted: G    B   W         5.15.0+ #9
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Workqueue: ceph-msgr ceph_con_workfn
+RIP: 0010:crc32_body lib/crc32.c:106 [inline]
+RIP: 0010:crc32_le_generic lib/crc32.c:179 [inline]
+RIP: 0010:__crc32c_le_base+0x2b/0x100 lib/crc32.c:202
+Code: f8 40 f6 c6 03 0f 85 bd 00 00 00 49 89 d1 55 4c 8d 46 fc 41 83 e1 07 48 c1 ea 03 53 74 7d 48 c1 e2 03 4c 89 c1 48 8d 74 16 fc <33> 41 04 8b 59 08 48 83 c1 08 0f b6 f8 41 89 c2 0f b6 ec c1 e8 10
+RSP: 0018:ff1100010ced7aa0 EFLAGS: 00010206
+RAX: 0000000000000000 RBX: ff1100010ced7ac8 RCX: e980008100001ec8
+RDX: 0000000000000078 RSI: e980008100001f40 RDI: 0000000000000000
+RBP: ff1100011243a180 R08: e980008100001ec8 R09: 0000000000000002
+R10: 00000000000000ec R11: ffe21c0022487492 R12: ff11000104cfecc0
+R13: dffffc0000000000 R14: ff1100011243a048 R15: 00000000108dca2c
+FS:  0000000000000000(0000) GS:ff11000265700000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffff75d7000 CR3: 00000001149ca003 CR4: 0000000000771ee0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+PKRU: 55555554
+Call Trace:
+ chksum_update+0xe/0x20 crypto/crc32c_generic.c:88
+ crc32c+0x31/0x70 lib/libcrc32c.c:47
+ prepare_write_message net/ceph/messenger_v1.c:241 [inline]
+ ceph_con_v1_try_write+0x135e/0x2250 net/ceph/messenger_v1.c:1431
+ ceph_con_workfn+0x502/0x12f0 net/ceph/messenger.c:1542
+ process_one_work+0x1d3/0x380 kernel/workqueue.c:2297
+ worker_thread+0x45/0x3b0 kernel/workqueue.c:2444
+ kthread+0x11f/0x140 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+Modules linked in:
+---[ end trace 0f001dc4eb564ba5 ]---
+RIP: 0010:crc32_body lib/crc32.c:106 [inline]
+RIP: 0010:crc32_le_generic lib/crc32.c:179 [inline]
+RIP: 0010:__crc32c_le_base+0x2b/0x100 lib/crc32.c:202
+Code: f8 40 f6 c6 03 0f 85 bd 00 00 00 49 89 d1 55 4c 8d 46 fc 41 83 e1 07 48 c1 ea 03 53 74 7d 48 c1 e2 03 4c 89 c1 48 8d 74 16 fc <33> 41 04 8b 59 08 48 83 c1 08 0f b6 f8 41 89 c2 0f b6 ec c1 e8 10
+RSP: 0018:ff1100010ced7aa0 EFLAGS: 00010206
+RAX: 0000000000000000 RBX: ff1100010ced7ac8 RCX: e980008100001ec8
+RDX: 0000000000000078 RSI: e980008100001f40 RDI: 0000000000000000
+RBP: ff1100011243a180 R08: e980008100001ec8 R09: 0000000000000002
+R10: 00000000000000ec R11: ffe21c0022487492 R12: ff11000104cfecc0
+R13: dffffc0000000000 R14: ff1100011243a048 R15: 00000000108dca2c
+FS:  0000000000000000(0000) GS:ff11000265700000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffff75d7000 CR3: 00000001149ca003 CR4: 0000000000771ee0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+PKRU: 55555554
+----------------
+Code disassembly (best guess):
+   0:	f8                   	clc
+   1:	40 f6 c6 03          	test   $0x3,%sil
+   5:	0f 85 bd 00 00 00    	jne    0xc8
+   b:	49 89 d1             	mov    %rdx,%r9
+   e:	55                   	push   %rbp
+   f:	4c 8d 46 fc          	lea    -0x4(%rsi),%r8
+  13:	41 83 e1 07          	and    $0x7,%r9d
+  17:	48 c1 ea 03          	shr    $0x3,%rdx
+  1b:	53                   	push   %rbx
+  1c:	74 7d                	je     0x9b
+  1e:	48 c1 e2 03          	shl    $0x3,%rdx
+  22:	4c 89 c1             	mov    %r8,%rcx
+  25:	48 8d 74 16 fc       	lea    -0x4(%rsi,%rdx,1),%rsi
+* 2a:	33 41 04             	xor    0x4(%rcx),%eax <-- trapping instruction
+  2d:	8b 59 08             	mov    0x8(%rcx),%ebx
+  30:	48 83 c1 08          	add    $0x8,%rcx
+  34:	0f b6 f8             	movzbl %al,%edi
+  37:	41 89 c2             	mov    %eax,%r10d
+  3a:	0f b6 ec             	movzbl %ah,%ebp
+  3d:	c1 e8 10             	shr    $0x10,%eax

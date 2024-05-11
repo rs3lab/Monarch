@@ -1,0 +1,3 @@
+setxattr$user(path ptr[in, filename], name ptr[in, string["user.test"]], val ptr[in, string], size len[val], flags flags[setxattr_flags])
+lsetxattr$user(path ptr[in, filename], name ptr[in, string["user.test"]], val ptr[in, string], size len[val], flags flags[setxattr_flags])
+fsetxattr$user(fd fd, name ptr[in, string["user.test"]], val ptr[in, string], size len[val], flags flags[setxattr_flags])

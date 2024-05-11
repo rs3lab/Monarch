@@ -1,0 +1,264 @@
+daemon log read: 0
+daemon log read: 0
+daemon log read: 0
+daemon log read: 4875
+=================================================================
+==388==ERROR: AddressSanitizer: heap-use-after-free on address 0x608000000230 at pc 0x55555598ec31 bp 0x7ffff20bdaa0 sp 0x7ffff20bda90
+READ of size 8 at 0x608000000230 thread T2
+    #0 0x55555598ec30 in mdb_cursor_set (/opt/orangefs/sbin/pvfs2-server+0x43ac30)
+    #1 0x555555994f1a in mdb_cursor_put (/opt/orangefs/sbin/pvfs2-server+0x440f1a)
+    #2 0x55555598045d in mdb_freelist_save (/opt/orangefs/sbin/pvfs2-server+0x42c45d)
+    #3 0x555555984780 in mdb_txn_commit (/opt/orangefs/sbin/pvfs2-server+0x430780)
+    #4 0x55555595455f in dbpf_db_put (/opt/orangefs/sbin/pvfs2-server+0x40055f)
+    #5 0x55555591d5d6 in dbpf_keyval_handle_info_ops (/opt/orangefs/sbin/pvfs2-server+0x3c95d6)
+    #6 0x555555918c98 in dbpf_keyval_write_list_op_svc (/opt/orangefs/sbin/pvfs2-server+0x3c4c98)
+    #7 0x555555937042 in dbpf_do_one_work_cycle (/opt/orangefs/sbin/pvfs2-server+0x3e3042)
+    #8 0x55555593660e in dbpf_thread_function (/opt/orangefs/sbin/pvfs2-server+0x3e260e)
+    #9 0x7ffff7143608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #10 0x7ffff705f102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+0x608000000230 is located 16 bytes inside of 96-byte region [0x608000000220,0x608000000280)
+freed by thread T0 here:
+    #0 0x7ffff76a07cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #1 0x5555559d2932 in mdb_env_close1 (/opt/orangefs/sbin/pvfs2-server+0x47e932)
+    #2 0x5555559d30ca in mdb_env_close (/opt/orangefs/sbin/pvfs2-server+0x47f0ca)
+    #3 0x555555953c51 in dbpf_db_close (/opt/orangefs/sbin/pvfs2-server+0x3ffc51)
+    #4 0x555555940273 in dbpf_collection_clear (/opt/orangefs/sbin/pvfs2-server+0x3ec273)
+    #5 0x5555558906c8 in trove_collection_clear (/opt/orangefs/sbin/pvfs2-server+0x33c6c8)
+    #6 0x5555556d711b in server_shutdown (/opt/orangefs/sbin/pvfs2-server+0x18311b)
+    #7 0x5555556cf26f in main (/opt/orangefs/sbin/pvfs2-server+0x17b26f)
+    #8 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+previously allocated by thread T0 here:
+    #0 0x7ffff76a0dc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x5555559d1d8a in mdb_env_open (/opt/orangefs/sbin/pvfs2-server+0x47dd8a)
+    #2 0x5555559533dd in dbpf_db_open (/opt/orangefs/sbin/pvfs2-server+0x3ff3dd)
+    #3 0x555555941ce8 in dbpf_collection_lookup (/opt/orangefs/sbin/pvfs2-server+0x3edce8)
+    #4 0x555555890334 in trove_collection_lookup (/opt/orangefs/sbin/pvfs2-server+0x33c334)
+    #5 0x5555556d0cd1 in server_initialize_subsystems (/opt/orangefs/sbin/pvfs2-server+0x17ccd1)
+    #6 0x5555556cfb2a in server_initialize (/opt/orangefs/sbin/pvfs2-server+0x17bb2a)
+    #7 0x5555556cec75 in main (/opt/orangefs/sbin/pvfs2-server+0x17ac75)
+    #8 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+Thread T2 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x555555935f80 in dbpf_thread_initialize (/opt/orangefs/sbin/pvfs2-server+0x3e1f80)
+    #2 0x55555593a07e in dbpf_initialize (/opt/orangefs/sbin/pvfs2-server+0x3e607e)
+    #3 0x55555588fd30 in trove_initialize (/opt/orangefs/sbin/pvfs2-server+0x33bd30)
+    #4 0x5555556d07f7 in server_initialize_subsystems (/opt/orangefs/sbin/pvfs2-server+0x17c7f7)
+    #5 0x5555556cfb2a in server_initialize (/opt/orangefs/sbin/pvfs2-server+0x17bb2a)
+    #6 0x5555556cec75 in main (/opt/orangefs/sbin/pvfs2-server+0x17ac75)
+    #7 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/opt/orangefs/sbin/pvfs2-server+0x43ac30) in mdb_cursor_set
+Shadow bytes around the buggy address:
+  0x0c107fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c107fff8000: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c107fff8010: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c107fff8020: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c107fff8030: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0c107fff8040: fa fa fa fa fd fd[fd]fd fd fd fd fd fd fd fd fd
+  0x0c107fff8050: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c107fff8060: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c107fff8070: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c107fff8080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c107fff8090: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:   daemon log read: 30
+           cc
+==388==ABORTING
+/root/orangefs-node-down.sh: 1: kill: No such process
+
+execute_call 0, 79, 0, 0
+execute_one loop: 0, 0, 80
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+-----executor 1 collect shmids 6
+----- directly resend shmid 6
+----- executor 3 write_call_output, size 0, pid 375, write pid:375
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 2
+execute_call 0, 81, 0, 0
+execute_one loop: 0, 0, 81
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 81, 0, 0
+execute_one loop: 0, 0, 86
+----------executor 2 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 2 2>&1): call atexit in pid 404 tid 404
+
+----------executor 2 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 2 2>&1): executor __sanitizer_cov_trace_pc: retrieve shmid 0, thread 404, pid 404, value 1
+
+----------executor 2 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 2 2>&1): [S 03/07/2023 18:44:06] PVFS2 Server on node 192.168.0.35 version 2.9.7-orangefs-REV-65ab0d2 starting...
+
+-----executor 1 collect shmids 7
+----- directly resend shmid 7
+-----executor 2 collect shmids 0
+----- directly resend shmid 0
+----- executor 3 write_call_output, size 0, pid 375, write pid:375
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+-----executor 1 collect shmids 5
+----- directly resend shmid 5
+-----executor 1 collect shmids 4
+----- directly resend shmid 4
+-----executor 1 collect shmids 3
+----- directly resend shmid 3
+execute_call 0, 24, 0, 0
+execute_one loop: 0, 0, 24
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 2, execute_one inner time: 0, 158, 0
+execute_one time: 1, 158
+----- executor 3 signal number : 0
+----- completed 3
+execute_call 0, 29, 0, 0
+execute_one loop: 0, 0, 29
+cover_reset in execute_call
+----- executor 3 write_call_output, size 17215, pid 375, write pid:375
+----- executor 3 executes write_coverage_signal cov->size 17215, flag collect 0
+execute_call 0, 38, 0, 0
+execute_one loop: 0, 0, 38
+----- executor 3 signal number : 3193
+----- completed 4
+execute_call 0, 8, 0, 1
+execute_one loop: 0, 0, 9
+cover_reset in execute_call
+executor 3 waits for recv msg
+----------executor 1 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 1 2>&1): call atexit in pid 403 tid 403
+
+----------executor 1 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 1 2>&1): executor __sanitizer_cov_trace_pc: retrieve shmid 0, thread 403, pid 403, value 1
+
+----------executor 1 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 1 2>&1): [S 03/07/2023 18:44:06] PVFS2 Server on node 192.168.0.35 version 2.9.7-orangefs-REV-65ab0d2 starting...
+
+-----executor 1 collect shmids 0
+----- directly resend shmid 0
+execute_call 0, 57, 0, 0
+execute_one loop: 0, 0, 57
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 1, execute_one inner time: 0, 212, 0
+execute_one time: 1, 212
+----- executor 3 write_call_output, size 0, pid 375, write pid:375
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 5
+execute_call 0, 68, 0, 1
+execute_one loop: 0, 0, 69
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 375, write pid:375
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 6
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 3, execute_one inner time: 0, 236, 0
+execute_one time: 0, 236
+executor 0 write_server_output
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 executes write_coverage_signal cov->size 14339, flag collect 0
+executor 3 write_metadata
+----- write_dir_info /root/orangefs-client/dfs-0-1
+----- executor 1 signal number : 893
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 1 signal number : 884
+----- executor 1 executes write_coverage_signal cov->size 144, flag collect 0
+----- executor 1 signal number : 7
+----- executor 1 executes write_coverage_signal cov->size 2608, flag collect 0
+----- executor 1 signal number : 112
+----- executor 1 executes write_coverage_signal cov->size 558, flag collect 0
+----- executor 1 signal number : 4
+executor 1 server cover_cnt 8 output_pos_value 2125
+----- executor 0 signal number : 2307
+----- executor 0 executes write_coverage_signal cov->size 29440, flag collect 0
+----- executor 0 signal number : 1403
+----- executor 0 executes write_coverage_signal cov->size 7712, flag collect 0
+----- executor 0 signal number : 407
+----- executor 0 executes write_coverage_signal cov->size 3507, flag collect 0
+----- executor 0 signal number : 80
+time breakdown 1: 148, 228, 0
+before receive testcase: 0 1
+executor 0 server cover_cnt 4 output_pos_value 4210
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 2 signal number : 899
+----- executor 2 executes write_coverage_signal cov->size 26290, flag collect 0
+----- executor 2 signal number : 707
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 2 signal number : 737
+----- executor 2 executes write_coverage_signal cov->size 875, flag collect 0
+----- executor 2 signal number : 147
+----- executor 2 executes write_coverage_signal cov->size 6217, flag collect 0
+----- executor 2 signal number : 165
+executor 2 server cover_cnt 5 output_pos_value 2671
+time breakdown 2: 125, 245, 0
+before receive testcase: 0 1
+2023/03/07 19:44:07 for select break: 1
+2023/03/07 19:44:07 --------- executor 1 receive reply, reply.done 1
+2023/03/07 19:44:07 for select break: 1
+2023/03/07 19:44:07 --------- executor 2 receive reply, reply.done 1
+2023/03/07 19:44:07 for select break: 1
+2023/03/07 19:44:07 --------- executor 0 receive reply, reply.done 1
+time breakdown 0: 137, 238, 0
+before receive testcase: 0 1
+-----executor 1 collect shmids 3
+----- directly resend shmid 3
+executor 3 /root/orangefs-client/dfs-0-1/file0 listxattr size -1
+executor 3 /root/orangefs-client/dfs-0-1/file0 stat ret 0
+SYZFAIL: listxattr size is -1
+
+ (errno 95: Operation not supported)
+executor 3 loop exited with status 67
+executor 3 write_metadata
+----- write_dir_info /root/orangefs-client/dfs-0-0
+-----executor 1 collect shmids 4
+----- directly resend shmid 4
+-----executor 1 collect shmids 0
+----- directly resend shmid 0
+-----executor 1 collect shmids 1
+----- directly resend shmid 1
+-----executor 1 collect shmids 2
+----- directly resend shmid 2
+SYZFAIL: opendir /root/orangefs-client/dfs-0-0(/root/orangefs-client) failed No such file or directory
+
+ (errno 2: No such file or directory)
+-----executor 2 collect shmids 3
+----- directly resend shmid 3
+-----executor 2 collect shmids 4
+----- directly resend shmid 4
+-----executor 2 collect shmids 0
+----- directly resend shmid 0
+-----executor 2 collect shmids 1
+----- directly resend shmid 1
+-----executor 2 collect shmids 2
+----- directly resend shmid 2
+[E 03/07/2023 18:44:06] PVFS2 server got signal 15 (server_status_flag: 2080767)
+[D 03/07/2023 18:44:06] PVFS2 Server version 2.9.7-orangefs-REV-65ab0d2 starting.
+[E 03/07/2023 18:44:06] Error: handle 9223372036854775802 is invalid (out of bounds)
+[E 03/07/2023 18:44:06] Error adding handle range 3-1537228672809129302,4611686018427387903-6148914691236517202 to filesystem orangefs
+[E 03/07/2023 18:44:06] Error: Could not initialize server subsystems
+[E 03/07/2023 18:44:06] Error: Could not initialize server; aborting.
+[E 03/07/2023 18:44:06] PVFS2 server got signal 15 (server_status_flag: 2080767)
+[D 03/07/2023 18:44:06] PVFS2 Server version 2.9.7-orangefs-REV-65ab0d2 starting.
+[E 03/07/2023 18:44:06] Error: handle 7686143364045646502 is invalid (out of bounds)
+[E 03/07/2023 18:44:06] Error adding handle range 3-1537228672809129302,4611686018427387903-6148914691236517202 to filesystem orangefs
+[E 03/07/2023 18:44:06] Error: Could not initialize server subsystems
+[E 03/07/2023 18:44:06] Error: Could not initialize server; aborting.

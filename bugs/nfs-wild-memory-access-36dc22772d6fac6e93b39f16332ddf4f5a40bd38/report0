@@ -1,0 +1,107 @@
+==================================================================
+BUG: KASAN: wild-memory-access in xdr_buf_pages_zero net/sunrpc/xdr.c:471 [inline]
+BUG: KASAN: wild-memory-access in xdr_expand_hole+0x2d5/0x600 net/sunrpc/xdr.c:1526
+Write of size 4096 at addr 0a11000000000000 by task kworker/u8:11/1223
+
+CPU: 1 PID: 1223 Comm: kworker/u8:11 Not tainted 5.15.0+ #20
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Workqueue: rpciod rpc_async_schedule
+Call Trace:
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x34/0x44 lib/dump_stack.c:106
+ __kasan_report mm/kasan/report.c:446 [inline]
+ kasan_report.cold+0x116/0x11b mm/kasan/report.c:459
+ check_region_inline mm/kasan/generic.c:183 [inline]
+ kasan_check_range+0x17c/0x1e0 mm/kasan/generic.c:189
+ memset+0x20/0x40 mm/kasan/shadow.c:44
+ xdr_buf_pages_zero net/sunrpc/xdr.c:471 [inline]
+ xdr_expand_hole+0x2d5/0x600 net/sunrpc/xdr.c:1526
+ decode_read_plus_hole fs/nfs/nfs42xdr.c:1089 [inline]
+ decode_read_plus fs/nfs/nfs42xdr.c:1129 [inline]
+ nfs4_xdr_dec_read_plus fs/nfs/nfs42xdr.c:1345 [inline]
+ nfs4_xdr_dec_read_plus+0x4de/0x950 fs/nfs/nfs42xdr.c:1328
+ call_decode+0x6aa/0x810 net/sunrpc/clnt.c:2507
+ __rpc_execute+0x1e5/0xdc0 net/sunrpc/sched.c:901
+ rpc_async_schedule+0x9f/0x140 net/sunrpc/sched.c:987
+ process_one_work+0x1d3/0x380 kernel/workqueue.c:2297
+ worker_thread+0x45/0x3b0 kernel/workqueue.c:2444
+ kthread+0x11f/0x140 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+==================================================================
+general protection fault, maybe for address 0x0: 0000 [#1] SMP KASAN NOPTI
+CPU: 1 PID: 1223 Comm: kworker/u8:11 Tainted: G    B             5.15.0+ #20
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Workqueue: rpciod rpc_async_schedule
+RIP: 0010:memset_erms+0x9/0x10 arch/x86/lib/memset_64.S:64
+Code: c1 e9 03 40 0f b6 f6 48 b8 01 01 01 01 01 01 01 01 48 0f af c6 f3 48 ab 89 d1 f3 aa 4c 89 c8 c3 90 49 89 f9 40 88 f0 48 89 d1 <f3> aa 4c 89 c8 c3 90 49 89 fa 40 0f b6 ce 48 b8 01 01 01 01 01 01
+RSP: 0018:ff11000112ef7b00 EFLAGS: 00010202
+RAX: 0000000000000000 RBX: 0000000000001000 RCX: 0000000000001000
+RDX: 0000000000001000 RSI: 0000000000000000 RDI: 0a11000000000000
+RBP: 00000000ffffb000 R08: 0000000000000001 R09: 0a11000000000000
+R10: 0a11000000001000 R11: 6e696c6261736944 R12: dffffc0000000000
+R13: 00000000fffff000 R14: ff1100010f91e960 R15: ff1100011069c380
+FS:  0000000000000000(0000) GS:ff11000265680000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fe62bfddd78 CR3: 00000001030a0004 CR4: 0000000000771ee0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+PKRU: 55555554
+Call Trace:
+ xdr_buf_pages_zero net/sunrpc/xdr.c:471 [inline]
+ xdr_expand_hole+0x2d5/0x600 net/sunrpc/xdr.c:1526
+ decode_read_plus_hole fs/nfs/nfs42xdr.c:1089 [inline]
+ decode_read_plus fs/nfs/nfs42xdr.c:1129 [inline]
+ nfs4_xdr_dec_read_plus fs/nfs/nfs42xdr.c:1345 [inline]
+ nfs4_xdr_dec_read_plus+0x4de/0x950 fs/nfs/nfs42xdr.c:1328
+ call_decode+0x6aa/0x810 net/sunrpc/clnt.c:2507
+ __rpc_execute+0x1e5/0xdc0 net/sunrpc/sched.c:901
+ rpc_async_schedule+0x9f/0x140 net/sunrpc/sched.c:987
+ process_one_work+0x1d3/0x380 kernel/workqueue.c:2297
+ worker_thread+0x45/0x3b0 kernel/workqueue.c:2444
+ kthread+0x11f/0x140 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+Modules linked in:
+---[ end trace 1924b25fa8e37cc0 ]---
+RIP: 0010:memset_erms+0x9/0x10 arch/x86/lib/memset_64.S:64
+Code: c1 e9 03 40 0f b6 f6 48 b8 01 01 01 01 01 01 01 01 48 0f af c6 f3 48 ab 89 d1 f3 aa 4c 89 c8 c3 90 49 89 f9 40 88 f0 48 89 d1 <f3> aa 4c 89 c8 c3 90 49 89 fa 40 0f b6 ce 48 b8 01 01 01 01 01 01
+RSP: 0018:ff11000112ef7b00 EFLAGS: 00010202
+RAX: 0000000000000000 RBX: 0000000000001000 RCX: 0000000000001000
+RDX: 0000000000001000 RSI: 0000000000000000 RDI: 0a11000000000000
+RBP: 00000000ffffb000 R08: 0000000000000001 R09: 0a11000000000000
+R10: 0a11000000001000 R11: 6e696c6261736944 R12: dffffc0000000000
+R13: 00000000fffff000 R14: ff1100010f91e960 R15: ff1100011069c380
+FS:  0000000000000000(0000) GS:ff11000265680000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fe62bfddd78 CR3: 00000001030a0004 CR4: 0000000000771ee0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+PKRU: 55555554
+NFS: nfs4_handle_delegation_recall_error: unhandled error -512.
+NFS: nfs4_handle_delegation_recall_error: unhandled error -512.
+NFS: nfs4_handle_delegation_recall_error: unhandled error -512.
+NFS: nfs4_handle_delegation_recall_error: unhandled error -512.
+----------------
+Code disassembly (best guess):
+   0:	c1 e9 03             	shr    $0x3,%ecx
+   3:	40 0f b6 f6          	movzbl %sil,%esi
+   7:	48 b8 01 01 01 01 01 	movabs $0x101010101010101,%rax
+   e:	01 01 01
+  11:	48 0f af c6          	imul   %rsi,%rax
+  15:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+  18:	89 d1                	mov    %edx,%ecx
+  1a:	f3 aa                	rep stos %al,%es:(%rdi)
+  1c:	4c 89 c8             	mov    %r9,%rax
+  1f:	c3                   	retq
+  20:	90                   	nop
+  21:	49 89 f9             	mov    %rdi,%r9
+  24:	40 88 f0             	mov    %sil,%al
+  27:	48 89 d1             	mov    %rdx,%rcx
+* 2a:	f3 aa                	rep stos %al,%es:(%rdi) <-- trapping instruction
+  2c:	4c 89 c8             	mov    %r9,%rax
+  2f:	c3                   	retq
+  30:	90                   	nop
+  31:	49 89 fa             	mov    %rdi,%r10
+  34:	40 0f b6 ce          	movzbl %sil,%ecx
+  38:	48                   	rex.W
+  39:	b8 01 01 01 01       	mov    $0x1010101,%eax
+  3e:	01 01                	add    %eax,(%rcx)

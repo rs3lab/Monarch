@@ -1,0 +1,110 @@
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1704, prog_size 504
+[1052211ms] exec opts: executor=3 procid=0 threaded=1 collide=0 cover=0 extra-cover=1 comps=0 dedup=1 timeouts=50/500000/1 prog=504 filter=0
+remove dir: /root/glusterfs-client/dfs-0-2429
+==378==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+=================================================================
+==378==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fffefa6e234 at pc 0x7ffff2f6b5c1 bp 0x7fffefa6d300 sp 0x7fffefa6d2f0
+READ of size 4 at 0x7fffefa6e234 thread T7
+    #0 0x7ffff2f6b5c0 in notify /root/glusterfs/xlators/mount/fuse/src/fuse-bridge.c:6538
+    #1 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #2 0x7ffff74eff2a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3409
+    #3 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #4 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #5 0x7fffeec5b34a in notify /root/glusterfs/xlators/debug/io-stats/src/io-stats.c:4332
+    #6 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #7 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #8 0x7fffeec8d5e0 in notify /root/glusterfs/xlators/performance/io-threads/src/io-threads.c:1333
+    #9 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #10 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #11 0x7fffeeceb4e3 in mdc_notify /root/glusterfs/xlators/performance/md-cache/src/md-cache.c:3827
+    #12 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #13 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #14 0x7fffeed15973 in qr_notify /root/glusterfs/xlators/performance/quick-read/src/quick-read.c:1506
+    #15 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #16 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #17 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #18 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #19 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #20 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #21 0x7fffeed895cf in notify ../../../../xlators/features/utime/src/utime.c:318
+    #22 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #23 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #24 0x7fffeef0157f in dht_notify /root/glusterfs/xlators/cluster/dht/src/dht-common.c:11252
+    #25 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #26 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #27 0x7fffef01013f in ec_notify /root/glusterfs/xlators/cluster/ec/src/ec.c:680
+    #28 0x7fffef010986 in notify /root/glusterfs/xlators/cluster/ec/src/ec.c:697
+    #29 0x7ffff72e2474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #30 0x7ffff74efa9a in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3413
+    #31 0x7fffef21084e in client_cbk_inodelk_contention /root/glusterfs/xlators/protocol/client/src/client-callback.c:221
+    #32 0x7ffff7220567 in rpc_clnt_handle_cbk /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:676
+    #33 0x7ffff7220567 in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:892
+    #34 0x7ffff7219983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #35 0x7ffff03405a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #36 0x7ffff0350b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #37 0x7ffff0350b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #38 0x7ffff0350b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #39 0x7ffff0350b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #40 0x7ffff73fa6c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #41 0x7ffff73fa6c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #42 0x7ffff71bf608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #43 0x7ffff70e4102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+Address 0x7fffefa6e234 is located in stack of thread T7 at offset 100 in frame
+    #0 0x7fffef2101df in client_cbk_inodelk_contention /root/glusterfs/xlators/protocol/client/src/client-callback.c:183
+
+  This frame has 3 object(s):
+    [48, 88) 'upcall_data' (line 186) <== Memory access at offset 100 overflows this variable
+    [128, 224) 'proto_lc' (line 194)
+    [256, 1336) 'lc' (line 189)
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+Thread T7 created by T0 here:
+    #0 0x7ffff75c7805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72f8b97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff730a28d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff73f8af2 in event_dispatch_epoll /root/glusterfs/libglusterfs/src/event-epoll.c:797
+    #4 0x7ffff7353f89 in gf_event_dispatch /root/glusterfs/libglusterfs/src/event.c:115
+    #5 0x7ffff7461b7f in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:431
+    #6 0x7ffff7461b7f in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #7 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #8 0x7ffff6fe90b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: stack-buffer-overflow /root/glusterfs/xlators/mount/fuse/src/fuse-bridge.c:6538 in notify
+Shadow bytes around the buggy address:
+  0x10007df45bf0: 00 00 00 00 00 00 00 00 f1 f1 f1 f1 00 00 00 f3
+  0x10007df45c00: f3 f3 f3 f3 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007df45c10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007df45c20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007df45c30: 00 00 00 00 00 00 00 00 00 00 f1 f1 f1 f1 f1 f1
+=>0x10007df45c40: 00 00 00 00 00 f2[f2]f2 f2 f2 00 00 00 00 00 00
+  0x10007df45c50: 00 00 00 00 00 00 f2 f2 f2 f2 00 00 00 00 00 00
+  0x10007df45c60: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007df45c70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007df45c80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007df45c90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==378==ABORTING
+opendir(/root/glusterfs-client/dfs-0-2429) failedremove dir time 252
+-----finish removing dir
+2023/01/11 08:35:43 poll: candidates=0 inputs=0 signal=0

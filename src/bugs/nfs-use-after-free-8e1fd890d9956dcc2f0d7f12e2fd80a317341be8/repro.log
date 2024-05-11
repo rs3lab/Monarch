@@ -1,0 +1,481 @@
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.4, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /dev/null
+debug1: Connecting to localhost [127.0.0.1] port 2665.
+debug1: fd 3 clearing O_NONBLOCK
+debug1: Connection established.
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-images/stretch.id_rsa type 0
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-images/stretch.id_rsa-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.4
+debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4p1 Debian-10+deb9u7
+debug1: match: OpenSSH_7.4p1 Debian-10+deb9u7 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002
+debug1: Authenticating to localhost:2665 as 'root'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:+qpQwWQ4sBfdyTSet3qdKGgBl3jVUdoRfkzcR77HpYg
+debug1: checking without port identifier
+Warning: Permanently added '[localhost]:2665' (ECDSA) to the list of known hosts.
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/tlyu/dfs-fuzzing/disk-images/nfs-images/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/tlyu/dfs-fuzzing/disk-images/nfs-images/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: Server accepts key: /home/tlyu/dfs-fuzzing/disk-images/nfs-images/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to localhost ([127.0.0.1]:2665).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Sending command: cd / && /syz-execprog -executor=/syz-executor -arch=amd64 -sandbox=none -procs=1 -repeat=0 -threaded=true -collide=false -cover=0 -optional=slowdown=1 /syzkaller2500551463
+2022/07/14 12:41:11 parsed 1 programs
+[   10.143814] cgroup: Unknown subsys name 'net'
+[   10.144372] cgroup: Unknown subsys name 'net_prio'
+[   10.145104] cgroup: Unknown subsys name 'devices'
+[   10.145682] cgroup: Unknown subsys name 'blkio'
+[   10.146624] cgroup: Unknown subsys name 'hugetlb'
+[   10.147210] cgroup: Unknown subsys name 'rlimit'
+2022/07/14 12:41:11 executed programs: 0
+[   10.156243] audit: type=1400 audit(1657802471.036:10): avc:  denied  { execmem } for  pid=451 comm="syz-executor.0" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=process permissive=1
+[   11.235924] NFSD: Using UMH upcall client tracking operations.
+[   11.236363] NFSD: starting 90-second grace period (net f0000098)
+[   11.237629] rpc.nfsd (467) used greatest stack depth: 27304 bytes left
+2022/07/14 12:41:13 exec time: 851
+2022/07/14 12:41:14 exec time: 855
+2022/07/14 12:41:14 exec time: 852
+2022/07/14 12:41:15 exec time: 855
+2022/07/14 12:41:16 exec time: 856
+2022/07/14 12:41:16 executed programs: 5
+2022/07/14 12:41:17 exec time: 852
+2022/07/14 12:41:18 exec time: 853
+2022/07/14 12:41:19 exec time: 854
+2022/07/14 12:41:20 exec time: 853
+2022/07/14 12:41:20 exec time: 856
+2022/07/14 12:41:21 exec time: 851
+2022/07/14 12:41:21 executed programs: 11
+2022/07/14 12:41:22 exec time: 854
+2022/07/14 12:41:23 exec time: 854
+2022/07/14 12:41:24 exec time: 857
+2022/07/14 12:41:25 exec time: 853
+2022/07/14 12:41:26 exec time: 855
+2022/07/14 12:41:26 exec time: 852
+2022/07/14 12:41:26 executed programs: 17
+2022/07/14 12:41:27 exec time: 853
+2022/07/14 12:41:28 exec time: 853
+2022/07/14 12:41:29 exec time: 858
+2022/07/14 12:41:30 exec time: 860
+2022/07/14 12:41:31 exec time: 853
+2022/07/14 12:41:31 exec time: 853
+2022/07/14 12:41:31 executed programs: 23
+2022/07/14 12:41:32 exec time: 853
+2022/07/14 12:41:33 exec time: 853
+2022/07/14 12:41:34 exec time: 854
+2022/07/14 12:41:35 exec time: 852
+2022/07/14 12:41:36 exec time: 854
+2022/07/14 12:41:37 exec time: 854
+2022/07/14 12:41:37 executed programs: 29
+2022/07/14 12:41:37 exec time: 855
+2022/07/14 12:41:38 exec time: 854
+2022/07/14 12:41:39 exec time: 855
+2022/07/14 12:41:40 exec time: 853
+2022/07/14 12:41:41 exec time: 856
+2022/07/14 12:41:42 exec time: 855
+2022/07/14 12:41:42 executed programs: 35
+2022/07/14 12:41:43 exec time: 855
+2022/07/14 12:41:43 exec time: 856
+2022/07/14 12:41:44 exec time: 855
+2022/07/14 12:41:45 exec time: 853
+2022/07/14 12:41:46 exec time: 854
+2022/07/14 12:41:47 exec time: 857
+2022/07/14 12:41:47 executed programs: 41
+2022/07/14 12:41:48 exec time: 856
+2022/07/14 12:41:49 exec time: 858
+2022/07/14 12:41:49 exec time: 852
+2022/07/14 12:41:50 exec time: 855
+2022/07/14 12:41:51 exec time: 851
+2022/07/14 12:41:52 exec time: 857
+2022/07/14 12:41:52 executed programs: 47
+2022/07/14 12:41:53 exec time: 855
+2022/07/14 12:41:54 exec time: 853
+2022/07/14 12:41:55 exec time: 852
+2022/07/14 12:41:55 exec time: 855
+2022/07/14 12:41:56 exec time: 853
+2022/07/14 12:41:57 exec time: 854
+2022/07/14 12:41:57 executed programs: 53
+2022/07/14 12:41:58 exec time: 854
+2022/07/14 12:41:59 exec time: 856
+2022/07/14 12:42:00 exec time: 852
+2022/07/14 12:42:01 exec time: 853
+2022/07/14 12:42:01 exec time: 852
+2022/07/14 12:42:02 exec time: 854
+2022/07/14 12:42:02 executed programs: 59
+2022/07/14 12:42:03 exec time: 852
+2022/07/14 12:42:03 exec time: 336
+2022/07/14 12:42:03 exec time: 32
+2022/07/14 12:42:03 exec time: 32
+2022/07/14 12:42:04 exec time: 35
+2022/07/14 12:42:04 exec time: 34
+2022/07/14 12:42:04 exec time: 37
+2022/07/14 12:42:04 exec time: 40
+2022/07/14 12:42:04 exec time: 30
+2022/07/14 12:42:04 exec time: 35
+2022/07/14 12:42:04 exec time: 31
+2022/07/14 12:42:04 exec time: 32
+2022/07/14 12:42:04 exec time: 33
+2022/07/14 12:42:04 exec time: 32
+2022/07/14 12:42:04 exec time: 29
+2022/07/14 12:42:04 exec time: 29
+2022/07/14 12:42:04 exec time: 30
+2022/07/14 12:42:04 exec time: 31
+2022/07/14 12:42:04 exec time: 30
+2022/07/14 12:42:04 exec time: 29
+2022/07/14 12:42:04 exec time: 31
+2022/07/14 12:42:04 exec time: 28
+2022/07/14 12:42:04 exec time: 32
+2022/07/14 12:42:04 exec time: 36
+2022/07/14 12:42:04 exec time: 34
+2022/07/14 12:42:04 exec time: 35
+2022/07/14 12:42:04 exec time: 31
+2022/07/14 12:42:04 exec time: 32
+[   63.925502] syz-executor.0 (2770) used greatest stack depth: 26856 bytes left
+2022/07/14 12:42:04 exec time: 40
+2022/07/14 12:42:04 exec time: 32
+2022/07/14 12:42:04 exec time: 32
+2022/07/14 12:42:04 exec time: 30
+[   64.042124] ==================================================================
+[   64.042917] BUG: KASAN: use-after-free in nfs_end_delegation_return+0x92f/0xa50
+[   64.043698] Read of size 8 at addr ffff88811563c8c8 by task syz-executor.0/2851
+[   64.044505] 
+[   64.044881] CPU: 1 PID: 2851 Comm: syz-executor.0 Not tainted 5.15.0+ #20
+[   64.046010] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+[   64.047192] Call Trace:
+[   64.047475]  dump_stack_lvl+0x34/0x44
+[   64.047897]  print_address_description.constprop.0+0x21/0x140
+[   64.048545]  ? nfs_end_delegation_return+0x92f/0xa50
+[   64.049101]  ? nfs_end_delegation_return+0x92f/0xa50
+[   64.049660]  kasan_report.cold+0x7f/0x11b
+[   64.050120]  ? nfs4_lock_delegation_recall+0xc0/0x130
+[   64.050682]  ? nfs_end_delegation_return+0x92f/0xa50
+[   64.051239]  nfs_end_delegation_return+0x92f/0xa50
+[   64.051775]  nfs4_inode_return_delegation+0xc6/0x120
+[   64.052334]  nfs4_do_open+0x3b9/0x24a0
+[   64.052758]  ? kasan_save_stack+0x32/0x40
+[   64.053210]  ? kasan_save_stack+0x1b/0x40
+[   64.053664]  ? alloc_nfs_open_context+0x49/0x4b0
+[   64.054189]  ? nfs4_file_open+0x283/0x770
+[   64.054645]  ? path_openat+0xb61/0x1010
+[   64.055077]  ? do_filp_open+0xad/0x120
+[   64.055500]  ? do_sys_openat2+0x241/0x320
+[   64.055955]  ? nfs4_open_confirm_release+0x1f0/0x1f0
+[   64.056510]  ? kasan_save_stack+0x32/0x40
+[   64.056958]  ? kasan_save_stack+0x1b/0x40
+[   64.057409]  ? __kasan_slab_alloc+0x61/0x80
+[   64.057883]  ? alloc_empty_file+0x3c/0xb0
+[   64.058337]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   64.058864]  ? nfs4_do_check_delegation+0x97/0x110
+[   64.059405]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   64.059936]  nfs4_atomic_open+0x29e/0x310
+[   64.060389]  ? nfs4_do_open+0x24a0/0x24a0
+[   64.060844]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   64.061370]  ? nfs_init_lock_context+0xef/0x170
+[   64.061879]  nfs4_file_open+0x3ac/0x770
+[   64.062317]  ? nfs4_setlease+0x30/0x30
+[   64.062742]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   64.063269]  ? __cond_resched+0x10/0x20
+[   64.063703]  ? selinux_file_open+0xda/0x100
+[   64.064173]  ? nfs4_setlease+0x30/0x30
+[   64.064599]  do_dentry_open+0x147/0x350
+[   64.065037]  path_openat+0xb61/0x1010
+[   64.065454]  do_filp_open+0xad/0x120
+[   64.065866]  ? kasan_unpoison+0x23/0x50
+[   64.066302]  ? __kasan_slab_alloc+0x61/0x80
+[   64.066777]  do_sys_openat2+0x241/0x320
+[   64.067214]  do_sys_open+0x3f/0x80
+[   64.067607]  do_syscall_64+0x38/0x90
+[   64.068018]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[   64.068589] RIP: 0033:0x7fad940b56ed
+[   64.068996] Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+[   64.071073] RSP: 002b:00007fad94026bf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+[   64.071922] RAX: ffffffffffffffda RBX: 00007fad941d3f60 RCX: 00007fad940b56ed
+[   64.072720] RDX: 0000000000000042 RSI: 0000000020000040 RDI: ffffffffffffff9c
+[   64.073518] RBP: 00007fad94122190 R08: 0000000000000000 R09: 0000000000000000
+[   64.074324] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+[   64.075127] R13: 00007ffeb1da8a0f R14: 00007ffeb1da8bb0 R15: 00007fad94026d80
+[   64.075929] 
+[   64.076110] Allocated by task 7:
+[   64.076481]  kasan_save_stack+0x1b/0x40
+[   64.076921]  __kasan_slab_alloc+0x61/0x80
+[   64.077378]  kmem_cache_alloc+0xbe/0x1e0
+[   64.077827]  locks_alloc_lock+0x13/0x80
+[   64.078260]  posix_lock_inode+0x17f/0x7f0
+[   64.078715]  locks_lock_inode_wait+0xb4/0x180
+[   64.079198]  nfs4_lock_done+0x82a/0xab0
+[   64.079627]  rpc_exit_task+0x15b/0x490
+[   64.080041]  __rpc_execute+0x1e5/0xdc0
+[   64.080458]  rpc_async_schedule+0x9f/0x140
+[   64.080908]  process_one_work+0x1d3/0x380
+[   64.081351]  worker_thread+0x45/0x3b0
+[   64.081757]  kthread+0x11f/0x140
+[   64.082122]  ret_from_fork+0x1f/0x30
+[   64.082520] 
+[   64.082698] Freed by task 7:
+[   64.083030]  kasan_save_stack+0x1b/0x40
+[   64.083466]  kasan_set_track+0x1c/0x30
+[   64.083894]  kasan_set_free_info+0x20/0x30
+[   64.084365]  __kasan_slab_free+0xea/0x120
+[   64.084821]  kmem_cache_free+0x74/0x280
+[   64.085260]  locks_dispose_list+0x40/0x50
+[   64.085718]  posix_lock_inode+0x13e/0x7f0
+[   64.086177]  locks_lock_inode_wait+0xb4/0x180
+[   64.086672]  nfs4_lock_done+0x82a/0xab0
+[   64.087109]  rpc_exit_task+0x15b/0x490
+[   64.087538]  __rpc_execute+0x1e5/0xdc0
+[   64.087968]  rpc_async_schedule+0x9f/0x140
+[   64.088436]  process_one_work+0x1d3/0x380
+[   64.088888]  worker_thread+0x45/0x3b0
+[   64.089300]  kthread+0x11f/0x140
+[   64.089664]  ret_from_fork+0x1f/0x30
+[   64.090071] 
+[   64.090247] The buggy address belongs to the object at ffff88811563c8c0
+[   64.090247]  which belongs to the cache file_lock_cache of size 216
+[   64.091658] The buggy address is located 8 bytes inside of
+[   64.091658]  216-byte region [ffff88811563c8c0, ffff88811563c998)
+[   64.092932] The buggy address belongs to the page:
+[   64.093475] page:000000002002c6b9 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x11563c
+[   64.094523] head:000000002002c6b9 order:1 compound_mapcount:0
+[   64.095162] flags: 0x200000000010200(slab|head|node=0|zone=2)
+[   64.095803] raw: 0200000000010200 0000000000000000 dead000000000122 ffff888100182140
+[   64.096652] raw: 0000000000000000 00000000801d001d 00000001ffffffff 0000000000000000
+[   64.097507] page dumped because: kasan: bad access detected
+[   64.098132] 
+[   64.098308] Memory state around the buggy address:
+[   64.098845]  ffff88811563c780: fc fc fc fc fc fa fb fb fb fb fb fb fb fb fb fb
+[   64.099645]  ffff88811563c800: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+[   64.100443] >ffff88811563c880: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
+[   64.101247]                                               ^
+[   64.101876]  ffff88811563c900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+[   64.102674]  ffff88811563c980: fb fb fb fc fc fc fc fc fc fc fc fa fb fb fb fb
+[   64.103476] ==================================================================
+[   64.104276] Disabling lock debugging due to kernel taint
+[   64.104901] general protection fault, probably for non-canonical address 0xfdf3fc11e000000e: 0000 [#1] SMP KASAN NOPTI
+[   64.106097] KASAN: maybe wild-memory-access in range [0xefa0008f00000070-0xefa0008f00000077]
+[   64.107025] CPU: 1 PID: 2851 Comm: syz-executor.0 Tainted: G    B             5.15.0+ #20
+[   64.107927] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+[   64.108935] RIP: 0010:nfs_end_delegation_return+0x69c/0xa50
+[   64.109561] Code: 3c 20 00 0f 85 af 02 00 00 48 8b 45 08 48 8d 68 f8 49 39 c5 0f 84 b4 00 00 00 e8 0f 45 cd ff 48 8d 7d 78 48 89 f8 48 c1 e8 03 <42> 80 3c 20 00 0f 85 79 02 00 00 48 8b 45 78 48 8d b8 c8 00 00 00
+[   64.111571] RSP: 0018:ffff88810d9677a8 EFLAGS: 00010a03
+[   64.112135] RAX: 1df40011e000000e RBX: ffff888103316400 RCX: ffff88810b9c9700
+[   64.112901] RDX: 0000000000000000 RSI: ffff88810b9c9700 RDI: efa0008f00000077
+[   64.113668] RBP: efa0008effffffff R08: ffffffffac0502e1 R09: 65756420676e6967
+[   64.114440] R10: 6f6c20676e696c62 R11: 6e696c6261736944 R12: dffffc0000000000
+[   64.115203] R13: ffff88810768f800 R14: ffff88810768f7e8 R15: 0000000000000000
+[   64.115971] FS:  00007fad94027700(0000) GS:ffff888263080000(0000) knlGS:0000000000000000
+[   64.116841] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   64.117458] CR2: 00007fad941d4028 CR3: 000000010d356002 CR4: 0000000000770ee0
+[   64.118229] PKRU: 55555554
+[   64.118532] Call Trace:
+[   64.118816]  nfs4_inode_return_delegation+0xc6/0x120
+[   64.119381]  nfs4_do_open+0x3b9/0x24a0
+[   64.119812]  ? kasan_save_stack+0x32/0x40
+[   64.120272]  ? kasan_save_stack+0x1b/0x40
+[   64.120713]  ? alloc_nfs_open_context+0x49/0x4b0
+[   64.121211]  ? nfs4_file_open+0x283/0x770
+[   64.121665]  ? path_openat+0xb61/0x1010
+[   64.122105]  ? do_filp_open+0xad/0x120
+[   64.122531]  ? do_sys_openat2+0x241/0x320
+[   64.122979]  ? nfs4_open_confirm_release+0x1f0/0x1f0
+[   64.123520]  ? kasan_save_stack+0x32/0x40
+[   64.123977]  ? kasan_save_stack+0x1b/0x40
+[   64.124414]  ? __kasan_slab_alloc+0x61/0x80
+[   64.124890]  ? alloc_empty_file+0x3c/0xb0
+[   64.125345]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   64.125885]  ? nfs4_do_check_delegation+0x97/0x110
+[   64.126430]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   64.126965]  nfs4_atomic_open+0x29e/0x310
+[   64.127422]  ? nfs4_do_open+0x24a0/0x24a0
+[   64.127859]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   64.128367]  ? nfs_init_lock_context+0xef/0x170
+[   64.128890]  nfs4_file_open+0x3ac/0x770
+[   64.129341]  ? nfs4_setlease+0x30/0x30
+[   64.129783]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   64.130313]  ? __cond_resched+0x10/0x20
+[   64.130766]  ? selinux_file_open+0xda/0x100
+[   64.131259]  ? nfs4_setlease+0x30/0x30
+[   64.131700]  do_dentry_open+0x147/0x350
+[   64.132152]  path_openat+0xb61/0x1010
+[   64.132570]  do_filp_open+0xad/0x120
+[   64.132971]  ? kasan_unpoison+0x23/0x50
+[   64.133401]  ? __kasan_slab_alloc+0x61/0x80
+[   64.133894]  do_sys_openat2+0x241/0x320
+[   64.134345]  do_sys_open+0x3f/0x80
+[   64.134748]  do_syscall_64+0x38/0x90
+[   64.135150]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[   64.135716] RIP: 0033:0x7fad940b56ed
+[   64.136118] Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+[   64.138164] RSP: 002b:00007fad94026bf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+[   64.138994] RAX: ffffffffffffffda RBX: 00007fad941d3f60 RCX: 00007fad940b56ed
+[   64.139779] RDX: 0000000000000042 RSI: 0000000020000040 RDI: ffffffffffffff9c
+[   64.140573] RBP: 00007fad94122190 R08: 0000000000000000 R09: 0000000000000000
+[   64.141369] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+[   64.142184] R13: 00007ffeb1da8a0f R14: 00007ffeb1da8bb0 R15: 00007fad94026d80
+[   64.142975] Modules linked in:
+[   64.143363] ---[ end trace e6a7d6d939be804c ]---
+[   64.143896] RIP: 0010:nfs_end_delegation_return+0x69c/0xa50
+[   64.144521] Code: 3c 20 00 0f 85 af 02 00 00 48 8b 45 08 48 8d 68 f8 49 39 c5 0f 84 b4 00 00 00 e8 0f 45 cd ff 48 8d 7d 78 48 89 f8 48 c1 e8 03 <42> 80 3c 20 00 0f 85 79 02 00 00 48 8b 45 78 48 8d b8 c8 00 00 00
+[   64.146603] RSP: 0018:ffff88810d9677a8 EFLAGS: 00010a03
+[   64.147200] RAX: 1df40011e000000e RBX: ffff888103316400 RCX: ffff88810b9c9700
+[   64.147997] RDX: 0000000000000000 RSI: ffff88810b9c9700 RDI: efa0008f00000077
+[   64.148799] RBP: efa0008effffffff R08: ffffffffac0502e1 R09: 65756420676e6967
+[   64.149584] R10: 6f6c20676e696c62 R11: 6e696c6261736944 R12: dffffc0000000000
+[   64.150393] R13: ffff88810768f800 R14: ffff88810768f7e8 R15: 0000000000000000
+[   64.151193] FS:  00007fad94027700(0000) GS:ffff888263080000(0000) knlGS:0000000000000000
+[   64.152097] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   64.152736] CR2: 00007fad941d4028 CR3: 000000010d356002 CR4: 0000000000770ee0
+[   64.153529] PKRU: 55555554
+
+VM DIAGNOSIS:
+14:42:05  Registers:
+info registers vcpu 0
+RAX=ffffffffacb51930 RBX=0000000000000000 RCX=0000000000000000 RDX=ffff88826302e7e0
+RSI=ffffffffad607e30 RDI=0000000000032da0 RBP=ffffffffad618940 RSP=ffffffffad607ea0
+R8 =0000000000032d9f R9 =ffff8881002c5cc0 R10=ffff88826302da40 R11=0000000000000800
+R12=ffffffffad618940 R13=ffffffffad618940 R14=0000000000000000 R15=0000000000000000
+RIP=ffffffffacb5193b RFL=00000216 [----AP-] CPL=0 II=0 A20=1 SMM=0 HLT=1
+ES =0000 0000000000000000 ffffffff 00c00000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0018 0000000000000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0000 0000000000000000 ffffffff 00c00000
+FS =0000 0000000000000000 ffffffff 00c00000
+GS =0000 ffff888263000000 ffffffff 00c00000
+LDT=0000 0000000000000000 ffffffff 00c00000
+TR =0040 fffffe0000003000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe0000001000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=00007f0869686740 CR3=000000010a332003 CR4=00770ef0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00009fc0
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+XMM00=ffffffffffffffffffffffffffffffff XMM01=79732f0073636f72702e70756f726763
+XMM02=6e002f002f70756f7267632f73662f73 XMM03=00000000000000000000000000000000
+XMM04=000000ff000000000000000000000000 XMM05=ffff000000000000ffffffffffffffff
+XMM06=ffffffffffffff00ff000000000000ff XMM07=00000000000000000000000000000000
+XMM08=6e72656b2f3d4854000055a024700201 XMM09=64646464646464256464646414071049
+XMM10=55491016141c4b55490c07100d13174b XMM11=00000000000000000000000000000000
+XMM12=00000000000000000000000000000000 XMM13=00000000000000000000000000000000
+XMM14=00000000000000000000000000000000 XMM15=00000000000000000000000000000000
+info registers vcpu 1
+RAX=ffffffffac377360 RBX=ffffffffae07bc40 RCX=0000000000000000 RDX=00000000000003fd
+RSI=0000000000000005 RDI=ffffffffae07bc40 RBP=0000000000002710 RSP=ffff88810d967470
+R8 =ffffffffac375580 R9 =6d6d6f4320313538 R10=31353832203a4449 R11=502031203a555043
+R12=0000000000000020 R13=ffffffffae00168d R14=000000000000004d R15=0000000000000000
+RIP=ffffffffac3773f8 RFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0000 0000000000000000 ffffffff 00c00000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0018 0000000000000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0000 0000000000000000 ffffffff 00c00000
+FS =0000 00007fad94027700 ffffffff 00c00000
+GS =0000 ffff888263080000 ffffffff 00c00000
+LDT=0000 0000000000000000 ffffffff 00c00000
+TR =0040 fffffe000003e000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe000003c000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=00007fad941d4028 CR3=000000010d356002 CR4=00770ee0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00001f80
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+XMM00=00000000000000000000000000000000 XMM01=00000000000000000000000000000000
+XMM02=00007fad941b06c000007fad941b06a8 XMM03=00007fad941b06a000007fad941b06a0
+XMM04=0000000000000000000000ff00000000 XMM05=00000000000000000000000000001000
+XMM06=0000000000000000000000524f525245 XMM07=00000000000000000000000000000000
+XMM08=000000000000000000524f5252450040 XMM09=00000000000000000000000000000000
+XMM10=00000000000000000000000000000000 XMM11=00000000000000000000000000000000
+XMM12=00000000000000000000000000000000 XMM13=00000000000000000000000000000000
+XMM14=00000000000000000000000000000000 XMM15=00000000000000000000000000000000
+info registers vcpu 2
+RAX=ffffffffacb51930 RBX=0000000000000002 RCX=0000000000000000 RDX=ffff88826312e7e0
+RSI=ffff88810030fe78 RDI=0000000000025a32 RBP=ffff8881002f2e00 RSP=ffff88810030fee8
+R8 =0000000000025a31 R9 =ffff88810d4fc5c0 R10=ffff88826312da40 R11=0000000000001c00
+R12=ffff8881002f2e00 R13=ffff8881002f2e00 R14=0000000000000000 R15=0000000000000000
+RIP=ffffffffacb5193b RFL=00000202 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=1
+ES =0000 0000000000000000 ffffffff 00c00000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0018 0000000000000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0000 0000000000000000 ffffffff 00c00000
+FS =0000 0000000000000000 ffffffff 00c00000
+GS =0000 ffff888263100000 ffffffff 00c00000
+LDT=0000 0000000000000000 ffffffff 00c00000
+TR =0040 fffffe0000079000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe0000077000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=00007fad93fe4d78 CR3=000000010d356006 CR4=00770ee0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00001f80
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+XMM00=00000000000f42400000000000000000 XMM01=000000000000000000000000000f4240
+XMM02=00007fad941b06c000007fad941b06a8 XMM03=00007fad941b06a000007fad941b06a0
+XMM04=0000000000000000000000ff00000000 XMM05=00000000000000000000000000001000
+XMM06=0000000000000000000000524f525245 XMM07=00000000000000000000000000000000
+XMM08=000000000000000000524f5252450040 XMM09=00000000000000000000000000000000
+XMM10=00000000000000000000000000000000 XMM11=00000000000000000000000000000000
+XMM12=00000000000000000000000000000000 XMM13=00000000000000000000000000000000
+XMM14=00000000000000000000000000000000 XMM15=00000000000000000000000000000000
+info registers vcpu 3
+RAX=ffffffffacb51930 RBX=0000000000000003 RCX=0000000000000000 RDX=ffff8882631ae7e0
+RSI=ffff888100317e78 RDI=000000000001887a RBP=ffff8881002f4500 RSP=ffff888100317ee8
+R8 =0000000000018879 R9 =ffffea00043f8000 R10=0000000000000024 R11=0000000000032210
+R12=ffff8881002f4500 R13=ffff8881002f4500 R14=0000000000000000 R15=0000000000000000
+RIP=ffffffffacb5193b RFL=00000202 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=1
+ES =0000 0000000000000000 ffffffff 00c00000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0018 0000000000000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0000 0000000000000000 ffffffff 00c00000
+FS =0000 0000000000000000 ffffffff 00c00000
+GS =0000 ffff888263180000 ffffffff 00c00000
+LDT=0000 0000000000000000 ffffffff 00c00000
+TR =0040 fffffe00000b4000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe00000b2000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=000055a02470b680 CR3=00000002bea10004 CR4=00770ee0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00009fc0
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+XMM00=ffffffffffffffffffffffffffffffff XMM01=00000000000000000000000000000000
+XMM02=00000000000000000000000000000000 XMM03=00000000000000000000000000000000
+XMM04=ffff000000000000ff00000000000000 XMM05=762f736563697665642f3d4854415056
+XMM06=6f6f6c2f6b636f6c622f6c6175747269 XMM07=6f6c623d4d4554535953425553003070
+XMM08=000000393336333d4d554e5145530031 XMM09=64646464646464256464646414071049
+XMM10=55491016141c4b55490c07100d13174b XMM11=00000000000000000000000000000000
+XMM12=00000000000000000000000000000000 XMM13=00000000000000000000000000000000
+XMM14=00000000000000000000000000000000 XMM15=00000000000000000000000000000000

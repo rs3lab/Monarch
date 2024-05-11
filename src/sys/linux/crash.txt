@@ -1,0 +1,4 @@
+syz_failure_down()
+syz_failure_up()
+syz_failure_crash_client(willCrash intptr[0:63])
+syz_failure_crash_server()

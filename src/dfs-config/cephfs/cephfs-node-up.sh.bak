@@ -1,0 +1,18 @@
+mon_ip=$1
+mon_range=$2
+osd_range=$(($3+$mon_range))
+mds_range=$(($4+$osd_range))
+client_range=$(($5+$mds_range))
+cur_id=$6
+
+if [ $cur_id -lt $mon_range ] && [ $cur_id -ge 0 ]; then
+    echo systemctl restart ceph-mon@node1
+elif [ $cur_id -lt $osd_range ] && [ $cur_id -ge $mon_range ]; then
+	echo systemctl restart $(systemctl list-units|grep ceph-osd@|awk -F"." '{print $1}')
+elif [ $cur_id -lt $mds_range ] && [ $cur_id -ge $osd_range ]; then
+    mds_id=$(($cur_id-$osd_range))
+	echo $mds_id
+    echo ceph-mds --cluster ceph -i mds$mds_id -m $mon_ip
+elif [ $cur_id -lt $client_range ] && [ $cur_id -ge $mds_range ]; then
+    echo mount -t ceph $mon_ip:/ /root/cephfs-client -o name=admin
+fi

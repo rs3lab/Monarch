@@ -1,0 +1,611 @@
+----------executor 2 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 2 2>&1): [S 03/12/2023 04:57:34] PVFS2 Server on node 192.168.0.35 version 2.9.7-orangefs-REV-65ab0d2 starting...
+daemon log read: 0
+daemon log read: 0
+daemon log read: 4035
+=================================================================
+==388==ERROR: AddressSanitizer: heap-use-after-free on address 0x611000000d20 at pc 0x5555559841d4 bp 0x7ffff20be580 sp 0x7ffff20be570
+READ of size 8 at 0x611000000d20 thread T2
+    #0 0x5555559841d3 in mdb_txn_commit (/opt/orangefs/sbin/pvfs2-server+0x4301d3)
+    #1 0x55555595455f in dbpf_db_put (/opt/orangefs/sbin/pvfs2-server+0x40055f)
+    #2 0x5555559189d1 in dbpf_keyval_write_list_op_svc (/opt/orangefs/sbin/pvfs2-server+0x3c49d1)
+    #3 0x555555937042 in dbpf_do_one_work_cycle (/opt/orangefs/sbin/pvfs2-server+0x3e3042)
+    #4 0x55555593660e in dbpf_thread_function (/opt/orangefs/sbin/pvfs2-server+0x3e260e)
+    #5 0x7ffff7143608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #6 0x7ffff705f102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+0x611000000d20 is located 96 bytes inside of 248-byte region [0x611000000cc0,0x611000000db8)
+freed by thread T0 here:
+    #0 0x7ffff76a07cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #1 0x5555559d30d6 in mdb_env_close (/opt/orangefs/sbin/pvfs2-server+0x47f0d6)
+    #2 0x555555953c51 in dbpf_db_close (/opt/orangefs/sbin/pvfs2-server+0x3ffc51)
+    #3 0x555555940273 in dbpf_collection_clear (/opt/orangefs/sbin/pvfs2-server+0x3ec273)
+    #4 0x5555558906c8 in trove_collection_clear (/opt/orangefs/sbin/pvfs2-server+0x33c6c8)
+    #5 0x5555556d711b in server_shutdown (/opt/orangefs/sbin/pvfs2-server+0x18311b)
+    #6 0x5555556cf26f in main (/opt/orangefs/sbin/pvfs2-server+0x17b26f)
+    #7 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+previously allocated by thread T0 here:
+    #0 0x7ffff76a0dc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x5555559cdf37 in mdb_env_create (/opt/orangefs/sbin/pvfs2-server+0x479f37)
+    #2 0x555555952e2c in dbpf_db_open (/opt/orangefs/sbin/pvfs2-server+0x3fee2c)
+    #3 0x555555941ce8 in dbpf_collection_lookup (/opt/orangefs/sbin/pvfs2-server+0x3edce8)
+    #4 0x555555890334 in trove_collection_lookup (/opt/orangefs/sbin/pvfs2-server+0x33c334)
+    #5 0x5555556d0cd1 in server_initialize_subsystems (/opt/orangefs/sbin/pvfs2-server+0x17ccd1)
+    #6 0x5555556cfb2a in server_initialize (/opt/orangefs/sbin/pvfs2-server+0x17bb2a)
+    #7 0x5555556cec75 in main (/opt/orangefs/sbin/pvfs2-server+0x17ac75)
+    #8 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+Thread T2 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x555555935f80 in dbpf_thread_initialize (/opt/orangefs/sbin/pvfs2-server+0x3e1f80)
+    #2 0x55555593a07e in dbpf_initialize (/opt/orangefs/sbin/pvfs2-server+0x3e607e)
+    #3 0x55555588fd30 in trove_initialize (/opt/orangefs/sbin/pvfs2-server+0x33bd30)
+    #4 0x5555556d07f7 in server_initialize_subsystems (/opt/orangefs/sbin/pvfs2-server+0x17c7f7)
+    #5 0x5555556cfb2a in server_initialize (/opt/orangefs/sbin/pvfs2-server+0x17bb2a)
+    #6 0x5555556cec75 in main (/opt/orangefs/sbin/pvfs2-server+0x17ac75)
+    #7 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/opt/orangefs/sbin/pvfs2-server+0x4301d3) in mdb_txn_commit
+Shadow bytes around the buggy address:
+  0x0c227fff8150: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fff8160: fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa fa
+  0x0c227fff8170: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fff8180: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fa fa
+  0x0c227fff8190: fa fa fa fa fa fa fa fa fd fd fd fd fd fd fd fd
+=>0x0c227fff81a0: fd fd fd fd[fd]fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fff81b0: fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa fa
+  0x0c227fff81c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fff81d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fa fa
+  0x0c227fff81e0: fa fa fa fa fa fa fa fa fd fd fd fd fd fd fd fd
+  0x0c227fff81f0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==388==ABORTING
+-----executor 2 collect shmids 0
+----- directly resend shmid 0
+execute_call 0, 33, 0, 0
+execute_one loop: 0, 0, 33
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 2, execute_one inner time: 0, 239, 1
+execute_one time: 1, 240
+----- executor 3 write_call_output, size 0, pid 375, write pid:375
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 6
+execute_call 0, 46, 0, 10
+execute_one loop: 0, 0, 56
+executor 3, execute_one inner time: 1, 239, 0
+execute_one time: 1, 240
+executor 3 write_metadata
+----- write_dir_info /root/orangefs-client/dfs-0-1
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 4163, flag collect 0
+----- executor 1 signal number : 1410
+----- executor 1 executes write_coverage_signal cov->size 1841, flag collect 0
+----- executor 1 signal number : 315
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 1 executes write_coverage_signal cov->size 6121, flag collect 0
+----- executor 1 signal number : 394
+----- executor 2 signal number : 877
+----- executor 2 executes write_coverage_signal cov->size 26290, flag collect 0
+----- executor 1 executes write_coverage_signal cov->size 1642, flag collect 0
+----- executor 1 signal number : 77
+executor 1 server cover_cnt 4 output_pos_value 2209
+2023/03/12 05:57:34 for select break: 1
+2023/03/12 05:57:34 --------- executor 1 receive reply, reply.done 1
+----- executor 2 signal number : 674
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 2 signal number : 6
+----- executor 2 executes write_coverage_signal cov->size 669, flag collect 0
+----- executor 2 signal number : 6
+----- executor 2 executes write_coverage_signal cov->size 4150, flag collect 0
+----- executor 2 signal number : 11
+executor 2 server cover_cnt 8 output_pos_value 2685
+time breakdown 2: 96, 266, 0
+before receive testcase: 0 1
+time breakdown 1: 105, 249, 0
+before receive testcase: 0 0
+2023/03/12 05:57:34 for select break: 1
+2023/03/12 05:57:34 --------- executor 2 receive reply, reply.done 1
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 877
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 649
+----- executor 0 executes write_coverage_signal cov->size 145, flag collect 0
+----- executor 0 signal number : 7
+----- executor 0 executes write_coverage_signal cov->size 3232, flag collect 0
+----- executor 0 signal number : 3
+----- executor 0 executes write_coverage_signal cov->size 613, flag collect 0
+----- executor 0 signal number : 4
+executor 0 server cover_cnt 8 output_pos_value 1975
+2023/03/12 05:57:34 for select break: 1
+time breakdown 0: 111, 312, 0
+2023/03/12 05:57:34 --------- executor 0 receive reply, reply.done 1
+before receive testcase: 0 0
+executor 3 write_dir_info begins is_dfs_client:1 0x7ffff70c5208 0x7ffff70c3024 0 8676
+2023/03/12 05:57:34 for select break: 1
+2023/03/12 05:57:34 --------- executor 3 receive reply, reply.done 1
+2023/03/12 05:57:34 wg wait finish
+2023/03/12 05:57:34 ------ all executors finish execution
+2023/03/12 05:57:34 exec time: 411
+2023/03/12 05:57:34 ----- PS len: 4
+2023/03/12 05:57:34 [CLIENT] executor 3 has 6 replies
+2023/03/12 05:57:34 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:34 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:34 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:34 fuzzer receive 2113 signal and 0 cover from executor 3
+2023/03/12 05:57:34 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:34 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:34 ------ stat_cnt 0, [75 187 152 186 216 75 64 233 179 7]
+2023/03/12 05:57:34 ----- parsed fsMd len 0
+2023/03/12 05:57:34 [SERVER] executor 0 has 8 replies
+2023/03/12 05:57:34 ------- fuzzer executor 0 receive 15 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 0 receive 349 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 0 receive 46 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 0 receive 877 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 0 receive 649 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 0 receive 7 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 0 receive 3 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 0 receive 4 signal and 0 cover from userspace component
+time breakdown 3: 125, 243, 65
+2023/03/12 05:57:34 [SERVER] executor 1 has 4 replies
+2023/03/12 05:57:34 ------- fuzzer executor 1 receive 1410 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 1 receive 315 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 1 receive 394 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 1 receive 77 signal and 0 cover from userspace component
+2023/03/12 05:57:34 [SERVER] executor 2 has 8 replies
+2023/03/12 05:57:34 ------- fuzzer executor 2 receive 745 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 2 receive 142 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 2 receive 199 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 2 receive 877 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 2 receive 674 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 2 receive 6 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 2 receive 6 signal and 0 cover from userspace component
+2023/03/12 05:57:34 ------- fuzzer executor 2 receive 11 signal and 0 cover from userspace component
+2023/03/12 05:57:34 fsMds: [map[] map[] map[] map[]]
+2023/03/12 05:57:34 ----- no new client coverage
+2023/03/12 05:57:34 ----- enqueue testcases with server coveraged
+2023/03/12 05:57:34 disable threaded and collide
+2023/03/12 05:57:34 prog length: 6
+2023/03/12 05:57:34 prog length: 6
+2023/03/12 05:57:34 prog length: 6
+2023/03/12 05:57:34 HasCrashFail:true HasNetFail:false
+05:57:34 ---executing program 0:
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+---
+syz_failure_recv(0x2)
+syz_failure_down()
+syz_failure_send(0x2)
+syz_failure_recv(0x3)
+syz_failure_up()
+syz_failure_send(0x3)
+---
+syz_failure_sync(0x2, 0x3)
+syz_failure_sync(0x0, 0x3)
+syz_failure_sync(0x1, 0x3)
+setxattr$security_capability(&(0x7f0000000080)='./file0/file0\x00', 0x0, 0x0, 0x0, 0x0)
+fsetxattr$security_capability(0xffffffffffffffff, &(0x7f0000000000), &(0x7f0000000040)=@v1={0x1000000, [{0x4, 0xf0}]}, 0xc, 0x0)
+syz_failure_sync(0x3, 0x3)
+---
+
+end of program
+before receive testcase: 0 0
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1816, prog_size 808
+remove dir: /root/orangefs-client/dfs-0-1
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 248
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1312, prog_size 248
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1560, prog_size 8
+-----executor 2 collect shmids 3
+----- directly resend shmid 3
+-----executor 2 collect shmids 4
+----- directly resend shmid 4
+-----executor 2 collect shmids 0
+----- directly resend shmid 0
+-----executor 2 collect shmids 1
+----- directly resend shmid 1
+-----executor 2 collect shmids 2
+----- directly resend shmid 2
+[E 03/12/2023 04:57:34] PVFS2 server got signal 15 (server_status_flag: 2080767)
+[D 03/12/2023 04:57:34] PVFS2 Server version 2.9.7-orangefs-REV-65ab0d2 starting.
+[D 03/12/2023 04:57:34] PVFS2 Server version 2.9.7-orangefs-REV-65ab0d2 starting.
+[E 03/12/2023 04:57:34] Error: handle 9223372036854775802 is invalid (out of bounds)
+[E 03/12/2023 04:57:34] Error adding handle range 3-1537228672809129302,4611686018427387903-6148914691236517202 to filesystem orangefs
+[E 03/12/2023 04:57:34] Error: Could not initialize server subsystems
+[E 03/12/2023 04:57:34] Error: Could not initialize server; aborting.
+remove dir time 2051
+-----finish removing dir
+receive_execute: 62, 2123
+receive_execute: 18, 2123
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+mkdir time 72
+executor 3 create dir /root/orangefs-client/dfs-0-2 successfully
+current dir: executor 3: /root/orangefs-client/dfs-0-2
+receive_execute: 61, 2136
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+receive_execute: 1, 2139
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 3, 0, 0
+execute_one loop: 0, 0, 3
+executor 2 write_server_output
+executor 2 server cover_cnt 0 output_pos_value 1
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1, execute_one inner time: 0, 0, 0
+execute_one time: 29, 0
+execute_call 0, 34, 0, 0
+execute_one loop: 0, 0, 34
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 376, write pid:376
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 1
+execute_call 0, 35, 0, 4
+execute_one loop: 0, 0, 39
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 56, 0, 0
+execute_one loop: 0, 0, 56
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 661, flag collect 1
+----- executor 0 cover number : 348, signal number : 388
+----- executor 0 executes write_coverage_signal cov->size 60, flag collect 1
+----- executor 0 cover number : 12, signal number : 11
+----- executor 0 executes write_coverage_signal cov->size 1030, flag collect 1
+----- executor 0 cover number : 116, signal number : 143
+----- executor 0 executes write_coverage_signal cov->size 270, flag collect 1
+----- executor 0 cover number : 41, signal number : 44
+executor 0 server cover_cnt 4 output_pos_value 1116
+execute_call 0, 17, 0, 0
+execute_one loop: 0, 0, 17
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 376, write pid:376
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 2
+execute_call 0, 22, 0, 0
+execute_one loop: 0, 0, 22
+cover_reset in execute_call
+executor 3 waits for recv msg
+-----executor 0 collect shmids 3
+----- directly resend shmid 3
+execute_call 0, 6, 0, 0
+execute_one loop: 0, 0, 6
+-----executor 0 collect shmids 4
+----- directly resend shmid 4
+-----executor 0 collect shmids 2
+----- directly resend shmid 2
+-----executor 0 collect shmids 0
+----- directly resend shmid 0
+-----executor 0 collect shmids 1
+----- directly resend shmid 1
+----------executor 0 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 0 2>&1): call atexit in pid 468 tid 468
+
+----------executor 0 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 0 2>&1): executor __sanitizer_cov_trace_pc: retrieve shmid 0, thread 468, pid 468, value 1
+
+----------executor 0 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 0 2>&1): [S 03/12/2023 04:57:36] PVFS2 Server on node 192.168.0.35 version 2.9.7-orangefs-REV-65ab0d2 starting...
+
+-----executor 0 collect shmids 0
+----- directly resend shmid 0
+----- executor 3 write_call_output, size 0, pid 376, write pid:376
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 3
+execute_call 0, 34, 0, 0
+execute_one loop: 0, 0, 34
+cover_reset in execute_call
+execute_call 0, 33, 0, 0
+execute_one loop: 0, 0, 33
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0, execute_one inner time: 0, 112, 0
+execute_one time: 0, 112
+[E 03/12/2023 04:57:36] PVFS2 server got signal 15 (server_status_flag: 2080767)
+[D 03/12/2023 04:57:36] PVFS2 Server version 2.9.7-orangefs-REV-65ab0d2 starting.
+----- executor 3 write_call_output, size 32765, pid 376, write pid:376
+----- executor 3 executes write_coverage_signal cov->size 32765, flag collect 1
+execute_call 0, 2122, 0, 0
+execute_one loop: 0, 0, 2122
+----- executor 3 cover number : 1803, signal number : 2159
+----- completed 4
+execute_call 0, 2057, 0, 5
+execute_one loop: 0, 0, 2062
+cover_reset in execute_call
+----- executor 3 write_call_output, size 0, pid 376, write pid:376
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 5
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+executor 3 waits for recv msg
+----------executor 2 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 2 2>&1): call atexit in pid 419 tid 419
+
+----------executor 2 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 2 2>&1): executor __sanitizer_cov_trace_pc: retrieve shmid 0, thread 419, pid 419, value 1
+
+----------executor 2 debug cmd (/root/orangefs-node-up.sh 192.168.0.35 3 1 2 2>&1): [S 03/12/2023 04:57:38] PVFS2 Server on node 192.168.0.35 version 2.9.7-orangefs-REV-65ab0d2 starting...
+
+-----executor 2 collect shmids 0
+----- directly resend shmid 0
+execute_call 0, 30, 0, 0
+execute_one loop: 0, 0, 30
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 2, execute_one inner time: 0, 2189, 0
+execute_one time: 1, 2189
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 1
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 1486, flag collect 1
+----- executor 1 cover number : 247, signal number : 281
+----- executor 1 executes write_coverage_signal cov->size 2486, flag collect 1
+----- executor 1 cover number : 13, signal number : 13
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 3 write_call_output, size 0, pid 376, write pid:376
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 1
+----- executor 3 cover number : 0, signal number : 0
+----- completed 6
+execute_call 0, 30, 0, 3
+execute_one loop: 0, 0, 33
+executor 3, execute_one inner time: 0, 2190, 0
+execute_one time: 1, 2190
+executor 3 write_metadata
+----- write_dir_info /root/orangefs-client/dfs-0-2
+----- executor 2 cover number : 719, signal number : 899
+executor 2 server cover_cnt 1 output_pos_value 1622
+----- executor 1 cover number : 116, signal number : 143
+----- executor 1 executes write_coverage_signal cov->size 11234, flag collect 1
+----- executor 1 cover number : 42, signal number : 46
+executor 1 server cover_cnt 4 output_pos_value 914
+time breakdown 2: 2197, 2198, 0
+before receive testcase: 0 1
+time breakdown 1: 2185, 2216, 0
+before receive testcase: 0 1
+2023/03/12 05:57:38 for select break: 1
+2023/03/12 05:57:38 --------- executor 1 receive reply, reply.done 1
+2023/03/12 05:57:38 for select break: 1
+2023/03/12 05:57:38 --------- executor 2 receive reply, reply.done 1
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 884, signal number : 854
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 1
+----- executor 0 cover number : 5, signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 229, signal number : 248
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 1
+----- executor 0 cover number : 126, signal number : 170
+----- executor 0 executes write_coverage_signal cov->size 10309, flag collect 1
+----- executor 0 cover number : 109, signal number : 105
+2023/03/12 05:57:38 for select break: 1
+2023/03/12 05:57:38 --------- executor 0 receive reply, reply.done 1
+executor 0 server cover_cnt 9 output_pos_value 3866
+time breakdown 0: 2141, 2283, 0
+before receive testcase: 0 0
+executor 3 write_dir_info begins is_dfs_client:1 0x7ffff70c6eec 0x7ffff70c3024 0 16072
+time breakdown 3: 2140, 2191, 100
+before receive testcase: 0 1
+2023/03/12 05:57:38 for select break: 1
+2023/03/12 05:57:38 --------- executor 3 receive reply, reply.done 1
+2023/03/12 05:57:38 wg wait finish
+2023/03/12 05:57:38 ------ all executors finish execution
+2023/03/12 05:57:38 exec time: 4438
+2023/03/12 05:57:38 ----- PS len: 4
+2023/03/12 05:57:38 [CLIENT] executor 3 has 6 replies
+2023/03/12 05:57:38 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:38 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:38 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:38 fuzzer receive 2159 signal and 1803 cover from executor 3
+2023/03/12 05:57:38 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:38 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/12 05:57:38 ------ stat_cnt 0, [1 197 133 85 153 197 133 85 11 198]
+2023/03/12 05:57:38 ----- parsed fsMd len 0
+2023/03/12 05:57:38 [SERVER] executor 0 has 9 replies
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 388 signal and 348 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 11 signal and 12 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 143 signal and 116 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 44 signal and 41 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 854 signal and 884 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 5 signal and 5 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 248 signal and 229 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 170 signal and 126 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 0 receive 105 signal and 109 cover from userspace component
+2023/03/12 05:57:38 [SERVER] executor 2 has 1 replies
+2023/03/12 05:57:38 ------- fuzzer executor 2 receive 899 signal and 719 cover from userspace component
+2023/03/12 05:57:38 [SERVER] executor 1 has 4 replies
+2023/03/12 05:57:38 ------- fuzzer executor 1 receive 281 signal and 247 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 1 receive 13 signal and 13 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 1 receive 143 signal and 116 cover from userspace component
+2023/03/12 05:57:38 ------- fuzzer executor 1 receive 46 signal and 42 cover from userspace component
+2023/03/12 05:57:38 fsMds: [map[] map[] map[] map[]]
+2023/03/12 05:57:38 ----- triage return due to empty signal extra
+2023/03/12 05:57:38 mutate testcase with failures
+2023/03/12 05:57:38 ----- mutateArg()
+2023/03/12 05:57:38 ----- insertCall()
+2023/03/12 05:57:38 ----- splice()
+2023/03/12 05:57:38 ----- insertCall()
+2023/03/12 05:57:38 ----- insertCall()
+2023/03/12 05:57:38 ----- insertCall()
+2023/03/12 05:57:38 ----- generateCall 2458 open open
+2023/03/12 05:57:38 ----- mutateArg()
+2023/03/12 05:57:38 HasCrashFail: true, .HasNetFail: false
+2023/03/12 05:57:38 disable threaded and collide
+2023/03/12 05:57:38 prog length: 6
+2023/03/12 05:57:38 prog length: 6
+2023/03/12 05:57:38 prog length: 6
+2023/03/12 05:57:38 HasCrashFail:true HasNetFail:false
+05:57:38 ---executing program 0:
+---
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+syz_failure_recv(0x2)
+syz_failure_down()
+syz_failure_send(0x2)
+syz_failure_recv(0x3)
+syz_failure_up()
+syz_failure_send(0x3)
+---
+syz_failure_sync(0x2, 0x3)
+lsetxattr$system_posix_acl(&(0x7f0000000000)='./file0\x00', 0x0, 0x0, 0x0, 0x0)
+syz_failure_sync(0x0, 0x3)
+open(&(0x7f0000000040)='./file0\x00', 0x220080, 0x1b4)
+syz_failure_sync(0x3, 0x3)
+syz_failure_sync(0x1, 0x3)
+---
+
+end of program
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1816, prog_size 616
+remove dir: /root/orangefs-client/dfs-0-2
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1320, prog_size 248
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 248
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1312, prog_size 8
+-----executor 2 collect shmids 3
+----- directly resend shmid 3
+-----executor 2 collect shmids 4
+----- directly resend shmid 4
+-----executor 2 collect shmids 0
+----- directly resend shmid 0
+-----executor 2 collect shmids 1
+----- directly resend shmid 1
+-----executor 2 collect shmids 2
+----- directly resend shmid 2
+remove dir time 89
+-----finish removing dir
+[D 03/12/2023 04:57:38] PVFS2 Server version 2.9.7-orangefs-REV-65ab0d2 starting.
+[E 03/12/2023 04:57:38] Error: handle 9223372036854775802 is invalid (out of bounds)
+[E 03/12/2023 04:57:38] Error adding handle range 3-1537228672809129302,4611686018427387903-6148914691236517202 to filesystem orangefs
+[E 03/12/2023 04:57:38] Error: Could not initialize server subsystems
+[E 03/12/2023 04:57:38] Error: Could not initialize server; aborting.
+receive_execute: 100, 4311
+mkdir time 4221
+executor 3 create dir /root/orangefs-client/dfs-0-3 successfully
+current dir: executor 3: /root/orangefs-client/dfs-0-3
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+receive_execute: 9, 4314
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+executor 3 waits for recv msg
+receive_execute: 26, 4304
+receive_execute: 105, 4311
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 2 write_server_output
+executor 2 server cover_cnt 0 output_pos_value 1
+/root/orangefs-node-down.sh: 1: kill: No such process
+
+execute_call 0, 10, 0, 0
+execute_one loop: 0, 0, 10
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 0, execute_one inner time: 0, 0, 0
+execute_one time: 3, 0
+----- executor 3 write_call_output, size 0, pid 377, write pid:377
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 1
+execute_call 0, 17, 0, 35
+execute_one loop: 0, 0, 52
+cover_reset in execute_call
+----- executor 3 write_call_output, size 5867, pid 377, write pid:377
+----- executor 3 executes write_coverage_signal cov->size 5867, flag collect 0
+----- executor 3 signal number : 2061
+----- completed 2
+execute_call 0, 2, 0, 0
+execute_one loop: 0, 0, 2
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 57, 0, 0
+execute_one loop: 0, 0, 66
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 4135, flag collect 0
+----- executor 1 signal number : 1410
+----- executor 1 executes write_coverage_signal cov->size 1623, flag collect 0
+----- executor 1 signal number : 315
+----- executor 1 executes write_coverage_signal cov->size 1625, flag collect 0
+----- executor 1 signal number : 289
+----- executor 1 executes write_coverage_signal cov->size 724, flag collect 0
+----- executor 1 signal number : 77
+executor 1 server cover_cnt 4 output_pos_value 2104
+/root/orangefs-node-down.sh: 1: kill: No such process
+
+execute_call 0, 36, 0, 0
+execute_one loop: 0, 0, 36
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 377, write pid:377
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 3
+execute_call 0, 45, 0, 0
+execute_one loop: 0, 0, 45
+cover_reset in execute_call
+-----executor 1 collect shmids 6
+----- directly resend shmid 6
+-----executor 1 collect shmids 7
+----- directly resend shmid 7
+-----executor 1 collect shmids 5
+----- directly resend shmid 5
+-----executor 1 collect shmids 4
+----- directly resend shmid 4
+-----executor 1 collect shmids 3
+----- directly resend shmid 3
+[E 03/12/2023 04:57:43] PVFS2 server got signal 15 (server_status_flag: 2080767)

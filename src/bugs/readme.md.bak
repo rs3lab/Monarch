@@ -1,0 +1,33 @@
+# Bug Summary
+
+| DFS  |     Bug Type / Title     |         Config         |         Rep?         |         Ack?         |         Zero?         |   CVE   |
+| :--: | :--------------: | --------------------------- | --------------------------- | ----- | ----- | ---- |
+| NFS  | [NULL-Dereference](./nfs-null-dereference-3ab8a45c6fc16de3b64f3dd9004b5fa0ae036426) |  | Yes | Yes | Yes | CVE-2022-24448 |
+| NFS | [use-after-free Read in nfs_end_delegation_return](./nfs-use-after-free-8e1fd890d9956dcc2f0d7f12e2fd80a317341be8) |  | No |  |  |   |
+| NFS | [use-after-free Read in svc_tcp_listen_data_ready](./nfs-use-after-free-f7fd09092abc1bdf8040869d0ba9a402678ad72d) |  | No |  |  |   |
+| NFS | [wild-memory-access Write in xdr_expand_hole](./nfs-wild-memory-access-36dc22772d6fac6e93b39f16332ddf4f5a40bd38/) |  | No |  |  |   |
+| NFS | [use-after-free Read in nfs_inode_evict_delegation](./nfs-use-after-free-21c01b237d119d81cb82d8319cc29976525d1594) |  | No |  |  |   |
+| NFS | [use-after-free Read in nfs4_update_lock_stateid](./nfs-use-after-free-2d9c1b15ebeb552f6946422ef7c4cc7c7f367d1a) |  | No |  |  |   |
+| NFS | [use-after-free Read in nfs4_put_lock_state](./nfs-use-after-free-ff0704947b3e48fbd12aaf41e8bff465e7642866) |  | No |  |  |   |
+| NFS | [use-after-free Read in _nfs4_do_setlk](./nfs-use-after-free-d11f2be0ec17321d362338cae9e1726839301ee5) |  | No |  |  |   |
+| GlusterFS | [Inconsistency between DFS and LFS](https://github.com/gluster/glusterfs/issues/3624) |  | Yes | Yes | Yes |   |
+| GlusterFS | [crash consistency bug of fsync dir](https://github.com/gluster/glusterfs/issues/3983) | | Yes | Yes | Yes | |
+| GlusterFS | [heap-use-after-free in dht_setx attr_mds_cbk with failures](https://github.com/gluster/glusterfs/issues/3732) | 2 1 distributed failure | Yes | Yes | Yes | CVE-2022-48340 |
+| GlusterFS | [GlusterFS client get stuck forever](https://github.com/gluster/glusterfs/issues/3936) |  | Yes |  |  |   |
+| GlusterFS | [AddressSanitizer: heap-use-after-free in fuse_fd_inherit_directio](./glusterfs-use-after-free-818f935a171c7b0827d4ff3cc01a110e2981017e) |  | No |  |  |   |
+| GlusterFS | [AddressSanitizer: stack-buffer-overflow in notify](https://github.com/gluster/glusterfs/issues/3954) |  | No | Yes | Yes | CVE-2023-26253 |
+| GlusterFS | [use-after-free in dht-common.c:3983 dht_setxattr_mds_cbk](./glusterfs-use-after-free-dht-comment-3983-dht_setxattr_mds_cbk) | 3 1 distributed failure | No          |      |       |   |
+| GlusterFS | [use-after-free in dht-common.c:4046 dht_xattrop_mds_cbk](./glusterfs-use-after-free-dht-common-4046-dht_xattrop_mds_cbk) | 3 1 distributed failure | No |  |  | |
+| GlusterFS | [use-after-free in dht-common.c:4058 dht_xattrop_mds_cbk](./glusterfs-use-after-free-dht-common-4058-dht_xattrop_mds_cbk) | 3 1 distributed failure | No |  |  | |
+| GlusterFS | [use-after-free in dht-common.c:5494 dht_dir_common_set_remove_xattr](./glusterfs-use-after-free-dht-common-5494-dht_dir_common_set_remove_xattr) | 3 1 distributed failure | No |  |  | |
+| GlusterFS | [use-after-free in gf_print_trace](./glusterfs-use-after-free-common-utils-652-gf-print-trace) |  | No |  |  | |
+| GlusterFS | [use-after-free in dht-common.c:10612 dht_rmdir_opendir_cbk](./glusterfs-use-after-free-dht-common-10612-dht-rmdir-opendir-cbk) | 3 1 distributed failure | No | | | |
+| GlusterFS | [use-after-free in defaults.c:3386 default_notify](./glusterfs-use-after-free-defaults.c-3386-default_notify) | 3 1 rep/disp failure | No | | | |
+| GlusterFS | [stack underflow in glusterfs3.h:661 gfx_stat_from_iattx](./glusterfs-stack-underflow-glusterfs3.h-661-gfx_stat_from_iattx) | 3 1 rep/disp failure | No | | | |
+| CephFS | [NULL-Dereference in unsafe_request_wait](./cephfs-null-dereference-8023a61267cc1885f21473fb8aa7e070fc9c3176) |  | Yes | Yes | No | |
+| CephFS | [use-after-free Read in __ceph_open_session](./cephfs-use-after-free-ceph-open-session) [Patch](https://patchwork.kernel.org/project/ceph-devel/patch/20200218033042.40047-1-xiubli@redhat.com/) |  | No |  | No | |
+| Lustre | [Crashes caused by self-assertion](./lustre-assertion-osc_request.c-1819-osc_brw_prep_request/report.md), [report](https://jira.whamcloud.com/browse/LU-16616) ||Yes||||
+| Lustre | [Null-pointer dereference](./lustre-null-ptr-osc_request.c-3358-osc_iocontrol/report.md), [report](https://jira.whamcloud.com/browse/LU-16617) ||Yes||||
+| Lustre | [Null-pointer dereference](./lustre-null-ptr-deref-lustre_set_wire_obdo),[report](https://jira.whamcloud.com/browse/LU-16634) | |Yes||||
+| OrangeFS | [Stack overflow write](./orangefs-stack-buffer-overflow-dbpf_keyval_read_op_svc/)| | | | | |
+| OrangeFS | [Use after free](./orangefs-use-after-free-multiple/) | | | | | |

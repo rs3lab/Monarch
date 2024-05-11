@@ -1,0 +1,63 @@
+==================================================================
+BUG: KASAN: use-after-free in instrument_atomic_read_write include/linux/instrumented.h:101 [inline]
+BUG: KASAN: use-after-free in atomic_dec include/linux/atomic/atomic-instrumented.h:244 [inline]
+BUG: KASAN: use-after-free in ceph_fl_release_lock+0x87/0x160 fs/ceph/locks.c:46
+Write of size 4 at addr ff1100010d6e5a0c by task syz-executor/6557
+
+CPU: 0 PID: 6557 Comm: syz-executor Tainted: G        W         5.15.0+ #9
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x34/0x44 lib/dump_stack.c:106
+ print_address_description.constprop.0+0x21/0x140 mm/kasan/report.c:256
+ __kasan_report mm/kasan/report.c:442 [inline]
+ kasan_report.cold+0x7f/0x11b mm/kasan/report.c:459
+ check_region_inline mm/kasan/generic.c:183 [inline]
+ kasan_check_range+0x17c/0x1e0 mm/kasan/generic.c:189
+ instrument_atomic_read_write include/linux/instrumented.h:101 [inline]
+ atomic_dec include/linux/atomic/atomic-instrumented.h:244 [inline]
+ ceph_fl_release_lock+0x87/0x160 fs/ceph/locks.c:46
+ locks_release_private+0x5a/0xb0 fs/locks.c:365
+ locks_free_lock fs/locks.c:382 [inline]
+ locks_dispose_list+0x31/0x50 fs/locks.c:395
+ posix_lock_inode+0x13e/0x7f0 fs/locks.c:1349
+ posix_lock_inode_wait fs/locks.c:1388 [inline]
+ locks_lock_inode_wait+0xb4/0x180 fs/locks.c:2096
+ locks_lock_file_wait include/linux/fs.h:1360 [inline]
+ try_unlock_file fs/ceph/locks.c:218 [inline]
+ ceph_lock+0x3a1/0x550 fs/ceph/locks.c:271
+ locks_remove_posix+0xc6/0x150 fs/locks.c:2613
+ filp_close+0x4c/0x60 fs/open.c:1312
+ __do_sys_close fs/open.c:1327 [inline]
+ __se_sys_close fs/open.c:1325 [inline]
+ __x64_sys_close+0x9/0x40 fs/open.c:1325
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7ffff732bd5b
+Code: 03 00 00 00 0f 05 48 3d 00 f0 ff ff 77 41 c3 48 83 ec 18 89 7c 24 0c e8 63 fc ff ff 8b 7c 24 0c 41 89 c0 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 2f 44 89 c7 89 44 24 0c e8 a1 fc ff ff 8b 44
+RSP: 002b:00007fffffffe220 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007ffff732bd5b
+RDX: 0000018722ecb6af RSI: 0000000000000000 RDI: 0000000000000003
+RBP: 00007fffffffe250 R08: 0000000000000000 R09: 000000000031d104
+R10: 0000000064218447 R11: 0000000000000293 R12: 00007ffff732e270
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+
+Allocated by task 6559:
+
+Freed by task 6559:
+
+The buggy address belongs to the object at ff1100010d6e59f0
+ which belongs to the cache ceph_file_info of size 32
+The buggy address is located 28 bytes inside of
+ 32-byte region [ff1100010d6e59f0, ff1100010d6e5a10)
+The buggy address belongs to the page:
+
+Memory state around the buggy address:
+ ff1100010d6e5900: fb fb fb fb fc fc fa fb fb fb fc fc fb fb fb fb
+ ff1100010d6e5980: fc fc fa fb fb fb fc fc fb fb fb fb fc fc fa fb
+>ff1100010d6e5a00: fb fb fc fc fa fb fb fb fc fc fa fb fb fb fc fc
+                      ^
+ ff1100010d6e5a80: fa fb fb fb fc fc fb fb fb fb fc fc fb fb fb fb
+ ff1100010d6e5b00: fc fc fb fb fb fb fc fc fb fb fb fb fc fc fa fb
+==================================================================

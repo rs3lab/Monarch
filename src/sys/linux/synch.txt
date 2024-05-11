@@ -1,0 +1,3 @@
+syz_failure_sync(idx intptr[0:63], clt intptr[0:63])
+syz_failure_send(idx intptr[0:63])
+syz_failure_recv(idx intptr[0:63])

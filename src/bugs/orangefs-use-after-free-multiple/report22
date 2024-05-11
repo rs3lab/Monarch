@@ -1,0 +1,103 @@
+daemon log read: 0
+daemon log read: 0
+daemon log read: 536
+daemon log read: 4035
+=================================================================
+==375==ERROR: AddressSanitizer: heap-use-after-free on address 0x611000000d48 at pc 0x55555597de29 bp 0x7ffff20be5e0 sp 0x7ffff20be5d0
+READ of size 8 at 0x611000000d48 thread T2
+    #0 0x55555597de28 in mdb_txn_begin (/opt/orangefs/sbin/pvfs2-server+0x429e28)
+    #1 0x555555953e98 in dbpf_db_get (/opt/orangefs/sbin/pvfs2-server+0x3ffe98)
+    #2 0x55555591cd6c in dbpf_keyval_handle_info_ops (/opt/orangefs/sbin/pvfs2-server+0x3c8d6c)
+    #3 0x555555918c98 in dbpf_keyval_write_list_op_svc (/opt/orangefs/sbin/pvfs2-server+0x3c4c98)
+    #4 0x555555937042 in dbpf_do_one_work_cycle (/opt/orangefs/sbin/pvfs2-server+0x3e3042)
+    #5 0x55555593660e in dbpf_thread_function (/opt/orangefs/sbin/pvfs2-server+0x3e260e)
+    #6 0x7ffff7143608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #7 0x7ffff705f102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+0x611000000d48 is located 136 bytes inside of 248-byte region [0x611000000cc0,0x611000000db8)
+freed by thread T0 here:
+    #0 0x7ffff76a07cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #1 0x5555559d30d6 in mdb_env_close (/opt/orangefs/sbin/pvfs2-server+0x47f0d6)
+    #2 0x555555953c51 in dbpf_db_close (/opt/orangefs/sbin/pvfs2-server+0x3ffc51)
+    #3 0x555555940273 in dbpf_collection_clear (/opt/orangefs/sbin/pvfs2-server+0x3ec273)
+    #4 0x5555558906c8 in trove_collection_clear (/opt/orangefs/sbin/pvfs2-server+0x33c6c8)
+    #5 0x5555556d711b in server_shutdown (/opt/orangefs/sbin/pvfs2-server+0x18311b)
+    #6 0x5555556cf26f in main (/opt/orangefs/sbin/pvfs2-server+0x17b26f)
+    #7 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+previously allocated by thread T0 here:
+    #0 0x7ffff76a0dc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x5555559cdf37 in mdb_env_create (/opt/orangefs/sbin/pvfs2-server+0x479f37)
+    #2 0x555555952e2c in dbpf_db_open (/opt/orangefs/sbin/pvfs2-server+0x3fee2c)
+    #3 0x555555941ce8 in dbpf_collection_lookup (/opt/orangefs/sbin/pvfs2-server+0x3edce8)
+    #4 0x555555890334 in trove_collection_lookup (/opt/orangefs/sbin/pvfs2-server+0x33c334)
+    #5 0x5555556d0cd1 in server_initialize_subsystems (/opt/orangefs/sbin/pvfs2-server+0x17ccd1)
+    #6 0x5555556cfb2a in server_initialize (/opt/orangefs/sbin/pvfs2-server+0x17bb2a)
+    #7 0x5555556cec75 in main (/opt/orangefs/sbin/pvfs2-server+0x17ac75)
+    #8 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+Thread T2 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x555555935f80 in dbpf_thread_initialize (/opt/orangefs/sbin/pvfs2-server+0x3e1f80)
+    #2 0x55555593a07e in dbpf_initialize (/opt/orangefs/sbin/pvfs2-server+0x3e607e)
+    #3 0x55555588fd30 in trove_initialize (/opt/orangefs/sbin/pvfs2-server+0x33bd30)
+    #4 0x5555556d07f7 in server_initialize_subsystems (/opt/orangefs/sbin/pvfs2-server+0x17c7f7)
+    #5 0x5555556cfb2a in server_initialize (/opt/orangefs/sbin/pvfs2-server+0x17bb2a)
+    #6 0x5555556cec75 in main (/opt/orangefs/sbin/pvfs2-server+0x17ac75)
+    #7 0x7ffff6f640b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/opt/orangefs/sbin/pvfs2-server+0x429e28) in mdb_txn_begin
+Shadow bytes around the buggy address:
+  0x0c227fff8150: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fff8160: fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa fa
+  0x0c227fff8170: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fff8180: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fa fa
+  0x0c227fff8190: fa fa fa fa fa fa fa fa fd fd fd fd fd fd fd fd
+=>0x0c227fff81a0: fd fd fd fd fd fd fd fd fd[fd]fd fd fd fd fd fd
+  0x0c227fff81b0: fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa fa
+  0x0c227fff81c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c227fff81d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fa fa
+  0x0c227fff81e0: fa fa fa fa fa fa fa fa fd fd fd fd fd fd fd fd
+  0x0c227fff81f0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==375==ABORTING
+[E 03/12/2023 02:49:09] PVFS2 server got signal 15 (server_status_flag: 2080767)
+----- executor 3 write_call_output, size 0, pid 376, write pid:376
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 4
+execute_call 0, 10068, 0, 0
+execute_one loop: 0, 0, 10068
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 10602, 0, 0
+execute_one loop: 0, 0, 10602
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 1 signal number : 2417
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 1 signal number : 751
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 1 signal number : 411
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 1 signal number : 137
+executor 1 server cover_cnt 4 output_pos_value 3729

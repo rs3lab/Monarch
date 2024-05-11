@@ -1,0 +1,8 @@
+# Step 1: Create 2 servers and 2 clients (C1 and C2)
+
+# Step 2: "touch ./glusterfs-client/a.txt" on C1
+# Step 3: run the test program "./test" on C1
+
+# Step 4: "rm ./glusterfs-client/a.txt" on C2
+
+# in the test program in C1, we should see fstat failed with ENOENT.

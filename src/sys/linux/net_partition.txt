@@ -1,0 +1,2 @@
+syz_failure_net_down(cmd ptr[in, filename])
+syz_failure_net_up()

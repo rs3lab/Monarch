@@ -1,0 +1,26 @@
+------------[ cut here ]------------
+WARNING: CPU: 2 PID: 388 at fs/nfsd/nfs4state.c:3442 nfsd4_create_session+0xa6d/0x2790 fs/nfsd/nfs4state.c:3442
+Modules linked in:
+CPU: 2 PID: 388 Comm: nfsd Not tainted 5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:nfsd4_create_session+0xa6d/0x2790 fs/nfsd/nfs4state.c:3442
+Code: 00 4c 89 f6 48 8b 78 68 e8 c0 de fe ff 49 89 c4 48 85 c0 0f 84 7d 0c 00 00 e8 3f 52 66 ff 48 83 7d 88 00 74 07 e8 33 52 66 ff <0f> 0b e8 2c 52 66 ff 48 8b 75 c0 4c 89 e7 e8 50 d8 ff ff 31 ff 89
+RSP: 0018:ffff888118f47bf0 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffff888101e77000 RCX: ffff888119365a00
+RDX: 0000000000000000 RSI: ffff888119365a00 RDI: 0000000000000002
+RBP: ffff888118f47ca0 R08: ffffffff9654a7dd R09: 0000000000043be4
+R10: 0000000000000004 R11: ffffed10231e8f73 R12: ffff888116f2c8b8
+R13: ffff888101e77128 R14: ffff8881193e0060 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888265300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b9f4f42680 CR3: 0000000044010001 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ nfsd4_proc_compound+0xda9/0x1ff0 fs/nfsd/nfs4proc.c:2555
+ nfsd_dispatch+0x52c/0xaf0 fs/nfsd/nfssvc.c:1037
+ svc_process_common+0x97e/0x20a0 net/sunrpc/svc.c:1402
+ svc_process+0x36a/0x510 net/sunrpc/svc.c:1542
+ nfsd+0x2f1/0x460 fs/nfsd/nfssvc.c:969
+ kthread+0x375/0x450 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+---[ end trace 995e4e246f33e656 ]---

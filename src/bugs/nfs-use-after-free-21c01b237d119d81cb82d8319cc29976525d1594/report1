@@ -1,0 +1,182 @@
+==================================================================
+BUG: KASAN: use-after-free in NFS_SERVER include/linux/nfs_fs.h:297 [inline]
+BUG: KASAN: use-after-free in nfs_inode_detach_delegation fs/nfs/delegation.c:378 [inline]
+BUG: KASAN: use-after-free in nfs_inode_evict_delegation+0x193/0x1b0 fs/nfs/delegation.c:733
+Read of size 8 at addr ff1100012909f370 by task 127.0.0.1-manag/13840
+
+CPU: 2 PID: 13840 Comm: 127.0.0.1-manag Not tainted 5.15.0+ #20
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x34/0x44 lib/dump_stack.c:106
+ print_address_description.constprop.0+0x21/0x140 mm/kasan/report.c:256
+ __kasan_report mm/kasan/report.c:442 [inline]
+ kasan_report.cold+0x7f/0x11b mm/kasan/report.c:459
+ NFS_SERVER include/linux/nfs_fs.h:297 [inline]
+ nfs_inode_detach_delegation fs/nfs/delegation.c:378 [inline]
+ nfs_inode_evict_delegation+0x193/0x1b0 fs/nfs/delegation.c:733
+ nfs4_evict_inode+0x26/0x130 fs/nfs/nfs4super.c:67
+ evict+0xb7/0x160 fs/inode.c:588
+ nfs4_put_open_state+0x294/0x3f0 fs/nfs/nfs4state.c:768
+ nfs4_reclaim_open_state fs/nfs/nfs4state.c:1708 [inline]
+ nfs4_do_reclaim+0xb89/0x1790 fs/nfs/nfs4state.c:1924
+ nfs4_state_manager fs/nfs/nfs4state.c:2646 [inline]
+ nfs4_run_state_manager+0x12ab/0x1a00 fs/nfs/nfs4state.c:2693
+ kthread+0x11f/0x140 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+
+Allocated by task 488:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_set_track mm/kasan/common.c:46 [inline]
+ set_alloc_info mm/kasan/common.c:434 [inline]
+ ____kasan_kmalloc mm/kasan/common.c:513 [inline]
+ __kasan_kmalloc+0x7c/0x90 mm/kasan/common.c:522
+ kmalloc include/linux/slab.h:591 [inline]
+ kzalloc include/linux/slab.h:721 [inline]
+ alloc_super.isra.0+0x21/0x2e0 fs/super.c:203
+ sget_fc+0x5a/0x220 fs/super.c:531
+ nfs_get_tree_common+0x222/0x1190 fs/nfs/super.c:1269
+ nfs_get_tree+0x11f4/0x17b0 fs/nfs/fs_context.c:1423
+ vfs_get_tree+0x1d/0xb0 fs/super.c:1498
+ fc_mount+0x9/0x30 fs/namespace.c:994
+ do_nfs4_mount+0x26e/0x930 fs/nfs/nfs4super.c:194
+ nfs4_try_get_tree+0xf5/0x2b0 fs/nfs/nfs4super.c:226
+ nfs_get_tree+0x11dc/0x17b0 fs/nfs/fs_context.c:1421
+ vfs_get_tree+0x1d/0xb0 fs/super.c:1498
+ do_new_mount fs/namespace.c:2988 [inline]
+ path_mount+0x2e2/0x9a0 fs/namespace.c:3318
+ do_mount+0x70/0x90 fs/namespace.c:3331
+ __do_sys_mount fs/namespace.c:3539 [inline]
+ __se_sys_mount fs/namespace.c:3516 [inline]
+ __x64_sys_mount+0x89/0xc0 fs/namespace.c:3516
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+Freed by task 77:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_set_track+0x1c/0x30 mm/kasan/common.c:46
+ kasan_set_free_info+0x20/0x30 mm/kasan/generic.c:360
+ ____kasan_slab_free mm/kasan/common.c:366 [inline]
+ ____kasan_slab_free mm/kasan/common.c:328 [inline]
+ __kasan_slab_free+0xea/0x120 mm/kasan/common.c:374
+ kasan_slab_free include/linux/kasan.h:230 [inline]
+ slab_free_hook mm/slub.c:1700 [inline]
+ slab_free_freelist_hook mm/slub.c:1726 [inline]
+ slab_free mm/slub.c:3492 [inline]
+ kfree+0x8b/0x230 mm/slub.c:4552
+ process_one_work+0x1d3/0x380 kernel/workqueue.c:2297
+ worker_thread+0x45/0x3b0 kernel/workqueue.c:2444
+ kthread+0x11f/0x140 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+
+Last potentially related work creation:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_record_aux_stack+0xa3/0xb0 mm/kasan/generic.c:348
+ insert_work+0x21/0xb0 kernel/workqueue.c:1353
+ __queue_work+0x148/0x3c0 kernel/workqueue.c:1519
+ queue_work_on+0x1b/0x30 kernel/workqueue.c:1546
+ rcu_do_batch kernel/rcu/tree.c:2508 [inline]
+ rcu_core+0x243/0x750 kernel/rcu/tree.c:2743
+ __do_softirq+0xce/0x284 kernel/softirq.c:558
+
+Second to last potentially related work creation:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:38
+ kasan_record_aux_stack+0xa3/0xb0 mm/kasan/generic.c:348
+ __call_rcu kernel/rcu/tree.c:2987 [inline]
+ call_rcu+0x3b/0x2d0 kernel/rcu/tree.c:3067
+ put_super+0x18/0x30 fs/super.c:313
+ nfs_sb_deactive+0x6b/0x80 fs/nfs/super.c:200
+ nfs4_free_closedata+0x143/0x210 fs/nfs/nfs4proc.c:3548
+ rpc_release_calldata net/sunrpc/sched.c:867 [inline]
+ rpc_free_task+0xf2/0x170 net/sunrpc/sched.c:1132
+ rpc_async_release+0x9f/0x140 net/sunrpc/sched.c:1142
+ process_one_work+0x1d3/0x380 kernel/workqueue.c:2297
+ worker_thread+0x45/0x3b0 kernel/workqueue.c:2444
+ kthread+0x11f/0x140 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+
+The buggy address belongs to the object at ff1100012909f000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 880 bytes inside of
+ 2048-byte region [ff1100012909f000, ff1100012909f800)
+The buggy address belongs to the page:
+page:000000005a045c26 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x129098
+head:000000005a045c26 order:3 compound_mapcount:0 compound_pincount:0
+flags: 0x200000000010200(slab|head|node=0|zone=2)
+raw: 0200000000010200 dead000000000100 dead000000000122 ff1100010003cf00
+raw: 0000000000000000 0000000000080008 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ff1100012909f200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ff1100012909f280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ff1100012909f300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                             ^
+ ff1100012909f380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ff1100012909f400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+general protection fault, probably for non-canonical address 0xdffffc000000002c: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000160-0x0000000000000167]
+CPU: 2 PID: 13840 Comm: 127.0.0.1-manag Tainted: G    B             5.15.0+ #20
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:nfs_zap_acl_cache+0xb6/0x190 fs/nfs/inode.c:269
+Code: 03 80 3c 02 00 0f 85 c4 00 00 00 48 8b ad e0 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 8d bd 60 01 00 00 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 91 00 00 00 48 8b ad 60 01 00 00 48 85 ed 74 0d
+RSP: 0018:ff1100010845fc88 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: ff1100012d3714e0 RCX: ffffffff8754b370
+RDX: 000000000000002c RSI: 0000000000000008 RDI: 0000000000000160
+RBP: 0000000000000000 R08: ffffffff8754b21a R09: 0000000000000000
+R10: 0000000000000007 R11: ffe21c0025a6e27f R12: ff1100012d3713f8
+R13: ff11000102327800 R14: ff1100012d3714e0 R15: ff11000102327850
+FS:  0000000000000000(0000) GS:ff11000265700000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00005562e977f680 CR3: 0000000100b12003 CR4: 0000000000771ee0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+PKRU: 55555554
+Call Trace:
+ nfs_clear_inode+0x89/0xc0 fs/nfs/inode.c:125
+ nfs4_evict_inode+0xdc/0x130 fs/nfs/nfs4super.c:72
+ evict+0xb7/0x160 fs/inode.c:588
+ nfs4_put_open_state+0x294/0x3f0 fs/nfs/nfs4state.c:768
+ nfs4_reclaim_open_state fs/nfs/nfs4state.c:1708 [inline]
+ nfs4_do_reclaim+0xb89/0x1790 fs/nfs/nfs4state.c:1924
+ nfs4_state_manager fs/nfs/nfs4state.c:2646 [inline]
+ nfs4_run_state_manager+0x12ab/0x1a00 fs/nfs/nfs4state.c:2693
+ kthread+0x11f/0x140 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+Modules linked in:
+---[ end trace 00b642d6cf9884b4 ]---
+RIP: 0010:nfs_zap_acl_cache+0xb6/0x190 fs/nfs/inode.c:269
+Code: 03 80 3c 02 00 0f 85 c4 00 00 00 48 8b ad e0 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 8d bd 60 01 00 00 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 91 00 00 00 48 8b ad 60 01 00 00 48 85 ed 74 0d
+RSP: 0018:ff1100010845fc88 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: ff1100012d3714e0 RCX: ffffffff8754b370
+RDX: 000000000000002c RSI: 0000000000000008 RDI: 0000000000000160
+RBP: 0000000000000000 R08: ffffffff8754b21a R09: 0000000000000000
+R10: 0000000000000007 R11: ffe21c0025a6e27f R12: ff1100012d3713f8
+R13: ff11000102327800 R14: ff1100012d3714e0 R15: ff11000102327850
+FS:  0000000000000000(0000) GS:ff11000265700000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00005562e977f680 CR3: 0000000100b12003 CR4: 0000000000771ee0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+PKRU: 55555554
+----------------
+Code disassembly (best guess):
+   0:	03 80 3c 02 00 0f    	add    0xf00023c(%rax),%eax
+   6:	85 c4                	test   %eax,%esp
+   8:	00 00                	add    %al,(%rax)
+   a:	00 48 8b             	add    %cl,-0x75(%rax)
+   d:	ad                   	lods   %ds:(%rsi),%eax
+   e:	e0 00                	loopne 0x10
+  10:	00 00                	add    %al,(%rax)
+  12:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  19:	fc ff df
+  1c:	48 8d bd 60 01 00 00 	lea    0x160(%rbp),%rdi
+  23:	48 89 fa             	mov    %rdi,%rdx
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+  2e:	0f 85 91 00 00 00    	jne    0xc5
+  34:	48 8b ad 60 01 00 00 	mov    0x160(%rbp),%rbp
+  3b:	48 85 ed             	test   %rbp,%rbp
+  3e:	74 0d                	je     0x4d

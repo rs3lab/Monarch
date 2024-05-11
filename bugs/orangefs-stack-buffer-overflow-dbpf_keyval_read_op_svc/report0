@@ -1,0 +1,8 @@
+execute_one loop: 0, 0, 0
+cover_reset in execute_call
+cover_reset in execute_call
+Node-0:/root/daemon-log.372
+=================================================================
+==372==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffff20ffca0 at pc 0x7ffff762e57d bp 0x7ffff20ffad0 sp 0x7ffff20ff278
+WRITE of size 713 at 0x7ffff20ffca0 thread T2
+execute_one loop: 0, 0, 51

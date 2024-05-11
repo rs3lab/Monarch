@@ -1,0 +1,95 @@
+QEMU emulator version 4.2.1 (Debian 1:4.2-3ubuntu6.21)
+qemu-system-x86_64 ["-m" "10240" "-smp" "4" "-chardev" "socket,id=SOCKSYZ,server=on,nowait,host=localhost,port=21064" "-mon" "chardev=SOCKSYZ,mode=control" "-display" "none" "-serial" "stdio" "-name" "VM-0" "-object" "memory-backend-file,size=1M,share,mem-path=/dev/shm/shm40,id=shm40" "-device" "ivshmem-plain,memdev=shm40,bus=pci.0,addr=0x10,master=on" "-object" "memory-backend-file,size=1M,share,mem-path=/dev/shm/shm41,id=shm41" "-device" "ivshmem-plain,memdev=shm41,bus=pci.0,addr=0x11,master=on" "-device" "virtio-rng-pci" "-enable-kvm" "-cpu" "host,migratable=off" "-netdev" "bridge,id=hn40" "-device" "virtio-net,netdev=hn40,mac=e6:c8:ff:09:76:28" "-hda" "/home/tlyu/dfs-fuzzing/fuzzing-dir/glusterfs/monarch-glusterfs-work-dir-1-sf-ct/instance-2/image-0" "-drive" "file=/home/tlyu/dfs-fuzzing/fuzzing-dir/glusterfs/monarch-glusterfs-work-dir-1-sf-ct/instance-2/data-image-0,format=raw,if=virtio,index=1" "-kernel" "/home/tlyu/dfs-fuzzing/kernels/kernel-5.15/kernel-5.15-glusterfs/arch/x86_64/boot/bzImage" "-append" "root=/dev/sda console=ttyS0 net.ifnames=0 ip=192.168.0.40" "-snapshot"]
+
+[CPU Info]
+processor           : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+vendor_id           : GenuineIntel
+cpu family          : 6
+model               : 167
+model name          : 11th Gen Intel(R) Core(TM) i7-11700 @ 2.50GHz
+stepping            : 1
+microcode           : 0x40
+cpu MHz             : 2500.000, 2500.000, 2500.000, 2500.000, 2500.000, 2500.000, 2500.000, 2500.000, 2068.860, 2500.000, 2500.000, 2500.000, 2500.000, 2500.000, 2500.000, 2500.000
+cache size          : 16384 KB
+physical id         : 0
+siblings            : 16
+core id             : 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7
+cpu cores           : 8
+apicid              : 0, 2, 4, 6, 8, 10, 12, 14, 1, 3, 5, 7, 9, 11, 13, 15
+initial apicid      : 0, 2, 4, 6, 8, 10, 12, 14, 1, 3, 5, 7, 9, 11, 13, 15
+fpu                 : yes
+fpu_exception       : yes
+cpuid level         : 27
+wp                  : yes
+flags               : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx avx512f avx512dq rdseed adx smap avx512ifma clflushopt intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm md_clear flush_l1d arch_capabilities
+vmx flags           : vnmi preemption_timer posted_intr invvpid ept_x_only ept_ad ept_1gb flexpriority apicv tsc_offset vtpr mtf vapic ept vpid unrestricted_guest vapic_reg vid ple shadow_vmcs pml ept_mode_based_exec tsc_scaling
+bugs                : spectre_v1 spectre_v2 spec_store_bypass swapgs
+bogomips            : 4992.00
+clflush size        : 64
+cache_alignment     : 64
+address sizes       : 39 bits physical, 48 bits virtual
+power management    : 
+
+--------------------------------------------------------------------------------
+
+[KVM]
+/sys/module/kvm:
+	enable_vmware_backdoor: N
+	flush_on_reuse: N
+	force_emulation_prefix: N
+	halt_poll_ns: 200000
+	halt_poll_ns_grow: 2
+	halt_poll_ns_grow_start: 10000
+	halt_poll_ns_shrink: 0
+	ignore_msrs: N
+	kvmclock_periodic_sync: Y
+	lapic_timer_advance_ns: -1
+	min_timer_period_us: 200
+	mmio_caching: Y
+	nx_huge_pages: N
+	nx_huge_pages_recovery_ratio: 60
+	pi_inject_timer: 0
+	report_ignored_msrs: Y
+	tdp_mmu: N
+	tsc_tolerance_ppm: 250
+	vector_hashing: Y
+
+/sys/module/kvm_intel:
+	allow_smaller_maxphyaddr: N
+	dump_invalid_vmcs: N
+	emulate_invalid_guest_state: Y
+	enable_apicv: Y
+	enable_shadow_vmcs: Y
+	enlightened_vmcs: N
+	ept: Y
+	eptad: Y
+	fasteoi: Y
+	flexpriority: Y
+	nested: Y
+	nested_early_check: N
+	ple_gap: 128
+	ple_window: 4096
+	ple_window_grow: 2
+	ple_window_max: 4294967295
+	ple_window_shrink: 0
+	pml: Y
+	preemption_timer: Y
+	pt_mode: 0
+	sgx: Y
+	unrestricted_guest: Y
+	vmentry_l1d_flush: not required
+	vnmi: Y
+	vpid: Y
+
+
+--------------------------------------------------------------------------------
+
+QEMU emulator version 4.2.1 (Debian 1:4.2-3ubuntu6.21)
+qemu-system-x86_64 ["-m" "10240" "-smp" "4" "-chardev" "socket,id=SOCKSYZ,server=on,nowait,host=localhost,port=21064" "-mon" "chardev=SOCKSYZ,mode=control" "-display" "none" "-serial" "stdio" "-name" "VM-0" "-object" "memory-backend-file,size=1M,share,mem-path=/dev/shm/shm40,id=shm40" "-device" "ivshmem-plain,memdev=shm40,bus=pci.0,addr=0x10,master=on" "-object" "memory-backend-file,size=1M,share,mem-path=/dev/shm/shm41,id=shm41" "-device" "ivshmem-plain,memdev=shm41,bus=pci.0,addr=0x11,master=on" "-device" "virtio-rng-pci" "-enable-kvm" "-cpu" "host,migratable=off" "-netdev" "bridge,id=hn40" "-device" "virtio-net,netdev=hn40,mac=e6:c8:ff:09:76:28" "-hda" "/home/tlyu/dfs-fuzzing/fuzzing-dir/glusterfs/monarch-glusterfs-work-dir-1-sf-ct/instance-2/image-0" "-drive" "file=/home/tlyu/dfs-fuzzing/fuzzing-dir/glusterfs/monarch-glusterfs-work-dir-1-sf-ct/instance-2/data-image-0,format=raw,if=virtio,index=1" "-kernel" "/home/tlyu/dfs-fuzzing/kernels/kernel-5.15/kernel-5.15-glusterfs/arch/x86_64/boot/bzImage" "-append" "root=/dev/sda console=ttyS0 net.ifnames=0 ip=192.168.0.40" "-snapshot"]
+
+QEMU emulator version 4.2.1 (Debian 1:4.2-3ubuntu6.21)
+qemu-system-x86_64 ["-m" "10240" "-smp" "4" "-chardev" "socket,id=SOCKSYZ,server=on,nowait,host=localhost,port=21064" "-mon" "chardev=SOCKSYZ,mode=control" "-display" "none" "-serial" "stdio" "-name" "VM-0" "-object" "memory-backend-file,size=1M,share,mem-path=/dev/shm/shm40,id=shm40" "-device" "ivshmem-plain,memdev=shm40,bus=pci.0,addr=0x10,master=on" "-object" "memory-backend-file,size=1M,share,mem-path=/dev/shm/shm41,id=shm41" "-device" "ivshmem-plain,memdev=shm41,bus=pci.0,addr=0x11,master=on" "-device" "virtio-rng-pci" "-enable-kvm" "-cpu" "host,migratable=off" "-netdev" "bridge,id=hn40" "-device" "virtio-net,netdev=hn40,mac=e6:c8:ff:09:76:28" "-hda" "/home/tlyu/dfs-fuzzing/fuzzing-dir/glusterfs/monarch-glusterfs-work-dir-1-sf-ct/instance-2/image-0" "-drive" "file=/home/tlyu/dfs-fuzzing/fuzzing-dir/glusterfs/monarch-glusterfs-work-dir-1-sf-ct/instance-2/data-image-0,format=raw,if=virtio,index=1" "-kernel" "/home/tlyu/dfs-fuzzing/kernels/kernel-5.15/kernel-5.15-glusterfs/arch/x86_64/boot/bzImage" "-append" "root=/dev/sda console=ttyS0 net.ifnames=0 ip=192.168.0.40" "-snapshot"]
+
+QEMU emulator version 4.2.1 (Debian 1:4.2-3ubuntu6.21)
+qemu-system-x86_64 ["-m" "10240" "-smp" "4" "-chardev" "socket,id=SOCKSYZ,server=on,nowait,host=localhost,port=21064" "-mon" "chardev=SOCKSYZ,mode=control" "-display" "none" "-serial" "stdio" "-name" "VM-0" "-object" "memory-backend-file,size=1M,share,mem-path=/dev/shm/shm40,id=shm40" "-device" "ivshmem-plain,memdev=shm40,bus=pci.0,addr=0x10,master=on" "-object" "memory-backend-file,size=1M,share,mem-path=/dev/shm/shm41,id=shm41" "-device" "ivshmem-plain,memdev=shm41,bus=pci.0,addr=0x11,master=on" "-device" "virtio-rng-pci" "-enable-kvm" "-cpu" "host,migratable=off" "-netdev" "bridge,id=hn40" "-device" "virtio-net,netdev=hn40,mac=e6:c8:ff:09:76:28" "-hda" "/home/tlyu/dfs-fuzzing/fuzzing-dir/glusterfs/monarch-glusterfs-work-dir-1-sf-ct/instance-2/image-0" "-drive" "file=/home/tlyu/dfs-fuzzing/fuzzing-dir/glusterfs/monarch-glusterfs-work-dir-1-sf-ct/instance-2/data-image-0,format=raw,if=virtio,index=1" "-kernel" "/home/tlyu/dfs-fuzzing/kernels/kernel-5.15/kernel-5.15-glusterfs/arch/x86_64/boot/bzImage" "-append" "root=/dev/sda console=ttyS0 net.ifnames=0 ip=192.168.0.40" "-snapshot"]
+

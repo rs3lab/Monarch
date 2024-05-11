@@ -1,0 +1,1021 @@
+2023/03/06 08:29:17 ------- fuzzer executor 2 receive 3179 signal and 0 cover from userspace component
+2023/03/06 08:29:17 ----- xattrs: user.incfs.size:
+2023/03/06 08:29:17 ----- xattr: user.incfs.size : 
+2023/03/06 08:29:17 ----- parsed fsMd len 1
+=================================================================
+==9347==ERROR: AddressSanitizer: heap-use-after-free on address 0x62100001b9e0 at pc 0x7ffff74f6004 bp 0x7fffef71e070 sp 0x7fffef71e060
+READ of size 4 at 0x62100001b9e0 thread T7
+    #0 0x7ffff74f6003 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3386
+    #1 0x7fffeec1711b in notify /root/glusterfs/xlators/debug/io-stats/src/io-stats.c:4335
+    #2 0x7ffff72e8474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #3 0x7ffff74f5833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #4 0x7fffeec8013f in ec_notify /root/glusterfs/xlators/cluster/ec/src/ec.c:680
+    #5 0x7fffeec80986 in notify /root/glusterfs/xlators/cluster/ec/src/ec.c:697
+    #6 0x7ffff72e8474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #7 0x7ffff74f5833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #8 0x7fffeee07eda in client_notify_dispatch /root/glusterfs/xlators/protocol/client/src/client.c:146
+    #9 0x7fffeee081d9 in client_notify_dispatch_uniq /root/glusterfs/xlators/protocol/client/src/client.c:118
+    #10 0x7fffeee08a81 in client_rpc_notify /root/glusterfs/xlators/protocol/client/src/client.c:2275
+    #11 0x7ffff722538a in rpc_clnt_handle_disconnect /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:785
+    #12 0x7ffff722538a in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:846
+    #13 0x7ffff721f983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #14 0x7ffff005e600 in socket_event_poll_err /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:1366
+    #15 0x7ffff0061599 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2821
+    #16 0x7ffff0061599 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #17 0x7ffff74006c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #18 0x7ffff74006c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #19 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+    #20 0x7ffff70ea102 in __clone (/lib/x86_64-linux-gnu/libc.so.6+0x122102)
+
+0x62100001b9e0 is located 224 bytes inside of 4124-byte region [0x62100001b900,0x62100001c91c)
+freed by thread T7 here:
+    #0 0x7ffff76a07cf in __interceptor_free (/lib/x86_64-linux-gnu/libasan.so.5+0x10d7cf)
+    #1 0x7ffff735be19 in __gf_free /root/glusterfs/libglusterfs/src/mem-pool.c:383
+    #2 0x7ffff72eabfc in xlator_destroy /root/glusterfs/libglusterfs/src/xlator.c:1262
+    #3 0x7ffff73823c1 in glusterfs_muxsvc_cleanup_parent /root/glusterfs/libglusterfs/src/graph.c:1395
+    #4 0x7ffff7383e53 in glusterfs_process_svc_attach_volfp /root/glusterfs/libglusterfs/src/graph.c:1852
+    #5 0x55555557478a in mgmt_process_volfile /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:112
+    #6 0x555555584f47 in mgmt_getspec_cbk /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:2350
+    #7 0x7ffff7225fca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #8 0x7ffff7225fca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #9 0x7ffff721f983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #10 0x7ffff00535a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #11 0x7ffff0063b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #12 0x7ffff0063b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #13 0x7ffff0063b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #14 0x7ffff0063b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #15 0x7ffff74006c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #16 0x7ffff74006c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #17 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+previously allocated by thread T7 here:
+    #0 0x7ffff76a0dc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x7ffff735b226 in __gf_calloc /root/glusterfs/libglusterfs/src/mem-pool.c:177
+    #2 0x7ffff73824d2 in glusterfs_muxsvc_setup_parent_graph /root/glusterfs/libglusterfs/src/graph.c:1482
+    #3 0x7ffff738472f in glusterfs_process_svc_attach_volfp /root/glusterfs/libglusterfs/src/graph.c:1783
+    #4 0x55555557478a in mgmt_process_volfile /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:112
+    #5 0x555555584f47 in mgmt_getspec_cbk /root/glusterfs/glusterfsd/src/glusterfsd-mgmt.c:2350
+    #6 0x7ffff7225fca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #7 0x7ffff7225fca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #8 0x7ffff721f983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #9 0x7ffff00535a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/sr2023/03/06 08:29:17 fsMds: [map[] map[] map[] map[./file0:{{38 9316250081762706884 1 32832 0 0 0 0 0 131072 0 {1678087756 742455201} {1678087756 780978914} {1678087756 780978914} [0 0 0]} map[user.incfs.size:] 0 }]]
+2023/03/06 08:29:17 ----- no new client coverage
+2023/03/06 08:29:17 HasCrashFail: true, .HasNetFail: false
+2023/03/06 08:29:17 disable threaded and collide
+2023/03/06 08:29:17 prog length: 6
+2023/03/06 08:29:17 prog length: 5
+2023/03/06 08:29:17 HasCrashFail:true HasNetFail:false
+08:29:17 ---executing program 0:
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+---
+---
+syz_failure_sync(0x0, 0x3)
+syz_failure_sync(0x1, 0x3)
+openat(0xffffffffffffff9c, &(0x7f00000003c0)='./file0\x00', 0x101040, 0x40)
+removexattr(&(0x7f00000004c0)='./file0\x00', &(0x7f0000000500)=@random={'security.', '!\x00'})
+open$dir(&(0x7f0000000340)='./file0\x00', 0x40300, 0x10)
+---
+
+end of program
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 8
+executor 3 write_dir_info begins is_dfs_client:1 0x7ffff70c6a64 0x7ffff70c3024 1 14912
+time breakdown 3: 246, 6005, 213
+before receive testcase: 0 1
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1312, prog_size 248
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1560, prog_size 8
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1576, prog_size 648
+remove dir: /root/glusterfs-client/dfs-0-154
+c/socket.c:2358
+    #10 0x7ffff0063b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #11 0x7ffff0063b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #12 0x7ffff0063b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #13 0x7ffff0063b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #14 0x7ffff74006c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #15 0x7ffff74006c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #16 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T7 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72feb97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff731028d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff73feaf2 in event_dispatch_epoll /root/glusterfs/libglusterfs/src/event-epoll.c:797
+    #4 0x7ffff7359f89 in gf_event_dispatch /root/glusterfs/libglusterfs/src/event.c:115
+    #5 0x7ffff7467b7f in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:431
+    #6 0x7ffff7467b7f in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #7 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #8 0x7ffff6fef0b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /root/glusterfs/libglusterfs/src/defaults.c:3386 in default_notify
+Shadow bytes around the buggy address:
+  0x0c427fffb6e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fffb6f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fffb700: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fffb710: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fffb720: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0c427fffb730: fd fd fd fd fd fd fd fd fd fd fd fd[fd]fd fd fd
+  0x0c427fffb740: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c427fffb750: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c427fffb760: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c427fffb770: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c427fffb780: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==9347==ABORTING
+Node-0:/root/daemon-log.9345
+==9345==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+remove dir time 227
+-----finish removing dir
+receive_execute: 206, 296
+mkdir time 61
+executor 3 create dir /root/glusterfs-client/dfs-0-155 successfully
+current dir: executor 3: /root/glusterfs-client/dfs-0-155
+receive_execute: 218, 292
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 2, execute_one inner time: 0, 0, 0
+execute_one time: 6, 0
+receive_execute: 11, 299
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+executor 3 waits for recv msg
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1, execute_one inner time: 0, 0, 0
+execute_one time: 10, 0
+receive_execute: 175, 306
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0 write_server_output
+executor 0 server cover_cnt 0 output_pos_value 1
+execute_call 0, 74, 0, 0
+execute_one loop: 0, 0, 74
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 768, write pid:768
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 1
+execute_call 0, 79, 0, 0
+execute_one loop: 0, 0, 79
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 9, 0, 0
+execute_one loop: 0, 0, 9
+execute_call 0, 3124, 0, 0
+execute_one loop: 0, 0, 3124
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0, execute_one inner time: 0, 3207, 0
+execute_one time: 1, 3207
+----- executor 3 write_call_output, size 0, pid 768, write pid:768
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 2
+execute_call 0, 3128, 0, 0
+execute_one loop: 0, 0, 3128
+cover_reset in execute_call
+Node-0:/root/daemon-log.9410
+----- executor 3 write_call_output, size 17624, pid 768, write pid:768
+----- executor 3 executes write_coverage_signal cov->size 17624, flag collect 0
+----- executor 3 signal number : 2502
+----- completed 3
+execute_call 0, 162, 0, 0
+execute_one loop: 0, 0, 162
+cover_reset in execute_call
+----- executor 3 write_call_output, size 5739, pid 768, write pid:768
+----- executor 3 executes write_coverage_signal cov->size 5739, flag collect 0
+----- executor 3 signal number : 393
+----- completed 4
+execute_call 0, 63, 0, 0
+execute_one loop: 0, 0, 63
+cover_reset in execute_call
+----- executor 3 write_call_output, size 9420, pid 768, write pid:768
+----- executor 3 executes write_coverage_signal cov->size 9420, flag collect 0
+----- executor 3 signal number : 561
+----- completed 5
+execute_call 0, 112, 0, 0
+execute_one loop: 0, 0, 112
+executor 3, execute_one inner time: 0, 3544, 3
+execute_one time: 1, 3547
+executor 3 write_metadata
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 702, flag collect 0
+----- executor 1 signal number : 332
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 1 signal number : 550
+----- executor 1 executes write_coverage_signal cov->size 3, flag collect 0
+----- executor 1 signal number : 3
+----- executor 1 executes write_coverage_signal cov->size 12, flag collect 0
+----- executor 1 signal number : 4
+----- executor 1 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 1 signal number : 2754
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 0
+----- executor 1 signal number : 0
+----- executor 1 executes write_coverage_signal cov->size 6702, flag collect 0
+----- executor 1 signal number : 345
+----- executor 1 executes write_coverage_signal cov->size 9451, flag collect 0
+----- executor 1 signal number : 81
+----- executor 1 executes write_coverage_signal cov->size 17541, flag collect 0
+----- executor 1 signal number : 1984
+----- executor 1 executes write_coverage_signal cov->size 17, flag collect 0
+----- executor 1 signal number : 16
+----- executor 1 executes write_coverage_signal cov->size 98, flag collect 0
+----- executor 1 signal number : 20
+----- executor 1 executes write_coverage_signal cov->size 757, flag collect 0
+----- executor 1 signal number : 199
+----- executor 1 executes write_coverage_signal cov->size 3, flag collect 0
+----- executor 1 signal number : 1
+----- executor 1 executes write_coverage_signal cov->size 1879, flag collect 0
+----- executor 1 signal number : 142
+----- executor 1 executes write_coverage_signal cov->size 9, flag collect 0
+----- executor 1 signal number : 0
+----- executor 1 executes write_coverage_signal cov->size 1332, flag collect 0
+----- executor 1 signal number : 163
+----- executor 1 executes write_coverage_signal cov->size 2092, flag collect 0
+----- executor 1 signal number : 269
+----- executor 1 executes write_coverage_signal cov->size 25303, flag collect 0
+----- executor 1 signal number : 2690
+----- executor 1 executes write_coverage_signal cov->size 7328, flag collect 0
+----- executor 1 signal number : 925
+----- executor 1 executes write_coverage_signal cov->size 12809, flag collect 0
+----- executor 1 signal number : 1066
+executor 1 server cover_cnt 20 output_pos_value 11605
+2023/03/06 08:29:21 for select break: 1
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 599, flag collect 0
+----- executor 2 signal number : 315
+----- executor 2 executes write_coverage_signal cov->size 12, flag collect 0
+----- executor 2 signal number : 4
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 2 signal number : 2455
+----- executor 2 executes write_coverage_signal cov->size 9, flag collect 0
+----- executor 2 signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 11498, flag collect 0
+----- executor 2 signal number : 327
+----- executor 2 executes write_coverage_signal cov->size 6695, flag collect 0
+----- executor 2 signal number : 19
+----- executor 2 executes write_coverage_signal cov->size 23042, flag collect 0
+----- executor 2 signal number : 3607
+----- executor 2 executes write_coverage_signal cov->size 95, flag collect 0
+----- executor 2 signal number : 21
+----- executor 2 executes write_coverage_signal cov->size 946, flag collect 0
+----- executor 2 signal number : 217
+----- executor 2 executes write_coverage_signal cov->size 12, flag collect 0
+----- executor 2 signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 1084, flag collect 0
+----- executor 2 signal number : 282
+----- executor 2 executes write_coverage_signal cov->size 1332, flag collect 0
+----- executor 2 signal number : 167
+----- executor 2 executes write_coverage_signal cov->size 7318, flag collect 0
+----- executor 2 signal number : 914
+----- executor 2 executes write_coverage_signal cov->size 16515, flag collect 0
+----- executor 2 signal number : 1135
+----- executor 2 executes write_coverage_signal cov->size 30539, flag collect 0
+----- executor 2 signal number : 1650
+executor 2 server cover_cnt 15 output_pos_value 11159
+2023/03/06 08:29:21 --------- executor 2 receive reply, reply.done 1
+2023/03/06 08:29:21 for select break: 1
+2023/03/06 08:29:21 --------- executor 1 receive reply, reply.done 1
+time breakdown 1: 510, 3567, 0
+before receive testcase: 0 1
+time breakdown 2: 502, 3572, 0
+before receive testcase: 0 0
+----- write_dir_info /root/glusterfs-client/dfs-0-155
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 5418, flag collect 0
+----- executor 0 signal number : 595
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 104
+----- executor 0 executes write_coverage_signal cov->size 17, flag collect 0
+----- executor 0 signal number : 11
+----- executor 0 executes write_coverage_signal cov->size 2, flag collect 0
+----- executor 0 signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 2666, flag collect 0
+----- executor 0 signal number : 416
+----- executor 0 executes write_coverage_signal cov->size 655, flag collect 0
+----- executor 0 signal number : 104
+----- executor 0 executes write_coverage_signal cov->size 13, flag collect 0
+----- executor 0 signal number : 5
+----- executor 0 executes write_coverage_signal cov->size 209, flag collect 0
+----- executor 0 signal number : 22
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 8, flag collect 0
+----- executor 0 signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 2193
+----- executor 0 executes write_coverage_signal cov->size 5775, flag collect 0
+----- executor 0 signal number : 107
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 6
+----- executor 0 executes write_coverage_signal cov->size 17, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 2, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 4, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 586
+----- executor 0 executes write_coverage_signal cov->size 1849, flag collect 0
+----- executor 0 signal number : 181
+----- executor 0 executes write_coverage_signal cov->size 969, flag collect 0
+----- executor 0 signal number : 38
+----- executor 0 executes write_coverage_signal cov->size 9964, flag collect 0
+----- executor 0 signal number : 644
+----- executor 0 executes write_coverage_signal cov->size 7, flag collect 0
+----- executor 0 signal number : 5
+executor 0 server cover_cnt 46 output_pos_value 5163
+time breakdown 0: 481, 3575, 0
+before receive testcase: 0 1
+executor 3 /root/glusterfs-client/dfs-0-155/file0 listxattr size 0
+2023/03/06 08:29:21 for select break: 1
+2023/03/06 08:29:21 --------- executor 0 receive reply, reply.done 1
+filepath_size 7 xattr_len 17 symlink_len 0
+print_dirent_stat
+executor 3 stat file ./file0:
+ 					 st_dev: 38 
+ 					 st_ino: 11237453798533964453 
+ 					 st_mode: 32832 
+ 					 st_nlink: 1 
+ 					 st_uid:   0 
+ 					 st_gid:   0 
+ 					 st_rdev:  0 
+ 					 st_size:  0 
+ 					 st_blksize: 131072 
+ 					 st_blocks:  0 
+ 					 st_atim:    1678087760.613113259 
+ 					 st_mtim:	 1678087760.783202419 
+ 					 st_ctim:	 1678087760.783202419 
+ 					 xattr_buf:  user.incfs.size:
+file type: regular file
+2023/03/06 08:29:21 for select break: 1
+2023/03/06 08:29:21 --------- executor 3 receive reply, reply.done 1
+2023/03/06 08:29:21 wg wait finish
+2023/03/06 08:29:21 ------ all executors finish execution
+2023/03/06 08:29:21 exec time: 3991
+2023/03/06 08:29:21 ----- PS len: 4
+2023/03/06 08:29:21 [CLIENT] executor 3 has 5 replies
+2023/03/06 08:29:21 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/06 08:29:21 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/06 08:29:21 fuzzer receive 2502 signal and 0 cover from executor 3
+2023/03/06 08:29:21 fuzzer receive 393 signal and 0 cover from executor 3
+2023/03/06 08:29:21 fuzzer receive 561 signal and 0 cover from executor 3
+2023/03/06 08:29:21 ------ stat_cnt 1, [7 0 0 0 17 0 0 0 0 0]
+2023/03/06 08:29:21 ----- filepathSzie 7 xattrSize 17
+2023/03/06 08:29:21 [SERVER] executor 0 has 46 replies
+2023/03/06 08:29:21 [SERVER] executor 2 has 15 replies
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 315 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 595 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 4 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 2455 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 104 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 11 signal and 0 cover from userspace component
+2023/03/06 08:29:21 [SERVER] executor 1 has 20 replies
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 2 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 332 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 327 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 550 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 3 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 416 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 104 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 5 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 22 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 1 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 19 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 3607 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 21 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 217 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 282 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 167 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 914 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 1135 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 2 receive 1650 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ----- xattrs: user.incfs.size:
+2023/03/06 08:29:21 ----- xattr: user.incfs.size : 
+2023/03/06 08:29:21 ----- parsed fsMd len 1
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 4 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 2754 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 345 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 81 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 1984 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 16 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 20 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 199 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 1 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 142 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 163 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 269 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 2690 signal and 0 cover from userspace component
+executor 3 write_dir_info begins is_dfs_client:1 0x7ffff70c6798 0x7ffff70c3024 1 14196
+time breakdown 3: 310, 3548, 137
+before receive testcase: 0 0
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 4 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 2193 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 107 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 6 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 586 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 181 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 38 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 644 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 0 receive 5 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 925 signal and 0 cover from userspace component
+2023/03/06 08:29:21 ------- fuzzer executor 1 receive 1066 signal and 0 cover from userspace component
+2023/03/06 08:29:21 fsMds: [map[] map[] map[] map[./file0:{{38 11237453798533964453 1 32832 0 0 0 0 0 131072 0 {1678087760 613113259} {1678087760 783202419} {1678087760 783202419} [0 0 0]} map[user.incfs.size:] 0 }]]
+2023/03/06 08:29:21 ----- no new client coverage
+2023/03/06 08:29:21 HasCrashFail: true, .HasNetFail: false
+2023/03/06 08:29:21 disable threaded and collide
+2023/03/06 08:29:21 prog length: 6
+2023/03/06 08:29:21 prog length: 4
+2023/03/06 08:29:21 HasCrashFail:true HasNetFail:false
+08:29:21 ---executing program 0:
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+---
+---
+syz_failure_sync(0x0, 0x3)
+syz_failure_sync(0x1, 0x3)
+removexattr(&(0x7f00000004c0)='./file0\x00', &(0x7f0000000500)=@random={'security.', '!\x00'})
+open$dir(&(0x7f0000000340)='./file0\x00', 0x40300, 0x10)
+---
+
+end of program
+----- executor 0 receive testcase
+executor 0: prog_data_offset 1312, prog_size 248
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 8
+----- executor 1 receive testcase
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1576, prog_size 488
+remove dir: /root/glusterfs-client/dfs-0-155
+executor 1: prog_data_offset 1560, prog_size 8
+remove dir time 131
+-----finish removing dir
+receive_execute: 160, 199
+mkdir time 67
+executor 3 create dir /root/glusterfs-client/dfs-0-156 successfully
+current dir: executor 3: /root/glusterfs-client/dfs-0-156
+receive_execute: 137, 206
+receive_execute: 157, 200
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1, execute_one inner time: 0, 0, 0
+execute_one time: 2, 0
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 2, execute_one inner time: 0, 0, 0
+execute_one time: 3, 0
+receive_execute: 35, 202
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 21, 0, 0
+execute_one loop: 0, 0, 22
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 25, flag collect 0
+----- executor 0 signal number : 23
+executor 0 server cover_cnt 1 output_pos_value 27
+----- executor 3 write_call_output, size 0, pid 770, write pid:770
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 1
+execute_call 0, 81, 0, 0
+execute_one loop: 0, 1, 81
+cover_reset in execute_call
+executor 3 waits for recv msg
+/root/glusterfs-node-down.sh: 1: kill: No such process
+
+execute_call 0, 77, 0, 0
+execute_one loop: 0, 0, 77
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+execute_call 0, 9, 0, 0
+execute_one loop: 0, 0, 9
+==9410==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+----- executor 3 write_call_output, size 0, pid 770, write pid:770
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 2
+execute_call 0, 5203, 0, 0
+execute_one loop: 0, 0, 5203
+cover_reset in execute_call
+execute_call 0, 5197, 0, 0
+execute_one loop: 0, 0, 5197
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 1
+executor 0, execute_one inner time: 0, 5306, 0
+execute_one time: 1, 5307
+Node-0:/root/daemon-log.9475
+----- executor 3 write_call_output, size 14287, pid 770, write pid:770
+----- executor 3 executes write_coverage_signal cov->size 14287, flag collect 0
+----- executor 3 signal number : 2124
+----- completed 3
+execute_call 0, 87, 0, 1
+execute_one loop: 0, 0, 88
+cover_reset in execute_call
+----- executor 3 write_call_output, size 5180, pid 770, write pid:770
+----- executor 3 executes write_coverage_signal cov->size 5180, flag collect 0
+----- executor 3 signal number : 12
+----- completed 4
+execute_call 0, 3, 0, 0
+execute_one loop: 0, 0, 3
+executor 3, execute_one inner time: 0, 5377, 0
+execute_one time: 14, 5382
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 651, flag collect 0
+executor 3 write_metadata
+----- executor 2 signal number : 329
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 2 signal number : 550
+----- executor 2 executes write_coverage_signal cov->size 3, flag collect 0
+----- executor 2 signal number : 3
+----- executor 2 executes write_coverage_signal cov->size 18, flag collect 0
+----- executor 2 signal number : 4
+----- executor 2 executes write_coverage_signal cov->size 32765, flag collect 0
+executor 1 write_server_output
+----- executor 1 executes write_coverage_signal cov->size 671, flag collect 0
+----- executor 2 signal number : 2774
+----- executor 2 executes write_coverage_signal cov->size 86, flag collect 0
+----- executor 2 signal number : 3
+----- executor 2 executes write_coverage_signal cov->size 3, flag collect 0
+----- executor 2 signal number : 1
+----- executor 2 executes write_coverage_signal cov->size 163, flag collect 0
+----- executor 2 signal number : 91
+----- executor 2 executes write_coverage_signal cov->size 129, flag collect 0
+----- executor 2 signal number : 48
+----- executor 2 executes write_coverage_signal cov->size 12689, flag collect 0
+----- executor 2 signal number : 465
+----- executor 2 executes write_coverage_signal cov->size 14716, flag collect 0
+----- write_dir_info /root/glusterfs-client/dfs-0-156
+----- executor 2 signal number : 1607
+----- executor 2 executes write_coverage_signal cov->size 17, flag collect 0
+----- executor 2 signal number : 16
+----- executor 2 executes write_coverage_signal cov->size 98, flag collect 0
+----- executor 2 signal number : 19
+----- executor 2 executes write_coverage_signal cov->size 1758, flag collect 0
+----- executor 2 signal number : 208
+----- executor 2 executes write_coverage_signal cov->size 1427, flag collect 0
+----- executor 2 signal number : 95
+----- executor 2 executes write_coverage_signal cov->size 3, flag collect 0
+----- executor 2 signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 15, flag collect 0
+----- executor 2 signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 3274, flag collect 0
+----- executor 2 signal number : 350
+----- executor 2 executes write_coverage_signal cov->size 4610, flag collect 0
+----- executor 2 signal number : 182
+----- executor 2 executes write_coverage_signal cov->size 16799, flag collect 0
+----- executor 2 signal number : 1343
+----- executor 2 executes write_coverage_signal cov->size 16049, flag collect 0
+----- executor 2 signal number : 992
+executor 2 server cover_cnt 21 output_pos_value 9144
+time breakdown 2: 358, 5409, 0
+before receive testcase: 0 1
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 5630, flag collect 0
+----- executor 0 signal number : 621
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 114
+----- executor 0 executes write_coverage_signal cov->size 17, flag collect 0
+----- executor 0 signal number : 11
+----- executor 0 executes write_coverage_signal cov->size 5995, flag collect 0
+----- executor 0 signal number : 126
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 1301
+----- executor 0 executes write_coverage_signal cov->size 8, flag collect 0
+----- executor 1 signal number : 332
+----- executor 1 executes write_coverage_signal cov->size 15, flag collect 0
+----- executor 1 signal number : 4
+----- executor 1 executes write_coverage_signal cov->size 13192, flag collect 0
+----- executor 1 signal number : 2116
+----- executor 1 executes write_coverage_signal cov->size 84, flag collect 0
+----- executor 1 signal number : 0
+----- executor 1 executes write_coverage_signal cov->size 3, flag collect 0
+----- executor 1 signal number : 3
+----- executor 1 executes write_coverage_signal cov->size 163, flag collect 0
+----- executor 1 signal number : 99
+----- executor 1 executes write_coverage_signal cov->size 132, flag collect 0
+----- executor 1 signal number : 47
+----- executor 1 executes write_coverage_signal cov->size 6868, flag collect 0
+----- executor 1 signal number : 270
+----- executor 1 executes write_coverage_signal cov->size 5827, flag collect 0
+----- executor 1 signal number : 94
+----- executor 1 executes write_coverage_signal cov->size 10352, flag collect 0
+----- executor 1 signal number : 1275
+----- executor 1 executes write_coverage_signal cov->size 17, flag collect 0
+----- executor 1 signal number : 16
+----- executor 1 executes write_coverage_signal cov->size 98, flag collect 0
+----- executor 1 signal number : 19
+----- executor 1 executes write_coverage_signal cov->size 1651, flag collect 0
+----- executor 1 signal number : 193
+----- executor 1 executes write_coverage_signal cov->size 15, flag collect 0
+----- executor 1 signal number : 0
+----- executor 1 executes write_coverage_signal cov->size 5796, flag collect 0
+----- executor 1 signal number : 539
+----- executor 1 executes write_coverage_signal cov->size 1448, flag collect 0
+----- executor 1 signal number : 26
+----- executor 1 executes write_coverage_signal cov->size 18763, flag collect 0
+----- executor 1 signal number : 1048
+----- executor 1 executes write_coverage_signal cov->size 11268, flag collect 0
+----- executor 1 signal number : 1112
+----- executor 1 executes write_coverage_signal cov->size 5485, flag collect 0
+----- executor 1 signal number : 191
+executor 1 server cover_cnt 19 output_pos_value 7442
+time breakdown 1: 359, 5413, 0
+before receive testcase: 0 1
+----- executor 0 signal number : 6
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 5, flag collect 0
+----- executor 0 signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 17, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 4, flag collect 0
+----- executor 0 signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 2, flag collect 0
+----- executor 0 signal number : 2
+----- executor 0 executes write_coverage_signal cov->size 2625, flag collect 0
+----- executor 0 signal number : 231
+----- executor 0 executes write_coverage_signal cov->size 53, flag collect 0
+----- executor 0 signal number : 27
+----- executor 0 executes write_coverage_signal cov->size 19, flag collect 0
+----- executor 0 signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 1191, flag collect 0
+----- executor 0 signal number : 123
+----- executor 0 executes write_coverage_signal cov->size 461, flag collect 0
+----- executor 0 signal number : 9
+----- executor 0 executes write_coverage_signal cov->size 209, flag collect 0
+----- executor 0 signal number : 24
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+2023/03/06 08:29:26 for select break: 1
+2023/03/06 08:29:26 --------- executor 2 receive reply, reply.done 1
+2023/03/06 08:29:26 for select break: 1
+2023/03/06 08:29:26 --------- executor 1 receive reply, reply.done 1
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 218, flag collect 0
+----- executor 0 signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 214, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 1192, flag collect 0
+----- executor 0 signal number : 224
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 215, flag collect 0
+----- executor 0 signal number : 0
+----- executor 0 executes write_coverage_signal cov->size 8, flag collect 0
+----- executor 0 signal number : 4
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 1542
+----- executor 0 executes write_coverage_signal cov->size 514, flag collect 0
+----- executor 0 signal number : 5
+executor 0 server cover_cnt 45 output_pos_value 4542
+2023/03/06 08:29:26 for select break: 1
+2023/03/06 08:29:26 --------- executor 0 receive reply, reply.done 1
+time breakdown 0: 343, 5431, 0
+before receive testcase: 0 0
+executor 3 write_dir_info begins is_dfs_client:1 0x7ffff70c521c 0x7ffff70c3024 0 8696
+time breakdown 3: 237, 5397, 38
+2023/03/06 08:29:26 for select break: 1
+2023/03/06 08:29:26 --------- executor 3 receive reply, reply.done 1
+2023/03/06 08:29:26 wg wait finish
+2023/03/06 08:29:26 ------ all executors finish execution
+2023/03/06 08:29:26 exec time: 5648
+2023/03/06 08:29:26 ----- PS len: 4
+2023/03/06 08:29:26 [CLIENT] executor 3 has 4 replies
+2023/03/06 08:29:26 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/06 08:29:26 fuzzer receive 0 signal and 0 cover from executor 3
+2023/03/06 08:29:26 fuzzer receive 2124 signal and 0 cover from executor 3
+2023/03/06 08:29:26 fuzzer receive 12 signal and 0 cover from executor 3
+2023/03/06 08:29:26 ------ stat_cnt 0, [111 12 1 85 100 80 230 95 215 100]
+2023/03/06 08:29:26 ----- parsed fsMd len 0
+2023/03/06 08:29:26 [SERVER] executor 0 has 45 replies
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 23 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 621 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 114 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 11 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 126 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 1301 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 6 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 2 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 1 signal and 0 cover from userspace component
+2023/03/06 08:29:26 [SERVER] executor 1 has 19 replies
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 332 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 4 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 2116 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 3 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 99 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 47 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 270 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 94 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 1275 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 16 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 19 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 193 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 539 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 4 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 26 signal and 0 cover from userspace component
+2023/03/06 08:29:26 [SERVER] executor 2 has 21 replies
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 1048 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 329 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 550 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 3 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 4 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 1112 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 1 receive 191 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 2774 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 3 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 1 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 91 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 48 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 465 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 1607 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 16 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 19 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 208 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 95 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 350 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 182 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 1343 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 2 receive 992 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 2 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 231 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 27 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 1 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 123 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 9 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 24 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 1 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 4 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 224 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 0 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 4 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 1542 signal and 0 cover from userspace component
+2023/03/06 08:29:26 ------- fuzzer executor 0 receive 5 signal and 0 cover from userspace component
+before receive testcase: 0 1
+2023/03/06 08:29:26 fsMds: [map[] map[] map[] map[]]
+2023/03/06 08:29:26 ----- no new client coverage
+2023/03/06 08:29:26 HasCrashFail: true, .HasNetFail: false
+2023/03/06 08:29:26 disable threaded and collide
+2023/03/06 08:29:26 prog length: 6
+2023/03/06 08:29:26 prog length: 4
+2023/03/06 08:29:26 HasCrashFail:true HasNetFail:false
+08:29:26 ---executing program 0:
+syz_failure_recv(0x0)
+syz_failure_down()
+syz_failure_send(0x0)
+syz_failure_recv(0x1)
+syz_failure_up()
+syz_failure_send(0x1)
+---
+---
+---
+syz_failure_sync(0x0, 0x3)
+syz_failure_sync(0x1, 0x3)
+removexattr(&(0x7f00000004c0)='./file0\x00', &(0x7f0000000500)=@random={'security.', '!\x00'})
+open$dir(&(0x7f0000000340)='./file0\x00', 0x40300, 0x10)
+---
+
+end of program
+----- executor 0 receive testcase
+----- executor 3 receive testcase
+executor 3: prog_data_offset 1576, prog_size 488
+remove dir: /root/glusterfs-client/dfs-0-156
+executor 0: prog_data_offset 1312, prog_size 248
+----- executor 2 receive testcase
+executor 2: prog_data_offset 1568, prog_size 8
+----- executor 1 receive testcase
+executor 1: prog_data_offset 1560, prog_size 8
+remove dir time 143
+-----finish removing dir
+receive_execute: 43, 247
+mkdir time 112
+executor 3 create dir /root/glusterfs-client/dfs-0-157 successfully
+current dir: executor 3: /root/glusterfs-client/dfs-0-157
+receive_execute: 14, 259
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 2, execute_one inner time: 0, 0, 0
+execute_one time: 18, 1
+receive_execute: 31, 256
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 1, execute_one inner time: 0, 0, 0
+execute_one time: 1, 0
+receive_execute: 6, 279
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+executor 3 waits for recv msg
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 0 write_server_output
+executor 0 server cover_cnt 0 output_pos_value 1
+----- executor 3 write_call_output, size 0, pid 773, write pid:773
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 1
+execute_call 0, 63, 0, 0
+execute_one loop: 0, 0, 63
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 61, 0, 0
+execute_one loop: 0, 0, 61
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1

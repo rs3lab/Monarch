@@ -1,0 +1,211 @@
+# File tree changes
+
+getdents(fd), mkdir(path) path is subdir/file of fd
+getdents(fd), rmdir(path) path is subdir/file of fd
+getdents(fd), rename(path1, path2) at path2 or path1 is subdir/file of fd
+getdents(fd1), fd1 = open
+getdents(fd), close(fd)
+getdents(fd), fd=dup()
+getdents(fd), fd=dup2()
+getdents(fd), link(path1, path2) path2 is subdir/file of fd
+getdents(fd), symlink(target, path) path is subdir/file of fd
+getdents(fd), unlink(path) path is subdir/file of fd
+getdents(fd), chmod/fchmod(path)
+
+mkdir(path1), rmdir(path2) path1 == path2, path1: subdir of path2
+mkdir(path1), rename(path2, path3) path1 == path2/path3, path1: subdir of path2/3
+mkdir(path1), open(path1) path1 == path1
+mkdir(path1), symlink(path2, path3) path1 == path3, path1: subdir of path3
+mkdir(path1), Xattr(path1)
+mkdir(path1), chmod/fchmod(path1)
+mkdir(path1), stat/lstat/fstat(path1)
+mkdir(path1), fsync(path1)/sync()
+
+open_O_create(path), X(path)
+
+fd1 = open, close(fd1)
+fd1 = open, dup(fd1)
+fd1 = open, dup2(fd1)
+fd1 = open, fstat(fd1)
+fd1 = open, fsync(fd1)
+fd2 = open, fdatasync(fd1)
+open(path), link(, path)
+open(path), symlink(, path)
+open(path), unlink(path)
+open(path), fchmod(path)
+
+close(fd), fd=dup()
+close(fd), fd=dup2()
+close(fd), fXattr(fd)/ftruncate(fd)/fchmod(fd)/fstat(fd)/fsync(fd)/fdatasync(fd)
+
+link(old, new), symlink(, new1)   new1 == old/new
+link(old, new), unlink(new/old)
+link(, new), setxattr,removexattr,listxattr,getxattr,Lxattr,truncate,chmod
+link(old, new) stat/lstat(old/new)
+link(new, old) sync, fsync(new/old, parent of old/new)
+
+symlink(, path), unlink(path)
+symlink(, path), readlink(path)
+symlink(, path), setxattr,removexattr,listxattr,getxattr,Lxattr,truncate,chmod,stat,lstat(path)
+symlink(, path), sync
+symlink(, path), fsync(path/parent of path)
+
+unlink(path), readlink(path)
+unlink(path), setxattr,removexattr,listxattr,getxattr,Lxattr,truncate,chmod,stat,lstat(path)
+unlink(path), sync
+unlink(path), fsync(parent of path)
+
+
+# Regular file or symlink operations
+
+setxattr, setxattr
+setxattr, lsetxattr
+setxattr, fsetxattr
+setxattr, flistxattr
+setxattr, listxattr
+setxattr, llistxattr
+setxattr, removexattr
+setxattr, fremovexattr
+setxattr, lremovexattr
+setxattr, getxattr
+setxattr, lgetxattr
+setxattr, fgetxattr
+setxattr, chmod
+setxattr, fchmod
+setxattr, fsync
+setxattr, sync
+
+lsetxattr, lsetxattr
+lsetxattr, llistxattr
+lsetxattr, lremovexattr
+lsetxattr, lgetxattr
+lsetxattr, fsetxattr
+lsetxattr, flistxattr
+lsetxattr, fremovexattr
+lsetxattr, fgetxattr
+lsetxattr, fsync
+lsetxattr, sync
+
+listxattr, removexattr
+listxattr, chmod
+listxattr, fchmod
+listxattr, fsetxattr
+listxattr, fremovexattr
+
+llistxattr, lremovexattr
+llistxattr, chmod
+llistxattr, fchmod
+llistxattr, fsetxattr
+llistxattr, fremovexattr
+
+getxattr, removexattr
+getxattr, chmod
+getxattr, fchmod
+getxattr, fsetxattr
+getxattr, fremovexattr
+
+lgetxattr, lremovexattr
+lgetxattr, chmod
+lgetxattr, fchmod
+lgetxattr, fsetxattr
+lgetxattr, fremovexattr
+
+removexattr, removexattr
+removexattr, chmod
+removexattr, fchmod
+removexattr, fsetxattr
+removexattr, flistxattr
+removexattr, fremovexattr
+removexattr, fgetxattr
+removexattr, fsync
+removexattr, sync
+
+lremovexattr, lremovexattr
+lremovexattr, chmod
+lremovexattr, fchmod
+lremovexattr, fsetxattr
+lremovexattr, flistxattr
+lremovexattr, fremovexattr
+lremovexattr, fgetxattr
+lremovexattr, fsync
+lremovexattr, sync
+
+fsetxattr, chmod
+fsetxattr, fchmod
+fsetxattr, fsync
+fsetxattr, sync
+
+flistxattr, chmod
+flistxattr, fchmod
+
+fremovexattr, fchmod
+fremovexattr, chmod
+fremovexattr, fsync
+fremovexattr, sync
+
+fgetxattr, fchmod
+fgetxattr, chmod
+
+truncate, truncate
+truncate, ftruncate
+truncate, write
+truncate, pwrite64
+truncate, lseek
+truncate, read
+truncate, pread64
+truncate, chmod
+truncate, fchmod
+truncate, stat
+truncate, lstat
+truncate, fstat
+truncate, fsync
+truncate, sync
+truncate, fdatasync
+
+ftruncate, ftruncate
+ftruncate, write
+ftruncate, pwrite64
+ftruncate, lseek
+ftruncate, read
+ftruncate, pread64
+ftruncate, chmod
+ftruncate, fchmod
+ftruncate, stat
+ftruncate, lstat
+ftruncate, fstat
+ftruncate, fsync
+ftruncate, sync
+ftruncate, fdatasync
+
+write, write
+write, pwrite64
+write, lseek
+write, read
+write, pread64
+write, stat
+write, lstat
+write, fstat
+write, fsync
+write, sync
+
+pwrite64, pwrite64
+pwrite64, lseek
+pwrite64, read
+pwrite64, pread64
+pwrite64, stat
+pwrite64, lstat
+pwrite64, fstat
+pwrite64, fsync
+pwrite64, sync
+
+lseek, lseek
+lseek, read
+lseek, pread64
+
+chmod, chmod
+chmod, fchmod
+fchmod, fchmod
+chmod, fsync
+fchmod, fsync
+chmod, sync
+fchmod, sync

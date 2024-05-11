@@ -1,0 +1,2552 @@
+2022/02/16 21:31:39 fuzzer started
+2022/02/16 21:31:39 -----flagExecutor: /usr/bin/ssh -F /dev/null -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o ConnectTimeout=100 -i /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa -v root@192.168.0.2 /syz-executor;/usr/bin/ssh -F /dev/null -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o ConnectTimeout=100 -i /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa -v root@192.168.0.3 /syz-executor;/usr/bin/ssh -F /dev/null -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o ConnectTimeout=100 -i /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa -v root@192.168.0.4 /syz-executor;/usr/bin/ssh -F /dev/null -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o ConnectTimeout=100 -i /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa -v root@192.168.0.5 /syz-executor;
+----
+2022/02/16 21:31:39 dialing manager at localhost:35957
+2022/02/16 21:31:39 connecting to manager...
+2022/02/16 21:31:39 syscalls: 65
+2022/02/16 21:31:39 code coverage: enabled
+2022/02/16 21:31:39 comparison tracing: enabled
+2022/02/16 21:31:39 extra coverage: enabled
+2022/02/16 21:31:39 setuid sandbox: enabled
+2022/02/16 21:31:39 namespace sandbox: /proc/self/ns/user does not exist
+2022/02/16 21:31:39 Android sandbox: enabled
+2022/02/16 21:31:39 fault injection: CONFIG_FAULT_INJECTION is not enabled
+2022/02/16 21:31:39 leak checking: CONFIG_DEBUG_KMEMLEAK is not enabled
+2022/02/16 21:31:39 net packet injection: /dev/net/tun does not exist
+2022/02/16 21:31:39 net device setup: enabled
+2022/02/16 21:31:39 concurrency sanitizer: /sys/kernel/debug/kcsan does not exist
+2022/02/16 21:31:39 devlink PCI setup: enabled
+2022/02/16 21:31:39 USB emulation: /dev/raw-gadget does not exist
+2022/02/16 21:31:39 hci packet injection: /dev/vhci does not exist
+2022/02/16 21:31:39 wifi device emulation: /sys/class/mac80211_hwsim/ does not exist
+2022/02/16 21:31:39 802.15.4 emulation: /sys/bus/platform/devices/mac802154_hwsim does not exist
+2022/02/16 21:31:39 poll: candidates=0 inputs=0 signal=0
+2022/02/16 21:31:39 fetching corpus: 0, signal 0/0 (executing program)
+2022/02/16 21:31:40 starting 1 fuzzer processes
+2022/02/16 21:31:40 ------ repeatNum 2
+2022/02/16 21:31:40 poll: candidates=0 inputs=0 signal=0
+2022/02/16 21:31:40 ------ repeatNum 1
+2022/02/16 21:31:40 #0: generated
+21:31:40 ---executing program 0:
+r0 = dup(0xffffffffffffffff)
+fcntl$setflags(r0, 0x2, 0x0)
+fcntl$F_SET_RW_HINT(r0, 0x40c, &(0x7f0000000000)=0x3)
+fcntl$getown(r0, 0x9)
+write$binfmt_misc(r0, &(0x7f0000000040)={'syz0', "50dd00bcc3b0bd6043a6ebadea867e140e28396281f45bece5555ab641a2b40b6caf60e1f942b754235d2c"}, 0x2f)
+fcntl$setflags(r0, 0x2, 0x1)
+fchown(r0, 0x0, 0xee01)
+fcntl$setflags(r0, 0x2, 0x0)
+r1 = openat(r0, &(0x7f0000000080)='./file81\x00', 0x800, 0x86)
+r2 = fcntl$getown(r0, 0x9)
+fcntl$setownex(r1, 0xf, &(0x7f00000000c0)={0x2, r2})
+r3 = open$dir(&(0x7f0000000100)='./file81\x00', 0x161000, 0x22)
+read(r3, &(0x7f0000000140)=""/227, 0xe3)
+r4 = open(&(0x7f0000000240)='./file81\x00', 0x1, 0x1c1)
+write$binfmt_elf32(r4, &(0x7f0000000280)={{0x7f, 0x45, 0x4c, 0x46, 0x7, 0x4, 0x5, 0x2e, 0x1, 0x0, 0x3, 0x0, 0x384, 0x38, 0xad, 0x50, 0x100, 0x20, 0x1, 0x9, 0x0, 0x5}, [{0x4, 0x2, 0xfffffffb, 0x0, 0x4, 0x2, 0x1, 0x5bf}, {0x7, 0x9, 0x4, 0x3, 0x0, 0x7, 0x1000, 0x4aa4e720}], "d5d383e4d8a906503f1862a6902f6b4c833613f276eeff6a090412be8c7cab9dcc4028a4d11371c87686412aadb7793f914f13dc7b5702aca70162a150f25681f76e200c48123a54872532356aca9c5db8195103a673250d7d638f54d8b1a53dd7e4fc8f81d66237f6021fafde46e30c", ['\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00']}, 0xae8)
+sendfile(r0, r4, &(0x7f0000000d80)=0x2, 0xf05)
+r5 = open$dir(&(0x7f0000000dc0)='./file81\x00', 0x200040, 0x8)
+fdatasync(r5)
+renameat(r1, &(0x7f0000000e00)='./file81\x00', 0xffffffffffffff9c, &(0x7f0000000e40)='./file81\x00')
+fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff)
+---
+r0 = dup(0xffffffffffffffff)
+fcntl$setflags(r0, 0x2, 0x0)
+fcntl$F_SET_RW_HINT(r0, 0x40c, &(0x7f0000000000)=0x3)
+fcntl$getown(r0, 0x9)
+write$binfmt_misc(r0, &(0x7f0000000040)={'syz0', "50dd00bcc3b0bd6043a6ebadea867e140e28396281f45bece5555ab641a2b40b6caf60e1f942b754235d2c"}, 0x2f)
+fcntl$setflags(r0, 0x2, 0x1)
+fchown(r0, 0x0, 0xee01)
+fcntl$setflags(r0, 0x2, 0x0)
+r1 = openat(r0, &(0x7f0000000080)='./file81\x00', 0x800, 0x86)
+r2 = fcntl$getown(r0, 0x9)
+fcntl$setownex(r1, 0xf, &(0x7f00000000c0)={0x2, r2})
+r3 = open$dir(&(0x7f0000000100)='./file81\x00', 0x161000, 0x22)
+read(r3, &(0x7f0000000140)=""/227, 0xe3)
+r4 = open(&(0x7f0000000240)='./file81\x00', 0x1, 0x1c1)
+write$binfmt_elf32(r4, &(0x7f0000000280)={{0x7f, 0x45, 0x4c, 0x46, 0x7, 0x4, 0x5, 0x2e, 0x1, 0x0, 0x3, 0x0, 0x384, 0x38, 0xad, 0x50, 0x100, 0x20, 0x1, 0x9, 0x0, 0x5}, [{0x4, 0x2, 0xfffffffb, 0x0, 0x4, 0x2, 0x1, 0x5bf}, {0x7, 0x9, 0x4, 0x3, 0x0, 0x7, 0x1000, 0x4aa4e720}], "d5d383e4d8a906503f1862a6902f6b4c833613f276eeff6a090412be8c7cab9dcc4028a4d11371c87686412aadb7793f914f13dc7b5702aca70162a150f25681f76e200c48123a54872532356aca9c5db8195103a673250d7d638f54d8b1a53dd7e4fc8f81d66237f6021fafde46e30c", ['\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00']}, 0xae8)
+sendfile(r0, r4, &(0x7f0000000d80)=0x2, 0xf05)
+r5 = open$dir(&(0x7f0000000dc0)='./file81\x00', 0x200040, 0x8)
+fdatasync(r5)
+renameat(r1, &(0x7f0000000e00)='./file81\x00', 0xffffffffffffff9c, &(0x7f0000000e40)='./file81\x00')
+fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff)
+---
+write$binfmt_script(0xffffffffffffffff, &(0x7f0000000000)={'#! ', './file94', [{}, {0x20, '}*#'}], 0xa, "af82302a8a73c9e056e3899472de8d13132c0cd934cef3f3db5f1fa0fe504da5"}, 0x31)
+r0 = open(&(0x7f0000000040)='./file94\x00', 0x40000, 0x145)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000080)=0x8, 0x4dc)
+write$binfmt_script(r0, &(0x7f00000000c0)={'#! ', './file94', [{}, {0x20, '&,)^'}, {0x20, '}*#'}, {0x20, '}*#'}, {0x20, '#! '}, {0x20, '#! '}], 0xa, "3dcd6b18853b7f458e3eef0135ee25902591853cb54a8c7516aa1f2f00c7aecfa446fe1d46cee547f30e8c7ffd721a3ea1f54bb70825fba844d9dae232b4fc22f1919bffc7655943f4347745d6cc1914419b16998795e3b7a5d28e98de9ecf6f46936f2c7d060c5d1104f7de50a75c1d5a63b8f6d49cb1ca833300061fb6eee62fb74de5a37018e8bb850e6e864621849b1511c0d34886404ceb1c048ba015ee09e0a06eb604c107c6f959233ed5a3793ea58825e261c6d7bed835b8c4392e85737ba87a1d6daeee6543c5aa60af753eaf67455dc567a9177fb9826258dfb79383e4ebadf130d806cc"}, 0x10b)
+fcntl$notify(r0, 0x402, 0x80000028)
+fcntl$notify(r0, 0x402, 0x10)
+fcntl$setflags(r0, 0x2, 0x1)
+fdatasync(r0)
+stat(&(0x7f0000000200)='./file94\x00', &(0x7f0000000240))
+r1 = open(&(0x7f00000002c0)='./file57\x00', 0x200, 0x108)
+fcntl$getown(r0, 0x9)
+r2 = open(&(0x7f0000000300)='./file94\x00', 0x40004, 0x180)
+pwrite64(r2, &(0x7f0000000340)="93abab3554c7657a6f29449a0dd425ef000731c6dbb6ddabfec45093e6db5b647c88d18e09d8c20a7b262cfb9d7993393d7627f9be85d06670a7b45aa13d3c7ed0a4aa63919ea51c150d18f20ff70e122bf0af7316c7da8ab2f26023d326b50795e672d32b7bbc5fd88a8a49743352e32a9a18ba99f0b3aa887d74ead942092d4b43afc24028f5c379c1055ce4df010007458a67a7ef3cefb970caf999c928b4d27c6c91b65f9ab04d67bfcb6b342ab4dde9cc822f29c3a7f687eea5747b35219ebcf60a42c76bfae7357e2e", 0xcc, 0x10000)
+unlink(&(0x7f0000000440)='./file57\x00')
+fstat(r1, &(0x7f0000000480))
+chmod(&(0x7f0000000500)='./file94\x00', 0x2)
+mkdirat(0xffffffffffffff9c, &(0x7f0000000540)='./file94\x00', 0xb8)
+fcntl$setstatus(0xffffffffffffffff, 0x4, 0x400)
+write$binfmt_script(r1, &(0x7f0000000580)={'#! ', './file94', [{0x20, '&,)^'}, {0x20, '}*#'}, {0x20, '}*#'}, {0x20, '+-@['}, {}, {}, {0x20, '/'}, {0x20, '('}, {0x20, '#! '}, {0x20, '#\'($-'}], 0xa, "a42ba70726bc274bd45903e3c8a20349a37304fa41c16970bc9d56ae02747ed004b537c55f0eb9ec589ecb20c864797d820d23de39243fdce904a54c7761d11b37a2b871ffe1780caaf205320715ce"}, 0x7d)
+preadv(r0, &(0x7f0000000680)=[{&(0x7f0000000600)=""/110, 0x6e}], 0x1, 0x800, 0x9)
+---
+
+2022/02/16 21:31:40 -----run executor: [/usr/bin/ssh -F /dev/null -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o ConnectTimeout=100 -i /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa -v root@192.168.0.2 /syz-executor exec 0 0 nfs 1]
+2022/02/16 21:31:40 -----run executor: [/usr/bin/ssh -F /dev/null -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o ConnectTimeout=100 -i /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa -v root@192.168.0.3 /syz-executor exec 1 1 nfs 1]
+2022/02/16 21:31:40 -----run executor: [/usr/bin/ssh -F /dev/null -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o ConnectTimeout=100 -i /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa -v root@192.168.0.4 /syz-executor exec 1 2 nfs 1]
+2022/02/16 21:31:40 -----run executor: [/usr/bin/ssh -F /dev/null -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o ConnectTimeout=100 -i /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa -v root@192.168.0.5 /syz-executor exec 1 3 nfs 1]
+2022/02/16 21:31:40 ----- fuzzer handshake send req [206 250 173 235 254 15 220 186 163 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0]; [206 250 173 235 254 15 220 186 163 15 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 50 0 0 0 0 0 0]
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.3, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /dev/null
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.3, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /dev/null
+debug1: Connecting to 192.168.0.2 [192.168.0.2] port 22.
+debug1: Connecting to 192.168.0.3 [192.168.0.3] port 22.
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.3, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /dev/null
+debug1: fd 3 clearing O_NONBLOCK
+debug1: Connection established.
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa type 0
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa-cert type -1
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.3, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /dev/null
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.3
+debug1: Connecting to 192.168.0.5 [192.168.0.5] port 22.
+debug1: fd 3 clearing O_NONBLOCK
+debug1: Connection established.
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa type 0
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.3
+debug1: Connecting to 192.168.0.4 [192.168.0.4] port 22.
+debug1: fd 3 clearing O_NONBLOCK
+debug1: Connection established.
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa type 0
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.3
+debug1: fd 3 clearing O_NONBLOCK
+debug1: Connection established.
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa type 0
+debug1: identity file /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.3
+debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4p1 Debian-10+deb9u7
+debug1: match: OpenSSH_7.4p1 Debian-10+deb9u7 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002
+debug1: Authenticating to 192.168.0.2:22 as 'root'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4p1 Debian-10+deb9u7
+debug1: match: OpenSSH_7.4p1 Debian-10+deb9u7 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002
+debug1: Authenticating to 192.168.0.4:22 as 'root'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4p1 Debian-10+deb9u7
+debug1: match: OpenSSH_7.4p1 Debian-10+deb9u7 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002
+debug1: Authenticating to 192.168.0.3:22 as 'root'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: Remote protocol version 2.0, remote software version OpenSSH_7.4p1 Debian-10+deb9u7
+debug1: match: OpenSSH_7.4p1 Debian-10+deb9u7 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002
+debug1: Authenticating to 192.168.0.5:22 as 'root'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:+qpQwWQ4sBfdyTSet3qdKGgBl3jVUdoRfkzcR77HpYg
+Warning: Permanently added '192.168.0.2' (ECDSA) to the list of known hosts.
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:+qpQwWQ4sBfdyTSet3qdKGgBl3jVUdoRfkzcR77HpYg
+Warning: Permanently added '192.168.0.4' (ECDSA) to the list of known hosts.
+debug1: Server accepts key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:+qpQwWQ4sBfdyTSet3qdKGgBl3jVUdoRfkzcR77HpYg
+Warning: Permanently added '192.168.0.5' (ECDSA) to the list of known hosts.
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:+qpQwWQ4sBfdyTSet3qdKGgBl3jVUdoRfkzcR77HpYg
+Warning: Permanently added '192.168.0.3' (ECDSA) to the list of known hosts.
+debug1: Server accepts key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,ssh-rsa,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521>
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to 192.168.0.2 ([192.168.0.2]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: Server accepts key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to 192.168.0.4 ([192.168.0.4]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: Server accepts key: /home/tlyu/dfs-fuzzing/disk-images/nfs-image/stretch.id_rsa RSA SHA256:57alp//2ynRuiuefcWsv6mkp4iozJcnckYU9ReBGMJo explicit
+debug1: Authentication succeeded (publickey).
+Authenticated to 192.168.0.5 ([192.168.0.5]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: Authentication succeeded (publickey).
+Authenticated to 192.168.0.3 ([192.168.0.3]:22).
+debug1: channel 0: new [client-session]
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Sending command: /syz-executor exec 0 0 nfs 1
+debug1: Sending command: /syz-executor exec 1 1 nfs 1
+debug1: Sending command: /syz-executor exec 1 2 nfs 1
+debug1: Sending command: /syz-executor exec 1 3 nfs 1
+---- is_dfs_client 1
+---- is_dfs_client 0
+syzkaller login: [   17.601044] audit: type=1400 audit(1645043500.379:8): avc:  denied  { execmem } for  pid=420 comm="syz-executor" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=process permissive=1
+exportfs: extra arguments are not permitted with -a or -r
+---- is_dfs_client 1
+---- is_dfs_client 1
+[   17.653588] ==================================================================
+[   17.654546] BUG: KASAN: use-after-free in svc_tcp_listen_data_ready+0x132/0x140
+[   17.656205] Read of size 8 at addr ffff888114b58228 by task systemd-udevd/137
+[   17.658870] 
+[   17.659409] CPU: 1 PID: 137 Comm: systemd-udevd Not tainted 5.15.0 #3
+[   17.660229] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+[   17.661371] Call Trace:
+[   17.661708]  dump_stack_lvl+0x6e/0x91
+[   17.662178]  print_address_description.constprop.0+0x21/0x140
+[   17.662870]  ? svc_tcp_listen_data_ready+0x132/0x140
+[   17.663423]  ? svc_tcp_listen_data_ready+0x132/0x140
+[   17.663985]  kasan_report.cold+0x7f/0x11b
+[   17.664433]  ? svc_tcp_listen_data_ready+0x132/0x140
+[   17.665012]  svc_tcp_listen_data_ready+0x132/0x140
+[   17.665550]  tcp_data_ready+0x105/0x380
+[   17.666024]  tcp_data_queue+0x155f/0x4860
+[   17.666484]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.667028]  ? tcp_urg+0x108/0xbb0
+[   17.667429]  ? tcp_send_rcvq+0x4c0/0x4c0
+[   17.667890]  ? tcp_conn_request+0x2e00/0x2e00
+[   17.668393]  ? deref_stack_reg+0x33/0x70
+[   17.668864]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.669411]  ? ktime_get+0xf7/0x150
+[   17.669849]  tcp_rcv_established+0x86c/0x1d70
+[   17.670365]  ? tcp_data_queue+0x4860/0x4860
+[   17.670860]  ? bpf_sk_assign+0x5e0/0x5e0
+[   17.671321]  ? __ip_select_ident+0x1d0/0x1d0
+[   17.671848]  tcp_v4_do_rcv+0x619/0x9b0
+[   17.672322]  tcp_v4_rcv+0x2c33/0x3720
+[   17.672787]  ? deref_stack_reg+0x61/0x70
+[   17.673278]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.673868]  ? sock_edemux+0x40/0x40
+[   17.674326]  ? tcp_v4_early_demux+0x890/0x890
+[   17.674880]  ? __kernel_text_address+0x9/0x30
+[   17.675428]  ? tcp_v4_early_demux+0x890/0x890
+[   17.675967]  ip_protocol_deliver_rcu+0x6f/0x840
+[   17.676532]  ip_local_deliver_finish+0x1bb/0x230
+[   17.677108]  ip_local_deliver+0x207/0x320
+[   17.677608]  ? ip_local_deliver_finish+0x230/0x230
+[   17.678217]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.678806]  ? ipv4_dst_check+0x130/0x190
+[   17.679308]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.679890]  ? tcp_v4_early_demux+0x59/0x890
+[   17.680426]  ? tcp_v4_get_syncookie+0x360/0x360
+[   17.680996]  ? ip_local_deliver_finish+0x230/0x230
+[   17.681595]  ip_sublist_rcv_finish+0x16c/0x1f0
+[   17.682152]  ip_sublist_rcv+0x398/0x580
+[   17.682636]  ? ip_sublist_rcv_finish+0x1f0/0x1f0
+[   17.683225]  ? tpacket_rcv+0x3210/0x3210
+[   17.683713]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.684292]  ? tcp_gro_receive+0x859/0xe70
+[   17.684797]  ? memset+0x20/0x40
+[   17.685198]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.685794]  ? ip_rcv_core.isra.0+0x76d/0xb80
+[   17.686340]  ip_list_rcv+0x2ce/0x3c0
+[   17.686795]  ? ip_rcv+0x1e0/0x1e0
+[   17.687213]  ? ip_rcv+0x1e0/0x1e0
+[   17.687640]  __netif_receive_skb_list_core+0x4ae/0x910
+[   17.688293]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.688880]  ? process_backlog+0x6e0/0x6e0
+[   17.689399]  ? write_comp_data+0x1c/0x70
+[   17.689898]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.690479]  ? napi_gro_receive+0x26f/0x710
+[   17.691018]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.691609]  ? receive_buf+0x3cd/0x5080
+[   17.692100]  netif_receive_skb_list_internal+0x6ba/0xbc0
+[   17.692776]  ? __netif_receive_skb_list_core+0x910/0x910
+[   17.693443]  ? process_one_work+0x1280/0x12f0
+[   17.694039]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.694632]  ? virtqueue_get_buf_ctx+0x182/0xd50
+[   17.695215]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.695803]  ? detach_buf_split+0x538/0x710
+[   17.696325]  gro_normal_list.part.0+0x19/0xb0
+[   17.696842]  napi_complete_done+0x1e6/0x610
+[   17.697339]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.697921]  virtnet_poll+0xcb0/0x11b0
+[   17.698377]  ? receive_buf+0x5080/0x5080
+[   17.698843]  ? do_syscall_64+0x48/0x90
+[   17.699292]  ? task_work_add+0x3b/0x190
+[   17.699768]  ? filp_close+0x127/0x160
+[   17.700250]  ? __x64_sys_close+0x2f/0xa0
+[   17.700752]  ? do_syscall_64+0x38/0x90
+[   17.701239]  ? entry_SYSCALL_64_after_hwframe+0x44/0xae
+[   17.701901]  ? __sanitizer_cov_trace_pc+0x1a/0x50
+[   17.702486]  ? vfs_utimes+0x4e2/0x7f0
+[   17.702961]  __napi_poll+0xb2/0x470
+[   17.703411]  net_rx_action+0x800/0xaf0
+[   17.703889]  ? write_comp_data+0x1c/0x70
+[   17.704395]  ? napi_threaded_poll+0x450/0x450
+[   17.704952]  ? _raw_spin_lock+0x75/0xd0
+[   17.705444]  __do_softirq+0x184/0x549
+[   17.705906]  irq_exit_rcu+0x95/0xc0
+[   17.706342]  common_interrupt+0x40/0xa0
+[   17.706826]  ? asm_common_interrupt+0x8/0x40
+[   17.707377]  asm_common_interrupt+0x1e/0x40
+[   17.707898] RIP: 0033:0x5590ea2c6707
+[   17.708354] Code: 0a 67 00 00 41 0f b6 f5 4c 89 f7 48 0f 45 c8 e8 0f f8 ff ff e9 22 ff ff ff e8 f5 fa fb ff 00 00 00 00 00 80 3d c1 82 02 00 00 <75> 51 41 54 48 8d 05 6e 65 02 00 55 49 89 fc 53 48 8d 2d fa 65 02
+[   17.710599] RSP: 002b:00007fff8cbf6128 EFLAGS: 00000202
+[   17.711247] RAX: 0000000000ee7509 RBX: 00005590eaef4a48 RCX: 00000000001dde23
+[   17.712133] RDX: 00000000010c532c RSI: 00005590ea2d7d34 RDI: 00005590eaf9ac30
+[   17.713010] RBP: 00005590eafb6ac0 R08: fec0fe0000000000 R09: 0000000000000008
+[   17.713873] R10: 0000000000000000 R11: 0000000000000202 R12: 00005590eaef4a30
+[   17.714777] R13: 00005590eaef4a30 R14: 0000000000000000 R15: 00005590eaef4a48
+[   17.715655] 
+[   17.715847] Allocated by task 215:
+[   17.716269]  kasan_save_stack+0x1b/0x40
+[   17.716750]  __kasan_kmalloc+0x7c/0x90
+[   17.717219]  svc_setup_socket+0x55/0xd20
+[   17.717709]  svc_addsock+0x283/0x6b0
+[   17.718168]  write_ports+0x80a/0xa10
+[   17.718629]  nfsctl_transaction_write+0xe9/0x150
+[   17.719226]  vfs_write+0x1f9/0x880
+[   17.719655]  ksys_write+0x121/0x240
+[   17.720096]  do_syscall_64+0x38/0x90
+[   17.720549]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[   17.721181] 
+[   17.721381] Freed by task 305:
+[   17.721759]  kasan_save_stack+0x1b/0x40
+[   17.722243]  kasan_set_track+0x1c/0x30
+[   17.722719]  kasan_set_free_info+0x20/0x30
+[   17.723230]  __kasan_slab_free+0xea/0x120
+[   17.723729]  kfree+0x8b/0x220
+[   17.724106]  svc_xprt_free+0x26e/0x400
+[   17.724575]  svc_delete_xprt+0x583/0x760
+[   17.725058]  svc_close_net+0x2f2/0x440
+[   17.725528]  svc_shutdown_net+0x1a/0x90
+[   17.726027]  nfsd_destroy+0x12b/0x1b0
+[   17.726489]  nfsd+0x37f/0x460
+[   17.726876]  kthread+0x375/0x450
+[   17.727261]  ret_from_fork+0x1f/0x30
+[   17.727682] 
+[   17.727870] The buggy address belongs to the object at ffff888114b58000
+[   17.727870]  which belongs to the cache kmalloc-4k of size 4096
+[   17.729266] The buggy address is located 552 bytes inside of
+[   17.729266]  4096-byte region [ffff888114b58000, ffff888114b59000)
+[   17.730725] The buggy address belongs to the page:
+[   17.731284] page:000000001fdd4dc1 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x114b58
+[   17.732349] head:000000001fdd4dc1 order:3 compound_mapcount:0 compound_pincount:0
+[   17.733210] flags: 0x200000000010200(slab|head|node=0|zone=2)
+[   17.733893] raw: 0200000000010200 0000000000000000 dead000000000122 ffff888100043040
+[   17.734776] raw: 0000000000000000 0000000000040004 00000001ffffffff 0000000000000000
+[   17.735652] page dumped because: kasan: bad access detected
+[   17.736290] 
+[   17.736476] Memory state around the buggy address:
+[   17.737037]  ffff888114b58100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+[   17.737859]  ffff888114b58180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+[   17.738690] >ffff888114b58200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+[   17.739509]                                   ^
+[   17.740040]  ffff888114b58280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+[   17.740864]  ffff888114b58300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+[   17.741691] ==================================================================
+[   17.742507] Disabling lock debugging due to kernel taint
+[   17.797218] nfsd: last server has exited, flushing export cache
+[   18.919057] NFSD: Using UMH upcall client tracking operations.
+[   18.919658] NFSD: starting 90-second grace period (net f0000098)
+before receiving handshake request
+executor handshake receive req 0x7f1be005d000
+req.flags fa3
+bitmap is not found, coverage filter disabled
+spawned loop pid 476
+mount(fusectl) failed: 16
+netlink: add addr 172.30.0.1 dev nr0: No such device
+netlink: device nr0 up master NULL: No such device
+netlink: add addr 172.30.1.1 dev rose0: No such device
+netlink: device rose0 up master NULL: No such device
+before receiving handshake request
+executor handshake receive req 0x7f4d45ccb000
+req.flags fa3
+netlink: failed to get family id for devlink: No such file or directory
+netlink: failed to get family id for devlink: No such file or directory
+netlink: adding device ip6gretap0 type ip6gretap: Operation not supported
+netlink: adding device bridge0 type bridge: Operation not supported
+netlink: adding device vcan0 type vcan: Operation not supported
+netlink: adding device bond0 type bond: Operation not supported
+bitmap is not found, coverage filter disabled
+netlink: adding device team0 type team: Operation not supported
+spawned loop pid 464
+mount(fusectl) failed: 16
+netlink: adding device dummy0 type dummy: Operation not supported
+netlink: adding device nlmon0 type nlmon: Operation not supported
+netlink: adding device caif0 type caif: Operation not supported
+netlink: add addr 172.30.0.1 dev nr0: No such device
+netlink: adding device batadv0 type batadv: Operation not supported
+netlink: adding device vxcan1 type vxcan: Operation not supported
+netlink: device nr0 up master NULL: No such device
+netlink: adding device netdevsim0 type netdevsim: Operation not supported
+netlink: adding device (null) type veth: Operation not supported
+netlink: add addr 172.30.1.1 dev rose0: No such device
+netlink: adding device xfrm0 type xfrm: Operation not supported
+netlink: adding device wg0 type wireguard: Operation not supported
+netlink: device rose0 up master NULL: No such device
+netlink: adding device wg1 type wireguard: Operation not supported
+netlink: adding device wg2 type wireguard: Operation not supported
+netlink: adding device bridge_slave_0 type veth peer veth0_to_bridge: Operation not supported
+netlink: failed to get family id for devlink: No such file or directory
+netlink: adding device bridge_slave_1 type veth peer veth1_to_bridge: Operation not supported
+netlink: failed to get family id for devlink: No such file or directory
+netlink: adding device ip6gretap0 type ip6gretap: Operation not supported
+netlink: adding device bridge0 type bridge: Operation not supported
+netlink: adding device vcan0 type vcan: Operation not supported
+netlink: device bridge_slave_0 up master bridge0: No such device
+netlink: adding device bond0 type bond: Operation not supported
+netlink: adding device team0 type team: Operation not supported
+netlink: adding device dummy0 type dummy: Operation not supported
+netlink: adding device nlmon0 type nlmon: Operation not supported
+netlink: device bridge_slave_1 up master bridge0: No such device
+netlink: adding device caif0 type caif: Operation not supported
+netlink: adding device bond_slave_0 type veth peer veth0_to_bond: Operation not supported
+netlink: adding device batadv0 type batadv: Operation not supported
+netlink: adding device bond_slave_1 type veth peer veth1_to_bond: Operation not supported
+netlink: adding device vxcan1 type vxcan: Operation not supported
+netlink: adding device netdevsim0 type netdevsim: Operation not supported
+netlink: adding device (null) type veth: Operation not supported
+netlink: adding device xfrm0 type xfrm: Operation not supported
+netlink: device bond_slave_0 up master bond0: No such device
+netlink: adding device wg0 type wireguard: Operation not supported
+netlink: adding device wg1 type wireguard: Operation not supported
+netlink: adding device wg2 type wireguard: Operation not supported
+netlink: device bond_slave_1 up master bond0: No such device
+netlink: adding device bridge_slave_0 type veth peer veth0_to_bridge: Operation not supported
+netlink: adding device team_slave_0 type veth peer veth0_to_team: Operation not supported
+netlink: adding device bridge_slave_1 type veth peer veth1_to_bridge: Operation not supported
+netlink: adding device team_slave_1 type veth peer veth1_to_team: Operation not supported
+netlink: device bridge_slave_0 up master bridge0: No such device
+netlink: device team_slave_0 up master team0: No such device
+netlink: device bridge_slave_1 up master bridge0: No such device
+netlink: device team_slave_1 up master team0: No such device
+netlink: adding device bond_slave_0 type veth peer veth0_to_bond: Operation not supported
+netlink: adding device batadv_slave_0 type veth peer veth0_to_batadv: Operation not supported
+netlink: adding device bond_slave_1 type veth peer veth1_to_bond: Operation not supported
+netlink: adding device batadv_slave_1 type veth peer veth1_to_batadv: Operation not supported
+netlink: device bond_slave_0 up master bond0: No such device
+netlink: device batadv_slave_0 up master batadv0: No such device
+netlink: device bond_slave_1 up master bond0: No such device
+netlink: device batadv_slave_1 up master batadv0: No such device
+netlink: adding device team_slave_0 type veth peer veth0_to_team: Operation not supported
+netlink: adding device team_slave_1 type veth peer veth1_to_team: Operation not supported
+netlink: device bridge_slave_0 up master NULL: No such device
+netlink: device bridge_slave_1 up master NULL: No such device
+netlink: adding device hsr_slave_0 type veth peer veth0_to_hsr: Operation not supported
+netlink: device team_slave_0 up master team0: No such device
+netlink: adding device hsr_slave_1 type veth peer veth1_to_hsr: Operation not supported
+netlink: device team_slave_1 up master team0: No such device
+netlink: adding device batadv_slave_0 type veth peer veth0_to_batadv: Operation not supported
+netlink: adding device hsr0 type hsr slave1 hsr_slave_0 slave2 hsr_slave_1: Unknown error -95
+netlink: adding device batadv_slave_1 type veth peer veth1_to_batadv: Operation not supported
+netlink: device hsr_slave_0 up master NULL: No such device
+netlink: device hsr_slave_1 up master NULL: No such device
+netlink: device batadv_slave_0 up master batadv0: No such device
+netlink: adding device veth0_virt_wifi type veth peer veth1_virt_wifi: Operation not supported
+netlink: adding device virt_wifi0 type virt_wifi link veth1_virt_wifi: Operation not supported
+netlink: device batadv_slave_1 up master batadv0: No such device
+netlink: adding device veth0_vlan type veth peer veth1_vlan: Operation not supported
+netlink: device bridge_slave_0 up master NULL: No such device
+netlink: add vlan0 type vlan link veth0_vlan id 0: Operation not supported
+netlink: device bridge_slave_1 up master NULL: No such device
+netlink: adding device hsr_slave_0 type veth peer veth0_to_hsr: Operation not supported
+netlink: add vlan1 type vlan link veth0_vlan id 1: Operation not supported
+netlink: adding device hsr_slave_1 type veth peer veth1_to_hsr: Operation not supported
+netlink: add macvlan0 type macvlan link veth1_vlan mode 4: Operation not supported
+netlink: adding device hsr0 type hsr slave1 hsr_slave_0 slave2 hsr_slave_1: Unknown error -95
+netlink: add macvlan1 type macvlan link veth1_vlan mode 4: Operation not supported
+netlink: device hsr_slave_0 up master NULL: No such device
+netlink: add ipvlan0 type ipvlan link veth0_vlan mode 0: Operation not supported
+netlink: device hsr_slave_1 up master NULL: No such device
+netlink: adding device veth0_virt_wifi type veth peer veth1_virt_wifi: Operation not supported
+netlink: add ipvlan1 type ipvlan link veth0_vlan mode 2: Operation not supported
+netlink: adding device veth0_macvtap type veth peer veth1_macvtap: Operation not supported
+netlink: adding device virt_wifi0 type virt_wifi link veth1_virt_wifi: Operation not supported
+netlink: adding device veth0_vlan type veth peer veth1_vlan: Operation not supported
+netlink: adding device macvtap0 type macvtap link veth0_macvtap: Operation not supported
+netlink: add vlan0 type vlan link veth0_vlan id 0: Operation not supported
+netlink: adding device macsec0 type macsec link veth1_macvtap: Operation not supported
+netlink: add geneve0 type geneve vni 0: Operation not supported
+netlink: add geneve1 type geneve vni 1: Operation not supported
+netlink: add vlan1 type vlan link veth0_vlan id 1: Operation not supported
+netlink: failed to get family id for wireguard: No such file or directory
+netlink: add macvlan0 type macvlan link veth1_vlan mode 4: Operation not supported
+netlink: add addr 172.20.20.12 dev bridge0: No such device
+netlink: add addr fe80::0c dev bridge0: No such device
+netlink: add macvlan1 type macvlan link veth1_vlan mode 4: Operation not supported
+netlink: device bridge0 up master NULL: No such device
+netlink: add addr 172.20.20.13 dev vcan0: No such device
+netlink: add ipvlan0 type ipvlan link veth0_vlan mode 0: Operation not supported
+netlink: device vcan0 up master NULL: No such device
+netlink: add addr 172.20.20.14 dev tunl0: No such device
+netlink: add ipvlan1 type ipvlan link veth0_vlan mode 2: Operation not supported
+netlink: adding device veth0_macvtap type veth peer veth1_macvtap: Operation not supported
+netlink: add addr fe80::0e dev tunl0: No such device
+netlink: device tunl0 up master NULL: No such device
+netlink: adding device macvtap0 type macvtap link veth0_macvtap: Operation not supported
+netlink: add addr 172.20.20.15 dev gre0: No such device
+netlink: adding device macsec0 type macsec link veth1_macvtap: Operation not supported
+netlink: add addr fe80::0f dev gre0: No such device
+netlink: add geneve0 type geneve vni 0: Operation not supported
+netlink: device gre0 up master NULL: No such device
+netlink: add geneve1 type geneve vni 1: Operation not supported
+netlink: failed to get family id for wireguard: No such file or directory
+netlink: add addr 172.20.20.16 dev gretap0: No such device
+netlink: add addr fe80::10 dev gretap0: No such device
+netlink: add addr 172.20.20.12 dev bridge0: No such device
+netlink: device gretap0 up master NULL: No such device
+netlink: add addr fe80::0c dev bridge0: No such device
+netlink: add addr 172.20.20.17 dev ip_vti0: No such device
+netlink: device bridge0 up master NULL: No such device
+netlink: add addr fe80::11 dev ip_vti0: No such device
+netlink: add addr 172.20.20.13 dev vcan0: No such device
+netlink: device ip_vti0 up master NULL: No such device
+netlink: device vcan0 up master NULL: No such device
+netlink: add addr 172.20.20.18 dev ip6_vti0: No such device
+netlink: add addr 172.20.20.14 dev tunl0: No such device
+netlink: add addr fe80::12 dev ip6_vti0: No such device
+netlink: add addr fe80::0e dev tunl0: No such device
+netlink: device ip6_vti0 up master NULL: No such device
+netlink: device tunl0 up master NULL: No such device
+netlink: add addr 172.20.20.19 dev ip6tnl0: No such device
+netlink: add addr 172.20.20.15 dev gre0: No such device
+netlink: add addr fe80::13 dev ip6tnl0: No such device
+netlink: add addr fe80::0f dev gre0: No such device
+netlink: device ip6tnl0 up master NULL: No such device
+netlink: device gre0 up master NULL: No such device
+netlink: add addr 172.20.20.20 dev ip6gre0: No such device
+netlink: add addr 172.20.20.16 dev gretap0: No such device
+netlink: add addr fe80::14 dev ip6gre0: No such device
+netlink: add addr fe80::10 dev gretap0: No such device
+netlink: device ip6gre0 up master NULL: No such device
+netlink: device gretap0 up master NULL: No such device
+netlink: add addr 172.20.20.21 dev ip6gretap0: No such device
+netlink: add addr 172.20.20.17 dev ip_vti0: No such device
+netlink: add addr fe80::15 dev ip6gretap0: No such device
+netlink: add addr fe80::11 dev ip_vti0: No such device
+netlink: device ip6gretap0 up master NULL: No such device
+netlink: device ip_vti0 up master NULL: No such device
+netlink: add addr 172.20.20.22 dev erspan0: No such device
+netlink: add addr 172.20.20.18 dev ip6_vti0: No such device
+netlink: add addr fe80::16 dev erspan0: No such device
+netlink: add addr fe80::12 dev ip6_vti0: No such device
+netlink: device erspan0 up master NULL: No such device
+netlink: device ip6_vti0 up master NULL: No such device
+netlink: add addr 172.20.20.23 dev bond0: No such device
+netlink: add addr 172.20.20.19 dev ip6tnl0: No such device
+netlink: add addr fe80::17 dev bond0: No such device
+netlink: add addr fe80::13 dev ip6tnl0: No such device
+netlink: device bond0 up master NULL: No such device
+netlink: device ip6tnl0 up master NULL: No such device
+netlink: add addr 172.20.20.24 dev veth0: No such device
+netlink: add addr 172.20.20.20 dev ip6gre0: No such device
+netlink: add addr fe80::18 dev veth0: No such device
+netlink: add addr fe80::14 dev ip6gre0: No such device
+netlink: device veth0 up master NULL: No such device
+netlink: device ip6gre0 up master NULL: No such device
+netlink: add addr 172.20.20.25 dev veth1: No such device
+netlink: add addr 172.20.20.21 dev ip6gretap0: No such device
+netlink: add addr fe80::19 dev veth1: No such device
+netlink: add addr fe80::15 dev ip6gretap0: No such device
+netlink: device veth1 up master NULL: No such device
+netlink: device ip6gretap0 up master NULL: No such device
+netlink: add addr 172.20.20.26 dev team0: No such device
+netlink: add addr 172.20.20.22 dev erspan0: No such device
+netlink: add addr fe80::1a dev team0: No such device
+netlink: add addr fe80::16 dev erspan0: No such device
+netlink: device team0 up master NULL: No such device
+netlink: device erspan0 up master NULL: No such device
+netlink: add addr 172.20.20.27 dev veth0_to_bridge: No such device
+netlink: add addr 172.20.20.23 dev bond0: No such device
+netlink: add addr fe80::1b dev veth0_to_bridge: No such device
+netlink: add addr fe80::17 dev bond0: No such device
+netlink: device bond0 up master NULL: No such device
+netlink: device veth0_to_bridge up master NULL: No such device
+netlink: add addr 172.20.20.24 dev veth0: No such device
+netlink: add addr 172.20.20.28 dev veth1_to_bridge: No such device
+netlink: add addr fe80::18 dev veth0: No such device
+netlink: add addr fe80::1c dev veth1_to_bridge: No such device
+netlink: device veth0 up master NULL: No such device
+netlink: device veth1_to_bridge up master NULL: No such device
+netlink: add addr 172.20.20.29 dev veth0_to_bond: No such device
+netlink: add addr 172.20.20.25 dev veth1: No such device
+netlink: add addr fe80::19 dev veth1: No such device
+netlink: add addr fe80::1d dev veth0_to_bond: No such device
+netlink: device veth1 up master NULL: No such device
+netlink: device veth0_to_bond up master NULL: No such device
+netlink: add addr 172.20.20.26 dev team0: No such device
+netlink: add addr 172.20.20.30 dev veth1_to_bond: No such device
+netlink: add addr fe80::1a dev team0: No such device
+netlink: add addr fe80::1e dev veth1_to_bond: No such device
+netlink: device veth1_to_bond up master NULL: No such device
+netlink: device team0 up master NULL: No such device
+netlink: add addr 172.20.20.31 dev veth0_to_team: No such device
+netlink: add addr 172.20.20.27 dev veth0_to_bridge: No such device
+netlink: add addr fe80::1f dev veth0_to_team: No such device
+netlink: add addr fe80::1b dev veth0_to_bridge: No such device
+netlink: device veth0_to_team up master NULL: No such device
+netlink: device veth0_to_bridge up master NULL: No such device
+netlink: add addr 172.20.20.32 dev veth1_to_team: No such device
+netlink: add addr 172.20.20.28 dev veth1_to_bridge: No such device
+netlink: add addr fe80::20 dev veth1_to_team: No such device
+netlink: add addr fe80::1c dev veth1_to_bridge: No such device
+netlink: device veth1_to_team up master NULL: No such device
+netlink: device veth1_to_bridge up master NULL: No such device
+netlink: add addr 172.20.20.33 dev veth0_to_hsr: No such device
+netlink: add addr 172.20.20.29 dev veth0_to_bond: No such device
+netlink: add addr fe80::21 dev veth0_to_hsr: No such device
+netlink: add addr fe80::1d dev veth0_to_bond: No such device
+netlink: device veth0_to_hsr up master NULL: No such device
+netlink: device veth0_to_bond up master NULL: No such device
+netlink: add addr 172.20.20.34 dev veth1_to_hsr: No such device
+netlink: add addr 172.20.20.30 dev veth1_to_bond: No such device
+netlink: add addr fe80::22 dev veth1_to_hsr: No such device
+netlink: add addr fe80::1e dev veth1_to_bond: No such device
+netlink: device veth1_to_hsr up master NULL: No such device
+netlink: device veth1_to_bond up master NULL: No such device
+netlink: add addr 172.20.20.35 dev hsr0: No such device
+netlink: add addr 172.20.20.31 dev veth0_to_team: No such device
+netlink: add addr fe80::23 dev hsr0: No such device
+netlink: add addr fe80::1f dev veth0_to_team: No such device
+netlink: device hsr0 up master NULL: No such device
+netlink: device veth0_to_team up master NULL: No such device
+netlink: add addr 172.20.20.36 dev dummy0: No such device
+netlink: add addr 172.20.20.32 dev veth1_to_team: No such device
+netlink: add addr fe80::24 dev dummy0: No such device
+netlink: add addr fe80::20 dev veth1_to_team: No such device
+netlink: device dummy0 up master NULL: No such device
+netlink: device veth1_to_team up master NULL: No such device
+netlink: add addr 172.20.20.37 dev nlmon0: No such device
+netlink: add addr 172.20.20.33 dev veth0_to_hsr: No such device
+netlink: add addr fe80::25 dev nlmon0: No such device
+netlink: add addr fe80::21 dev veth0_to_hsr: No such device
+netlink: device nlmon0 up master NULL: No such device
+netlink: device veth0_to_hsr up master NULL: No such device
+netlink: add addr 172.20.20.38 dev vxcan0: No such device
+netlink: add addr 172.20.20.34 dev veth1_to_hsr: No such device
+netlink: device vxcan0 up master NULL: No such device
+netlink: add addr fe80::22 dev veth1_to_hsr: No such device
+netlink: add addr 172.20.20.39 dev vxcan1: No such device
+netlink: device veth1_to_hsr up master NULL: No such device
+netlink: device vxcan1 up master NULL: No such device
+netlink: add addr 172.20.20.35 dev hsr0: No such device
+netlink: add addr 172.20.20.40 dev caif0: No such device
+netlink: add addr fe80::23 dev hsr0: No such device
+netlink: add addr fe80::28 dev caif0: No such device
+netlink: device hsr0 up master NULL: No such device
+netlink: device caif0 up master NULL: No such device
+netlink: add addr 172.20.20.36 dev dummy0: No such device
+netlink: add addr fe80::24 dev dummy0: No such device
+netlink: add addr 172.20.20.41 dev batadv0: No such device
+netlink: add addr fe80::29 dev batadv0: No such device
+netlink: device dummy0 up master NULL: No such device
+netlink: device batadv0 up master NULL: No such device
+netlink: add addr 172.20.20.37 dev nlmon0: No such device
+netlink: add addr fe80::25 dev nlmon0: No such device
+netlink: add addr 172.20.20.42 dev netdevsim0: No such device
+netlink: device nlmon0 up master NULL: No such device
+netlink: add addr fe80::2a dev netdevsim0: No such device
+netlink: add addr 172.20.20.38 dev vxcan0: No such device
+netlink: device netdevsim0 up master NULL: No such device
+netlink: device vxcan0 up master NULL: No such device
+netlink: add addr 172.20.20.43 dev xfrm0: No such device
+netlink: add addr fe80::2b dev xfrm0: No such device
+netlink: add addr 172.20.20.39 dev vxcan1: No such device
+netlink: device xfrm0 up master NULL: No such device
+netlink: device vxcan1 up master NULL: No such device
+netlink: add addr 172.20.20.44 dev veth0_virt_wifi: No such device
+netlink: add addr 172.20.20.40 dev caif0: No such device
+netlink: add addr fe80::2c dev veth0_virt_wifi: No such device
+netlink: add addr fe80::28 dev caif0: No such device
+netlink: device veth0_virt_wifi up master NULL: No such device
+netlink: device caif0 up master NULL: No such device
+netlink: add addr 172.20.20.45 dev veth1_virt_wifi: No such device
+netlink: add addr 172.20.20.41 dev batadv0: No such device
+netlink: add addr fe80::2d dev veth1_virt_wifi: No such device
+netlink: add addr fe80::29 dev batadv0: No such device
+netlink: device batadv0 up master NULL: No such device
+netlink: device veth1_virt_wifi up master NULL: No such device
+netlink: add addr 172.20.20.42 dev netdevsim0: No such device
+netlink: add addr 172.20.20.46 dev virt_wifi0: No such device
+netlink: add addr fe80::2a dev netdevsim0: No such device
+netlink: add addr fe80::2e dev virt_wifi0: No such device
+netlink: device netdevsim0 up master NULL: No such device
+netlink: device virt_wifi0 up master NULL: No such device
+netlink: add addr 172.20.20.43 dev xfrm0: No such device
+netlink: add addr 172.20.20.47 dev veth0_vlan: No such device
+netlink: add addr fe80::2b dev xfrm0: No such device
+netlink: add addr fe80::2f dev veth0_vlan: No such device
+netlink: device xfrm0 up master NULL: No such device
+netlink: device veth0_vlan up master NULL: No such device
+netlink: add addr 172.20.20.44 dev veth0_virt_wifi: No such device
+netlink: add addr 172.20.20.48 dev veth1_vlan: No such device
+netlink: add addr fe80::2c dev veth0_virt_wifi: No such device
+netlink: add addr fe80::30 dev veth1_vlan: No such device
+netlink: device veth0_virt_wifi up master NULL: No such device
+netlink: device veth1_vlan up master NULL: No such device
+netlink: add addr 172.20.20.45 dev veth1_virt_wifi: No such device
+netlink: add addr 172.20.20.49 dev vlan0: No such device
+netlink: add addr fe80::2d dev veth1_virt_wifi: No such device
+netlink: add addr fe80::31 dev vlan0: No such device
+netlink: device veth1_virt_wifi up master NULL: No such device
+netlink: device vlan0 up master NULL: No such device
+netlink: add addr 172.20.20.46 dev virt_wifi0: No such device
+netlink: add addr 172.20.20.50 dev vlan1: No such device
+netlink: add addr fe80::2e dev virt_wifi0: No such device
+netlink: add addr fe80::32 dev vlan1: No such device
+netlink: device virt_wifi0 up master NULL: No such device
+netlink: device vlan1 up master NULL: No such device
+netlink: add addr 172.20.20.47 dev veth0_vlan: No such device
+netlink: add addr 172.20.20.51 dev macvlan0: No such device
+netlink: add addr fe80::2f dev veth0_vlan: No such device
+netlink: add addr fe80::33 dev macvlan0: No such device
+netlink: device veth0_vlan up master NULL: No such device
+netlink: device macvlan0 up master NULL: No such device
+netlink: add addr 172.20.20.48 dev veth1_vlan: No such device
+netlink: add addr 172.20.20.52 dev macvlan1: No such device
+netlink: add addr fe80::30 dev veth1_vlan: No such device
+netlink: add addr fe80::34 dev macvlan1: No such device
+netlink: device veth1_vlan up master NULL: No such device
+netlink: device macvlan1 up master NULL: No such device
+netlink: add addr 172.20.20.49 dev vlan0: No such device
+netlink: add addr 172.20.20.53 dev ipvlan0: No such device
+netlink: add addr fe80::31 dev vlan0: No such device
+netlink: add addr fe80::35 dev ipvlan0: No such device
+netlink: device vlan0 up master NULL: No such device
+netlink: device ipvlan0 up master NULL: No such device
+netlink: add addr 172.20.20.50 dev vlan1: No such device
+netlink: add addr 172.20.20.54 dev ipvlan1: No such device
+netlink: add addr fe80::32 dev vlan1: No such device
+netlink: add addr fe80::36 dev ipvlan1: No such device
+netlink: device vlan1 up master NULL: No such device
+netlink: device ipvlan1 up master NULL: No such device
+netlink: add addr 172.20.20.51 dev macvlan0: No such device
+netlink: add addr 172.20.20.55 dev veth0_macvtap: No such device
+netlink: add addr fe80::33 dev macvlan0: No such device
+netlink: add addr fe80::37 dev veth0_macvtap: No such device
+netlink: device macvlan0 up master NULL: No such device
+netlink: device veth0_macvtap up master NULL: No such device
+netlink: add addr 172.20.20.52 dev macvlan1: No such device
+netlink: add addr 172.20.20.56 dev veth1_macvtap: No such device
+netlink: add addr fe80::34 dev macvlan1: No such device
+netlink: add addr fe80::38 dev veth1_macvtap: No such device
+netlink: device macvlan1 up master NULL: No such device
+netlink: device veth1_macvtap up master NULL: No such device
+netlink: add addr 172.20.20.53 dev ipvlan0: No such device
+netlink: add addr 172.20.20.57 dev macvtap0: No such device
+netlink: add addr fe80::35 dev ipvlan0: No such device
+netlink: add addr fe80::39 dev macvtap0: No such device
+netlink: device ipvlan0 up master NULL: No such device
+netlink: device macvtap0 up master NULL: No such device
+netlink: add addr 172.20.20.54 dev ipvlan1: No such device
+netlink: add addr 172.20.20.58 dev macsec0: No such device
+netlink: add addr fe80::3a dev macsec0: No such device
+netlink: add addr fe80::36 dev ipvlan1: No such device
+netlink: device macsec0 up master NULL: No such device
+netlink: device ipvlan1 up master NULL: No such device
+netlink: add addr 172.20.20.59 dev veth0_to_batadv: No such device
+netlink: add addr 172.20.20.55 dev veth0_macvtap: No such device
+netlink: add addr fe80::3b dev veth0_to_batadv: No such device
+netlink: add addr fe80::37 dev veth0_macvtap: No such device
+netlink: device veth0_to_batadv up master NULL: No such device
+netlink: device veth0_macvtap up master NULL: No such device
+netlink: add addr 172.20.20.60 dev veth1_to_batadv: No such device
+netlink: add addr 172.20.20.56 dev veth1_macvtap: No such device
+netlink: add addr fe80::3c dev veth1_to_batadv: No such device
+netlink: add addr fe80::38 dev veth1_macvtap: No such device
+netlink: device veth1_to_batadv up master NULL: No such device
+netlink: device veth1_macvtap up master NULL: No such device
+netlink: add addr 172.20.20.61 dev batadv_slave_0: No such device
+netlink: add addr 172.20.20.57 dev macvtap0: No such device
+netlink: add addr fe80::3d dev batadv_slave_0: No such device
+netlink: add addr fe80::39 dev macvtap0: No such device
+netlink: device batadv_slave_0 up master NULL: No such device
+netlink: device macvtap0 up master NULL: No such device
+netlink: add addr 172.20.20.62 dev batadv_slave_1: No such device
+netlink: add addr 172.20.20.58 dev macsec0: No such device
+netlink: add addr fe80::3e dev batadv_slave_1: No such device
+netlink: add addr fe80::3a dev macsec0: No such device
+netlink: device batadv_slave_1 up master NULL: No such device
+netlink: add addr 172.20.20.63 dev geneve0: No such device
+netlink: device macsec0 up master NULL: No such device
+netlink: add addr 172.20.20.59 dev veth0_to_batadv: No such device
+netlink: add addr fe80::3f dev geneve0: No such device
+netlink: add addr fe80::3b dev veth0_to_batadv: No such device
+netlink: device geneve0 up master NULL: No such device
+netlink: device veth0_to_batadv up master NULL: No such device
+netlink: add addr 172.20.20.64 dev geneve1: No such device
+netlink: add addr 172.20.20.60 dev veth1_to_batadv: No such device
+netlink: add addr fe80::40 dev geneve1: No such device
+netlink: add addr fe80::3c dev veth1_to_batadv: No such device
+netlink: device geneve1 up master NULL: No such device
+netlink: device veth1_to_batadv up master NULL: No such device
+netlink: add addr 172.20.20.65 dev wg0: No such device
+netlink: add addr 172.20.20.61 dev batadv_slave_0: No such device
+netlink: add addr fe80::41 dev wg0: No such device
+netlink: device wg0 up master NULL: No such device
+netlink: add addr fe80::3d dev batadv_slave_0: No such device
+netlink: add addr 172.20.20.66 dev wg1: No such device
+netlink: device batadv_slave_0 up master NULL: No such device
+netlink: add addr fe80::42 dev wg1: No such device
+netlink: add addr 172.20.20.62 dev batadv_slave_1: No such device
+netlink: device wg1 up master NULL: No such device
+netlink: add addr fe80::3e dev batadv_slave_1: No such device
+netlink: add addr 172.20.20.67 dev wg2: No such device
+netlink: device batadv_slave_1 up master NULL: No such device
+netlink: add addr fe80::43 dev wg2: No such device
+netlink: add addr 172.20.20.63 dev geneve0: No such device
+netlink: device wg2 up master NULL: No such device
+netlink: add addr fe80::3f dev geneve0: No such device
+mount of binder at /dev/binderfs failed: 19
+mkdir(/syzcgroup/unified/syz0) failed: 2
+mkdir(/syzcgroup/cpu/syz0) failed: 2
+mkdir(/syzcgroup/net/syz0) failed: 2
+iptable checkpoint filter/2: checkpoint entries=4 hooks=e size=632
+netlink: device geneve0 up master NULL: No such device
+iptable checkpoint mangle/2: checkpoint entries=6 hooks=1f size=936
+netlink: add addr 172.20.20.64 dev geneve1: No such device
+iptable checkpoint filter/10: checkpoint entries=4 hooks=e size=856
+iptable checkpoint mangle/10: checkpoint entries=6 hooks=1f size=1272
+netlink: add addr fe80::40 dev geneve1: No such device
+2022/02/16 21:31:42 ----- before executor 0 handshake recv reply &{0}
+2022/02/16 21:31:42 ----- after executor 0 handshake recv reply &{195948557}
+2022/02/16 21:31:42 ----- handshake 0 finished <- nil
+executor handshake send reply badf00d badf00d
+netlink: device geneve1 up master NULL: No such device
+netlink: add addr 172.20.20.65 dev wg0: No such device
+netlink: add addr fe80::41 dev wg0: No such device
+netlink: device wg0 up master NULL: No such device
+netlink: add addr 172.20.20.66 dev wg1: No such device
+netlink: add addr fe80::42 dev wg1: No such device
+netlink: device wg1 up master NULL: No such device
+netlink: add addr 172.20.20.67 dev wg2: No such device
+netlink: add addr fe80::43 dev wg2: No such device
+netlink: device wg2 up master NULL: No such device
+mount of binder at /dev/binderfs failed: 19
+mkdir(/syzcgroup/unified/syz0) failed: 2
+mkdir(/syzcgroup/cpu/syz0) failed: 2
+mkdir(/syzcgroup/net/syz0) failed: 2
+iptable checkpoint filter/2: checkpoint entries=4 hooks=e size=632
+iptable checkpoint mangle/2: checkpoint entries=6 hooks=1f size=936
+iptable checkpoint filter/10: checkpoint entries=4 hooks=e size=856
+iptable checkpoint mangle/10: checkpoint entries=6 hooks=1f size=1272
+2022/02/16 21:31:42 ----- before executor 3 handshake recv reply &{195948557}
+2022/02/16 21:31:42 ----- after executor 3 handshake recv reply &{195948557}
+2022/02/16 21:31:42 ----- handshake 3 finished <- nil
+executor handshake send reply badf00d badf00d
+before receiving handshake request
+executor handshake receive req 0x7ff7fd1f2000
+req.flags fa3
+bitmap is not found, coverage filter disabled
+spawned loop pid 450
+mount(fusectl) failed: 16
+netlink: add addr 172.30.0.1 dev nr0: No such device
+netlink: device nr0 up master NULL: No such device
+netlink: add addr 172.30.1.1 dev rose0: No such device
+netlink: device rose0 up master NULL: No such device
+netlink: failed to get family id for devlink: No such file or directory
+netlink: failed to get family id for devlink: No such file or directory
+netlink: adding device ip6gretap0 type ip6gretap: Operation not supported
+netlink: adding device bridge0 type bridge: Operation not supported
+netlink: adding device vcan0 type vcan: Operation not supported
+netlink: adding device bond0 type bond: Operation not supported
+netlink: adding device team0 type team: Operation not supported
+netlink: adding device dummy0 type dummy: Operation not supported
+netlink: adding device nlmon0 type nlmon: Operation not supported
+netlink: adding device caif0 type caif: Operation not supported
+netlink: adding device batadv0 type batadv: Operation not supported
+netlink: adding device vxcan1 type vxcan: Operation not supported
+netlink: adding device netdevsim0 type netdevsim: Operation not supported
+netlink: adding device (null) type veth: Operation not supported
+netlink: adding device xfrm0 type xfrm: Operation not supported
+netlink: adding device wg0 type wireguard: Operation not supported
+netlink: adding device wg1 type wireguard: Operation not supported
+netlink: adding device wg2 type wireguard: Operation not supported
+netlink: adding device bridge_slave_0 type veth peer veth0_to_bridge: Operation not supported
+netlink: adding device bridge_slave_1 type veth peer veth1_to_bridge: Operation not supported
+netlink: device bridge_slave_0 up master bridge0: No such device
+netlink: device bridge_slave_1 up master bridge0: No such device
+netlink: adding device bond_slave_0 type veth peer veth0_to_bond: Operation not supported
+netlink: adding device bond_slave_1 type veth peer veth1_to_bond: Operation not supported
+netlink: device bond_slave_0 up master bond0: No such device
+netlink: device bond_slave_1 up master bond0: No such device
+netlink: adding device team_slave_0 type veth peer veth0_to_team: Operation not supported
+netlink: adding device team_slave_1 type veth peer veth1_to_team: Operation not supported
+netlink: device team_slave_0 up master team0: No such device
+netlink: device team_slave_1 up master team0: No such device
+netlink: adding device batadv_slave_0 type veth peer veth0_to_batadv: Operation not supported
+netlink: adding device batadv_slave_1 type veth peer veth1_to_batadv: Operation not supported
+netlink: device batadv_slave_0 up master batadv0: No such device
+netlink: device batadv_slave_1 up master batadv0: No such device
+netlink: device bridge_slave_0 up master NULL: No such device
+netlink: device bridge_slave_1 up master NULL: No such device
+netlink: adding device hsr_slave_0 type veth peer veth0_to_hsr: Operation not supported
+netlink: adding device hsr_slave_1 type veth peer veth1_to_hsr: Operation not supported
+netlink: adding device hsr0 type hsr slave1 hsr_slave_0 slave2 hsr_slave_1: Unknown error -95
+netlink: device hsr_slave_0 up master NULL: No such device
+netlink: device hsr_slave_1 up master NULL: No such device
+netlink: adding device veth0_virt_wifi type veth peer veth1_virt_wifi: Operation not supported
+netlink: adding device virt_wifi0 type virt_wifi link veth1_virt_wifi: Operation not supported
+netlink: adding device veth0_vlan type veth peer veth1_vlan: Operation not supported
+netlink: add vlan0 type vlan link veth0_vlan id 0: Operation not supported
+netlink: add vlan1 type vlan link veth0_vlan id 1: Operation not supported
+netlink: add macvlan0 type macvlan link veth1_vlan mode 4: Operation not supported
+netlink: add macvlan1 type macvlan link veth1_vlan mode 4: Operation not supported
+netlink: add ipvlan0 type ipvlan link veth0_vlan mode 0: Operation not supported
+netlink: add ipvlan1 type ipvlan link veth0_vlan mode 2: Operation not supported
+netlink: adding device veth0_macvtap type veth peer veth1_macvtap: Operation not supported
+netlink: adding device macvtap0 type macvtap link veth0_macvtap: Operation not supported
+netlink: adding device macsec0 type macsec link veth1_macvtap: Operation not supported
+netlink: add geneve0 type geneve vni 0: Operation not supported
+netlink: add geneve1 type geneve vni 1: Operation not supported
+netlink: failed to get family id for wireguard: No such file or directory
+netlink: add addr 172.20.20.12 dev bridge0: No such device
+netlink: add addr fe80::0c dev bridge0: No such device
+netlink: device bridge0 up master NULL: No such device
+netlink: add addr 172.20.20.13 dev vcan0: No such device
+netlink: device vcan0 up master NULL: No such device
+netlink: add addr 172.20.20.14 dev tunl0: No such device
+netlink: add addr fe80::0e dev tunl0: No such device
+netlink: device tunl0 up master NULL: No such device
+netlink: add addr 172.20.20.15 dev gre0: No such device
+netlink: add addr fe80::0f dev gre0: No such device
+netlink: device gre0 up master NULL: No such device
+netlink: add addr 172.20.20.16 dev gretap0: No such device
+netlink: add addr fe80::10 dev gretap0: No such device
+netlink: device gretap0 up master NULL: No such device
+netlink: add addr 172.20.20.17 dev ip_vti0: No such device
+netlink: add addr fe80::11 dev ip_vti0: No such device
+netlink: device ip_vti0 up master NULL: No such device
+netlink: add addr 172.20.20.18 dev ip6_vti0: No such device
+netlink: add addr fe80::12 dev ip6_vti0: No such device
+netlink: device ip6_vti0 up master NULL: No such device
+netlink: add addr 172.20.20.19 dev ip6tnl0: No such device
+netlink: add addr fe80::13 dev ip6tnl0: No such device
+netlink: device ip6tnl0 up master NULL: No such device
+netlink: add addr 172.20.20.20 dev ip6gre0: No such device
+netlink: add addr fe80::14 dev ip6gre0: No such device
+netlink: device ip6gre0 up master NULL: No such device
+netlink: add addr 172.20.20.21 dev ip6gretap0: No such device
+netlink: add addr fe80::15 dev ip6gretap0: No such device
+netlink: device ip6gretap0 up master NULL: No such device
+netlink: add addr 172.20.20.22 dev erspan0: No such device
+netlink: add addr fe80::16 dev erspan0: No such device
+netlink: device erspan0 up master NULL: No such device
+netlink: add addr 172.20.20.23 dev bond0: No such device
+netlink: add addr fe80::17 dev bond0: No such device
+netlink: device bond0 up master NULL: No such device
+netlink: add addr 172.20.20.24 dev veth0: No such device
+netlink: add addr fe80::18 dev veth0: No such device
+netlink: device veth0 up master NULL: No such device
+netlink: add addr 172.20.20.25 dev veth1: No such device
+netlink: add addr fe80::19 dev veth1: No such device
+netlink: device veth1 up master NULL: No such device
+netlink: add addr 172.20.20.26 dev team0: No such device
+netlink: add addr fe80::1a dev team0: No such device
+netlink: device team0 up master NULL: No such device
+netlink: add addr 172.20.20.27 dev veth0_to_bridge: No such device
+netlink: add addr fe80::1b dev veth0_to_bridge: No such device
+netlink: device veth0_to_bridge up master NULL: No such device
+netlink: add addr 172.20.20.28 dev veth1_to_bridge: No such device
+netlink: add addr fe80::1c dev veth1_to_bridge: No such device
+netlink: device veth1_to_bridge up master NULL: No such device
+netlink: add addr 172.20.20.29 dev veth0_to_bond: No such device
+netlink: add addr fe80::1d dev veth0_to_bond: No such device
+netlink: device veth0_to_bond up master NULL: No such device
+netlink: add addr 172.20.20.30 dev veth1_to_bond: No such device
+netlink: add addr fe80::1e dev veth1_to_bond: No such device
+netlink: device veth1_to_bond up master NULL: No such device
+netlink: add addr 172.20.20.31 dev veth0_to_team: No such device
+netlink: add addr fe80::1f dev veth0_to_team: No such device
+netlink: device veth0_to_team up master NULL: No such device
+netlink: add addr 172.20.20.32 dev veth1_to_team: No such device
+netlink: add addr fe80::20 dev veth1_to_team: No such device
+netlink: device veth1_to_team up master NULL: No such device
+netlink: add addr 172.20.20.33 dev veth0_to_hsr: No such device
+netlink: add addr fe80::21 dev veth0_to_hsr: No such device
+netlink: device veth0_to_hsr up master NULL: No such device
+netlink: add addr 172.20.20.34 dev veth1_to_hsr: No such device
+netlink: add addr fe80::22 dev veth1_to_hsr: No such device
+netlink: device veth1_to_hsr up master NULL: No such device
+netlink: add addr 172.20.20.35 dev hsr0: No such device
+netlink: add addr fe80::23 dev hsr0: No such device
+netlink: device hsr0 up master NULL: No such device
+netlink: add addr 172.20.20.36 dev dummy0: No such device
+netlink: add addr fe80::24 dev dummy0: No such device
+netlink: device dummy0 up master NULL: No such device
+netlink: add addr 172.20.20.37 dev nlmon0: No such device
+netlink: add addr fe80::25 dev nlmon0: No such device
+netlink: device nlmon0 up master NULL: No such device
+netlink: add addr 172.20.20.38 dev vxcan0: No such device
+netlink: device vxcan0 up master NULL: No such device
+netlink: add addr 172.20.20.39 dev vxcan1: No such device
+netlink: device vxcan1 up master NULL: No such device
+netlink: add addr 172.20.20.40 dev caif0: No such device
+netlink: add addr fe80::28 dev caif0: No such device
+netlink: device caif0 up master NULL: No such device
+netlink: add addr 172.20.20.41 dev batadv0: No such device
+netlink: add addr fe80::29 dev batadv0: No such device
+netlink: device batadv0 up master NULL: No such device
+netlink: add addr 172.20.20.42 dev netdevsim0: No such device
+netlink: add addr fe80::2a dev netdevsim0: No such device
+netlink: device netdevsim0 up master NULL: No such device
+netlink: add addr 172.20.20.43 dev xfrm0: No such device
+netlink: add addr fe80::2b dev xfrm0: No such device
+netlink: device xfrm0 up master NULL: No such device
+netlink: add addr 172.20.20.44 dev veth0_virt_wifi: No such device
+netlink: add addr fe80::2c dev veth0_virt_wifi: No such device
+netlink: device veth0_virt_wifi up master NULL: No such device
+netlink: add addr 172.20.20.45 dev veth1_virt_wifi: No such device
+netlink: add addr fe80::2d dev veth1_virt_wifi: No such device
+netlink: device veth1_virt_wifi up master NULL: No such device
+netlink: add addr 172.20.20.46 dev virt_wifi0: No such device
+netlink: add addr fe80::2e dev virt_wifi0: No such device
+netlink: device virt_wifi0 up master NULL: No such device
+netlink: add addr 172.20.20.47 dev veth0_vlan: No such device
+netlink: add addr fe80::2f dev veth0_vlan: No such device
+netlink: device veth0_vlan up master NULL: No such device
+netlink: add addr 172.20.20.48 dev veth1_vlan: No such device
+netlink: add addr fe80::30 dev veth1_vlan: No such device
+netlink: device veth1_vlan up master NULL: No such device
+netlink: add addr 172.20.20.49 dev vlan0: No such device
+netlink: add addr fe80::31 dev vlan0: No such device
+netlink: device vlan0 up master NULL: No such device
+netlink: add addr 172.20.20.50 dev vlan1: No such device
+netlink: add addr fe80::32 dev vlan1: No such device
+netlink: device vlan1 up master NULL: No such device
+netlink: add addr 172.20.20.51 dev macvlan0: No such device
+netlink: add addr fe80::33 dev macvlan0: No such device
+netlink: device macvlan0 up master NULL: No such device
+netlink: add addr 172.20.20.52 dev macvlan1: No such device
+netlink: add addr fe80::34 dev macvlan1: No such device
+netlink: device macvlan1 up master NULL: No such device
+netlink: add addr 172.20.20.53 dev ipvlan0: No such device
+netlink: add addr fe80::35 dev ipvlan0: No such device
+netlink: device ipvlan0 up master NULL: No such device
+netlink: add addr 172.20.20.54 dev ipvlan1: No such device
+netlink: add addr fe80::36 dev ipvlan1: No such device
+netlink: device ipvlan1 up master NULL: No such device
+netlink: add addr 172.20.20.55 dev veth0_macvtap: No such device
+netlink: add addr fe80::37 dev veth0_macvtap: No such device
+netlink: device veth0_macvtap up master NULL: No such device
+netlink: add addr 172.20.20.56 dev veth1_macvtap: No such device
+netlink: add addr fe80::38 dev veth1_macvtap: No such device
+netlink: device veth1_macvtap up master NULL: No such device
+netlink: add addr 172.20.20.57 dev macvtap0: No such device
+netlink: add addr fe80::39 dev macvtap0: No such device
+netlink: device macvtap0 up master NULL: No such device
+netlink: add addr 172.20.20.58 dev macsec0: No such device
+netlink: add addr fe80::3a dev macsec0: No such device
+netlink: device macsec0 up master NULL: No such device
+netlink: add addr 172.20.20.59 dev veth0_to_batadv: No such device
+netlink: add addr fe80::3b dev veth0_to_batadv: No such device
+netlink: device veth0_to_batadv up master NULL: No such device
+netlink: add addr 172.20.20.60 dev veth1_to_batadv: No such device
+netlink: add addr fe80::3c dev veth1_to_batadv: No such device
+netlink: device veth1_to_batadv up master NULL: No such device
+netlink: add addr 172.20.20.61 dev batadv_slave_0: No such device
+netlink: add addr fe80::3d dev batadv_slave_0: No such device
+netlink: device batadv_slave_0 up master NULL: No such device
+netlink: add addr 172.20.20.62 dev batadv_slave_1: No such device
+netlink: add addr fe80::3e dev batadv_slave_1: No such device
+netlink: device batadv_slave_1 up master NULL: No such device
+before receiving handshake request
+executor handshake receive req 0x7fd4f5245000
+req.flags fa3
+netlink: add addr 172.20.20.63 dev geneve0: No such device
+netlink: add addr fe80::3f dev geneve0: No such device
+netlink: device geneve0 up master NULL: No such device
+netlink: add addr 172.20.20.64 dev geneve1: No such device
+bitmap is not found, coverage filter disabled
+netlink: add addr fe80::40 dev geneve1: No such device
+spawned loop pid 438
+mount(fusectl) failed: 16
+netlink: device geneve1 up master NULL: No such device
+netlink: add addr 172.30.0.1 dev nr0: No such device
+netlink: add addr 172.20.20.65 dev wg0: No such device
+netlink: add addr fe80::41 dev wg0: No such device
+netlink: device nr0 up master NULL: No such device
+netlink: device wg0 up master NULL: No such device
+netlink: add addr 172.30.1.1 dev rose0: No such device
+netlink: add addr 172.20.20.66 dev wg1: No such device
+netlink: device rose0 up master NULL: No such device
+netlink: add addr fe80::42 dev wg1: No such device
+netlink: failed to get family id for devlink: No such file or directory
+netlink: device wg1 up master NULL: No such device
+netlink: failed to get family id for devlink: No such file or directory
+netlink: adding device ip6gretap0 type ip6gretap: Operation not supported
+netlink: add addr 172.20.20.67 dev wg2: No such device
+netlink: adding device bridge0 type bridge: Operation not supported
+netlink: adding device vcan0 type vcan: Operation not supported
+netlink: add addr fe80::43 dev wg2: No such device
+netlink: adding device bond0 type bond: Operation not supported
+netlink: adding device team0 type team: Operation not supported
+netlink: device wg2 up master NULL: No such device
+mount of binder at /dev/binderfs failed: 19
+mkdir(/syzcgroup/unified/syz0) failed: 2
+mkdir(/syzcgroup/cpu/syz0) failed: 2
+mkdir(/syzcgroup/net/syz0) failed: 2
+netlink: adding device dummy0 type dummy: Operation not supported
+iptable checkpoint filter/2: checkpoint entries=4 hooks=e size=632
+netlink: adding device nlmon0 type nlmon: Operation not supported
+netlink: adding device caif0 type caif: Operation not supported
+iptable checkpoint mangle/2: checkpoint entries=6 hooks=1f size=936
+netlink: adding device batadv0 type batadv: Operation not supported
+netlink: adding device vxcan1 type vxcan: Operation not supported
+iptable checkpoint filter/10: checkpoint entries=4 hooks=e size=856
+netlink: adding device netdevsim0 type netdevsim: Operation not supported
+iptable checkpoint mangle/10: checkpoint entries=6 hooks=1f size=1272
+netlink: adding device (null) type veth: Operation not supported
+netlink: adding device xfrm0 type xfrm: Operation not supported
+2022/02/16 21:31:43 ----- before executor 2 handshake recv reply &{195948557}
+2022/02/16 21:31:43 ----- after executor 2 handshake recv reply &{195948557}
+2022/02/16 21:31:43 ----- handshake 2 finished <- nil
+executor handshake send reply badf00d badf00d
+netlink: adding device wg0 type wireguard: Operation not supported
+netlink: adding device wg1 type wireguard: Operation not supported
+netlink: adding device wg2 type wireguard: Operation not supported
+netlink: adding device bridge_slave_0 type veth peer veth0_to_bridge: Operation not supported
+netlink: adding device bridge_slave_1 type veth peer veth1_to_bridge: Operation not supported
+netlink: device bridge_slave_0 up master bridge0: No such device
+netlink: device bridge_slave_1 up master bridge0: No such device
+netlink: adding device bond_slave_0 type veth peer veth0_to_bond: Operation not supported
+netlink: adding device bond_slave_1 type veth peer veth1_to_bond: Operation not supported
+netlink: device bond_slave_0 up master bond0: No such device
+netlink: device bond_slave_1 up master bond0: No such device
+netlink: adding device team_slave_0 type veth peer veth0_to_team: Operation not supported
+netlink: adding device team_slave_1 type veth peer veth1_to_team: Operation not supported
+netlink: device team_slave_0 up master team0: No such device
+netlink: device team_slave_1 up master team0: No such device
+netlink: adding device batadv_slave_0 type veth peer veth0_to_batadv: Operation not supported
+netlink: adding device batadv_slave_1 type veth peer veth1_to_batadv: Operation not supported
+netlink: device batadv_slave_0 up master batadv0: No such device
+netlink: device batadv_slave_1 up master batadv0: No such device
+netlink: device bridge_slave_0 up master NULL: No such device
+netlink: device bridge_slave_1 up master NULL: No such device
+netlink: adding device hsr_slave_0 type veth peer veth0_to_hsr: Operation not supported
+netlink: adding device hsr_slave_1 type veth peer veth1_to_hsr: Operation not supported
+netlink: adding device hsr0 type hsr slave1 hsr_slave_0 slave2 hsr_slave_1: Unknown error -95
+netlink: device hsr_slave_0 up master NULL: No such device
+netlink: device hsr_slave_1 up master NULL: No such device
+netlink: adding device veth0_virt_wifi type veth peer veth1_virt_wifi: Operation not supported
+netlink: adding device virt_wifi0 type virt_wifi link veth1_virt_wifi: Operation not supported
+netlink: adding device veth0_vlan type veth peer veth1_vlan: Operation not supported
+netlink: add vlan0 type vlan link veth0_vlan id 0: Operation not supported
+netlink: add vlan1 type vlan link veth0_vlan id 1: Operation not supported
+netlink: add macvlan0 type macvlan link veth1_vlan mode 4: Operation not supported
+netlink: add macvlan1 type macvlan link veth1_vlan mode 4: Operation not supported
+netlink: add ipvlan0 type ipvlan link veth0_vlan mode 0: Operation not supported
+netlink: add ipvlan1 type ipvlan link veth0_vlan mode 2: Operation not supported
+netlink: adding device veth0_macvtap type veth peer veth1_macvtap: Operation not supported
+netlink: adding device macvtap0 type macvtap link veth0_macvtap: Operation not supported
+netlink: adding device macsec0 type macsec link veth1_macvtap: Operation not supported
+netlink: add geneve0 type geneve vni 0: Operation not supported
+netlink: add geneve1 type geneve vni 1: Operation not supported
+netlink: failed to get family id for wireguard: No such file or directory
+netlink: add addr 172.20.20.12 dev bridge0: No such device
+netlink: add addr fe80::0c dev bridge0: No such device
+netlink: device bridge0 up master NULL: No such device
+netlink: add addr 172.20.20.13 dev vcan0: No such device
+netlink: device vcan0 up master NULL: No such device
+netlink: add addr 172.20.20.14 dev tunl0: No such device
+netlink: add addr fe80::0e dev tunl0: No such device
+netlink: device tunl0 up master NULL: No such device
+netlink: add addr 172.20.20.15 dev gre0: No such device
+netlink: add addr fe80::0f dev gre0: No such device
+netlink: device gre0 up master NULL: No such device
+netlink: add addr 172.20.20.16 dev gretap0: No such device
+netlink: add addr fe80::10 dev gretap0: No such device
+netlink: device gretap0 up master NULL: No such device
+netlink: add addr 172.20.20.17 dev ip_vti0: No such device
+netlink: add addr fe80::11 dev ip_vti0: No such device
+netlink: device ip_vti0 up master NULL: No such device
+netlink: add addr 172.20.20.18 dev ip6_vti0: No such device
+netlink: add addr fe80::12 dev ip6_vti0: No such device
+netlink: device ip6_vti0 up master NULL: No such device
+netlink: add addr 172.20.20.19 dev ip6tnl0: No such device
+netlink: add addr fe80::13 dev ip6tnl0: No such device
+netlink: device ip6tnl0 up master NULL: No such device
+netlink: add addr 172.20.20.20 dev ip6gre0: No such device
+netlink: add addr fe80::14 dev ip6gre0: No such device
+netlink: device ip6gre0 up master NULL: No such device
+netlink: add addr 172.20.20.21 dev ip6gretap0: No such device
+netlink: add addr fe80::15 dev ip6gretap0: No such device
+netlink: device ip6gretap0 up master NULL: No such device
+netlink: add addr 172.20.20.22 dev erspan0: No such device
+netlink: add addr fe80::16 dev erspan0: No such device
+netlink: device erspan0 up master NULL: No such device
+netlink: add addr 172.20.20.23 dev bond0: No such device
+netlink: add addr fe80::17 dev bond0: No such device
+netlink: device bond0 up master NULL: No such device
+netlink: add addr 172.20.20.24 dev veth0: No such device
+netlink: add addr fe80::18 dev veth0: No such device
+netlink: device veth0 up master NULL: No such device
+netlink: add addr 172.20.20.25 dev veth1: No such device
+netlink: add addr fe80::19 dev veth1: No such device
+netlink: device veth1 up master NULL: No such device
+netlink: add addr 172.20.20.26 dev team0: No such device
+netlink: add addr fe80::1a dev team0: No such device
+netlink: device team0 up master NULL: No such device
+netlink: add addr 172.20.20.27 dev veth0_to_bridge: No such device
+netlink: add addr fe80::1b dev veth0_to_bridge: No such device
+netlink: device veth0_to_bridge up master NULL: No such device
+netlink: add addr 172.20.20.28 dev veth1_to_bridge: No such device
+netlink: add addr fe80::1c dev veth1_to_bridge: No such device
+netlink: device veth1_to_bridge up master NULL: No such device
+netlink: add addr 172.20.20.29 dev veth0_to_bond: No such device
+netlink: add addr fe80::1d dev veth0_to_bond: No such device
+netlink: device veth0_to_bond up master NULL: No such device
+netlink: add addr 172.20.20.30 dev veth1_to_bond: No such device
+netlink: add addr fe80::1e dev veth1_to_bond: No such device
+netlink: device veth1_to_bond up master NULL: No such device
+netlink: add addr 172.20.20.31 dev veth0_to_team: No such device
+netlink: add addr fe80::1f dev veth0_to_team: No such device
+netlink: device veth0_to_team up master NULL: No such device
+netlink: add addr 172.20.20.32 dev veth1_to_team: No such device
+netlink: add addr fe80::20 dev veth1_to_team: No such device
+netlink: device veth1_to_team up master NULL: No such device
+netlink: add addr 172.20.20.33 dev veth0_to_hsr: No such device
+netlink: add addr fe80::21 dev veth0_to_hsr: No such device
+netlink: device veth0_to_hsr up master NULL: No such device
+netlink: add addr 172.20.20.34 dev veth1_to_hsr: No such device
+netlink: add addr fe80::22 dev veth1_to_hsr: No such device
+netlink: device veth1_to_hsr up master NULL: No such device
+netlink: add addr 172.20.20.35 dev hsr0: No such device
+netlink: add addr fe80::23 dev hsr0: No such device
+netlink: device hsr0 up master NULL: No such device
+netlink: add addr 172.20.20.36 dev dummy0: No such device
+netlink: add addr fe80::24 dev dummy0: No such device
+netlink: device dummy0 up master NULL: No such device
+netlink: add addr 172.20.20.37 dev nlmon0: No such device
+netlink: add addr fe80::25 dev nlmon0: No such device
+netlink: device nlmon0 up master NULL: No such device
+netlink: add addr 172.20.20.38 dev vxcan0: No such device
+netlink: device vxcan0 up master NULL: No such device
+netlink: add addr 172.20.20.39 dev vxcan1: No such device
+netlink: device vxcan1 up master NULL: No such device
+netlink: add addr 172.20.20.40 dev caif0: No such device
+netlink: add addr fe80::28 dev caif0: No such device
+netlink: device caif0 up master NULL: No such device
+netlink: add addr 172.20.20.41 dev batadv0: No such device
+netlink: add addr fe80::29 dev batadv0: No such device
+netlink: device batadv0 up master NULL: No such device
+netlink: add addr 172.20.20.42 dev netdevsim0: No such device
+netlink: add addr fe80::2a dev netdevsim0: No such device
+netlink: device netdevsim0 up master NULL: No such device
+netlink: add addr 172.20.20.43 dev xfrm0: No such device
+netlink: add addr fe80::2b dev xfrm0: No such device
+netlink: device xfrm0 up master NULL: No such device
+netlink: add addr 172.20.20.44 dev veth0_virt_wifi: No such device
+netlink: add addr fe80::2c dev veth0_virt_wifi: No such device
+netlink: device veth0_virt_wifi up master NULL: No such device
+netlink: add addr 172.20.20.45 dev veth1_virt_wifi: No such device
+netlink: add addr fe80::2d dev veth1_virt_wifi: No such device
+netlink: device veth1_virt_wifi up master NULL: No such device
+netlink: add addr 172.20.20.46 dev virt_wifi0: No such device
+netlink: add addr fe80::2e dev virt_wifi0: No such device
+netlink: device virt_wifi0 up master NULL: No such device
+netlink: add addr 172.20.20.47 dev veth0_vlan: No such device
+netlink: add addr fe80::2f dev veth0_vlan: No such device
+netlink: device veth0_vlan up master NULL: No such device
+netlink: add addr 172.20.20.48 dev veth1_vlan: No such device
+netlink: add addr fe80::30 dev veth1_vlan: No such device
+netlink: device veth1_vlan up master NULL: No such device
+netlink: add addr 172.20.20.49 dev vlan0: No such device
+netlink: add addr fe80::31 dev vlan0: No such device
+netlink: device vlan0 up master NULL: No such device
+netlink: add addr 172.20.20.50 dev vlan1: No such device
+netlink: add addr fe80::32 dev vlan1: No such device
+netlink: device vlan1 up master NULL: No such device
+netlink: add addr 172.20.20.51 dev macvlan0: No such device
+netlink: add addr fe80::33 dev macvlan0: No such device
+netlink: device macvlan0 up master NULL: No such device
+netlink: add addr 172.20.20.52 dev macvlan1: No such device
+netlink: add addr fe80::34 dev macvlan1: No such device
+netlink: device macvlan1 up master NULL: No such device
+netlink: add addr 172.20.20.53 dev ipvlan0: No such device
+netlink: add addr fe80::35 dev ipvlan0: No such device
+netlink: device ipvlan0 up master NULL: No such device
+netlink: add addr 172.20.20.54 dev ipvlan1: No such device
+netlink: add addr fe80::36 dev ipvlan1: No such device
+netlink: device ipvlan1 up master NULL: No such device
+netlink: add addr 172.20.20.55 dev veth0_macvtap: No such device
+netlink: add addr fe80::37 dev veth0_macvtap: No such device
+netlink: device veth0_macvtap up master NULL: No such device
+netlink: add addr 172.20.20.56 dev veth1_macvtap: No such device
+netlink: add addr fe80::38 dev veth1_macvtap: No such device
+netlink: device veth1_macvtap up master NULL: No such device
+netlink: add addr 172.20.20.57 dev macvtap0: No such device
+netlink: add addr fe80::39 dev macvtap0: No such device
+netlink: device macvtap0 up master NULL: No such device
+netlink: add addr 172.20.20.58 dev macsec0: No such device
+netlink: add addr fe80::3a dev macsec0: No such device
+netlink: device macsec0 up master NULL: No such device
+netlink: add addr 172.20.20.59 dev veth0_to_batadv: No such device
+netlink: add addr fe80::3b dev veth0_to_batadv: No such device
+netlink: device veth0_to_batadv up master NULL: No such device
+netlink: add addr 172.20.20.60 dev veth1_to_batadv: No such device
+netlink: add addr fe80::3c dev veth1_to_batadv: No such device
+netlink: device veth1_to_batadv up master NULL: No such device
+netlink: add addr 172.20.20.61 dev batadv_slave_0: No such device
+netlink: add addr fe80::3d dev batadv_slave_0: No such device
+netlink: device batadv_slave_0 up master NULL: No such device
+netlink: add addr 172.20.20.62 dev batadv_slave_1: No such device
+netlink: add addr fe80::3e dev batadv_slave_1: No such device
+netlink: device batadv_slave_1 up master NULL: No such device
+netlink: add addr 172.20.20.63 dev geneve0: No such device
+netlink: add addr fe80::3f dev geneve0: No such device
+netlink: device geneve0 up master NULL: No such device
+netlink: add addr 172.20.20.64 dev geneve1: No such device
+netlink: add addr fe80::40 dev geneve1: No such device
+netlink: device geneve1 up master NULL: No such device
+netlink: add addr 172.20.20.65 dev wg0: No such device
+netlink: add addr fe80::41 dev wg0: No such device
+netlink: device wg0 up master NULL: No such device
+netlink: add addr 172.20.20.66 dev wg1: No such device
+netlink: add addr fe80::42 dev wg1: No such device
+netlink: device wg1 up master NULL: No such device
+netlink: add addr 172.20.20.67 dev wg2: No such device
+netlink: add addr fe80::43 dev wg2: No such device
+netlink: device wg2 up master NULL: No such device
+mount of binder at /dev/binderfs failed: 19
+mkdir(/syzcgroup/unified/syz0) failed: 2
+mkdir(/syzcgroup/cpu/syz0) failed: 2
+mkdir(/syzcgroup/net/syz0) failed: 2
+iptable checkpoint filter/2: checkpoint entries=4 hooks=e size=632
+iptable checkpoint mangle/2: checkpoint entries=6 hooks=1f size=936
+iptable checkpoint filter/10: checkpoint entries=4 hooks=e size=856
+iptable checkpoint mangle/10: checkpoint entries=6 hooks=1f size=1272
+2022/02/16 21:31:44 ----- before executor 1 handshake recv reply &{195948557}
+2022/02/16 21:31:44 ----- after executor 1 handshake recv reply &{195948557}
+2022/02/16 21:31:44 ----- handshake 1 finished <- nil
+2022/02/16 21:31:44 ----- handshake timeout
+2022/02/16 21:31:44 ----- handshake return
+2022/02/16 21:31:44 ----- exec
+2022/02/16 21:31:44 execute req [206 250 173 235 254 15 220 186 163 15 0 0 0 0 0 0 26 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 50 0 0 0 0 0 0 0 136 19 0 0 0 0 0 0 1 0 0 0 0 0 0 0 208 28 0 0 0 0 0 0 208 28 0 0 0 0 0 0 16 19 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 185 0 0 0 0 0 0 0 137 29 0 0 0 0 0 0 89 58 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] %!v(MISSING)
+executor handshake send reply badf00d badf00d
+2022/02/16 21:31:44 --------- executor 0 receive reply
+receive_execute 0x7f4d45ccb000
+[4089ms] exec opts: procid=0 threaded=0 collide=0 cover=0 comps=0 dedup=1 timeouts=50/5000/1 prog=4880 filter=0
+receive_execute 0x7ff7fd1f2000
+[4106ms] exec opts: procid=0 threaded=0 collide=0 cover=0 comps=0 dedup=1 timeouts=50/5000/1 prog=7376 filter=0
+receive_execute 0x7f1be005d000
+--- output_data: badf00d 1 0 tag:0 count: 0
+-----is_dfs_client continue
+receive_execute 0x7fd4f5245000
+[4130ms] exec opts: procid=0 threaded=0 collide=0 cover=0 comps=0 dedup=1 timeouts=50/5000/1 prog=7376 filter=0
+spawned worker pid 2
+spawned worker pid 2
+spawned worker pid 2
+#0 [4157ms] -> dup(0xffffffffffffffff) 170 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 32
+#0 [4157ms] <- dup=0xffffffffffffffff errno=9 cover=1197  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 350
+#0 [4157ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [4157ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 7
+#0 [4157ms] -> fcntl$F_SET_RW_HINT(0xffffffffffffffff, 0x40c, 0x20000000) 201 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [4157ms] <- fcntl$F_SET_RW_HINT=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [4157ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [4157ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [4157ms] -> write$binfmt_misc(0xffffffffffffffff, 0x20000040, 0x2f) 4118 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 1
+#0 [4157ms] <- write$binfmt_misc=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 3
+#0 [4157ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x1) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [4157ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [4157ms] -> fchown(0xffffffffffffffff, 0x0, 0xee01) 196 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 93
+#0 [4157ms] <- fchown=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 6
+#0 [4157ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [4157ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [4157ms] -> openat(0xffffffffffffffff, 0x20000080, 0x800, 0x86) 2460 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 257
+#0 [4157ms] <- openat=0xffffffffffffffff errno=9 cover=380  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 186
+#0 [4157ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [4157ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [4157ms] -> fcntl$setownex(0xffffffffffffffff, 0xf, 0x200000c0) 212 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [4157ms] <- fcntl$setownex=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [4157ms] -> open$dir(0x20000100, 0x161000, 0x22) 2457 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [4159ms] <- open$dir=0xffffffffffffffff errno=2 cover=7075  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 2816
+#0 [4159ms] -> read(0xffffffffffffffff, 0x20000140, 0xe3) 2751 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 0
+#0 [4159ms] <- read=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 12
+#0 [4159ms] -> open(0x20000240, 0x1, 0x1c1) 2456 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [4159ms] <- open=0xffffffffffffffff errno=2 cover=662  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 78
+#0 [4159ms] -> write$binfmt_elf32(0xffffffffffffffff, 0x20000280, 0xae8) 4116 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 1
+#0 [4159ms] <- write$binfmt_elf32=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [4159ms] -> sendfile(0xffffffffffffffff, 0xffffffffffffffff, 0x20000d80, 0xf05) 2856 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 40
+#0 [4159ms] <- sendfile=0xffffffffffffffff errno=9 cover=180  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 13
+#0 [4159ms] -> open$dir(0x20000dc0, 0x200040, 0x8) 2457 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [4159ms] <- open$dir=0xffffffffffffffff errno=2 cover=662  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 30
+#0 [4159ms] -> fdatasync(0xffffffffffffffff) 216 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 75
+#0 [4159ms] <- fdatasync=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 5
+#0 [4159ms] -> renameat(0xffffffffffffffff, 0x20000e00, 0xffffffffffffff9c, 0x20000e40) 2808 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 264
+#0 [4159ms] <- renameat=0xffffffffffffffff errno=9 cover=272  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 28
+#0 [4159ms] -> fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff) 211 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [4159ms] <- fcntl$setown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 1
+2022/02/16 21:31:44 --------- executor 1 receive reply
+--- output_data: badf00d 1 0 tag:0 count: 0
+#0 [5174ms] -> write$binfmt_script(0xffffffffffffffff, 0x20000000, 0x31) 4119 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 1
+#0 [5174ms] <- write$binfmt_script=0xffffffffffffffff errno=9 cover=174  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 166
+#0 [5174ms] -> open(0x20000040, 0x40000, 0x145) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [5176ms] <- open=0xffffffffffffffff errno=2 cover=6783  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 3014
+#0 [5176ms] -> sendfile(0xffffffffffffffff, 0xffffffffffffffff, 0x20000080, 0x4dc) 2856 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 40
+#0 [5176ms] <- sendfile=0xffffffffffffffff errno=9 cover=180  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 21
+#0 [5176ms] -> write$binfmt_script(0xffffffffffffffff, 0x200000c0, 0x10b) 4119 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 1
+#0 [5176ms] <- write$binfmt_script=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 0
+#0 [5176ms] -> fcntl$notify(0xffffffffffffffff, 0x402, 0x80000028) 208 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [5176ms] <- fcntl$notify=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 5
+#0 [5176ms] -> fcntl$notify(0xffffffffffffffff, 0x402, 0x10) 208 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [5177ms] <- fcntl$notify=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 0
+#0 [5177ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x1) 209 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [5177ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 0
+#0 [5177ms] -> fdatasync(0xffffffffffffffff) 216 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 75
+#0 [5177ms] <- fdatasync=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 5
+#0 [5177ms] -> stat(0x20000200, 0x20000240) 3758 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 4
+#0 [5177ms] <- stat=0xffffffffffffffff errno=2 cover=525  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 117
+#0 [5177ms] -> open(0x200002c0, 0x200, 0x108) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [5177ms] <- open=0xffffffffffffffff errno=2 cover=1325  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 44
+#0 [5178ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [5178ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 6
+#0 [5178ms] -> open(0x20000300, 0x40004, 0x180) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [5178ms] <- open=0xffffffffffffffff errno=2 cover=683  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 14
+#0 [5178ms] -> pwrite64(0xffffffffffffffff, 0x20000340, 0xcc, 0x10000) 2747 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 18
+#0 [5178ms] <- pwrite64=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 9
+#0 [5178ms] -> unlink(0x20000440) 3958 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 87
+#0 [5178ms] <- unlink=0xffffffffffffffff errno=2 cover=630  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 86
+#0 [5178ms] -> fstat(0xffffffffffffffff, 0x20000480) 247 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 5
+#0 [5178ms] <- fstat=0xffffffffffffffff errno=9 cover=174  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 9
+#0 [5178ms] -> chmod(0x20000500, 0x2) 121 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 90
+#0 [5178ms] <- chmod=0xffffffffffffffff errno=2 cover=519  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 6
+#0 [5178ms] -> mkdirat(0xffffffffffffff9c, 0x20000540, 0xb8) 2372 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 258
+#0 [5181ms] <- mkdirat=0x0 errno=14 cover=3723  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 763
+#0 [5181ms] -> fcntl$setstatus(0xffffffffffffffff, 0x4, 0x400) 215 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [5181ms] <- fcntl$setstatus=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 8
+#0 [5181ms] -> write$binfmt_script(0xffffffffffffffff, 0x20000580, 0x7d) 4119 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 1
+#0 [5181ms] <- write$binfmt_script=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 0
+#0 [5181ms] -> preadv(0xffffffffffffffff, 0x20000680, 0x1, 0x800, 0x9) 2722 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 295
+#0 [5181ms] <- preadv=0xffffffffffffffff errno=9 cover=174  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 7
+2022/02/16 21:31:45 --------- executor 3 receive reply
+--- output_data: badf00d 1 0 tag:0 count: 0
+#0 [6260ms] -> dup(0xffffffffffffffff) 170 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 32
+#0 [6261ms] <- dup=0xffffffffffffffff errno=9 cover=184  /root/nfs-client/syzkaller.i472q3
+----- signal number: 184
+#0 [6261ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6262ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=186  /root/nfs-client/syzkaller.i472q3
+----- signal number: 6
+#0 [6262ms] -> fcntl$F_SET_RW_HINT(0xffffffffffffffff, 0x40c, 0x20000000) 201 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6263ms] <- fcntl$F_SET_RW_HINT=0xffffffffffffffff errno=9 cover=186  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6263ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6264ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=186  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6264ms] -> write$binfmt_misc(0xffffffffffffffff, 0x20000040, 0x2f) 4118 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 1
+#0 [6265ms] <- write$binfmt_misc=0xffffffffffffffff errno=9 cover=188  /root/nfs-client/syzkaller.i472q3
+----- signal number: 3
+#0 [6265ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x1) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6266ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=186  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6266ms] -> fchown(0xffffffffffffffff, 0x0, 0xee01) 196 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 93
+#0 [6267ms] <- fchown=0xffffffffffffffff errno=9 cover=187  /root/nfs-client/syzkaller.i472q3
+----- signal number: 6
+#0 [6267ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6268ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=186  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6268ms] -> openat(0xffffffffffffffff, 0x20000080, 0x800, 0x86) 2460 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 257
+#0 [6268ms] <- openat=0xffffffffffffffff errno=9 cover=384  /root/nfs-client/syzkaller.i472q3
+----- signal number: 196
+#0 [6268ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6268ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=175  /root/nfs-client/syzkaller.i472q3
+----- signal number: 1
+#0 [6268ms] -> fcntl$setownex(0xffffffffffffffff, 0xf, 0x200000c0) 212 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6268ms] <- fcntl$setownex=0xffffffffffffffff errno=9 cover=175  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6268ms] -> open$dir(0x20000100, 0x161000, 0x22) 2457 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [6270ms] <- open$dir=0xffffffffffffffff errno=2 cover=6678  /root/nfs-client/syzkaller.i472q3
+----- signal number: 2787
+#0 [6270ms] -> read(0xffffffffffffffff, 0x20000140, 0xe3) 2751 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 0
+#0 [6270ms] <- read=0xffffffffffffffff errno=9 cover=174  /root/nfs-client/syzkaller.i472q3
+----- signal number: 11
+#0 [6270ms] -> open(0x20000240, 0x1, 0x1c1) 2456 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [6271ms] <- open=0xffffffffffffffff errno=2 cover=662  /root/nfs-client/syzkaller.i472q3
+----- signal number: 79
+#0 [6271ms] -> write$binfmt_elf32(0xffffffffffffffff, 0x20000280, 0xae8) 4116 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 1
+#0 [6271ms] <- write$binfmt_elf32=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.i472q3
+----- signal number: 2
+#0 [6271ms] -> sendfile(0xffffffffffffffff, 0xffffffffffffffff, 0x20000d80, 0xf05) 2856 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 40
+#0 [6271ms] <- sendfile=0xffffffffffffffff errno=9 cover=180  /root/nfs-client/syzkaller.i472q3
+----- signal number: 13
+#0 [6271ms] -> open$dir(0x20000dc0, 0x200040, 0x8) 2457 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [6271ms] <- open$dir=0xffffffffffffffff errno=2 cover=662  /root/nfs-client/syzkaller.i472q3
+----- signal number: 31
+#0 [6271ms] -> fdatasync(0xffffffffffffffff) 216 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 75
+#0 [6271ms] <- fdatasync=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.i472q3
+----- signal number: 6
+#0 [6271ms] -> renameat(0xffffffffffffffff, 0x20000e00, 0xffffffffffffff9c, 0x20000e40) 2808 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 264
+#0 [6271ms] <- renameat=0xffffffffffffffff errno=9 cover=272  /root/nfs-client/syzkaller.i472q3
+----- signal number: 28
+#0 [6271ms] -> fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff) 211 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6271ms] <- fcntl$setown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 1
+2022/02/16 21:31:46 --------- executor 2 receive reply
+2022/02/16 21:31:46 ncmd: 20
+2022/02/16 21:31:46 ----- reply.signalSize 350
+2022/02/16 21:31:46 ----- reply.signalSize 7
+2022/02/16 21:31:46 ----- reply.signalSize 0
+2022/02/16 21:31:46 ----- reply.signalSize 0
+2022/02/16 21:31:46 ----- reply.signalSize 3
+2022/02/16 21:31:46 ----- reply.signalSize 0
+2022/02/16 21:31:46 ----- reply.signalSize 6
+2022/02/16 21:31:46 ----- reply.signalSize 0
+2022/02/16 21:31:46 ----- reply.signalSize 186
+2022/02/16 21:31:46 ----- reply.signalSize 0
+2022/02/16 21:31:46 ----- reply.signalSize 0
+2022/02/16 21:31:46 ----- reply.signalSize 2816
+2022/02/16 21:31:46 ----- reply.signalSize 12
+2022/02/16 21:31:46 ----- reply.signalSize 78
+2022/02/16 21:31:46 ----- reply.signalSize 0
+2022/02/16 21:31:46 ----- reply.signalSize 13
+2022/02/16 21:31:46 ----- reply.signalSize 30
+2022/02/16 21:31:46 ----- reply.signalSize 5
+2022/02/16 21:31:46 ----- reply.signalSize 28
+2022/02/16 21:31:46 ----- reply.signalSize 1
+2022/02/16 21:31:46 result hanged=false: 
+--- output_data: badf00d 1 0 tag:0 count: 0
+2022/02/16 21:31:46 #0: triaging type=0
+2022/02/16 21:31:46 triaging input for call #18 renameat (new signal=28)
+21:31:46 ---executing program 0:
+r0 = dup(0xffffffffffffffff)
+fcntl$setflags(r0, 0x2, 0x0)
+fcntl$F_SET_RW_HINT(r0, 0x40c, &(0x7f0000000000)=0x3)
+fcntl$getown(r0, 0x9)
+write$binfmt_misc(r0, &(0x7f0000000040)={'syz0', "50dd00bcc3b0bd6043a6ebadea867e140e28396281f45bece5555ab641a2b40b6caf60e1f942b754235d2c"}, 0x2f)
+fcntl$setflags(r0, 0x2, 0x1)
+fchown(r0, 0x0, 0xee01)
+fcntl$setflags(r0, 0x2, 0x0)
+r1 = openat(r0, &(0x7f0000000080)='./file81\x00', 0x800, 0x86)
+r2 = fcntl$getown(r0, 0x9)
+fcntl$setownex(r1, 0xf, &(0x7f00000000c0)={0x2, r2})
+r3 = open$dir(&(0x7f0000000100)='./file81\x00', 0x161000, 0x22)
+read(r3, &(0x7f0000000140)=""/227, 0xe3)
+r4 = open(&(0x7f0000000240)='./file81\x00', 0x1, 0x1c1)
+write$binfmt_elf32(r4, &(0x7f0000000280)={{0x7f, 0x45, 0x4c, 0x46, 0x7, 0x4, 0x5, 0x2e, 0x1, 0x0, 0x3, 0x0, 0x384, 0x38, 0xad, 0x50, 0x100, 0x20, 0x1, 0x9, 0x0, 0x5}, [{0x4, 0x2, 0xfffffffb, 0x0, 0x4, 0x2, 0x1, 0x5bf}, {0x7, 0x9, 0x4, 0x3, 0x0, 0x7, 0x1000, 0x4aa4e720}], "d5d383e4d8a906503f1862a6902f6b4c833613f276eeff6a090412be8c7cab9dcc4028a4d11371c87686412aadb7793f914f13dc7b5702aca70162a150f25681f76e200c48123a54872532356aca9c5db8195103a673250d7d638f54d8b1a53dd7e4fc8f81d66237f6021fafde46e30c", ['\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00']}, 0xae8)
+sendfile(r0, r4, &(0x7f0000000d80)=0x2, 0xf05)
+r5 = open$dir(&(0x7f0000000dc0)='./file81\x00', 0x200040, 0x8)
+fdatasync(r5)
+renameat(r1, &(0x7f0000000e00)='./file81\x00', 0xffffffffffffff9c, &(0x7f0000000e40)='./file81\x00')
+fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff)
+---
+r0 = dup(0xffffffffffffffff)
+fcntl$setflags(r0, 0x2, 0x0)
+fcntl$F_SET_RW_HINT(r0, 0x40c, &(0x7f0000000000)=0x3)
+fcntl$getown(r0, 0x9)
+write$binfmt_misc(r0, &(0x7f0000000040)={'syz0', "50dd00bcc3b0bd6043a6ebadea867e140e28396281f45bece5555ab641a2b40b6caf60e1f942b754235d2c"}, 0x2f)
+fcntl$setflags(r0, 0x2, 0x1)
+fchown(r0, 0x0, 0xee01)
+fcntl$setflags(r0, 0x2, 0x0)
+r1 = openat(r0, &(0x7f0000000080)='./file81\x00', 0x800, 0x86)
+r2 = fcntl$getown(r0, 0x9)
+fcntl$setownex(r1, 0xf, &(0x7f00000000c0)={0x2, r2})
+r3 = open$dir(&(0x7f0000000100)='./file81\x00', 0x161000, 0x22)
+read(r3, &(0x7f0000000140)=""/227, 0xe3)
+r4 = open(&(0x7f0000000240)='./file81\x00', 0x1, 0x1c1)
+write$binfmt_elf32(r4, &(0x7f0000000280)={{0x7f, 0x45, 0x4c, 0x46, 0x7, 0x4, 0x5, 0x2e, 0x1, 0x0, 0x3, 0x0, 0x384, 0x38, 0xad, 0x50, 0x100, 0x20, 0x1, 0x9, 0x0, 0x5}, [{0x4, 0x2, 0xfffffffb, 0x0, 0x4, 0x2, 0x1, 0x5bf}, {0x7, 0x9, 0x4, 0x3, 0x0, 0x7, 0x1000, 0x4aa4e720}], "d5d383e4d8a906503f1862a6902f6b4c833613f276eeff6a090412be8c7cab9dcc4028a4d11371c87686412aadb7793f914f13dc7b5702aca70162a150f25681f76e200c48123a54872532356aca9c5db8195103a673250d7d638f54d8b1a53dd7e4fc8f81d66237f6021fafde46e30c", ['\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00']}, 0xae8)
+sendfile(r0, r4, &(0x7f0000000d80)=0x2, 0xf05)
+r5 = open$dir(&(0x7f0000000dc0)='./file81\x00', 0x200040, 0x8)
+fdatasync(r5)
+renameat(r1, &(0x7f0000000e00)='./file81\x00', 0xffffffffffffff9c, &(0x7f0000000e40)='./file81\x00')
+fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff)
+---
+write$binfmt_script(0xffffffffffffffff, &(0x7f0000000000)={'#! ', './file94', [{}, {0x20, '}*#'}], 0xa, "af82302a8a73c9e056e3899472de8d13132c0cd934cef3f3db5f1fa0fe504da5"}, 0x31)
+r0 = open(&(0x7f0000000040)='./file94\x00', 0x40000, 0x145)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000080)=0x8, 0x4dc)
+write$binfmt_script(r0, &(0x7f00000000c0)={'#! ', './file94', [{}, {0x20, '&,)^'}, {0x20, '}*#'}, {0x20, '}*#'}, {0x20, '#! '}, {0x20, '#! '}], 0xa, "3dcd6b18853b7f458e3eef0135ee25902591853cb54a8c7516aa1f2f00c7aecfa446fe1d46cee547f30e8c7ffd721a3ea1f54bb70825fba844d9dae232b4fc22f1919bffc7655943f4347745d6cc1914419b16998795e3b7a5d28e98de9ecf6f46936f2c7d060c5d1104f7de50a75c1d5a63b8f6d49cb1ca833300061fb6eee62fb74de5a37018e8bb850e6e864621849b1511c0d34886404ceb1c048ba015ee09e0a06eb604c107c6f959233ed5a3793ea58825e261c6d7bed835b8c4392e85737ba87a1d6daeee6543c5aa60af753eaf67455dc567a9177fb9826258dfb79383e4ebadf130d806cc"}, 0x10b)
+fcntl$notify(r0, 0x402, 0x80000028)
+fcntl$notify(r0, 0x402, 0x10)
+fcntl$setflags(r0, 0x2, 0x1)
+fdatasync(r0)
+stat(&(0x7f0000000200)='./file94\x00', &(0x7f0000000240))
+r1 = open(&(0x7f00000002c0)='./file57\x00', 0x200, 0x108)
+fcntl$getown(r0, 0x9)
+r2 = open(&(0x7f0000000300)='./file94\x00', 0x40004, 0x180)
+pwrite64(r2, &(0x7f0000000340)="93abab3554c7657a6f29449a0dd425ef000731c6dbb6ddabfec45093e6db5b647c88d18e09d8c20a7b262cfb9d7993393d7627f9be85d06670a7b45aa13d3c7ed0a4aa63919ea51c150d18f20ff70e122bf0af7316c7da8ab2f26023d326b50795e672d32b7bbc5fd88a8a49743352e32a9a18ba99f0b3aa887d74ead942092d4b43afc24028f5c379c1055ce4df010007458a67a7ef3cefb970caf999c928b4d27c6c91b65f9ab04d67bfcb6b342ab4dde9cc822f29c3a7f687eea5747b35219ebcf60a42c76bfae7357e2e", 0xcc, 0x10000)
+unlink(&(0x7f0000000440)='./file57\x00')
+fstat(r1, &(0x7f0000000480))
+chmod(&(0x7f0000000500)='./file94\x00', 0x2)
+mkdirat(0xffffffffffffff9c, &(0x7f0000000540)='./file94\x00', 0xb8)
+fcntl$setstatus(0xffffffffffffffff, 0x4, 0x400)
+write$binfmt_script(r1, &(0x7f0000000580)={'#! ', './file94', [{0x20, '&,)^'}, {0x20, '}*#'}, {0x20, '}*#'}, {0x20, '+-@['}, {}, {}, {0x20, '/'}, {0x20, '('}, {0x20, '#! '}, {0x20, '#\'($-'}], 0xa, "a42ba70726bc274bd45903e3c8a20349a37304fa41c16970bc9d56ae02747ed004b537c55f0eb9ec589ecb20c864797d820d23de39243fdce904a54c7761d11b37a2b871ffe1780caaf205320715ce"}, 0x7d)
+preadv(r0, &(0x7f0000000680)=[{&(0x7f0000000600)=""/110, 0x6e}], 0x1, 0x800, 0x9)
+---
+
+2022/02/16 21:31:46 ----- exec
+2022/02/16 21:31:46 execute req [206 250 173 235 254 15 220 186 163 15 0 0 0 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 50 0 0 0 0 0 0 0 136 19 0 0 0 0 0 0 1 0 0 0 0 0 0 0 208 28 0 0 0 0 0 0 208 28 0 0 0 0 0 0 16 19 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 185 0 0 0 0 0 0 0 137 29 0 0 0 0 0 0 89 58 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] %!v(MISSING)
+2022/02/16 21:31:46 --------- executor 0 receive reply
+receive_execute 0x7f1be005d000
+--- output_data: badf00d 1 0 tag:0 count: 0
+-----is_dfs_client continue
+receive_execute 0x7f4d45ccb000
+[6263ms] exec opts: procid=0 threaded=0 collide=0 cover=1 comps=0 dedup=1 timeouts=50/5000/1 prog=4880 filter=0
+receive_execute 0x7fd4f5245000
+[6303ms] exec opts: procid=0 threaded=0 collide=0 cover=1 comps=0 dedup=1 timeouts=50/5000/1 prog=7376 filter=0
+iptable filter/10: resetting
+iptable mangle/10: resetting
+receive_execute 0x7ff7fd1f2000
+[6280ms] exec opts: procid=0 threaded=0 collide=0 cover=1 comps=0 dedup=1 timeouts=50/5000/1 prog=7376 filter=0
+spawned worker pid 3
+spawned worker pid 3
+spawned worker pid 3
+symlink(/syzcgroup/unified/syz0, ./cgroup) failed: 17
+symlink(/syzcgroup/cpu/syz0, ./cgroup.cpu) failed: 17
+symlink(/syzcgroup/net/syz0, ./cgroup.net) failed: 17
+symlink(/dev/binderfs, ./binderfs) failed: 17#0 [6286ms] -> dup(0xffffffffffffffff) 170 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 32
+#0 [6286ms] <- dup=0xffffffffffffffff errno=9 cover=170  /root/nfs-client/syzkaller.i472q3
+----- signal number: 167
+#0 [6287ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6287ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 16
+#0 [6287ms] -> fcntl$F_SET_RW_HINT(0xffffffffffffffff, 0x40c, 0x20000000) 201 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6287ms] <- fcntl$F_SET_RW_HINT=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6287ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6287ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6287ms] -> write$binfmt_misc(0xffffffffffffffff, 0x20000040, 0x2f) 4118 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 1
+#0 [6287ms] <- write$binfmt_misc=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.i472q3
+----- signal number: 3
+#0 [6287ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x1) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6287ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6287ms] -> fchown(0xffffffffffffffff, 0x0, 0xee01) 196 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 93
+#0 [6287ms] <- fchown=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.i472q3
+----- signal number: 6
+#0 [6287ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6287ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6287ms] -> openat(0xffffffffffffffff, 0x20000080, 0x800, 0x86) 2460 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 257
+#0 [6287ms] <- openat=0xffffffffffffffff errno=9 cover=380  /root/nfs-client/syzkaller.i472q3
+----- signal number: 186
+#0 [6287ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6287ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6287ms] -> fcntl$setownex(0xffffffffffffffff, 0xf, 0x200000c0) 212 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6287ms] <- fcntl$setownex=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6287ms] -> open$dir(0x20000100, 0x161000, 0x22) 2457 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [6287ms] <- open$dir=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.i472q3
+----- signal number: 196
+#0 [6288ms] -> read(0xffffffffffffffff, 0x20000140, 0xe3) 2751 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 0
+#0 [6288ms] <- read=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.i472q3
+----- signal number: 5
+#0 [6288ms] -> open(0x20000240, 0x1, 0x1c1) 2456 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [6288ms] <- open=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6288ms] -> write$binfmt_elf32(0xffffffffffffffff, 0x20000280, 0xae8) 4116 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 1
+#0 [6288ms] <- write$binfmt_elf32=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [6288ms] -> sendfile(0xffffffffffffffff, 0xffffffffffffffff, 0x20000d80, 0xf05) 2856 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 40
+#0 [6288ms] <- sendfile=0xffffffffffffffff errno=9 cover=180  /root/nfs-client/syzkaller.i472q3
+----- signal number: 13
+#0 [6288ms] -> open$dir(0x20000dc0, 0x200040, 0x8) 2457 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [6289ms] <- open$dir=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.i472q3
+----- signal number: 29
+#0 [6289ms] -> fdatasync(0xffffffffffffffff) 216 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 75
+#0 [6289ms] <- fdatasync=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.i472q3
+----- signal number: 5
+#0 [6289ms] -> renameat(0xffffffffffffffff, 0x20000e00, 0xffffffffffffff9c, 0x20000e40) 2808 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 264
+#0 [6289ms] <- renameat=0xffffffffffffffff errno=9 cover=272  /root/nfs-client/syzkaller.i472q3
+----- signal number: 28
+#0 [6289ms] -> fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff) 211 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [6289ms] <- fcntl$setown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+2022/02/16 21:31:46 --------- executor 2 receive reply
+--- output_data: badf00d 1 0 tag:0 count: 0
+symlink(/syzcgroup/unified/syz0, ./cgroup) failed: 17
+symlink(/syzcgroup/cpu/syz0, ./cgroup.cpu) failed: 17
+symlink(/syzcgroup/net/syz0, ./cgroup.net) failed: 17
+symlink(/dev/binderfs, ./binderfs) failed: 17#0 [6317ms] -> write$binfmt_script(0xffffffffffffffff, 0x20000000, 0x31) 4119 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 1
+#0 [6317ms] <- write$binfmt_script=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 165
+#0 [6317ms] -> open(0x20000040, 0x40000, 0x145) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [6318ms] <- open=0x3 errno=14 cover=6511  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 2866
+#0 [6319ms] -> sendfile(0xffffffffffffffff, 0x3, 0x20000080, 0x4dc) 2856 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 40
+#0 [6319ms] <- sendfile=0xffffffffffffffff errno=9 cover=225  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 37
+#0 [6319ms] -> write$binfmt_script(0x3, 0x200000c0, 0x10b) 4119 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 1
+#0 [6319ms] <- write$binfmt_script=0xffffffffffffffff errno=9 cover=186  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 6
+#0 [6319ms] -> fcntl$notify(0x3, 0x402, 0x80000028) 208 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [6320ms] <- fcntl$notify=0x0 errno=14 cover=392  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 158
+#0 [6320ms] -> fcntl$notify(0x3, 0x402, 0x10) 208 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [6320ms] <- fcntl$notify=0x0 errno=14 cover=351  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 39
+#0 [6320ms] -> fcntl$setflags(0x3, 0x2, 0x1) 209 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [6320ms] <- fcntl$setflags=0x0 errno=14 cover=190  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 6
+#0 [6320ms] -> fdatasync(0x3) 216 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 75
+#0 [6320ms] <- fdatasync=0x0 errno=14 cover=182  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 12
+#0 [6320ms] -> stat(0x20000200, 0x20000240) 3758 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 4
+#0 [6320ms] <- stat=0x0 errno=14 cover=731  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 187
+#0 [6320ms] -> open(0x200002c0, 0x200, 0x108) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [6322ms] <- open=0xffffffffffffffff errno=2 cover=1563  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 624
+#0 [6322ms] -> fcntl$getown(0x3, 0x9) 205 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [6322ms] <- fcntl$getown=0x3 errno=14 cover=206  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 37
+#0 [6322ms] -> open(0x20000300, 0x40004, 0x180) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [6323ms] <- open=0x4 errno=14 cover=3739  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 204
+#0 [6323ms] -> pwrite64(0x4, 0x20000340, 0xcc, 0x10000) 2747 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 18
+#0 [6323ms] <- pwrite64=0xffffffffffffffff errno=9 cover=181  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 16
+#0 [6323ms] -> unlink(0x20000440) 3958 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 87
+#0 [6324ms] <- unlink=0xffffffffffffffff errno=2 cover=630  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 79
+#0 [6324ms] -> fstat(0xffffffffffffffff, 0x20000480) 247 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 5
+#0 [6324ms] <- fstat=0xffffffffffffffff errno=9 cover=174  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 11
+#0 [6324ms] -> chmod(0x20000500, 0x2) 121 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 90
+2022/02/16 21:31:46 --------- executor 3 receive reply
+--- output_data: badf00d 1 0 tag:0 count: 0
+iptable filter/10: resetting
+iptable mangle/10: resetting
+symlink(/syzcgroup/unified/syz0, ./cgroup) failed: 17
+symlink(/syzcgroup/cpu/syz0, ./cgroup.cpu) failed: 17
+symlink(/syzcgroup/net/syz0, ./cgroup.net) failed: 17
+symlink(/dev/binderfs, ./binderfs) failed: 17#0 [7419ms] -> dup(0xffffffffffffffff) 170 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 32
+#0 [7419ms] <- dup=0xffffffffffffffff errno=9 cover=1197  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 350
+#0 [7420ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7420ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 7
+#0 [7420ms] -> fcntl$F_SET_RW_HINT(0xffffffffffffffff, 0x40c, 0x20000000) 201 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7420ms] <- fcntl$F_SET_RW_HINT=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7420ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7420ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7420ms] -> write$binfmt_misc(0xffffffffffffffff, 0x20000040, 0x2f) 4118 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 1
+#0 [7420ms] <- write$binfmt_misc=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 3
+#0 [7420ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x1) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7420ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7420ms] -> fchown(0xffffffffffffffff, 0x0, 0xee01) 196 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 93
+#0 [7420ms] <- fchown=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 6
+#0 [7420ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7420ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7420ms] -> openat(0xffffffffffffffff, 0x20000080, 0x800, 0x86) 2460 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 257
+#0 [7420ms] <- openat=0xffffffffffffffff errno=9 cover=380  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 186
+#0 [7420ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7420ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7420ms] -> fcntl$setownex(0xffffffffffffffff, 0xf, 0x200000c0) 212 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7420ms] <- fcntl$setownex=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7420ms] -> open$dir(0x20000100, 0x161000, 0x22) 2457 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [7421ms] <- open$dir=0xffffffffffffffff errno=2 cover=673  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 207
+#0 [7421ms] -> read(0xffffffffffffffff, 0x20000140, 0xe3) 2751 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 0
+#0 [7421ms] <- read=0xffffffffffffffff errno=9 cover=177  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 10
+#0 [7421ms] -> open(0x20000240, 0x1, 0x1c1) 2456 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [7421ms] <- open=0xffffffffffffffff errno=2 cover=676  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7421ms] -> write$binfmt_elf32(0xffffffffffffffff, 0x20000280, 0xae8) 4116 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 1
+#0 [7421ms] <- write$binfmt_elf32=0xffffffffffffffff errno=9 cover=177  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7421ms] -> sendfile(0xffffffffffffffff, 0xffffffffffffffff, 0x20000d80, 0xf05) 2856 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 40
+#0 [7421ms] <- sendfile=0xffffffffffffffff errno=9 cover=184  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 13
+#0 [7421ms] -> open$dir(0x20000dc0, 0x200040, 0x8) 2457 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [7421ms] <- open$dir=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 29
+#0 [7421ms] -> fdatasync(0xffffffffffffffff) 216 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 75
+#0 [7421ms] <- fdatasync=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 5
+#0 [7421ms] -> renameat(0xffffffffffffffff, 0x20000e00, 0xffffffffffffff9c, 0x20000e40) 2808 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 264
+#0 [7421ms] <- renameat=0xffffffffffffffff errno=9 cover=272  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 28
+#0 [7421ms] -> fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff) 211 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7421ms] <- fcntl$setown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+2022/02/16 21:31:47 --------- executor 1 receive reply
+2022/02/16 21:31:47 ncmd: 20
+2022/02/16 21:31:47 ----- reply.signalSize 350
+2022/02/16 21:31:47 ----- reply.signalSize 7
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 ----- reply.signalSize 3
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 ----- reply.signalSize 6
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 ----- reply.signalSize 186
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 ----- reply.signalSize 207
+2022/02/16 21:31:47 ----- reply.signalSize 10
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 ----- reply.signalSize 13
+2022/02/16 21:31:47 ----- reply.signalSize 29
+2022/02/16 21:31:47 ----- reply.signalSize 5
+2022/02/16 21:31:47 ----- reply.signalSize 28
+2022/02/16 21:31:47 ----- reply.signalSize 0
+2022/02/16 21:31:47 result hanged=false: 
+--- output_data: badf00d 1 0 tag:0 count: 0
+21:31:47 ---executing program 0:
+r0 = dup(0xffffffffffffffff)
+fcntl$setflags(r0, 0x2, 0x0)
+fcntl$F_SET_RW_HINT(r0, 0x40c, &(0x7f0000000000)=0x3)
+fcntl$getown(r0, 0x9)
+write$binfmt_misc(r0, &(0x7f0000000040)={'syz0', "50dd00bcc3b0bd6043a6ebadea867e140e28396281f45bece5555ab641a2b40b6caf60e1f942b754235d2c"}, 0x2f)
+fcntl$setflags(r0, 0x2, 0x1)
+fchown(r0, 0x0, 0xee01)
+fcntl$setflags(r0, 0x2, 0x0)
+r1 = openat(r0, &(0x7f0000000080)='./file81\x00', 0x800, 0x86)
+r2 = fcntl$getown(r0, 0x9)
+fcntl$setownex(r1, 0xf, &(0x7f00000000c0)={0x2, r2})
+r3 = open$dir(&(0x7f0000000100)='./file81\x00', 0x161000, 0x22)
+read(r3, &(0x7f0000000140)=""/227, 0xe3)
+r4 = open(&(0x7f0000000240)='./file81\x00', 0x1, 0x1c1)
+write$binfmt_elf32(r4, &(0x7f0000000280)={{0x7f, 0x45, 0x4c, 0x46, 0x7, 0x4, 0x5, 0x2e, 0x1, 0x0, 0x3, 0x0, 0x384, 0x38, 0xad, 0x50, 0x100, 0x20, 0x1, 0x9, 0x0, 0x5}, [{0x4, 0x2, 0xfffffffb, 0x0, 0x4, 0x2, 0x1, 0x5bf}, {0x7, 0x9, 0x4, 0x3, 0x0, 0x7, 0x1000, 0x4aa4e720}], "d5d383e4d8a906503f1862a6902f6b4c833613f276eeff6a090412be8c7cab9dcc4028a4d11371c87686412aadb7793f914f13dc7b5702aca70162a150f25681f76e200c48123a54872532356aca9c5db8195103a673250d7d638f54d8b1a53dd7e4fc8f81d66237f6021fafde46e30c", ['\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00']}, 0xae8)
+sendfile(r0, r4, &(0x7f0000000d80)=0x2, 0xf05)
+r5 = open$dir(&(0x7f0000000dc0)='./file81\x00', 0x200040, 0x8)
+fdatasync(r5)
+renameat(r1, &(0x7f0000000e00)='./file81\x00', 0xffffffffffffff9c, &(0x7f0000000e40)='./file81\x00')
+fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff)
+---
+r0 = dup(0xffffffffffffffff)
+fcntl$setflags(r0, 0x2, 0x0)
+fcntl$F_SET_RW_HINT(r0, 0x40c, &(0x7f0000000000)=0x3)
+fcntl$getown(r0, 0x9)
+write$binfmt_misc(r0, &(0x7f0000000040)={'syz0', "50dd00bcc3b0bd6043a6ebadea867e140e28396281f45bece5555ab641a2b40b6caf60e1f942b754235d2c"}, 0x2f)
+fcntl$setflags(r0, 0x2, 0x1)
+fchown(r0, 0x0, 0xee01)
+fcntl$setflags(r0, 0x2, 0x0)
+r1 = openat(r0, &(0x7f0000000080)='./file81\x00', 0x800, 0x86)
+r2 = fcntl$getown(r0, 0x9)
+fcntl$setownex(r1, 0xf, &(0x7f00000000c0)={0x2, r2})
+r3 = open$dir(&(0x7f0000000100)='./file81\x00', 0x161000, 0x22)
+read(r3, &(0x7f0000000140)=""/227, 0xe3)
+r4 = open(&(0x7f0000000240)='./file81\x00', 0x1, 0x1c1)
+write$binfmt_elf32(r4, &(0x7f0000000280)={{0x7f, 0x45, 0x4c, 0x46, 0x7, 0x4, 0x5, 0x2e, 0x1, 0x0, 0x3, 0x0, 0x384, 0x38, 0xad, 0x50, 0x100, 0x20, 0x1, 0x9, 0x0, 0x5}, [{0x4, 0x2, 0xfffffffb, 0x0, 0x4, 0x2, 0x1, 0x5bf}, {0x7, 0x9, 0x4, 0x3, 0x0, 0x7, 0x1000, 0x4aa4e720}], "d5d383e4d8a906503f1862a6902f6b4c833613f276eeff6a090412be8c7cab9dcc4028a4d11371c87686412aadb7793f914f13dc7b5702aca70162a150f25681f76e200c48123a54872532356aca9c5db8195103a673250d7d638f54d8b1a53dd7e4fc8f81d66237f6021fafde46e30c", ['\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00']}, 0xae8)
+sendfile(r0, r4, &(0x7f0000000d80)=0x2, 0xf05)
+r5 = open$dir(&(0x7f0000000dc0)='./file81\x00', 0x200040, 0x8)
+fdatasync(r5)
+renameat(r1, &(0x7f0000000e00)='./file81\x00', 0xffffffffffffff9c, &(0x7f0000000e40)='./file81\x00')
+fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff)
+---
+write$binfmt_script(0xffffffffffffffff, &(0x7f0000000000)={'#! ', './file94', [{}, {0x20, '}*#'}], 0xa, "af82302a8a73c9e056e3899472de8d13132c0cd934cef3f3db5f1fa0fe504da5"}, 0x31)
+r0 = open(&(0x7f0000000040)='./file94\x00', 0x40000, 0x145)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000080)=0x8, 0x4dc)
+write$binfmt_script(r0, &(0x7f00000000c0)={'#! ', './file94', [{}, {0x20, '&,)^'}, {0x20, '}*#'}, {0x20, '}*#'}, {0x20, '#! '}, {0x20, '#! '}], 0xa, "3dcd6b18853b7f458e3eef0135ee25902591853cb54a8c7516aa1f2f00c7aecfa446fe1d46cee547f30e8c7ffd721a3ea1f54bb70825fba844d9dae232b4fc22f1919bffc7655943f4347745d6cc1914419b16998795e3b7a5d28e98de9ecf6f46936f2c7d060c5d1104f7de50a75c1d5a63b8f6d49cb1ca833300061fb6eee62fb74de5a37018e8bb850e6e864621849b1511c0d34886404ceb1c048ba015ee09e0a06eb604c107c6f959233ed5a3793ea58825e261c6d7bed835b8c4392e85737ba87a1d6daeee6543c5aa60af753eaf67455dc567a9177fb9826258dfb79383e4ebadf130d806cc"}, 0x10b)
+fcntl$notify(r0, 0x402, 0x80000028)
+fcntl$notify(r0, 0x402, 0x10)
+fcntl$setflags(r0, 0x2, 0x1)
+fdatasync(r0)
+stat(&(0x7f0000000200)='./file94\x00', &(0x7f0000000240))
+r1 = open(&(0x7f00000002c0)='./file57\x00', 0x200, 0x108)
+fcntl$getown(r0, 0x9)
+r2 = open(&(0x7f0000000300)='./file94\x00', 0x40004, 0x180)
+pwrite64(r2, &(0x7f0000000340)="93abab3554c7657a6f29449a0dd425ef000731c6dbb6ddabfec45093e6db5b647c88d18e09d8c20a7b262cfb9d7993393d7627f9be85d06670a7b45aa13d3c7ed0a4aa63919ea51c150d18f20ff70e122bf0af7316c7da8ab2f26023d326b50795e672d32b7bbc5fd88a8a49743352e32a9a18ba99f0b3aa887d74ead942092d4b43afc24028f5c379c1055ce4df010007458a67a7ef3cefb970caf999c928b4d27c6c91b65f9ab04d67bfcb6b342ab4dde9cc822f29c3a7f687eea5747b35219ebcf60a42c76bfae7357e2e", 0xcc, 0x10000)
+unlink(&(0x7f0000000440)='./file57\x00')
+fstat(r1, &(0x7f0000000480))
+chmod(&(0x7f0000000500)='./file94\x00', 0x2)
+mkdirat(0xffffffffffffff9c, &(0x7f0000000540)='./file94\x00', 0xb8)
+fcntl$setstatus(0xffffffffffffffff, 0x4, 0x400)
+write$binfmt_script(r1, &(0x7f0000000580)={'#! ', './file94', [{0x20, '&,)^'}, {0x20, '}*#'}, {0x20, '}*#'}, {0x20, '+-@['}, {}, {}, {0x20, '/'}, {0x20, '('}, {0x20, '#! '}, {0x20, '#\'($-'}], 0xa, "a42ba70726bc274bd45903e3c8a20349a37304fa41c16970bc9d56ae02747ed004b537c55f0eb9ec589ecb20c864797d820d23de39243fdce904a54c7761d11b37a2b871ffe1780caaf205320715ce"}, 0x7d)
+preadv(r0, &(0x7f0000000680)=[{&(0x7f0000000600)=""/110, 0x6e}], 0x1, 0x800, 0x9)
+---
+
+2022/02/16 21:31:47 ----- exec
+2022/02/16 21:31:47 execute req [206 250 173 235 254 15 220 186 163 15 0 0 0 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 50 0 0 0 0 0 0 0 136 19 0 0 0 0 0 0 1 0 0 0 0 0 0 0 208 28 0 0 0 0 0 0 208 28 0 0 0 0 0 0 16 19 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 185 0 0 0 0 0 0 0 137 29 0 0 0 0 0 0 89 58 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] %!v(MISSING)
+2022/02/16 21:31:47 --------- executor 0 receive reply
+receive_execute 0x7f1be005d000
+--- output_data: badf00d 1 0 tag:0 count: 0
+-----is_dfs_client continue
+receive_execute 0x7f4d45ccb000
+[7388ms] exec opts: procid=0 threaded=0 collide=0 cover=1 comps=0 dedup=1 timeouts=50/5000/1 prog=4880 filter=0
+receive_execute 0x7ff7fd1f2000
+[7406ms] exec opts: procid=0 threaded=0 collide=0 cover=1 comps=0 dedup=1 timeouts=50/5000/1 prog=7376 filter=0
+spawned worker pid 4
+receive_execute 0x7fd4f5245000
+[7431ms] exec opts: procid=0 threaded=0 collide=0 cover=1 comps=0 dedup=1 timeouts=50/5000/1 prog=7376 filter=0
+spawned worker pid 4
+symlink(/syzcgroup/unified/syz0, ./cgroup) failed: 17
+symlink(/syzcgroup/cpu/syz0, ./cgroup.cpu) failed: 17
+symlink(/syzcgroup/net/syz0, ./cgroup.net) failed: 17
+symlink(/dev/binderfs, ./binderfs) failed: 17#0 [7437ms] -> dup(0xffffffffffffffff) 170 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 32
+#0 [7437ms] <- dup=0xffffffffffffffff errno=9 cover=1198  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 351
+#0 [7438ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7438ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 17
+#0 [7438ms] -> fcntl$F_SET_RW_HINT(0xffffffffffffffff, 0x40c, 0x20000000) 201 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7438ms] <- fcntl$F_SET_RW_HINT=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7438ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7438ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7438ms] -> write$binfmt_misc(0xffffffffffffffff, 0x20000040, 0x2f) 4118 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 1
+#0 [7438ms] <- write$binfmt_misc=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 3
+#0 [7438ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x1) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7438ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7438ms] -> fchown(0xffffffffffffffff, 0x0, 0xee01) 196 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 93
+spawned worker pid 4
+#0 [7438ms] <- fchown=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 6
+#0 [7438ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7439ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7439ms] -> openat(0xffffffffffffffff, 0x20000080, 0x800, 0x86) 2460 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 257
+#0 [7439ms] <- openat=0xffffffffffffffff errno=9 cover=380  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 186
+#0 [7439ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7439ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7439ms] -> fcntl$setownex(0xffffffffffffffff, 0xf, 0x200000c0) 212 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7439ms] <- fcntl$setownex=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7443ms] -> open$dir(0x20000100, 0x161000, 0x22) 2457 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [7443ms] <- open$dir=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 196
+#0 [7443ms] -> read(0xffffffffffffffff, 0x20000140, 0xe3) 2751 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 0
+#0 [7443ms] <- read=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 5
+#0 [7443ms] -> open(0x20000240, 0x1, 0x1c1) 2456 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [7443ms] <- open=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7444ms] -> write$binfmt_elf32(0xffffffffffffffff, 0x20000280, 0xae8) 4116 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 1
+#0 [7444ms] <- write$binfmt_elf32=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+#0 [7444ms] -> sendfile(0xffffffffffffffff, 0xffffffffffffffff, 0x20000d80, 0xf05) 2856 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 40
+#0 [7444ms] <- sendfile=0xffffffffffffffff errno=9 cover=180  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 13
+#0 [7444ms] -> open$dir(0x20000dc0, 0x200040, 0x8) 2457 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 2
+#0 [7444ms] <- open$dir=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 29
+#0 [7444ms] -> fdatasync(0xffffffffffffffff) 216 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 75
+#0 [7444ms] <- fdatasync=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 5
+#0 [7444ms] -> renameat(0xffffffffffffffff, 0x20000e00, 0xffffffffffffff9c, 0x20000e40) 2808 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 264
+#0 [7444ms] <- renameat=0xffffffffffffffff errno=9 cover=272  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 28
+#0 [7444ms] -> fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff) 211 /root/nfs-client/syzkaller.R0BeRp
+c->sys_nr : 72
+#0 [7444ms] <- fcntl$setown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.R0BeRp
+----- signal number: 0
+2022/02/16 21:31:47 --------- executor 1 receive reply
+--- output_data: badf00d 1 0 tag:0 count: 0
+symlink(/syzcgroup/unified/syz0, ./cgroup) failed: 17
+symlink(/syzcgroup/cpu/syz0, ./cgroup.cpu) failed: 17
+symlink(/syzcgroup/net/syz0, ./cgroup.net) failed: 17
+symlink(/dev/binderfs, ./binderfs) failed: 17#0 [7440ms] -> write$binfmt_script(0xffffffffffffffff, 0x20000000, 0x31) 4119 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 1
+#0 [7440ms] <- write$binfmt_script=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 165
+#0 [7440ms] -> open(0x20000040, 0x40000, 0x145) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [7441ms] <- open=0x3 errno=14 cover=6968  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 2946
+#0 [7443ms] -> sendfile(0xffffffffffffffff, 0x3, 0x20000080, 0x4dc) 2856 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 40
+#0 [7443ms] <- sendfile=0xffffffffffffffff errno=9 cover=229  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 43
+#0 [7443ms] -> write$binfmt_script(0x3, 0x200000c0, 0x10b) 4119 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 1
+#0 [7443ms] <- write$binfmt_script=0xffffffffffffffff errno=9 cover=187  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 17
+#0 [7443ms] -> fcntl$notify(0x3, 0x402, 0x80000028) 208 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [7443ms] <- fcntl$notify=0x0 errno=14 cover=392  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 158
+#0 [7443ms] -> fcntl$notify(0x3, 0x402, 0x10) 208 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [7443ms] <- fcntl$notify=0x0 errno=14 cover=351  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 39
+#0 [7444ms] -> fcntl$setflags(0x3, 0x2, 0x1) 209 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [7444ms] <- fcntl$setflags=0x0 errno=14 cover=190  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 6
+#0 [7444ms] -> fdatasync(0x3) 216 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 75
+#0 [7444ms] <- fdatasync=0x0 errno=14 cover=182  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 12
+#0 [7444ms] -> stat(0x20000200, 0x20000240) 3758 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 4
+#0 [7444ms] <- stat=0x0 errno=14 cover=741  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 171
+#0 [7444ms] -> open(0x200002c0, 0x200, 0x108) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [7444ms] <- open=0xffffffffffffffff errno=2 cover=674  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 70
+#0 [7444ms] -> fcntl$getown(0x3, 0x9) 205 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 72
+#0 [7444ms] <- fcntl$getown=0x4 errno=14 cover=209  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 23
+#0 [7444ms] -> open(0x20000300, 0x40004, 0x180) 2456 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 2
+#0 [7445ms] <- open=0x4 errno=14 cover=3834  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 114
+#0 [7446ms] -> pwrite64(0x4, 0x20000340, 0xcc, 0x10000) 2747 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 18
+#0 [7446ms] <- pwrite64=0xffffffffffffffff errno=9 cover=181  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 13
+#0 [7446ms] -> unlink(0x20000440) 3958 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 87
+#0 [7446ms] <- unlink=0xffffffffffffffff errno=2 cover=639  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 100
+#0 [7446ms] -> fstat(0xffffffffffffffff, 0x20000480) 247 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 5
+#0 [7446ms] <- fstat=0xffffffffffffffff errno=9 cover=174  /root/nfs-client/syzkaller.MfmcX1
+----- signal number: 10
+#0 [7446ms] -> chmod(0x20000500, 0x2) 121 /root/nfs-client/syzkaller.MfmcX1
+c->sys_nr : 90
+2022/02/16 21:31:48 --------- executor 3 receive reply
+--- output_data: badf00d 1 0 tag:0 count: 0
+symlink(/syzcgroup/unified/syz0, ./cgroup) failed: 17
+symlink(/syzcgroup/cpu/syz0, ./cgroup.cpu) failed: 17
+symlink(/syzcgroup/net/syz0, ./cgroup.net) failed: 17
+symlink(/dev/binderfs, ./binderfs) failed: 17#0 [8551ms] -> dup(0xffffffffffffffff) 170 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 32
+#0 [8551ms] <- dup=0xffffffffffffffff errno=9 cover=169  /root/nfs-client/syzkaller.i472q3
+----- signal number: 166
+#0 [8552ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [8552ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 6
+#0 [8552ms] -> fcntl$F_SET_RW_HINT(0xffffffffffffffff, 0x40c, 0x20000000) 201 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [8552ms] <- fcntl$F_SET_RW_HINT=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [8552ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [8552ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [8552ms] -> write$binfmt_misc(0xffffffffffffffff, 0x20000040, 0x2f) 4118 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 1
+#0 [8556ms] <- write$binfmt_misc=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.i472q3
+----- signal number: 3
+#0 [8556ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x1) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [8556ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [8556ms] -> fchown(0xffffffffffffffff, 0x0, 0xee01) 196 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 93
+#0 [8556ms] <- fchown=0xffffffffffffffff errno=9 cover=172  /root/nfs-client/syzkaller.i472q3
+----- signal number: 6
+#0 [8556ms] -> fcntl$setflags(0xffffffffffffffff, 0x2, 0x0) 209 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [8556ms] <- fcntl$setflags=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [8556ms] -> openat(0xffffffffffffffff, 0x20000080, 0x800, 0x86) 2460 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 257
+#0 [8557ms] <- openat=0xffffffffffffffff errno=9 cover=380  /root/nfs-client/syzkaller.i472q3
+----- signal number: 186
+#0 [8557ms] -> fcntl$getown(0xffffffffffffffff, 0x9) 205 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [8557ms] <- fcntl$getown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [8557ms] -> fcntl$setownex(0xffffffffffffffff, 0xf, 0x200000c0) 212 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [8557ms] <- fcntl$setownex=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [8557ms] -> open$dir(0x20000100, 0x161000, 0x22) 2457 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [8557ms] <- open$dir=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.i472q3
+----- signal number: 196
+#0 [8557ms] -> read(0xffffffffffffffff, 0x20000140, 0xe3) 2751 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 0
+#0 [8557ms] <- read=0xffffffffffffffff errno=9 cover=177  /root/nfs-client/syzkaller.i472q3
+----- signal number: 10
+#0 [8557ms] -> open(0x20000240, 0x1, 0x1c1) 2456 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [8557ms] <- open=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [8557ms] -> write$binfmt_elf32(0xffffffffffffffff, 0x20000280, 0xae8) 4116 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 1
+#0 [8558ms] <- write$binfmt_elf32=0xffffffffffffffff errno=9 cover=173  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+#0 [8558ms] -> sendfile(0xffffffffffffffff, 0xffffffffffffffff, 0x20000d80, 0xf05) 2856 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 40
+#0 [8558ms] <- sendfile=0xffffffffffffffff errno=9 cover=180  /root/nfs-client/syzkaller.i472q3
+----- signal number: 13
+#0 [8558ms] -> open$dir(0x20000dc0, 0x200040, 0x8) 2457 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 2
+#0 [8558ms] <- open$dir=0xffffffffffffffff errno=2 cover=672  /root/nfs-client/syzkaller.i472q3
+----- signal number: 29
+#0 [8558ms] -> fdatasync(0xffffffffffffffff) 216 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 75
+#0 [8558ms] <- fdatasync=0xffffffffffffffff errno=9 cover=176  /root/nfs-client/syzkaller.i472q3
+----- signal number: 5
+#0 [8558ms] -> renameat(0xffffffffffffffff, 0x20000e00, 0xffffffffffffff9c, 0x20000e40) 2808 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 264
+#0 [8558ms] <- renameat=0xffffffffffffffff errno=9 cover=272  /root/nfs-client/syzkaller.i472q3
+----- signal number: 28
+#0 [8558ms] -> fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff) 211 /root/nfs-client/syzkaller.i472q3
+c->sys_nr : 72
+#0 [8558ms] <- fcntl$setown=0xffffffffffffffff errno=9 cover=171  /root/nfs-client/syzkaller.i472q3
+----- signal number: 0
+2022/02/16 21:31:49 --------- executor 2 receive reply
+2022/02/16 21:31:49 ncmd: 20
+2022/02/16 21:31:49 ----- reply.signalSize 351
+2022/02/16 21:31:49 ----- reply.signalSize 17
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 ----- reply.signalSize 3
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 ----- reply.signalSize 6
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 ----- reply.signalSize 186
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 ----- reply.signalSize 196
+2022/02/16 21:31:49 ----- reply.signalSize 5
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 ----- reply.signalSize 13
+2022/02/16 21:31:49 ----- reply.signalSize 29
+2022/02/16 21:31:49 ----- reply.signalSize 5
+2022/02/16 21:31:49 ----- reply.signalSize 28
+2022/02/16 21:31:49 ----- reply.signalSize 0
+2022/02/16 21:31:49 result hanged=false: 
+21:31:49 ---executing program 0:
+r0 = dup(0xffffffffffffffff)
+fcntl$setflags(r0, 0x2, 0x0)
+fcntl$F_SET_RW_HINT(r0, 0x40c, &(0x7f0000000000)=0x3)
+fcntl$getown(r0, 0x9)
+write$binfmt_misc(r0, &(0x7f0000000040)={'syz0', "50dd00bcc3b0bd6043a6ebadea867e140e28396281f45bece5555ab641a2b40b6caf60e1f942b754235d2c"}, 0x2f)
+fcntl$setflags(r0, 0x2, 0x1)
+fchown(r0, 0x0, 0xee01)
+fcntl$setflags(r0, 0x2, 0x0)
+r1 = openat(r0, &(0x7f0000000080)='./file81\x00', 0x800, 0x86)
+r2 = fcntl$getown(r0, 0x9)
+fcntl$setownex(r1, 0xf, &(0x7f00000000c0)={0x2, r2})
+r3 = open$dir(&(0x7f0000000100)='./file81\x00', 0x161000, 0x22)
+read(r3, &(0x7f0000000140)=""/227, 0xe3)
+r4 = open(&(0x7f0000000240)='./file81\x00', 0x1, 0x1c1)
+write$binfmt_elf32(r4, &(0x7f0000000280)={{0x7f, 0x45, 0x4c, 0x46, 0x7, 0x4, 0x5, 0x2e, 0x1, 0x0, 0x3, 0x0, 0x384, 0x38, 0xad, 0x50, 0x100, 0x20, 0x1, 0x9, 0x0, 0x5}, [{0x4, 0x2, 0xfffffffb, 0x0, 0x4, 0x2, 0x1, 0x5bf}, {0x7, 0x9, 0x4, 0x3, 0x0, 0x7, 0x1000, 0x4aa4e720}], "d5d383e4d8a906503f1862a6902f6b4c833613f276eeff6a090412be8c7cab9dcc4028a4d11371c87686412aadb7793f914f13dc7b5702aca70162a150f25681f76e200c48123a54872532356aca9c5db8195103a673250d7d638f54d8b1a53dd7e4fc8f81d66237f6021fafde46e30c", ['\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00']}, 0xae8)
+sendfile(r0, r4, &(0x7f0000000d80)=0x2, 0xf05)
+r5 = open$dir(&(0x7f0000000dc0)='./file81\x00', 0x200040, 0x8)
+fdatasync(r5)
+renameat(r1, &(0x7f0000000e00)='./file81\x00', 0xffffffffffffff9c, &(0x7f0000000e40)='./file81\x00')
+fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff)
+---
+r0 = dup(0xffffffffffffffff)
+fcntl$setflags(r0, 0x2, 0x0)
+fcntl$F_SET_RW_HINT(r0, 0x40c, &(0x7f0000000000)=0x3)
+fcntl$getown(r0, 0x9)
+write$binfmt_misc(r0, &(0x7f0000000040)={'syz0', "50dd00bcc3b0bd6043a6ebadea867e140e28396281f45bece5555ab641a2b40b6caf60e1f942b754235d2c"}, 0x2f)
+fcntl$setflags(r0, 0x2, 0x1)
+fchown(r0, 0x0, 0xee01)
+fcntl$setflags(r0, 0x2, 0x0)
+r1 = openat(r0, &(0x7f0000000080)='./file81\x00', 0x800, 0x86)
+r2 = fcntl$getown(r0, 0x9)
+fcntl$setownex(r1, 0xf, &(0x7f00000000c0)={0x2, r2})
+r3 = open$dir(&(0x7f0000000100)='./file81\x00', 0x161000, 0x22)
+read(r3, &(0x7f0000000140)=""/227, 0xe3)
+r4 = open(&(0x7f0000000240)='./file81\x00', 0x1, 0x1c1)
+write$binfmt_elf32(r4, &(0x7f0000000280)={{0x7f, 0x45, 0x4c, 0x46, 0x7, 0x4, 0x5, 0x2e, 0x1, 0x0, 0x3, 0x0, 0x384, 0x38, 0xad, 0x50, 0x100, 0x20, 0x1, 0x9, 0x0, 0x5}, [{0x4, 0x2, 0xfffffffb, 0x0, 0x4, 0x2, 0x1, 0x5bf}, {0x7, 0x9, 0x4, 0x3, 0x0, 0x7, 0x1000, 0x4aa4e720}], "d5d383e4d8a906503f1862a6902f6b4c833613f276eeff6a090412be8c7cab9dcc4028a4d11371c87686412aadb7793f914f13dc7b5702aca70162a150f25681f76e200c48123a54872532356aca9c5db8195103a673250d7d638f54d8b1a53dd7e4fc8f81d66237f6021fafde46e30c", ['\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00']}, 0xae8)
+sendfile(r0, r4, &(0x7f0000000d80)=0x2, 0xf05)
+r5 = open$dir(&(0x7f0000000dc0)='./file81\x00', 0x200040, 0x8)
+fdatasync(r5)
+renameat(r1, &(0x7f0000000e00)='./file81\x00', 0xffffffffffffff9c, &(0x7f0000000e40)='./file81\x00')
+fcntl$setown(0xffffffffffffffff, 0x8, 0xffffffffffffffff)
+---
+write$binfmt_script(0xffffffffffffffff, &(0x7f0000000000)={'#! ', './file94', [{}, {0x20, '}*#'}], 0xa, "af82302a8a73c9e056e3899472de8d13132c0cd934cef3f3db5f1fa0fe504da5"}, 0x31)
+r0 = open(&(0x7f0000000040)='./file94\x00', 0x40000, 0x145)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000080)=0x8, 0x4dc)
+write$binfmt_script(r0, &(0x7f00000000c0)={'#! ', './file94', [{}, {0x20, '&,)^'}, {0x20, '}*#'}, {0x20, '}*#'}, {0x20, '#! '}, {0x20, '#! '}], 0xa, "3dcd6b18853b7f458e3eef0135ee25902591853cb54a8c7516aa1f2f00c7aecfa446fe1d46cee547f30e8c7ffd721a3ea1f54bb70825fba844d9dae232b4fc22f1919bffc7655943f4347745d6cc1914419b16998795e3b7a5d28e98de9ecf6f46936f2c7d060c5d1104f7de50a75c1d5a63b8f6d49cb1ca833300061fb6eee62fb74de5a37018e8bb850e6e864621849b1511c0d34886404ceb1c048ba015ee09e0a06eb604c107c6f959233ed5a3793ea58825e261c6d7bed835b8c4392e85737ba87a1d6daeee6543c5aa60af753eaf67455dc567a9177fb9826258dfb79383e4ebadf130d806cc"}, 0x10b)
+fcntl$notify(r0, 0x402, 0x80000028)
+fcntl$notify(r0, 0x402, 0x10)
+fcntl$setflags(r0, 0x2, 0x1)
+fdatasync(r0)
+stat(&(0x7f0000000200)='./file94\x00', &(0x7f0000000240))
+r1 = open(&(0x7f00000002c0)='./file57\x00', 0x200, 0x108)
+fcntl$getown(
+VM DIAGNOSIS:
+21:31:40  Registers:
+info registers vcpu 0
+RAX=0000000000000000 RBX=ffff888113b62588 RCX=ffffffff8ae478e7 RDX=0000000000000000
+RSI=0000000000000004 RDI=ffff888113b62588 RBP=1ffff1102100ef52 RSP=ffff888108077a80
+R8 =0000000000000001 R9 =ffffed102276c4b2 R10=ffff888113b6258b R11=ffffed102276c4b1
+R12=0000000000000001 R13=0000000000000003 R14=ffffed102276c4b1 R15=0000000000000001
+RIP=ffffffff8ae47960 RFL=00000202 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0000 0000000000000000 ffffffff 00c00000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0018 0000000000000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0000 0000000000000000 ffffffff 00c00000
+FS =0000 0000000000000000 ffffffff 00c00000
+GS =0000 ffff888260000000 ffffffff 00c00000
+LDT=0000 0000000000000000 ffffffff 00c00000
+TR =0040 fffffe0000003000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe0000001000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=00007f032d8ea400 CR3=000000011020a002 CR4=00770ef0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00001f80
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=cc80000000000000 4007
+FPR6=cc80000000000000 4007 FPR7=cdc0000000000000 4008
+XMM00=00000000000000000000000000000000 XMM01=00000000000000000000000000000000
+XMM02=00000000000000000000000000000000 XMM03=00000000000000000000000000000000
+XMM04=ffffffff00000000ffff00000000ff00 XMM05=00000000000000000000000000000000
+XMM06=00000000000000000000000000000000 XMM07=00000000000000000000000000000000
+XMM08=00000000000000000000000000000000 XMM09=00000000000000000000000000000000
+XMM10=00000000000000000000000000000000 XMM11=00000000000000000000000000000000
+XMM12=00000000000000000000000000000000 XMM13=00000000000000000000000000000000
+XMM14=00000000000000000000000000000000 XMM15=00000000000000000000000000000000
+info registers vcpu 1
+RAX=dffffc0000000060 RBX=00000000000003fd RCX=0000000000000000 RDX=00000000000003fd
+RSI=ffff888106c84380 RDI=ffffffff8faa1d28 RBP=ffffffff8faa1d20 RSP=ffff88810a07ecf0
+R8 =ffffffff8c00907c R9 =000000000000000a R10=0000000000000001 R11=ffffed102140fda9
+R12=0000000000000020 R13=fffffbfff1f543eb R14=fffffbfff1f543a7 R15=dffffc0000000000
+RIP=ffffffff8c0090d0 RFL=00000002 [-------] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0000 0000000000000000 ffffffff 00c00000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0000 0000000000000000 ffffffff 00c00000
+DS =0000 0000000000000000 ffffffff 00c00000
+FS =0000 00007fd492e798c0 ffffffff 00c00000
+GS =0000 ffff888260080000 ffffffff 00c00000
+LDT=0000 0000000000000000 ffffffff 00c00000
+TR =0040 fffffe000003e000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe000003c000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=00007fff8cbf3ff8 CR3=000000010a15e002 CR4=00770ee0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00009fc0
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+XMM00=ffffffffffffff00ffff000000000000 XMM01=2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f
+XMM02=64646464646464646464646464646464 XMM03=00000000000000000000000000000000
+XMM04=ffffffffffffff000000000000000000 XMM05=ffffffffffffff00ffff000000000000
+XMM06=ffffffffffffff000000000000000000 XMM07=00000000000000000000000000000000
+XMM08=000000000000009000005500010100ff XMM09=64641bb0f59e64292130373d37263137
+XMM10=6464646464646445646431f48e645555 XMM11=00000000000000000000000000000000
+XMM12=00000000000000000000000000000000 XMM13=00000000000000000000000000000000
+XMM14=00000000000000000000000000000000 XMM15=00000000000000000000000000000000
+info registers vcpu 2
+RAX=0000000000000000 RBX=0000000000000000 RCX=0000556214bef3d6 RDX=0000556214bef3d6
+RSI=0000000000000000 RDI=0000556214bef3a0 RBP=00007ffe89d8bd88 RSP=00007ffe89d8bd38
+R8 =0000000000000000 R9 =0000000000000040 R10=00007faa47b6f500 R11=00007faa461bb184
+R12=0000556214ba0730 R13=00007ffe89d8bd90 R14=0000556214b587b0 R15=0000000000000001
+RIP=00007faa461119a3 RFL=00000202 [-------] CPL=3 II=0 A20=1 SMM=0 HLT=0
+ES =0000 0000000000000000 ffffffff 00c00000
+CS =0033 0000000000000000 ffffffff 00a0fb00 DPL=3 CS64 [-RA]
+SS =002b 0000000000000000 ffffffff 00c0f300 DPL=3 DS   [-WA]
+DS =0000 0000000000000000 ffffffff 00c00000
+FS =0000 00007faa47b6f500 ffffffff 00c00000
+GS =0000 0000000000000000 ffffffff 00c00000
+LDT=0000 0000000000000000 ffffffff 00c00000
+TR =0040 fffffe0000079000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe0000077000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=0000556214ba0970 CR3=00000001056ec003 CR4=00770ee0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00009fc0
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+XMM00=ffffffffffff0000ffffffffffffffff XMM01=656369767265732e6470616d64692d73
+XMM02=00000000000004310000000000000000 XMM03=ffffff00ffffff00ffff000000000000
+XMM04=00000000000000000000000000000000 XMM05=00000000000000000000556214b7a560
+XMM06=00000000000002110000000000000000 XMM07=00000000000000000000000000000000
+XMM08=2e706f746b736564656572662e67726f XMM09=ffffffff0000ffffffffff00ffffffff
+XMM10=00000020000000000000000000000000 XMM11=00000000000000000000000000000000
+XMM12=00000000000000000000000000000000 XMM13=00000000000000000000000000000000
+XMM14=00000000000000000000000000000000 XMM15=00000000000000000000000000000000
+info registers vcpu 3
+RAX=dffffc0000000000 RBX=ffff888105c20000 RCX=1ffff11020b85ffc RDX=1ffff11020b84116
+RSI=0000000000013589 RDI=ffff888105c208b0 RBP=ffff8882601ada40 RSP=ffff888260189dc8
+R8 =0000000000000000 R9 =ffffffff8fa0b0cf R10=ffffffff8fa0b0d7 R11=ffffffff8fa0b0db
+R12=0000000000000000 R13=ffff888105c20110 R14=ffff888105c20000 R15=ffff8882601ada40
+RIP=ffffffff8ae3e84d RFL=00000046 [---Z-P-] CPL=0 II=0 A20=1 SMM=0 HLT=0
+ES =0000 0000000000000000 ffffffff 00c00000
+CS =0010 0000000000000000 ffffffff 00a09b00 DPL=0 CS64 [-RA]
+SS =0018 0000000000000000 ffffffff 00c09300 DPL=0 DS   [-WA]
+DS =0000 0000000000000000 ffffffff 00c00000
+FS =0000 00007f0dfb9588c0 ffffffff 00c00000
+GS =0000 ffff888260180000 ffffffff 00c00000
+LDT=0000 0000000000000000 ffffffff 00c00000
+TR =0040 fffffe00000b4000 00004087 00008b00 DPL=0 TSS64-busy
+GDT=     fffffe00000b2000 0000007f
+IDT=     fffffe0000000000 00000fff
+CR0=80050033 CR2=00007fee9dbcbab4 CR3=00000001088ee001 CR4=00770ee0
+DR0=0000000000000000 DR1=0000000000000000 DR2=0000000000000000 DR3=0000000000000000 
+DR6=00000000ffff0ff0 DR7=0000000000000400
+EFER=0000000000000d01
+FCW=037f FSW=0000 [ST=0] FTW=00 MXCSR=00009fc0
+FPR0=0000000000000000 0000 FPR1=0000000000000000 0000
+FPR2=0000000000000000 0000 FPR3=0000000000000000 0000
+FPR4=0000000000000000 0000 FPR5=0000000000000000 0000
+FPR6=0000000000000000 0000 FPR7=0000000000000000 0000
+XMM00=0000000000000000000000000000ff00 XMM01=ffffff00000000000000000000000000
+XMM02=ffffffffffffffffffffffffffffffff XMM03=ffffffffffffffffffffffffffffffff
+XMM04=00000000000000000000000000000000 XMM05=79c94ffe0d42695f00000000001fac68
+XMM06=8303ba56006484c800000000001d99c8 XMM07=f61f520134a0d9c200000000001d4af0
+XMM08=edb2f9687c456aab00000000001d4a38 XMM09=226b0707070707070707070750515151
+XMM10=5151685b0707241100226b0707070707 XMM11=00000000000000000000000000000000
+XMM12=00000000000000000000000000000000 XMM13=00000000000000000000000000000000
+XMM14=00000000000000000000000000000000 XMM15=00000000000000000000000000000000

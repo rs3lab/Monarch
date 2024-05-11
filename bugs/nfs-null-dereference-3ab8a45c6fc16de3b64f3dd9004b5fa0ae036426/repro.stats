@@ -1,0 +1,506 @@
+Extracting prog: 21.507433475s
+Minimizing prog: 10m41.464716663s
+Simplifying prog options: 4m1.810756859s
+Extracting C: 36.214623648s
+Simplifying C: 0s
+
+
+351 programs, 1 VMs, timeouts [15s 1m40s 6m0s]
+extracting reproducer from 297 programs
+single: executing 1 programs separately with timeout 15s
+testing program (duration=15s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-readlinkat-open-lseek-lseek-open-write$binfmt_aout-rmdir-lseek
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+r2 = dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+readlinkat(r0, &(0x7f0000000000)='./file1\x00', &(0x7f0000000280)=""/152, 0x98)
+r3 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r3, 0x9, 0x4)
+lseek(r2, 0x480000000000, 0x1)
+r4 = open(&(0x7f0000000240)='./file1\x00', 0x800, 0x4)
+write$binfmt_aout(r4, &(0x7f0000000b00)=ANY=[@ANYBLOB="cc0072f37d020000260300000400000097020000c3ab00000000001100000000884baa80da2941065be1e126a8e8aac607e1b260e39c50f6d4d50b3a13bdbade119815598a2ca416c9644b679f35a2094e9eb7d9bda295c97531452dbde437a3c49b8de243943e309283172781d7ad1bafab6c8a5dcc11bc0b4e9e06fc41f4a7bf9c49c765f7e7c27ebb32dc98d4544a004c703f0e51ae06f2a84517f2ee9bd443a3458768dce9a76440eba72e6089c12347845651bb29521b4313c496f10e3fd715cae758a6cc7d0356c34c7bf343b5f64de8e41d44a9362706cacd7335502ebcfb810000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e6ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d2afe5015424920000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000cc4bbb3cb5e7a1d700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b37d88aaef55e6b16bc10000000000000000000000000000000000000000000000000000000000000000943e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007cd8bf1b963c7a4fe91d2c51e6ddc757a0442483343c306c6cffe8548f81198267b1d2fd1952fb7bf75f4c17417a8ac0731ab17dd48c893e518e8a1bcdeb1e98d0145f5405249176a106da170034f6ec765bdf5b080c414f80413d429f9dd93e6a528b4246224aa93d395a27ca67dea9"], 0x7e3)
+rmdir(&(0x7f0000000140)='./file1\x00')
+lseek(r0, 0x1, 0x0)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+single: successfully extracted reproducer
+found reproducer with 14 syscalls
+minimizing guilty program
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-readlinkat-open-lseek-lseek-open-write$binfmt_aout-rmdir
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+r2 = dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+readlinkat(r0, &(0x7f0000000000)='./file1\x00', &(0x7f0000000280)=""/152, 0x98)
+r3 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r3, 0x9, 0x4)
+lseek(r2, 0x480000000000, 0x1)
+r4 = open(&(0x7f0000000240)='./file1\x00', 0x800, 0x4)
+write$binfmt_aout(r4, &(0x7f0000000b00)=ANY=[@ANYBLOB="cc0072f37d020000260300000400000097020000c3ab00000000001100000000884baa80da2941065be1e126a8e8aac607e1b260e39c50f6d4d50b3a13bdbade119815598a2ca416c9644b679f35a2094e9eb7d9bda295c97531452dbde437a3c49b8de243943e309283172781d7ad1bafab6c8a5dcc11bc0b4e9e06fc41f4a7bf9c49c765f7e7c27ebb32dc98d4544a004c703f0e51ae06f2a84517f2ee9bd443a3458768dce9a76440eba72e6089c12347845651bb29521b4313c496f10e3fd715cae758a6cc7d0356c34c7bf343b5f64de8e41d44a9362706cacd7335502ebcfb810000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e6ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d2afe5015424920000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000cc4bbb3cb5e7a1d700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b37d88aaef55e6b16bc10000000000000000000000000000000000000000000000000000000000000000943e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007cd8bf1b963c7a4fe91d2c51e6ddc757a0442483343c306c6cffe8548f81198267b1d2fd1952fb7bf75f4c17417a8ac0731ab17dd48c893e518e8a1bcdeb1e98d0145f5405249176a106da170034f6ec765bdf5b080c414f80413d429f9dd93e6a528b4246224aa93d395a27ca67dea9"], 0x7e3)
+rmdir(&(0x7f0000000140)='./file1\x00')
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-readlinkat-open-lseek-lseek-open-write$binfmt_aout
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+r2 = dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+readlinkat(r0, &(0x7f0000000000)='./file1\x00', &(0x7f0000000280)=""/152, 0x98)
+r3 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r3, 0x9, 0x4)
+lseek(r2, 0x480000000000, 0x1)
+r4 = open(&(0x7f0000000240)='./file1\x00', 0x800, 0x4)
+write$binfmt_aout(r4, &(0x7f0000000b00)=ANY=[@ANYBLOB="cc0072f37d020000260300000400000097020000c3ab00000000001100000000884baa80da2941065be1e126a8e8aac607e1b260e39c50f6d4d50b3a13bdbade119815598a2ca416c9644b679f35a2094e9eb7d9bda295c97531452dbde437a3c49b8de243943e309283172781d7ad1bafab6c8a5dcc11bc0b4e9e06fc41f4a7bf9c49c765f7e7c27ebb32dc98d4544a004c703f0e51ae06f2a84517f2ee9bd443a3458768dce9a76440eba72e6089c12347845651bb29521b4313c496f10e3fd715cae758a6cc7d0356c34c7bf343b5f64de8e41d44a9362706cacd7335502ebcfb810000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e6ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d2afe5015424920000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000cc4bbb3cb5e7a1d700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b37d88aaef55e6b16bc10000000000000000000000000000000000000000000000000000000000000000943e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007cd8bf1b963c7a4fe91d2c51e6ddc757a0442483343c306c6cffe8548f81198267b1d2fd1952fb7bf75f4c17417a8ac0731ab17dd48c893e518e8a1bcdeb1e98d0145f5405249176a106da170034f6ec765bdf5b080c414f80413d429f9dd93e6a528b4246224aa93d395a27ca67dea9"], 0x7e3)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-readlinkat-open-lseek-lseek-open
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+r2 = dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+readlinkat(r0, &(0x7f0000000000)='./file1\x00', &(0x7f0000000280)=""/152, 0x98)
+r3 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r3, 0x9, 0x4)
+lseek(r2, 0x480000000000, 0x1)
+open(&(0x7f0000000240)='./file1\x00', 0x800, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-readlinkat-open-lseek-lseek
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+r2 = dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+readlinkat(r0, &(0x7f0000000000)='./file1\x00', &(0x7f0000000280)=""/152, 0x98)
+r3 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r3, 0x9, 0x4)
+lseek(r2, 0x480000000000, 0x1)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-readlinkat-open-lseek
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+readlinkat(r0, &(0x7f0000000000)='./file1\x00', &(0x7f0000000280)=""/152, 0x98)
+r2 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r2, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-readlinkat-open
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+readlinkat(r0, &(0x7f0000000000)='./file1\x00', &(0x7f0000000280)=""/152, 0x98)
+open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+
+program did not crash
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-readlinkat-lseek
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+readlinkat(r0, &(0x7f0000000000)='./file1\x00', &(0x7f0000000280)=""/152, 0x98)
+lseek(0xffffffffffffffff, 0x9, 0x4)
+
+program did not crash
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-dup2-open-lseek
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r1 = open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+dup2(r1, r1)
+r2 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r2, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-dup-open-lseek
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+dup(r0)
+r1 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r1, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-sendfile-open-lseek
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+dup(r0)
+sendfile(0xffffffffffffffff, r0, &(0x7f0000000180)=0x9, 0x7fffffff)
+r1 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r1, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-dup-open-lseek
+detailed listing:
+executing program 0:
+r0 = openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+dup(r0)
+r1 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r1, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-open-lseek
+detailed listing:
+executing program 0:
+openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+open(&(0x7f00000001c0)='./file1\x00', 0x101102, 0x1fa)
+r0 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+detailed listing:
+executing program 0:
+openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r0 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): open-lseek
+detailed listing:
+executing program 0:
+r0 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)
+
+program did not crash
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+detailed listing:
+executing program 0:
+openat(0xffffffffffffff9c, 0x0, 0x42, 0x0)
+r0 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)
+
+program did not crash
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+detailed listing:
+executing program 0:
+openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r0 = open(0x0, 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)
+
+program did not crash
+extracting C reproducer
+testing compiled C program (duration=22.5s, {Threaded:true Collide:true Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+program did not crash
+simplifying guilty program options
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:true Collide:false Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+detailed listing:
+executing program 0:
+openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r0 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+extracting C reproducer
+testing compiled C program (duration=22.5s, {Threaded:true Collide:false Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+program did not crash
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:false Collide:false Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+detailed listing:
+executing program 0:
+openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r0 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+extracting C reproducer
+testing compiled C program (duration=22.5s, {Threaded:false Collide:false Repeat:true RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:true Cgroups:true BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+program did not crash
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+testing program (duration=22.5s, {Threaded:false Collide:false Repeat:false RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:false Cgroups:false BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+detailed listing:
+executing program 0:
+openat(0xffffffffffffff9c, &(0x7f0000000040)='./file1\x00', 0x42, 0x0)
+r0 = open(&(0x7f0000000200)='./file1\x00', 0x73549431b30ee04b, 0x1)
+lseek(r0, 0x9, 0x4)
+
+program crashed: KASAN: null-ptr-deref Read in nfs4_select_rw_stateid
+extracting C reproducer
+testing compiled C program (duration=22.5s, {Threaded:false Collide:false Repeat:false RepeatTimes:0 Procs:1 Slowdown:1 Sandbox:none Leak:false NetInjection:false NetDevices:true NetReset:false Cgroups:false BinfmtMisc:true CloseFDs:true KCSAN:false DevlinkPCI:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:true UseTmpDir:true HandleSegv:true Repro:true Trace:false LegacyOptions:{Fault:false FaultCall:0 FaultNth:0}}): openat-open-lseek
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+
+program did not crash
+reproducing took 15m52.997412292s
+repro crashed as (corrupted=false):
+audit: type=1400 audit(1638897907.415:8): avc:  denied  { execmem } for  pid=424 comm="syz-executor" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=process permissive=1
+==================================================================
+BUG: KASAN: null-ptr-deref in nfs4_select_rw_stateid+0x3d/0x770
+Read of size 8 at addr 0000000000000040 by task syz-executor/875
+
+CPU: 1 PID: 875 Comm: syz-executor Not tainted 5.15.0 #1
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ dump_stack_lvl+0x6e/0x91
+ kasan_report.cold+0x116/0x11b
+ kasan_check_range+0x17c/0x1e0
+ nfs4_select_rw_stateid+0x3d/0x770
+ _nfs42_proc_llseek+0x217/0x4d0
+ nfs42_proc_llseek+0x255/0x340
+ nfs4_file_llseek+0x65/0x90
+ ksys_lseek+0x10b/0x1a0
+ do_syscall_64+0x38/0x90
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f556814944d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe6672b058 EFLAGS: 00000212 ORIG_RAX: 0000000000000008
+RAX: ffffffffffffffda RBX: 00007f55681b1879 RCX: 00007f556814944d
+RDX: 0000000000000004 RSI: 0000000000000009 RDI: 0000000000000005
+RBP: 00007ffe6672b090 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000212 R12: 00007f55680f00d0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+==================================================================
+general protection fault, probably for non-canonical address 0xdffffc0000000008: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
+CPU: 1 PID: 875 Comm: syz-executor Tainted: G    B             5.15.0 #1
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:nfs4_select_rw_stateid+0x4e/0x770
+Code: 24 14 4c 89 44 24 18 e8 e0 08 7c ff be 08 00 00 00 4c 89 ff e8 93 17 a6 ff 4c 89 fa 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <80> 3c 02 00 0f 85 6a 06 00 00 48 8b 43 40 31 ff 48 c1 e8 09 41 89
+RSP: 0018:ffff8881102d7be0 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffff8881102e8000
+RDX: 0000000000000008 RSI: 0000000000000246 RDI: ffffffffaf64f8c8
+RBP: ffff8881102d7c30 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000007 R11: fffffbfff5ebef60 R12: ffff888104d8e480
+R13: ffff8881102d7d58 R14: ffff88811475dc20 R15: 0000000000000040
+FS:  0000555555604980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f5568259008 CR3: 000000010da3a003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ _nfs42_proc_llseek+0x217/0x4d0
+ nfs42_proc_llseek+0x255/0x340
+ nfs4_file_llseek+0x65/0x90
+ ksys_lseek+0x10b/0x1a0
+ do_syscall_64+0x38/0x90
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f556814944d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe6672b058 EFLAGS: 00000212 ORIG_RAX: 0000000000000008
+RAX: ffffffffffffffda RBX: 00007f55681b1879 RCX: 00007f556814944d
+RDX: 0000000000000004 RSI: 0000000000000009 RDI: 0000000000000005
+RBP: 00007ffe6672b090 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000212 R12: 00007f55680f00d0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+Modules linked in:
+---[ end trace a108b00f339c7aab ]---
+RIP: 0010:nfs4_select_rw_stateid+0x4e/0x770
+Code: 24 14 4c 89 44 24 18 e8 e0 08 7c ff be 08 00 00 00 4c 89 ff e8 93 17 a6 ff 4c 89 fa 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <80> 3c 02 00 0f 85 6a 06 00 00 48 8b 43 40 31 ff 48 c1 e8 09 41 89
+RSP: 0018:ffff8881102d7be0 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffff8881102e8000
+RDX: 0000000000000008 RSI: 0000000000000246 RDI: ffffffffaf64f8c8
+RBP: ffff8881102d7c30 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000007 R11: fffffbfff5ebef60 R12: ffff888104d8e480
+R13: ffff8881102d7d58 R14: ffff88811475dc20 R15: 0000000000000040
+FS:  0000555555604980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f5568259008 CR3: 000000010da3a003 CR4: 0000000000770ee0
+PKRU: 55555554
+
+final repro crashed as (corrupted=false):
+audit: type=1400 audit(1638897907.415:8): avc:  denied  { execmem } for  pid=424 comm="syz-executor" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=process permissive=1
+==================================================================
+BUG: KASAN: null-ptr-deref in nfs4_select_rw_stateid+0x3d/0x770
+Read of size 8 at addr 0000000000000040 by task syz-executor/875
+
+CPU: 1 PID: 875 Comm: syz-executor Not tainted 5.15.0 #1
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ dump_stack_lvl+0x6e/0x91
+ kasan_report.cold+0x116/0x11b
+ kasan_check_range+0x17c/0x1e0
+ nfs4_select_rw_stateid+0x3d/0x770
+ _nfs42_proc_llseek+0x217/0x4d0
+ nfs42_proc_llseek+0x255/0x340
+ nfs4_file_llseek+0x65/0x90
+ ksys_lseek+0x10b/0x1a0
+ do_syscall_64+0x38/0x90
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f556814944d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe6672b058 EFLAGS: 00000212 ORIG_RAX: 0000000000000008
+RAX: ffffffffffffffda RBX: 00007f55681b1879 RCX: 00007f556814944d
+RDX: 0000000000000004 RSI: 0000000000000009 RDI: 0000000000000005
+RBP: 00007ffe6672b090 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000212 R12: 00007f55680f00d0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+==================================================================
+general protection fault, probably for non-canonical address 0xdffffc0000000008: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
+CPU: 1 PID: 875 Comm: syz-executor Tainted: G    B             5.15.0 #1
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:nfs4_select_rw_stateid+0x4e/0x770
+Code: 24 14 4c 89 44 24 18 e8 e0 08 7c ff be 08 00 00 00 4c 89 ff e8 93 17 a6 ff 4c 89 fa 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <80> 3c 02 00 0f 85 6a 06 00 00 48 8b 43 40 31 ff 48 c1 e8 09 41 89
+RSP: 0018:ffff8881102d7be0 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffff8881102e8000
+RDX: 0000000000000008 RSI: 0000000000000246 RDI: ffffffffaf64f8c8
+RBP: ffff8881102d7c30 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000007 R11: fffffbfff5ebef60 R12: ffff888104d8e480
+R13: ffff8881102d7d58 R14: ffff88811475dc20 R15: 0000000000000040
+FS:  0000555555604980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f5568259008 CR3: 000000010da3a003 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ _nfs42_proc_llseek+0x217/0x4d0
+ nfs42_proc_llseek+0x255/0x340
+ nfs4_file_llseek+0x65/0x90
+ ksys_lseek+0x10b/0x1a0
+ do_syscall_64+0x38/0x90
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7f556814944d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe6672b058 EFLAGS: 00000212 ORIG_RAX: 0000000000000008
+RAX: ffffffffffffffda RBX: 00007f55681b1879 RCX: 00007f556814944d
+RDX: 0000000000000004 RSI: 0000000000000009 RDI: 0000000000000005
+RBP: 00007ffe6672b090 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000212 R12: 00007f55680f00d0
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+Modules linked in:
+---[ end trace a108b00f339c7aab ]---
+RIP: 0010:nfs4_select_rw_stateid+0x4e/0x770
+Code: 24 14 4c 89 44 24 18 e8 e0 08 7c ff be 08 00 00 00 4c 89 ff e8 93 17 a6 ff 4c 89 fa 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <80> 3c 02 00 0f 85 6a 06 00 00 48 8b 43 40 31 ff 48 c1 e8 09 41 89
+RSP: 0018:ffff8881102d7be0 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffff8881102e8000
+RDX: 0000000000000008 RSI: 0000000000000246 RDI: ffffffffaf64f8c8
+RBP: ffff8881102d7c30 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000007 R11: fffffbfff5ebef60 R12: ffff888104d8e480
+R13: ffff8881102d7d58 R14: ffff88811475dc20 R15: 0000000000000040
+FS:  0000555555604980(0000) GS:ffff888265280000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f5568259008 CR3: 000000010da3a003 CR4: 0000000000770ee0
+PKRU: 55555554
+
+failed to init instance: failed to create VM: failed to read from qemu: EOF
+qemu-system-x86_64: -hda /home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2: Failed to get "write" lock
+Is another process using the image [/home/tlyu/dfs-fuzzing/kernel-5.15/debian-image/stretch.qcow2]?
+

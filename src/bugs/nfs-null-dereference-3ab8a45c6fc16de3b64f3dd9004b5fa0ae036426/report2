@@ -1,0 +1,110 @@
+audit: type=1400 audit(1638898245.845:9): avc:  denied  { execmem } for  pid=6729 comm="test" scontext=system_u:system_r:kernel_t:s0 tcontext=system_u:system_r:kernel_t:s0 tclass=process permissive=1
+==================================================================
+BUG: KASAN: null-ptr-deref in instrument_atomic_read include/linux/instrumented.h:71 [inline]
+BUG: KASAN: null-ptr-deref in test_bit include/asm-generic/bitops/instrumented-non-atomic.h:134 [inline]
+BUG: KASAN: null-ptr-deref in nfs4_valid_open_stateid fs/nfs/nfs4_fs.h:630 [inline]
+BUG: KASAN: null-ptr-deref in nfs4_select_rw_stateid+0x3d/0x770 fs/nfs/nfs4state.c:1047
+Read of size 8 at addr 0000000000000040 by task test/6729
+
+CPU: 0 PID: 6729 Comm: test Not tainted 5.15.0 #1
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:88 [inline]
+ dump_stack_lvl+0x6e/0x91 lib/dump_stack.c:106
+ __kasan_report mm/kasan/report.c:446 [inline]
+ kasan_report.cold+0x116/0x11b mm/kasan/report.c:459
+ check_region_inline mm/kasan/generic.c:183 [inline]
+ kasan_check_range+0x17c/0x1e0 mm/kasan/generic.c:189
+ instrument_atomic_read include/linux/instrumented.h:71 [inline]
+ test_bit include/asm-generic/bitops/instrumented-non-atomic.h:134 [inline]
+ nfs4_valid_open_stateid fs/nfs/nfs4_fs.h:630 [inline]
+ nfs4_select_rw_stateid+0x3d/0x770 fs/nfs/nfs4state.c:1047
+ _nfs42_proc_llseek+0x217/0x4d0 fs/nfs/nfs42proc.c:666
+ nfs42_proc_llseek+0x255/0x340 fs/nfs/nfs42proc.c:707
+ nfs4_file_llseek+0x65/0x90 fs/nfs/nfs4file.c:211
+ vfs_llseek fs/read_write.c:300 [inline]
+ ksys_lseek+0x10b/0x1a0 fs/read_write.c:313
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7fa046f33469
+Code: 00 f3 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d ff 49 2b 00 f7 d8 64 89 01 48
+RSP: 002b:00007fff7feae078 EFLAGS: 00000217 ORIG_RAX: 0000000000000008
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fa046f33469
+RDX: 0000000000000004 RSI: 0000000000000009 RDI: 0000000000000004
+RBP: 00007fff7feae090 R08: 00007fff7feae170 R09: 00007fff7feae170
+R10: 00007fff7feae170 R11: 0000000000000217 R12: 000056456ba005e0
+R13: 00007fff7feae170 R14: 0000000000000000 R15: 0000000000000000
+==================================================================
+general protection fault, probably for non-canonical address 0xdffffc0000000008: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
+CPU: 0 PID: 6729 Comm: test Tainted: G    B             5.15.0 #1
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+RIP: 0010:constant_test_bit arch/x86/include/asm/bitops.h:207 [inline]
+RIP: 0010:test_bit include/asm-generic/bitops/instrumented-non-atomic.h:135 [inline]
+RIP: 0010:nfs4_valid_open_stateid fs/nfs/nfs4_fs.h:630 [inline]
+RIP: 0010:nfs4_select_rw_stateid+0x4e/0x770 fs/nfs/nfs4state.c:1047
+Code: 24 14 4c 89 44 24 18 e8 e0 08 7c ff be 08 00 00 00 4c 89 ff e8 93 17 a6 ff 4c 89 fa 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <80> 3c 02 00 0f 85 6a 06 00 00 48 8b 43 40 31 ff 48 c1 e8 09 41 89
+RSP: 0018:ffff88813f127be0 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffff88810a6eda00
+RDX: 0000000000000008 RSI: 0000000000000246 RDI: ffffffffaf64f8c8
+RBP: ffff88813f127c30 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000007 R11: fffffbfff5ebef60 R12: ffff888117565e00
+R13: ffff88813f127d58 R14: ffff888131d8cde0 R15: 0000000000000040
+FS:  00007fa04740c440(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000020000040 CR3: 00000001156e6005 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+ _nfs42_proc_llseek+0x217/0x4d0 fs/nfs/nfs42proc.c:666
+ nfs42_proc_llseek+0x255/0x340 fs/nfs/nfs42proc.c:707
+ nfs4_file_llseek+0x65/0x90 fs/nfs/nfs4file.c:211
+ vfs_llseek fs/read_write.c:300 [inline]
+ ksys_lseek+0x10b/0x1a0 fs/read_write.c:313
+ do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+ do_syscall_64+0x38/0x90 arch/x86/entry/common.c:80
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7fa046f33469
+Code: 00 f3 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d ff 49 2b 00 f7 d8 64 89 01 48
+RSP: 002b:00007fff7feae078 EFLAGS: 00000217 ORIG_RAX: 0000000000000008
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fa046f33469
+RDX: 0000000000000004 RSI: 0000000000000009 RDI: 0000000000000004
+RBP: 00007fff7feae090 R08: 00007fff7feae170 R09: 00007fff7feae170
+R10: 00007fff7feae170 R11: 0000000000000217 R12: 000056456ba005e0
+R13: 00007fff7feae170 R14: 0000000000000000 R15: 0000000000000000
+Modules linked in:
+---[ end trace a108b00f339c7aab ]---
+RIP: 0010:constant_test_bit arch/x86/include/asm/bitops.h:207 [inline]
+RIP: 0010:test_bit include/asm-generic/bitops/instrumented-non-atomic.h:135 [inline]
+RIP: 0010:nfs4_valid_open_stateid fs/nfs/nfs4_fs.h:630 [inline]
+RIP: 0010:nfs4_select_rw_stateid+0x4e/0x770 fs/nfs/nfs4state.c:1047
+Code: 24 14 4c 89 44 24 18 e8 e0 08 7c ff be 08 00 00 00 4c 89 ff e8 93 17 a6 ff 4c 89 fa 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <80> 3c 02 00 0f 85 6a 06 00 00 48 8b 43 40 31 ff 48 c1 e8 09 41 89
+RSP: 0018:ffff88813f127be0 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: ffff88810a6eda00
+RDX: 0000000000000008 RSI: 0000000000000246 RDI: ffffffffaf64f8c8
+RBP: ffff88813f127c30 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000007 R11: fffffbfff5ebef60 R12: ffff888117565e00
+R13: ffff88813f127d58 R14: ffff888131d8cde0 R15: 0000000000000040
+FS:  00007fa04740c440(0000) GS:ffff888265200000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000020000040 CR3: 00000001156e6005 CR4: 0000000000770ef0
+PKRU: 55555554
+----------------
+Code disassembly (best guess):
+   0:	24 14                	and    $0x14,%al
+   2:	4c 89 44 24 18       	mov    %r8,0x18(%rsp)
+   7:	e8 e0 08 7c ff       	callq  0xff7c08ec
+   c:	be 08 00 00 00       	mov    $0x8,%esi
+  11:	4c 89 ff             	mov    %r15,%rdi
+  14:	e8 93 17 a6 ff       	callq  0xffa617ac
+  19:	4c 89 fa             	mov    %r15,%rdx
+  1c:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  23:	fc ff df
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+  2e:	0f 85 6a 06 00 00    	jne    0x69e
+  34:	48 8b 43 40          	mov    0x40(%rbx),%rax
+  38:	31 ff                	xor    %edi,%edi
+  3a:	48 c1 e8 09          	shr    $0x9,%rax
+  3e:	41                   	rex.B
+  3f:	89                   	.byte 0x89

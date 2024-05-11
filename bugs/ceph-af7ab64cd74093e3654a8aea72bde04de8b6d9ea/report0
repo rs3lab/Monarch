@@ -1,0 +1,31 @@
+------------[ cut here ]------------
+WARNING: CPU: 3 PID: 173537 at fs/ceph/caps.c:690 ceph_add_cap+0xfed/0x1440 fs/ceph/caps.c:690
+Modules linked in:
+CPU: 3 PID: 173537 Comm: kworker/3:2 Not tainted 5.15.0 #3
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Workqueue: ceph-msgr ceph_con_workfn
+RIP: 0010:ceph_add_cap+0xfed/0x1440 fs/ceph/caps.c:690
+Code: 48 89 44 24 30 48 8d 45 44 48 89 44 24 38 48 8d 45 4c 48 89 44 24 18 48 8d 45 58 48 89 44 24 40 e9 ba fb ff ff e8 a3 de 52 ff <0f> 0b e9 5b fa ff ff e8 97 de 52 ff 0f 0b e9 0d fa ff ff 48 8b 44
+RSP: 0018:ffff8881be8476c8 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: 0000000000000001 RCX: ffff888114b4da00
+RDX: 0000000000000000 RSI: ffff888114b4da00 RDI: 0000000000000002
+RBP: ffff8881161ecda8 R08: ffffffff8da81b6d R09: 0000000000000001
+R10: 0000000000000006 R11: ffffed1037d08ece R12: ffff8881161ecdb0
+R13: ffff8881750ab2b0 R14: ffff8881750ab490 R15: ffff8881161ecdf8
+FS:  0000000000000000(0000) GS:ffff888265380000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd90818bd8 CR3: 00000001144e8002 CR4: 0000000000770ee0
+PKRU: 55555554
+Call Trace:
+ ceph_fill_inode+0x34cf/0x4400 fs/ceph/inode.c:1008
+ ceph_fill_trace+0x217/0x2420 fs/ceph/inode.c:1288
+ handle_reply fs/ceph/mds_client.c:3309 [inline]
+ mds_dispatch+0xa82/0x3fa0 fs/ceph/mds_client.c:5199
+ ceph_con_process_message+0x1f0/0x270 net/ceph/messenger.c:1377
+ ceph_con_v1_try_read+0x1ed5/0x3f50 net/ceph/messenger_v1.c:1316
+ ceph_con_workfn+0xac4/0x12f0 net/ceph/messenger.c:1529
+ process_one_work+0x8f4/0x12f0 kernel/workqueue.c:2297
+ worker_thread+0xa1/0x1130 kernel/workqueue.c:2444
+ kthread+0x375/0x450 kernel/kthread.c:319
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:295
+---[ end trace b6d26914be22f926 ]---

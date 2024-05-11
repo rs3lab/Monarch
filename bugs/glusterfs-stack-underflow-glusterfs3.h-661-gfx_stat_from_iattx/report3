@@ -1,0 +1,254 @@
+----- directly resend shmid 56
+==2577==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+Node-2:/root/daemon-log.2630
+==2630==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+=================================================================
+==2630==ERROR: AddressSanitizer: stack-buffer-underflow on address 0x7fffecd27e50 at pc 0x7fffeee97378 bp 0x7fffecd27bb0 sp 0x7fffecd27ba0
+READ of size 8 at 0x7fffecd27e50 thread T4
+    #0 0x7fffeee97377 in gfx_stat_from_iattx ../../../../rpc/xdr/src/glusterfs3.h:661
+    #1 0x7fffeee97377 in gfx_stat_from_iattx ../../../../rpc/xdr/src/glusterfs3.h:655
+    #2 0x7fffeee97377 in client_pre_setattr_v2 /root/glusterfs/xlators/protocol/client/src/client-common.c:1194
+    #3 0x7fffeee454dd in client4_0_setattr /root/glusterfs/xlators/protocol/client/src/client-rpc-fops_v2.c:5071
+    #4 0x7fffeedecb3e in client_setattr /root/glusterfs/xlators/protocol/client/src/client.c:1785
+    #5 0x7fffeecc41b4 in afr_selfheal_restore_time /root/glusterfs/xlators/cluster/afr/src/afr-self-heal-common.c:528
+    #6 0x7fffeecfcd00 in __afr_selfheal_entry /root/glusterfs/xlators/cluster/afr/src/afr-self-heal-entry.c:1216
+    #7 0x7fffeecfd43f in afr_selfheal_entry /root/glusterfs/xlators/cluster/afr/src/afr-self-heal-entry.c:1302
+    #8 0x7fffeece1f9b in afr_selfheal_do /root/glusterfs/xlators/cluster/afr/src/afr-self-heal-common.c:2561
+    #9 0x7fffeece22d1 in afr_selfheal /root/glusterfs/xlators/cluster/afr/src/afr-self-heal-common.c:2604
+    #10 0x7fffeed01878 in afr_shd_selfheal /root/glusterfs/xlators/cluster/afr/src/afr-self-heald.c:327
+    #11 0x7fffeed08d94 in afr_shd_index_heal /root/glusterfs/xlators/cluster/afr/src/afr-self-heald.c:423
+    #12 0x7ffff740267e in _dir_scan_job_fn /root/glusterfs/libglusterfs/src/syncop-utils.c:263
+    #13 0x7ffff73885a5 in synctask_wrap /root/glusterfs/libglusterfs/src/syncop.c:385
+    #14 0x7ffff702665f  (/lib/x86_64-linux-gnu/libc.so.6+0x5e65f)
+
+0x7fffecd27e50 is located 2090576 bytes inside of 2097180-byte region [0x7fffecb29800,0x7fffecd2981c)
+allocated by thread T10 here:
+    #0 0x7ffff76a0dc6 in calloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10ddc6)
+    #1 0x7ffff735b226 in __gf_calloc /root/glusterfs/libglusterfs/src/mem-pool.c:177
+    #2 0x7ffff738fe5b in synctask_create /root/glusterfs/libglusterfs/src/syncop.c:513
+    #3 0x7ffff7390ae4 in synctask_new1 /root/glusterfs/libglusterfs/src/syncop.c:591
+    #4 0x7ffff7404835 in _run_dir_scan_task /root/glusterfs/libglusterfs/src/syncop-utils.c:316
+    #5 0x7ffff7404835 in syncop_mt_dir_scan /root/glusterfs/libglusterfs/src/syncop-utils.c:432
+    #6 0x7fffeed05381 in afr_shd_index_sweep /root/glusterfs/xlators/cluster/afr/src/afr-self-heald.c:473
+    #7 0x7fffeed06a2e in afr_shd_index_sweep_all /root/glusterfs/xlators/cluster/afr/src/afr-self-heald.c:496
+    #8 0x7fffeed06a2e in afr_shd_index_healer /root/glusterfs/xlators/cluster/afr/src/afr-self-heald.c:1053
+    #9 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T4 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72feb97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff731028d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff7391e81 in syncenv_new /root/glusterfs/libglusterfs/src/syncop.c:890
+    #4 0x555555573d58 in main_start /root/glusterfs/glusterfsd/src/glusterfsd.c:2622
+    #5 0x7ffff7464d79 in gf_io_async_handler /root/glusterfs/libglusterfs/src/gf-io.c:163
+    #6 0x7ffff7472ed6 in gf_io_cbk glusterfs/gf-io.h:434
+    #7 0x7ffff7472ed6 in gf_io_legacy_cbk /root/glusterfs/libglusterfs/src/gf-io-legacy.c:50
+    #8 0x7ffff7472ed6 in gf_io_legacy_callback /root/glusterfs/libglusterfs/src/gf-io-legacy.c:77
+    #9 0x7ffff7467054 in gf_io_async glusterfs/gf-io.h:593
+    #10 0x7ffff7467054 in gf_io_sync /root/glusterfs/libglusterfs/src/gf-io.c:318
+    #11 0x7ffff7467b62 in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:428
+    #12 0x7ffff7467b62 in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #13 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #14 0x7ffff6fef0b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+Thread T10 created by T7 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72feb97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff731028d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7fffeed02cf1 in afr_shd_healer_spawn /root/glusterfs/xlators/cluster/afr/src/afr-self-heald.c:1167
+    #4 0x7fffeed0dae9 in afr_shd_index_healer_spawn /root/glusterfs/xlators/cluster/afr/src/afr-self-heald.c:1192
+    #5 0x7fffeed0dae9 in afr_selfheal_childup /root/glusterfs/xlators/cluster/afr/src/afr-self-heald.c:1409
+    #6 0x7fffeed7696d in afr_notify /root/glusterfs/xlators/cluster/afr/src/afr-common.c:6428
+    #7 0x7fffeed79626 in notify /root/glusterfs/xlators/cluster/afr/src/afr.c:42
+    #8 0x7ffff72e8474 in xlator_notify /root/glusterfs/libglusterfs/src/xlator.c:709
+    #9 0x7ffff74f5833 in default_notify /root/glusterfs/libglusterfs/src/defaults.c:3387
+    #10 0x7fffeee07eda in client_notify_dispatch /root/glusterfs/xlators/protocol/client/src/client.c:146
+    #11 0x7fffeee081d9 in client_notify_dispatch_uniq /root/glusterfs/xlators/protocol/client/src/client.c:118
+    #12 0x7fffeee75785 in client_notify_parents_child_up /root/glusterfs/xlators/protocol/client/src/client-handshake.c:53
+    #13 0x7fffeee7a94f in client_post_handshake /root/glusterfs/xlators/protocol/client/src/client-handshake.c:443
+    #14 0x7fffeee7a94f in client_setvolume_cbk /root/glusterfs/xlators/protocol/client/src/client-handshake.c:628
+    #15 0x7ffff7225fca in rpc_clnt_handle_reply /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:723
+    #16 0x7ffff7225fca in rpc_clnt_notify /root/glusterfs/rpc/rpc-lib/src/rpc-clnt.c:890
+    #17 0x7ffff721f983 in rpc_transport_notify /root/glusterfs/rpc/rpc-lib/src/rpc-transport.c:521
+    #18 0x7ffff00535a6 in socket_event_poll_in_async /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2358
+    #19 0x7ffff0063b39 in gf_async ../../../../libglusterfs/src/glusterfs/async.h:187
+    #20 0x7ffff0063b39 in socket_event_poll_in /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2399
+    #21 0x7ffff0063b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2790
+    #22 0x7ffff0063b39 in socket_event_handler /root/glusterfs/rpc/rpc-transport/socket/src/socket.c:2710
+    #23 0x7ffff74006c0 in event_dispatch_epoll_handler /root/glusterfs/libglusterfs/src/event-epoll.c:631
+    #24 0x7ffff74006c0 in event_dispatch_epoll_worker /root/glusterfs/libglusterfs/src/event-epoll.c:742
+    #25 0x7ffff71c5608 in start_thread /build/glibc-YYA7BZ/glibc-2.31/nptl/pthread_create.c:477
+
+Thread T7 created by T0 here:
+    #0 0x7ffff75cd805 in pthread_create (/lib/x86_64-linux-gnu/libasan.so.5+0x3a805)
+    #1 0x7ffff72feb97 in gf_thread_vcreate /root/glusterfs/libglusterfs/src/common-utils.c:3261
+    #2 0x7ffff731028d in gf_thread_create /root/glusterfs/libglusterfs/src/common-utils.c:3284
+    #3 0x7ffff73feaf2 in event_dispatch_epoll /root/glusterfs/libglusterfs/src/event-epoll.c:797
+    #4 0x7ffff7359f89 in gf_event_dispatch /root/glusterfs/libglusterfs/src/event.c:115
+    #5 0x7ffff7467b7f in gf_io_main /root/glusterfs/libglusterfs/src/gf-io.c:431
+    #6 0x7ffff7467b7f in gf_io_run /root/glusterfs/libglusterfs/src/gf-io.c:516
+    #7 0x55555556c37a in main /root/glusterfs/glusterfsd/src/glusterfsd.c:2774
+    #8 0x7ffff6fef0b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)
+
+SUMMARY: AddressSanitizer: stack-buffer-underflow ../../../../rpc/xdr/src/glusterfs3.h:661 in gfx_stat_from_iattx
+Shadow bytes around the buggy address:
+  0x10007d99cf70: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007d99cf80: 00 00 00 00 00 00 00 00 00 00 f1 f1 f1 f1 f1 f1
+  0x10007d99cf90: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007d99cfa0: 00 00 00 00 00 00 00 00 00 f3 f3 f3 f3 f3 f3 f3
+  0x10007d99cfb0: f3 f3 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x10007d99cfc0: 00 00 00 00 00 00 f1 f1 f1 f1[f1]f1 00 00 00 00
+  0x10007d99cfd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007d99cfe0: 00 00 00 00 00 00 00 00 00 00 f3 f3 f3 f3 f3 f3
+  0x10007d99cff0: f3 f3 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x10007d99d000: ca ca ca ca 03 cb cb cb cb cb cb cb 00 00 00 00
+  0x10007d99d010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f1 f1
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==2630==ABORTING
+Node-2:/root/daemon-log.2612
+==2612==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+mkdir time 3692
+executor 3 create dir /root/glusterfs-client/dfs-0-196 successfully
+current dir: executor 3: /root/glusterfs-client/dfs-0-196
+receive_execute: 86, 3750
+receive_execute: 19, 3750
+executor 1 before execute_one
+----- execute_one begin, executor 1 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+executor 0 before execute_one
+----- execute_one begin, executor 0 restarting execute_one 0, is_restarting 0
+executor 1, execute_one inner time: 0, 0, 0
+output_pos: 1, output_pos_value 1
+execute_one time: 2, 0
+receive_execute: 80, 3770
+executor 2 before execute_one
+----- execute_one begin, executor 2 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+receive_execute: 239, 3795
+executor 3 before execute_one
+----- execute_one begin, executor 3 restarting execute_one 0, is_restarting 0
+output_pos: 1, output_pos_value 1
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 63, 0, 0
+execute_one loop: 0, 0, 63
+executor 0 write_server_output
+----- executor 0 executes write_coverage_signal cov->size 3500, flag collect 0
+----- executor 0 signal number : 447
+----- executor 0 executes write_coverage_signal cov->size 6247, flag collect 0
+----- executor 0 signal number : 13
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 1753
+----- executor 0 executes write_coverage_signal cov->size 31, flag collect 0
+----- executor 0 signal number : 13
+----- executor 0 executes write_coverage_signal cov->size 4294, flag collect 0
+----- executor 0 signal number : 427
+----- executor 0 executes write_coverage_signal cov->size 7424, flag collect 0
+----- executor 0 signal number : 277
+----- executor 0 executes write_coverage_signal cov->size 4117, flag collect 0
+----- executor 0 signal number : 277
+----- executor 0 executes write_coverage_signal cov->size 9712, flag collect 0
+----- executor 0 signal number : 272
+----- executor 0 executes write_coverage_signal cov->size 10872, flag collect 0
+----- executor 0 signal number : 902
+----- executor 0 executes write_coverage_signal cov->size 8373, flag collect 0
+----- executor 0 signal number : 34
+----- executor 0 executes write_coverage_signal cov->size 7273, flag collect 0
+----- executor 0 signal number : 111
+----- executor 0 executes write_coverage_signal cov->size 5438, flag collect 0
+----- executor 0 signal number : 139
+----- executor 0 executes write_coverage_signal cov->size 32765, flag collect 0
+----- executor 0 signal number : 1
+----- executor 0 executes write_coverage_signal cov->size 11261, flag collect 0
+----- executor 0 signal number : 628
+executor 0 server cover_cnt 14 output_pos_value 5337
+/root/glusterfs-node-down.sh: 1: kill: No such process
+
+execute_call 0, 161, 0, 0
+execute_one loop: 0, 0, 161
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+----- executor 3 write_call_output, size 0, pid 774, write pid:774
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 1
+execute_call 0, 182, 0, 0
+execute_one loop: 0, 0, 182
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 203, 0, 0
+execute_one loop: 0, 0, 207
+executor 2 write_server_output
+----- executor 2 executes write_coverage_signal cov->size 2802, flag collect 0
+----- executor 2 signal number : 446
+----- executor 2 executes write_coverage_signal cov->size 2115, flag collect 0
+----- executor 2 signal number : 0
+----- executor 2 executes write_coverage_signal cov->size 1589, flag collect 0
+----- executor 2 signal number : 667
+----- executor 2 executes write_coverage_signal cov->size 31, flag collect 0
+----- executor 2 signal number : 13
+----- executor 2 executes write_coverage_signal cov->size 2899, flag collect 0
+----- executor 2 signal number : 539
+----- executor 2 executes write_coverage_signal cov->size 5220, flag collect 0
+----- executor 2 signal number : 216
+----- executor 2 executes write_coverage_signal cov->size 24037, flag collect 0
+----- executor 2 signal number : 1142
+----- executor 2 executes write_coverage_signal cov->size 2172, flag collect 0
+----- executor 2 signal number : 270
+executor 2 server cover_cnt 8 output_pos_value 3318
+/root/glusterfs-node-down.sh: 1: kill: No such process
+
+----- executor 3 write_call_output, size 0, pid 774, write pid:774
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 2
+execute_call 0, 139, 0, 0
+execute_one loop: 0, 0, 139
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 135, 0, 0
+execute_one loop: 0, 0, 135
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+execute_call 0, 1, 0, 0
+execute_one loop: 0, 0, 1
+----- executor 3 write_call_output, size 0, pid 774, write pid:774
+----- executor 3 executes write_coverage_signal cov->size 0, flag collect 0
+----- executor 3 signal number : 0
+----- completed 3
+execute_call 0, 4438, 0, 1
+execute_one loop: 0, 0, 4439
+cover_reset in execute_call
+executor 3 waits for recv msg
+execute_call 0, 4580, 0, 0
+execute_one loop: 0, 0, 4580
+execute_call 0, 4437, 0, 0
+execute_one loop: 0, 0, 4437
+execute_call 0, 0, 0, 0
+execute_one loop: 0, 0, 0
+executor 2, execute_one inner time: 1, 4780, 0
+execute_one time: 1, 4781
+Node-2:/root/daemon-log.2658
+==2658==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+Node-2:/root/daemon-log.2692
+==2692==WARNING: ASan doesn't fully support makecontext/swapcontext functions and may produce false positives in some cases!
+Node-2:/root/daemon-log.2708

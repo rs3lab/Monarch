@@ -1,0 +1,24 @@
+LustreError: 54949:0:(llite_lib.c:3394:ll_obd_statfs()) ASSERTION( data ) failed: 
+LustreError: 54949:0:(llite_lib.c:3394:ll_obd_statfs()) LBUG
+Kernel panic - not syncing: LBUG
+CPU: 0 PID: 54949 Comm: syz-executor Tainted: G           O      5.11.22+ #46
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+Call Trace:
+ dump_stack+0x57/0x6a
+ panic+0x151/0x312
+ lbug_with_loc.cold+0x2c/0x2c [libcfs]
+ ll_obd_statfs+0x116b/0x1850 [lustre]
+ ll_dir_ioctl+0x60ce/0x1aa90 [lustre]
+ __x64_sys_ioctl+0x83/0xb0
+ do_syscall_64+0x33/0x40
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x7ffff7389aad
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffff40bf7b8 EFLAGS: 00000212 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007ffff73e041f RCX: 00007ffff7389aad
+RDX: 0000000000000000 RSI: 00000000c00866a4 RDI: 0000000000000003
+RBP: 00007ffff40bf810 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000212 R12: 00007fffffffe0de
+R13: 00007fffffffe0df R14: 00007fffffffe180 R15: 00007ffff40bfd80
+Kernel Offset: disabled
+---[ end Kernel panic - not syncing: LBUG ]---
