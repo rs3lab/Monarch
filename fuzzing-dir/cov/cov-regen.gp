@@ -1,4 +1,4 @@
-call "data/common.gnuplot" "7.5in, 2.0in"
+call "fuzzing-dir/cov/common.gnuplot" "7.5in, 2.0in"
 # set terminal png
 set output "`echo $OUT`"
 set datafile separator ","
