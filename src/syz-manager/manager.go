@@ -354,6 +354,7 @@ func autoConfig(cfg *mgrconfig.Config) {
 	if err != nil {
 		log.Fatalf("flock lock monarch-id file failed\n")
 	}
+
 	continousCnt, i := 0, 5
 	reqIDCnt := cfg.FuzzingVMs + 2
 	for ; i < 255; i++ {
@@ -371,6 +372,18 @@ func autoConfig(cfg *mgrconfig.Config) {
 	}
 	cfg.InitShmId = i - reqIDCnt + 1
 	cfg.InitIp = fmt.Sprintf("192.168.0.%d", cfg.InitShmId)
+
+	//Set ip and port
+	webIP := localAddresses()
+	webPort := genAvailPort()
+	if webIP == "" || webPort == "" {
+		webIP = "localhost"
+		//log.Fatalf("Not find the ip address or port for web page")
+	}
+	cfg.HTTP = webIP + ":" + webPort
+
+
+
 	err = syscall.Flock(fd, syscall.LOCK_UN)
 	if err != nil {
 		log.Fatalf("flock unlock monarch-id file failed\n")
@@ -406,15 +419,6 @@ func autoConfig(cfg *mgrconfig.Config) {
 	}
 	cfg.Workdir = fmt.Sprintf("%s/%s/%s/workdir-%d-%d-%s-%s",
 											cfg.Workdir, eval, cfg.DFSName, cfg.ServNum, cfg.FuzzingVMs, mode, feedback)
-
-	//Set ip and port
-	webIP := localAddresses()
-	webPort := genAvailPort()
-	if webIP == "" || webPort == "" {
-		webIP = "localhost"
-		//log.Fatalf("Not find the ip address or port for web page")
-	}
-	cfg.HTTP = webIP + ":" + webPort
 
 	//type & proc
 	cfg.Type = "qemu"

@@ -16,6 +16,7 @@ import (
 	"strings"
 	"time"
 	"io/ioutil"
+	"syscall"
 	//"runtime/debug"
 
 	"monarch/pkg/config"
@@ -525,7 +526,18 @@ func isLustreSrv(DfsSetupParams string, index int) bool {
 
 func (inst *instance) boot(index int) error {
 	//inst.port = vmimpl.UnusedTCPPort()
+
+	lockfd, flockerr := syscall.Open("/tmp/monarch-id", syscall.O_RDWR | syscall.O_CREAT, 0777)
+	if flockerr != nil {
+		log.Fatalf("open monarch-id file failed\n")
+	}
+	flockerr = syscall.Flock(lockfd, syscall.LOCK_EX)
+	if flockerr != nil {
+		log.Fatalf("flock lock monarch-id file failed\n")
+	}
+
 	inst.monport = vmimpl.UnusedTCPPort()
+
 	args := []string{
 		"-m", strconv.Itoa(inst.cfg.Mem),
 		"-smp", strconv.Itoa(inst.cfg.CPU),
@@ -703,7 +715,14 @@ func (inst *instance) boot(index int) error {
 	qemu := osutil.Command(inst.cfg.Qemu, args...)
 	qemu.Stdout = inst.wpipe
 	qemu.Stderr = inst.wpipe
-	if err := qemu.Start(); err != nil {
+	err := qemu.Start()
+
+	flockerr = syscall.Flock(lockfd, syscall.LOCK_UN)
+	if flockerr != nil {
+		log.Fatalf("flock unlock monarch-id file failed\n")
+	}
+
+	if err != nil {
 		return fmt.Errorf("failed to start %v %+v: %v", inst.cfg.Qemu, args, err)
 	}
 	inst.wpipe.Close()
