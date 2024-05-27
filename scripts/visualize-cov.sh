@@ -6,6 +6,7 @@ display_help() {
 	echo "  -h, --help       Display this help message"
 	echo "  --original       Draw Figure 8 in the paper with the original data."
 	echo "  --regenerated    Draw Figure 8 in the paer with the newly collected data."
+	echo "  --iterm-regenerated Draw coverage trend without sampling."
 }
 
 if [ ! -d $PWD/fuzz-config ]; then
@@ -17,6 +18,8 @@ if [[ "$1" == "--original" ]]; then
 	OUT=$PWD/fuzzing-dir/cov-org-fig.pdf TARGET=pdf gnuplot $PWD/fuzzing-dir/cov/cov.gp
 elif [[ "$1" == "--regenerated" ]]; then
 	OUT=$PWD/fuzzing-dir/cov-regen-fig.pdf TARGET=pdf gnuplot $PWD/fuzzing-dir/cov/cov-regen.gp
+elif [[ "$1" == "--iterm-regenerated" ]]; then
+	OUT=$PWD/fuzzing-dir/cov-iterm-regen-fig.pdf TARGET=pdf gnuplot $PWD/fuzzing-dir/cov/cov-iterm-regen.gp
 else
 	display_help
 	exit

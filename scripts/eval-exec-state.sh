@@ -17,14 +17,19 @@ nonfault_cfgs=$PWD/fuzz-config/eval-config/non-fault-mode
 fault_cfgs=$PWD/fuzz-config/eval-config/fault-mode
 dfses=("nfs" "glusterfs" "cephfs" "lustre" "orangefs" "beegfs")
 
+log_dir=$PWD/fuzzing-dir/terminal-log
+if [ ! -d $log_dir ]; then
+	mkdir $log_dir
+fi
+
 if [[ "$1" == "-a" || "$1" == "--all" ]]; then
 
 	for dfs in "${dfses[@]}"; do
 		for cfg in $(ls $nonfault_cfgs/$dfs); do
-			sudo $PWD/src/bin/syz-manager -eval -config $nonfault_cfgs/$dfs/$cfg >/dev/zero 2>&1 &
+			sudo $PWD/src/bin/syz-manager -eval -config $nonfault_cfgs/$dfs/$cfg >$log_dir/"${cfg%.*}".log 2>&1 &
 		done
 		for cfg in $(ls $fault_cfgs/$dfs); do
-			sudo $PWD/src/bin/syz-manager -eval -config $fault_cfgs/$dfs/$cfg >/dev/zero 2>&1 &
+			sudo $PWD/src/bin/syz-manager -eval -config $fault_cfgs/$dfs/$cfg >$log_dir/"${cfg%.*}".log 2>&1 &
 		done
 	done
 
@@ -32,11 +37,11 @@ elif [[ "$1" == "-d" || "$1" == "--dfs" ]]; then
 
 	dfs=$2
 	for cfg in $(ls $nonfault_cfgs/$dfs); do
-		sudo $PWD/src/bin/syz-manager -eval -config $nonfault_cfgs/$dfs/$cfg >/dev/zero 2>&1 &
+		sudo $PWD/src/bin/syz-manager -eval -config $nonfault_cfgs/$dfs/$cfg >$log_dir/"${cfg%.*}".log 2>&1 &
 		sleep 10s
 	done
 	for cfg in $(ls $fault_cfgs/$dfs); do
-		sudo $PWD/src/bin/syz-manager -eval -config $fault_cfgs/$dfs/$cfg >/dev/zero 2>&1 &
+		sudo $PWD/src/bin/syz-manager -eval -config $fault_cfgs/$dfs/$cfg >$log_dir/"${cfg%.*}".log 2>&1 &
 		sleep 10s
 	done
 
