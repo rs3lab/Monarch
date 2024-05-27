@@ -5,4 +5,4 @@ if [[ $# -eq 0 ]]; then
 	exit
 fi
 
-sudo kill -9 $(ps -aux|grep syz-manage|grep $1 |awk '{print $2}')
+sudo kill -INT $(ps -aux|grep syz-manage|grep $1 |awk '{print $2}')
