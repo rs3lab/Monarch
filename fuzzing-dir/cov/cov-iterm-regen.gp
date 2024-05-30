@@ -82,8 +82,8 @@ set title '(e) NFS'
 #set key samplen 2
 if ( file_exists("fuzzing-dir/eval/nfs/workdir-1-2-non-fault-c/coverages-sfalse-ctrue") && file_exists("fuzzing-dir/eval/nfs/workdir-1-2-non-fault-cs/coverages-strue-ctrue") && file_exists("fuzzing-dir/eval/nfs/workdir-1-2-non-fault-s/coverages-strue-cfalse")) \
 plot '<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-non-fault-c/coverages-sfalse-ctrue | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-non-fault-c/coverages-sfalse-ctrue)' using ($1):($8/6) title '' with lp ls c,\
-	'<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-non-fault-cs/coverages-strue-cfalse | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-non-fault-cs/coverages-strue-cfalse)' using ($1):($8/6) title '' with lp ls s,\
-    '<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-non-fault-s/coverages-strue-ctrue | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-non-fault-s/coverages-strue-ctrue)' using ($1):($8/6) title '' with lp ls cs
+	'<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-non-fault-s/coverages-strue-cfalse | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-non-fault-cs/coverages-strue-cfalse)' using ($1):($8/6) title '' with lp ls s,\
+    '<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-non-fault-cs/coverages-strue-ctrue | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-non-fault-s/coverages-strue-ctrue)' using ($1):($8/6) title '' with lp ls cs
 
 # Lustre
 eval mpNext
@@ -158,8 +158,8 @@ set xlabel 'Time (1 minute)'
 # set ytics 0.5
 if ( file_exists("fuzzing-dir/eval/nfs/workdir-1-2-fault-c/coverages-sfalse-ctrue") && file_exists("fuzzing-dir/eval/nfs/workdir-1-2-fault-cs/coverages-strue-ctrue") && file_exists("fuzzing-dir/eval/nfs/workdir-1-2-fault-s/coverages-strue-cfalse")) \
 plot '<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-fault-c/coverages-sfalse-ctrue | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-fault-c/coverages-sfalse-ctrue)' using ($1):($8/6) title '' with lp ls c,\
-	'<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-fault-cs/coverages-strue-cfalse | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-fault-cs/coverages-strue-cfalse)' using ($1):($8/6) title '' with lp ls s,\
-    '<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-fault-s/coverages-strue-ctrue | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-fault-s/coverages-strue-ctrue)' using ($1):($8/6) title '' with lp ls cs
+	'<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-fault-s/coverages-strue-cfalse | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-fault-cs/coverages-strue-cfalse)' using ($1):($8/6) title '' with lp ls s,\
+    '<(cnt=$(head -n 17280 fuzzing-dir/eval/nfs/workdir-1-2-fault-cs/coverages-strue-ctrue | wc -l);step=$(( cnt / 10 )) ; sed -n "1~${step}p" fuzzing-dir/eval/nfs/workdir-1-2-fault-s/coverages-strue-ctrue)' using ($1):($8/6) title '' with lp ls cs
 
 # Lustre
 eval mpNext
