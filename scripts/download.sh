@@ -41,6 +41,9 @@ tar -xf ./dimage-kernel/lustre.tar.xz -C ./dimage-kernel
 echo "[+] Downloading and decompressing BeeGFS image and kernel"
 wget --no-check-certificate "https://zenodo.org/records/11176798/files/beegfs.tar.xz?download=1" -O dimage-kernel/beegfs.tar.xz
 tar -xf ./dimage-kernel/beegfs.tar.xz -C ./dimage-kernel
+wget --no-check-certificate "https://zenodo.org/records/11358529/files/beegfs.qcow2.tar.xz?download=1" -O dimage-kernel/beegfs.qcow2.tar.xz
+tar -xf ./dimage-kernel/beegfs.qcow2.tar.xz -C ./dimage-kernel/beegfs/
+mv ./dimage-kernel/beegfs/beegfs.qcow2 ./dimage-kernel/beegfs/focal.qcow2
 
 echo "[+] Downloading and decompressing CephFS image and kernel"
 wget --no-check-certificate "https://zenodo.org/records/11176798/files/cephfs.tar.xz?download=1" -O dimage-kernel/cephfs.tar.xz
